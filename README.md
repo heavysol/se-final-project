@@ -48,6 +48,7 @@ analytics.
 - phpMyAdmin: To manage and monitor the MySQL database
 
 # File structure
+NB: **Delete** dummy.txt in folders: put there to just make the folders show on Github (the latter doesn't show empty folders by default, and upon creation they were empty)
 1. actions: contains backend code for controlling business logic of the functionalities.
 2. assets: contains styling code and multimedia assets for the presentation layer (styling of frontend) of the platform.
 3. db: contains db of platform
