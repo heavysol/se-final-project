@@ -98,7 +98,7 @@
             </form>
 
             <p class="text-center mt-3">
-                <a href="#">Forgot password?</a> | <a href="signup.html">Sign up</a>
+                <a href="#">Forgot password?</a> | <a href="Signup.php">Sign up</a>
             </p>
         </div>
     </div>

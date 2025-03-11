@@ -111,7 +111,7 @@
             </form>
             
             <p class="text-center mt-3">
-                Already have an account? <a href="login.html">Log in</a>
+                Already have an account? <a href="login.php">Log in</a>
             </p>
         </div>
     </div>
