@@ -1,0 +1,35 @@
+/* For styling across login.php and Signup.php */
+
+/* OAuth Buttons */
+.oauth-btn {
+    position: relative;
+    text-align: center;
+}
+
+/* Google button styling */
+.btn-google {
+    background-color: white;
+    color: #444;
+    border: 1px solid #ddd;
+    position: relative;
+    text-align: center;
+    padding-left: 45px;
+}
+.btn-google .google-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+}
+/* GitHub button styling */
+.btn-github {
+    background-color: #24292e;
+    color: white;
+}
+/* SSO button styling */
+.btn-sso {
+    background-color: #5468ff;
+    color: white;
+}

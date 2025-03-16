@@ -6,47 +6,8 @@
     <title>Sign Up</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            background: url('background.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-        .card {
-            width: 500px; /* Enlarged container */
-            background: rgba(255, 255, 255, 0.9); /* Transparent effect */
-            border-radius: 10px;
-        }
-        .input-group-text {
-            cursor: pointer;
-        }
-        /* Google button styling */
-        .btn-google {
-            background-color: white;
-            color: #444;
-            border: 1px solid #ddd;
-            position: relative;
-            text-align: center;
-            padding-left: 45px;
-        }
-        .btn-google .google-icon {
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 24px;
-            height: 24px;
-        }
-        /* GitHub button styling */
-        .btn-github {
-            background-color: #24292e;
-            color: white;
-        }
-        /* SSO button styling */
-        .btn-sso {
-            background-color: #5468ff;
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/general-styles.css">
+    <link rel="stylesheet" href="../assets/css/logsign-styles.css">
 </head>
 <body class="bg-light">
     <div class="container d-flex justify-content-center align-items-center vh-100">
