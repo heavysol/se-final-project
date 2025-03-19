@@ -17,7 +17,7 @@
         </div>
         <ul class="sidebar-menu">
             <li><a href="#" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-            <li><a href="#"><i class="bi bi-calendar-event"></i> Events</a></li>
+            <li><a href="./events.php"><i class="bi bi-calendar-event"></i> Events</a></li>
             <li><a href="#"><i class="bi bi-journal-check"></i> My Registrations</a></li>
             <li><a href="#"><i class="bi bi-star"></i> Favorites</a></li>
             <li><a href="#"><i class="bi bi-people"></i> Clubs & Organizations</a></li>
