@@ -33,7 +33,7 @@
         <!-- Search Bar -->
         <div class="row mb-4 search-area"> <!-- Trying to add search class here -->
             <h4> Search for events </h4>
-            <input type = 'text' id = 'search' name = 'search' placeholder = 'Search for events here' class = 'search'>
+            <input type = 'text' id = 'search' name = 'search' placeholder = 'Search for events here' class = 'search'> <div class = 'event-actions'><button class = 'btn btn-sm btn-primary'> Search </button></div>
         </div>
 
         <!-- Event list -->
