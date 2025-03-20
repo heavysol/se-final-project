@@ -70,6 +70,10 @@ body {
     padding: 20px;
 }
 
+.search {
+    width: 40%;
+}
+
 .dashboard-card {
     background-color: white;
     border-radius: 8px;
@@ -79,7 +83,7 @@ body {
     height: 100%;
 }
 
-.dashboard-card h4 {
+.dashboard-card, .search-area h4 /* to influence search bars */ {
     margin-top: 0;
     color: var(--primary-color);
     font-size: 1.1rem;

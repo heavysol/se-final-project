@@ -26,4 +26,38 @@
             <li><a href="#"><i class="bi bi-gear"></i> Settings</a></li>
         </ul>
     </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class = 'container-fluid'>
+        <!-- Search Bar -->
+        <div class="row mb-4 search-area"> <!-- Trying to add search class here -->
+            <h4> Search for events </h4>
+            <input type = 'text' id = 'search' name = 'search' placeholder = 'Search for events here' class = 'search'>
+        </div>
+
+        <!-- Event list -->
+        <div class="row mb-4">
+                <div class="col-md-9">
+                    <div class="dashboard-card">
+                        <h4>
+                            Upcoming Events
+                            <span class="badge badge-custom"><!-- Current number of upcoming events this week output from backend --> This Week</span>
+                        </h4>
+                        <!-- HTML tags for event frontend interface; backend people can output these from backend -->
+                        <div class="event-item">
+                            <div class="event-title"><!-- Title of event, from backend --></div>
+                            <div class="event-details">
+                                <i class="bi bi-calendar"></i> <!-- Date and time of event, from backend -->
+                                <br>
+                                <i class="bi bi-geo-alt"></i> <!-- Venue of event, from backend -->
+                            </div>
+                            <div class="event-actions">
+                                <button class="btn btn-sm btn-primary">Register</button>
+                                <button class="btn btn-sm btn-outline-primary">Add to Calendar</button>
+                            </div>
+                        </div>
+                        
+        </div>
+    </div>
 </body>
