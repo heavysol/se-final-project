@@ -10,11 +10,6 @@
     --danger-color: #dc3545;
 }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5;
-}
-
 .sidebar {
     width: var(--sidebar-width);
     height: 100vh;
