@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExpressMed Healthcare - Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #11a57b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .brand-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #11a57b;
+        }
+        
+        .brand-name span {
+            color: #333;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: flex-end;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #11a57b;
+        }
+        
+        .active {
+            color: #11a57b;
+            font-weight: 600;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 50px 0;
+            background-color: #f2f9f6;
+        }
+        
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #11a57b;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .gallery-section {
+            padding: 50px 0;
+        }
+        
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 30px;
+            color: #11a57b;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: #11a57b;
+            bottom: 0;
+            left: 25%;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            background-color: #fff;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .gallery-caption {
+            padding: 15px;
+        }
+        
+        .gallery-caption h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #11a57b;
+        }
+        
+        .achievements {
+            background-color: #f2f9f6;
+            padding: 50px 0;
+        }
+        
+        .achievement-box {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 50px;
+        }
+        
+        .achievement-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .achievement-desc {
+            margin-bottom: 30px;
+        }
+        
+        .achievement-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .achievement-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .achievement-img:hover {
+            transform: scale(1.05);
+        }
+        
+        .full-width-gallery {
+            padding: 50px 0;
+            background-color: #fff;
+        }
+        
+        .image-masonry {
+            columns: 3 250px;
+            column-gap: 20px;
+        }
+        
+        .masonry-item {
+            display: inline-block;
+            margin-bottom: 20px;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            break-inside: avoid;
+        }
+        
+        .masonry-img {
+            width: 100%;
+            display: block;
+        }
+        
+        .events-gallery {
+            padding: 50px 0;
+        }
+        
+        .event-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        
+        .event-details {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-right: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .event-gallery {
+            flex: 2;
+            min-width: 300px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .event-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .event-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .team-section {
+            padding: 50px 0;
+            background-color: #f2f9f6;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .team-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .team-details {
+            padding: 15px;
+        }
+        
+        .team-name {
+            font-size: 18px;
+            color: #11a57b;
+            margin-bottom: 5px;
+        }
+        
+        .team-role {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Lightbox effect */
+        .lightbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .lightbox-content {
+            max-width: 80%;
+            max-height: 80%;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #11a57b;
+        }
+        
+        .copyright {
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+            
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+            
+            .achievement-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .event-wrapper {
+                flex-direction: column;
+            }
+            
+            .event-details {
+                margin-right: 0;
+            }
+            
+            .image-masonry {
+                columns: 2 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo">E</div>
+                <div class="brand-name">Express<span>Med</span> Healthcare</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">HOME</a></li>
+                    <li><a href="#">ABOUT US</a></li>
+                    <li><a href="#">OUR SERVICES</a></li>
+                    <li><a href="#">PACKAGES</a></li>
+                    <li><a class="active" href="#">GALLERY</a></li>
+                    <li><a href="#">BLOG</a></li>
+                    <li><a href="#">CONTACT US</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Our Gallery</h1>
+            <p class="subtitle">Discover our journey through images as we showcase our services, events, and achievements in healthcare innovation across Ghana and beyond.</p>
+        </div>
+    </section>
+    
+    <section class="gallery-section">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Our Services</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="experss2.jpg" alt="Telehealth Services" class="gallery-img">
+                    <!-- <div class="gallery-caption">
+                        <h3>Telehealth Services</h3>
+                        <p>Connecting patients with healthcare professionals remotely through our innovative technology platform.</p>
+                    </div> -->
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/320" alt="Mobile Labs" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Mobile Labs</h3>
+                        <p>Bringing diagnostic services closer to communities with our state-of-the-art mobile laboratory facilities.</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/320" alt="Medicine Delivery" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Medicine Delivery</h3>
+                        <p>Convenient and timely delivery of prescribed medications to your doorstep.</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/320" alt="Doctor Consultation" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Doctor Consultation</h3>
+                        <p>Professional medical consultations in the comfort of your home.</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/320" alt="Nursing Home Care" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Nursing Home Care</h3>
+                        <p>Specialized nursing services for patients requiring ongoing care in their homes.</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/320" alt="Corporate Wellness" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Corporate Wellness Program</h3>
+                        <p>Comprehensive wellness solutions designed for corporate organizations and their employees.</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/320" alt="Health Screening" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Health Screening</h3>
+                        <p>Preventive health screenings to detect potential health issues early.</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/320" alt="Maternal Care" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Maternal Care</h3>
+                        <p>Specialized care for expectant mothers throughout pregnancy and after delivery.</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/320" alt="Chronic Disease Management" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Chronic Disease Management</h3>
+                        <p>Comprehensive care plans for patients with chronic conditions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="full-width-gallery">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Healthcare in Action</h2>
+            </div>
+            <div class="image-masonry">
+                <div class="masonry-item">
+                    <img src="/api/placeholder/400/500" alt="Healthcare Professional" class="masonry-img">
+                </div>
+                <div class="masonry-item">
+                    <img src="/api/placeholder/400/300" alt="Medical Consultation" class="masonry-img">
+                </div>
+                <div class="masonry-item">
+                    <img src="/api/placeholder/400/400" alt="Lab Testing" class="masonry-img">
+                </div>
+                <div class="masonry-item">
+                    <img src="/api/placeholder/400/350" alt="Home Care Visit" class="masonry-img">
+                </div>
+                <div class="masonry-item">
+                    <img src="/api/placeholder/400/280" alt="Mobile Clinic" class="masonry-img">
+                </div>
+                <div class="masonry-item">
+                    <img src="/api/placeholder/400/320" alt="Health Education" class="masonry-img">
+                </div>
+                <div class="masonry-item">
+                    <img src="/api/placeholder/400/450" alt="Patient Consultation" class="masonry-img">
+                </div>
+                <div class="masonry-item">
+                    <img src="/api/placeholder/400/300" alt="Medication Review" class="masonry-img">
+                </div>
+                <div class="masonry-item">
+                    <img src="/api/placeholder/400/380" alt="Community Outreach" class="masonry-img">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="achievements">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Our Achievements</h2>
+            </div>
+            
+            <div class="achievement-box">
+                <h3 class="achievement-title">GROWTH AFRICA ACCELERATOR PROGRAM - 2022 COHORT</h3>
+                <p class="achievement-desc">ExpressMed Healthcare was selected to be part of Growth Africa's 6-month intensive startup acceleration program. We were among 75+ cohort members, joining entrepreneurs from Ghana, Kenya, Ethiopia, Gambia, and Uganda. The program selected startups with ideas that impact the community and have high growth potential. Throughout the program, our staff engaged in various teamwork sessions focused on product-solution fit, value architecture, gap analysis, growth planning, and budgeting.</p>
+                
+                <div class="achievement-gallery">
+                    <img src="/api/placeholder/400/320" alt="Growth Africa Cohort" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Training Session" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Teamwork Session" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Presentation" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Group Discussion" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Workshop" class="achievement-img">
+                </div>
+            </div>
+            
+            <div class="achievement-box">
+                <h3 class="achievement-title">GHANA DIGITAL INNOVATION WEEK</h3>
+                <p class="achievement-desc">We participated in Ghana's Digital Innovation Week to introduce our services, especially our technology platform, to potential clients and partners. We showcased our telehealth solutions, mobile labs, medicine delivery, and other innovative healthcare services. This event was part of a trilateral program celebrating Ghana's digital innovation ecosystem and building momentum towards a common vision for its future.</p>
+                
+                <div class="achievement-gallery">
+                    <img src="/api/placeholder/400/320" alt="Digital Innovation Week" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Presentation Session" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Information Display" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Booth Setup" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Product Demonstration" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Networking" class="achievement-img">
+                </div>
+            </div>
+            
+            <div class="achievement-box">
+                <h3 class="achievement-title">COMMUNITY HEALTH INITIATIVES</h3>
+                <p class="achievement-desc">Our community health initiatives have reached thousands of people across various regions in Ghana. These programs focus on preventive healthcare, health education, and improving access to healthcare services in underserved communities.</p>
+                
+                <div class="achievement-gallery">
+                    <img src="/api/placeholder/400/320" alt="Community Outreach" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Health Screening" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Health Education" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Medical Consultation" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Vaccination Campaign" class="achievement-img">
+                    <img src="/api/placeholder/400/320" alt="Rural Healthcare" class="achievement-img">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="events-gallery">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Healthcare Events</h2>
+            </div>
+            
+            <div class="event-wrapper">
+                <div class="event-details">
+                    <h3>Annual Healthcare Technology Summit</h3>
+                    <p>Our annual Healthcare Technology Summit brings together healthcare professionals, tech innovators, and industry leaders to discuss the latest advancements in healthcare technology and explore potential collaborations for improving healthcare delivery in Africa.</p>
+                </div>
+                <div class="event-gallery">
+                    <img src="/api/placeholder/400/320" alt="Summit Overview" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Panel Discussion" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Networking Session" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Product Showcase" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Keynote Speaker" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Workshop" class="event-img">
+                </div>
+            </div>
+            
+            <div class="event-wrapper">
+                <div class="event-details">
+                    <h3>Community Health Outreach Programs</h3>
+                    <p>We regularly organize health outreach programs in various communities to provide free health screenings, consultations, and health education. These programs help us reach underserved populations and make healthcare more accessible to all.</p>
+                </div>
+                <div class="event-gallery">
+                    <img src="/api/placeholder/400/320" alt="Health Screening" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Community Engagement" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Medical Consultation" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Health Education" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Medication Distribution" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Follow-up Care" class="event-img">
+                </div>
+            </div>
+            
+            <div class="event-wrapper">
+                <div class="event-details">
+                    <h3>Corporate Wellness Workshops</h3>
+                    <p>Our corporate wellness workshops help organizations promote employee health and wellbeing. These workshops cover various topics including stress management, healthy eating, physical activity, and preventive healthcare.</p>
+                </div>
+                <div class="event-gallery">
+                    <img src="/api/placeholder/400/320" alt="Wellness Workshop" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Office Health Screening" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Fitness Session" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Nutrition Talk" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Mental Health Workshop" class="event-img">
+                    <img src="/api/placeholder/400/320" alt="Team Activities" class="event-img">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="team-section">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Our Team</h2>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="/api/placeholder/400/320" alt="Team Member" class="team-img">
+                    <div class="team-details">
+                        <h3 class="team-name">Dr. Kwame Asante</h3>
+                        <p class="team-role">CEO & Founder</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="/api/placeholder/400/320" alt="Team Member" class="team-img">
+                    <div class="team-details">
+                        <h3 class="team-name">Ama Serwaa</h3>
+                        <p class="team-role">Chief Medical Officer</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="/api/placeholder/400/320" alt="Team Member" class="team-img">
+                    <div class="team-details">
+                        <h3 class="team-name">Kofi Mensah</h3>
+                        <p class="team-role">Technology Director</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="/api/placeholder/400/320" alt="Team Member" class="team-img">
+                    <div class="team-details">
+                        <h3 class="team-name">Abena Owusu</h3>
+                        <p class="team-role">Head of Operations</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="/api/placeholder/400/320" alt="Team Member" class="team-img">
+                    <div class="team-details">
+                        <h3 class="team-name">Daniel Adjei</h3>
+                        <p class="team-role">Finance Manager</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="/api/placeholder/400/320" alt="Team Member" class="team-img">
+                    <div class="team-details">
+                        <h3 class="team-name">Gifty Amoah</h3>
+                        <p class="team-role">Head of Marketing</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="/api/placeholder/400/320" alt="Team Member" class="team-img">
+                    <div class="team-details">
+                        <h3 class="team-name">Emmanuel Boateng</h3>
+                        <p class="team-role">Community Outreach Officer</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="/api/placeholder/400/320" alt="Team Member" class="team-img">
+                    <div class="team-details">
+                        <h3 class="team-name">Faustina Mensah</h3>
+                        <p class="team-role">Senior Nurse</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="lightbox">
+        <div class="lightbox-close">&times;</div>
+        <img src="" alt="" class="lightbox-content">
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#">About Us</a>
+                <a href="#">Services</a>
+                <a href="#">Gallery</a>
+                <a href="#">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2025 ExpressMed Healthcare. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple lightbox functionality
+        const galleryImages = document.querySelectorAll('.gallery-img, .achievement-img, .masonry-img, .event-img, .team-img');
+        const lightbox = document.querySelector('.lightbox');
+        const lightboxContent = document.querySelector('.lightbox-content');
+        const lightboxClose = document.querySelector('.lightbox-close');
+        
+        galleryImages.forEach(image => {
+            image.addEventListener('click', () => {
+                lightboxContent.src = image.src;
+                lightboxContent.alt = image.alt;
+                lightbox.classList.add('active');
+            });
+        });
+        
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+        
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

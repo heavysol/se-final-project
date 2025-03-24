@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExpressMed Healthcare - About Us</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+    }
+    
+    .hero-section {
+      background-color: #f8f9fa;
+      padding: 80px 0;
+      position: relative;
+    }
+    
+    .dark-blue-bg {
+      background-color: #0a3555;
+      color: white;
+    }
+    
+    .teal-bg {
+      background-color: #4ECDC4;
+      color: white;
+    }
+    
+    .section-heading {
+      font-weight: bold;
+      padding: 15px;
+      margin-bottom: 0;
+    }
+    
+    .values-card {
+      height: 100%;
+      padding: 25px;
+      border: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .values-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .btn-teal {
+      background-color: #4ECDC4;
+      border: none;
+      color: white;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+    }
+    
+    .btn-teal:hover {
+      background-color: #3db8b0;
+      color: white;
+    }
+    
+    .btn-green {
+      background-color: #198754;
+      border: none;
+      color: white;
+      padding: 8px 25px;
+      font-weight: 600;
+    }
+    
+    .btn-green:hover {
+      background-color: #157347;
+      color: white;
+    }
+    
+    .team-img {
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .final-message {
+      font-size: 24px;
+      font-weight: 300;
+      text-align: center;
+      padding: 20px 0;
+    }
+    
+    .hero-container {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .hero-text {
+      padding: 40px;
+    }
+    
+    .hero-text h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+    
+    .hero-text p {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+    
+    .hero-image {
+      background-color: #e9ecef;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Team section styles */
+    .team-section {
+      background-color: #0a3555;
+      padding: 40px 0;
+    }
+    
+    .team-member {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .team-member img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid white;
+      margin-bottom: 15px;
+    }
+    
+    .team-member .name {
+      color: white;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+    
+    .team-member .position {
+      color: #4ECDC4;
+      font-size: 14px;
+    }
+    
+    /* Contact form section */
+    .contact-section {
+      padding: 50px 0;
+      background-color: #f8f9fa;
+    }
+    
+    .contact-heading {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    
+    .form-control {
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+    }
+    
+    textarea.form-control {
+      min-height: 120px;
+    }
+    
+    /* Footer styles */
+    .footer {
+      background-color: lightgreen;
+      color: white;
+      padding: 50px 0 20px;
+      background-image: url('express_image.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(15, 123, 86, 0.9);
+    }
+    
+    .footer .container {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .footer h4 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    
+    .footer ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    .footer ul li {
+      margin-bottom: 10px;
+    }
+    
+    .footer a {
+      color: white;
+      text-decoration: none;
+    }
+    
+    .footer a:hover {
+      color: #e0e0e0;
+      text-decoration: underline;
+    }
+    
+    .footer-input {
+      padding: 8px 12px;
+      width: 100%;
+      border: none;
+      margin-bottom: 10px;
+    }
+    
+    .copyright {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    @media (min-width: 768px) {
+      .hero-container {
+        flex-direction: row;
+      }
+      
+      .hero-text, .hero-image {
+        width: 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">ExpressMed Healthcare</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav> -->
+
+  <!-- Hero Section - Split into two halves -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-container">
+        <!-- Left half - Text content matching the screenshot -->
+        <div class="hero-text">
+          <h1>We help make healthcare accessible</h1>
+          <p>Our dedicated team provides convenient and accessible preventive healthcare to Ghanaians in the comfort of their homes.</p>
+          <button class="btn btn-teal">Learn More</button>
+        </div>
+        
+        <!-- Right half - Image placeholder where you can insert your image -->
+        <div class="hero-image">
+          <!-- Replace this placeholder with your actual image -->
+          <img src="experss2.jpg" alt="Healthcare professionals" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Company Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 mb-4">
+          <h2 class="dark-blue-bg section-heading">ABOUT US</h2>
+          <div class="p-4">
+            <p>ExpressMed is a health tech company providing convenient and accessible preventive healthcare to Ghanaians in the comfort of their homes. As purveyors of preventive medicine, we emphasize prevention efforts, early disease identification through screening, and the treatment of both acute and chronic illnesses. Since its establishment in 2016, ExpressMed has gradually become the best telehealth provider and homecare manager for elderly patients with chronic diseases such as diabetes, hypertension, and stroke.</p>
+            <p>ExpressMed Healthcare works with over 30 general and specialist doctors, 35 nurses, 5 laboratory and diagnostic facilities, 7 dieticians, and 5 physiotherapists and fitness experts across Ghana. Additionally, we work closely with a lot of hospitals to ensure a comprehensive wellness program for our patients. To guarantee the delivery of high-quality services, all employees and partners undergo thorough screening, verification, and training.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Features Section -->
+  <section class="py-4">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="p-4 bg-dark text-white h-100">
+            <h4>Quality Healthcare</h4>
+            <p>We deliver premium healthcare services with highly trained professionals and state-of-the-art equipment to ensure the best outcomes for our patients.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-4 teal-bg h-100">
+            <h4>Patient-Centered Approach</h4>
+            <p>Our comprehensive wellness program is tailored to each patient's needs, ensuring personalized care that addresses individual health requirements.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-4 bg-light h-100">
+            <h4>Accessible Services</h4>
+            <p>We bring healthcare to your doorstep, making medical services convenient and accessible to all Ghanaians regardless of location.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision and Mission Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 mb-4">
+          <h2 class="dark-blue-bg section-heading">OUR VISION</h2>
+          <div class="p-4">
+            <p>A medical team for every person at their convenience.</p>
+          </div>
+        </div>
+        <div class="col-12 mb-4">
+          <h2 class="dark-blue-bg section-heading">OUR MISSION</h2>
+          <div class="p-4">
+            <p>To make healthcare more accessible, comprehensive, and convenient for our patients.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote Section -->
+  <section class="teal-bg py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 offset-lg-2 text-center">
+          <h3>Doing The Right Thing At The Right Time</h3>
+          <p class="my-4">We believe in providing timely, effective healthcare solutions when and where our patients need them most. Our innovative approach combines technology with human touch to deliver exceptional care.</p>
+          <button class="btn btn-light">Read More</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 mb-4">
+          <h2 class="dark-blue-bg section-heading">OUR VALUES</h2>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-3">
+          <div class="card values-card">
+            <div class="card-body">
+              <h4 class="card-title">Excellence</h4>
+              <p class="card-text">We are outstanding and we ensure total quality in all our actions.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card values-card">
+            <div class="card-body">
+              <h4 class="card-title">Empathy</h4>
+              <p class="card-text">We understand the conditions of our patients and other stakeholders from their perspective.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card values-card">
+            <div class="card-body">
+              <h4 class="card-title">Integrity</h4>
+              <p class="card-text">We demonstrate above all truthfulness, honesty, patience and sincerity.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card values-card">
+            <div class="card-body">
+              <h4 class="card-title">Confidentiality</h4>
+              <p class="card-text">Our service revolves around our patients. Their safety and trust is and will forever be our priority.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section (Based on Image 1) -->
+  <section class="team-section py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center mb-5">
+          <h2 class="text-white">Our Leadership Team</h2>
+          <p class="text-light">Meet the dedicated professionals behind ExpressMed Healthcare</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="team-member">
+            <img src="/api/placeholder/180/180" alt="Patrick Annan-Noonoo">
+            <p class="name">Patrick Annan-Noonoo</p>
+            <p class="position">(CEO)</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="team-member">
+            <img src="/api/placeholder/180/180" alt="Dr. Martin Turkson">
+            <p class="name">Dr. Martin Turkson</p>
+            <p class="position">(CMO)</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="team-member">
+            <img src="/api/placeholder/180/180" alt="Aaron Adom Nathan">
+            <p class="name">Aaron Adom Nathan</p>
+            <p class="position">(CTO)</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="team-member">
+            <img src="/api/placeholder/180/180" alt="Krystle Esunu">
+            <p class="name">Krystle Esunu</p>
+            <p class="position">(HRM)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form Section (Based on Image 1) -->
+  <!-- <section class="contact-section py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5">
+          <h3 class="contact-heading">Get in Touch</h3>
+          <p>Contact us to find out more about our services and how we develop individual support plans, tailored to the specific needs and wishes of our clients.</p>
+        </div>
+        <div class="col-lg-7">
+          <form>
+            <div class="row">
+              <div class="col-12 mb-3">
+                <input type="text" class="form-control" placeholder="Full Name">
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="email" class="form-control" placeholder="Email Address">
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="tel" class="form-control" placeholder="Telephone">
+              </div>
+              <div class="col-12 mb-3">
+                <textarea class="form-control" placeholder="Your Message"></textarea>
+              </div>
+              <div class="col-12 mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="newsletter">
+                  <label class="form-check-label" for="newsletter">
+                    I would like to receive future news and updates from ExpressMed Healthcare
+                  </label>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-green">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  Final Message -->
+  <!-- <section class="dark-blue-bg py-4">
+    <div class="container">
+      <p class="final-message mb-0">YOU ARE IN GOOD HANDS...</p>
+    </div>
+  </section> -->
+
+  <!-- Footer Section (Based on Image 2) -->
+  <!-- <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><i class="fas fa-envelope me-2"></i> expressmedgh@gmail.com</li>
+            <li><i class="fas fa-phone me-2"></i> 059 860 9488</li>
+            <li><i class="fas fa-headset me-2"></i> 24/7 Online Support</li>
+            <li><i class="fas fa-map-marker-alt me-2"></i> No. 23 Baatsona, Spintex Rd- Accra</li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Services</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Packages</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms and Conditions</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h4>Follow Us</h4>
+          <ul>
+            <li><a href="#"><i class="fab fa-facebook-f me-2"></i> Facebook</a></li>
+            <li><a href="#"><i class="fab fa-twitter me-2"></i> Twitter</a></li>
+            <li><a href="#"><i class="fab fa-instagram me-2"></i> Instagram</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h4>Get Our Newsletter</h4>
+          <div>
+            <input type="email" class="footer-input" placeholder="Enter email">
+            <button class="btn btn-success">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-12 text-center copyright">
+          <p>©Copyright - ExpressMed. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer> -->
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

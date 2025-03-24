@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Express Hospital - Login & Sign Up</title>
+  <style>
+    /* Express Hospital Login & Sign Up Page Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('express_image.jpg');
+      background-size: cover;
+      background-position: center;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.9); /* Uncommented the background color */
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      width: 350px;
+      max-width: 90%;
+      position: relative;
+      padding: 30px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    form {
+      width: 100%;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    input, select { /* Added select to match input styles */
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #3367d6;
+    }
+
+    .toggle-link {
+      color: #4285f4;
+      cursor: pointer;
+    }
+
+    .toggle-link:hover {
+      text-decoration: underline;
+    }
+
+    .form-header {
+      text-align: center;
+      color: #4285f4;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .show-password {
+      position: absolute;
+      right: 10px;
+      top: 12px;
+      cursor: pointer;
+      color: #666;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 0 transparent;
+    }
+
+    .show-password:hover {
+      color: #4285f4;
+    }
+
+    .show-password.unlocked {
+      color: #4285f4;
+      text-shadow: 0 0 5px rgba(66, 133, 244, 0.5);
+    }
+
+    .success-message {
+      color: green;
+      text-align: center;
+      margin-bottom: 15px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Sign Up Page -->
+    <div id="signup-page" class="page active">
+      <form id="signup-form" onsubmit="return handleSignup(event)">
+        <div class="form-header">Express Hospital Sign Up</div>
+        <!-- Table to organize the form fields for Sign Up -->
+        <table>
+          <tr>
+            <!-- First name input field -->
+            <td><input type="text" name="firstName" placeholder="First Name" required></td>
+          </tr>
+          <tr>
+            <!-- Last name input field -->
+            <td><input type="text" name="lastName" placeholder="Last Name" required></td>
+          </tr>
+          <tr>
+            <!-- Email input field -->
+            <td><input type="email" name="email" placeholder="Email" required></td>
+          </tr>
+          <tr>
+            <!-- Phone number input field -->
+            <td><input type="tel" name="phone" placeholder="Phone Number" required></td>
+          </tr>
+          <tr>
+            <!-- Gender dropdown inside a table row -->
+            <td>
+              <select name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <!-- Password input field -->
+            <td class="password-container">
+              <input type="password" id="signup-password" name="password" placeholder="Password" required>
+              <span class="show-password" onclick="togglePassword(event, 'signup-password')">🔒</span>
+            </td>
+          </tr>
+          <tr>
+            <!-- Confirm Password field -->
+            <td class="password-container">
+              <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
+              <span class="show-password" onclick="togglePassword(event, 'confirm-password')">🔒</span>
+            </td>
+          </tr>
+        </table>
+        <!-- Submit button for the Sign Up form -->
+        <button type="submit">Sign Up</button>
+        <!-- Link to toggle from Sign Up to Login form -->
+        <p>Already have an account? <span class="toggle-link" onclick="showPage('login-page')">Login</span></p>
+      </form>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login-page" class="page">
+      <div id="success-message" class="success-message">Account created successfully! Please login.</div>
+      <form id="login-form" onsubmit="return handleLogin(event)">
+        <!-- Title label for the Login form -->
+        <div class="form-header">Express Hospital Login</div>
+        <!-- Table to organize the form fields for Login -->
+        <table>
+          <tr>
+            <!-- Email input field for logging in -->
+            <td><input type="email" name="email" placeholder="Email" required></td>
+          </tr>
+          <tr>
+            <!-- Password input field for logging in with show password option -->
+            <td class="password-container">
+              <input type="password" id="login-password" name="password" placeholder="Password" required>
+              <span class="show-password" onclick="togglePassword(event, 'login-password')">🔒</span>
+            </td>
+          </tr>
+        </table>
+        <!-- Submit button for the Login form -->
+        <button type="submit">Login</button>
+        <!-- Link to toggle from Login to Sign Up form -->
+        <p>Don't have an account? <span class="toggle-link" onclick="showPage('signup-page')">Sign Up</span></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Function to toggle password visibility - fixed to include event parameter
+    function togglePassword(event, inputId) {
+      const passwordField = document.getElementById(inputId);
+      const padlockIcon = event.target;
+      
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        padlockIcon.textContent = "🔓"; // Open padlock when password is visible
+        padlockIcon.classList.add("unlocked");
+      } else {
+        passwordField.type = "password";
+        padlockIcon.textContent = "🔒"; // Closed padlock when password is hidden
+        padlockIcon.classList.remove("unlocked");
+      }
+    }
+
+    // Function to show a specific page and hide the others
+    function showPage(pageId) {
+      // Hide all pages
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+      
+      // Show the requested page
+      document.getElementById(pageId).classList.add('active');
+      
+      // Reset success message when going back to signup
+      if (pageId === 'signup-page') {
+        document.getElementById('success-message').style.display = 'none';
+      }
+    }
+
+    // Handle signup form submission
+    function handleSignup(event) {
+      event.preventDefault();
+      
+      // Get form values
+      const form = document.getElementById('signup-form');
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      
+      // Validate passwords match
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return false;
+      }
+      
+      // Basic validation for phone number format
+      const phone = form.elements['phone'].value;
+      if (!/^\d{10,15}$/.test(phone.replace(/[\s-]/g, ''))) {
+        alert('Please enter a valid phone number');
+        return false;
+      }
+      
+      // Here you would normally save the user data to your database
+      // For demonstration, we'll just simulate a successful signup
+      
+      // Show success message and redirect to login page
+      document.getElementById('success-message').style.display = 'block';
+      showPage('login-page');
+      
+      // Pre-fill the email field on the login page
+      const email = form.elements['email'].value;
+      document.querySelector('#login-form input[name="email"]').value = email;
+      
+      return false;
+    }
+
+    // Handle login form submission
+    function handleLogin(event) {
+      event.preventDefault();
+      
+      // Get form values
+      const form = document.getElementById('login-form');
+      const email = form.elements['email'].value;
+      const password = form.elements['password'].value;
+      
+      // Here you would normally validate the credentials against your database
+      // For demonstration, we'll just simulate a successful login
+      
+      alert('Login successful! Welcome to Express Hospital.');
+      
+      // Reset form
+      form.reset();
+      
+      return false;
+    }
+  </script>
+</body>
+</html>

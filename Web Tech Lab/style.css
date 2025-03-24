@@ -1,0 +1,110 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('https://via.placeholder.com/1920x1080?text=Express+Hospital+Background');
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    width: 350px;
+    max-width: 90%;
+    position: relative;
+    padding: 30px;
+  }
+
+  .page {
+    display: none;
+  }
+
+  .page.active {
+    display: block;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  button:hover {
+    background-color: #3367d6;
+  }
+
+  .toggle-link {
+    color: #4285f4;
+    cursor: pointer;
+  }
+
+  .toggle-link:hover {
+    text-decoration: underline;
+  }
+
+  .form-header {
+    text-align: center;
+    color: #4285f4;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  .password-container {
+    position: relative;
+  }
+
+  .show-password {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 0 transparent;
+  }
+
+  .show-password:hover {
+    color: #4285f4;
+  }
+
+  .show-password.unlocked {
+    color: #4285f4;
+    text-shadow: 0 0 5px rgba(66, 133, 244, 0.5);
+  }
+
+  .success-message {
+    color: green;
+    text-align: center;
+    margin-bottom: 15px;
+    display: none;
+  }

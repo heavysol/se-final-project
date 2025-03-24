@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExpressMed Healthcare - Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        h2 {
+            margin: 30px 0 15px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .innovation-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .innovation-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .innovation-description {
+            line-height: 1.6;
+            text-align: justify;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+        
+        .achievement-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .achievement-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .achievement-desc {
+            line-height: 1.6;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+        
+        .achievement-gallery {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+        
+        .achievement-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .achievement-img:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Modal styles for image enlargement */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            overflow: auto;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        
+        @media (max-width: 1200px) {
+            .gallery-grid, .achievement-gallery {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .gallery-grid, .achievement-gallery {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .gallery-grid, .achievement-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Our Gallery</h1>
+    
+    <!-- Innovation Week Section -->
+        <h2 class="innovation-title">EXPRESSMED TAKES PART IN GHANA DIGITAL INNOVATION WEEK (GDIW) 2022</h2>
+        <p class="innovation-description">ExpressMed Healthcare joined other innovative businesses in Ghana and Africa to showcase their products and services during a 3-day exhibition in Accra. We used the opportunity to introduce our services, especially our technology platform, to potential clients and partners. Among the services we presented include telehealth, mobile labs, medicine delivery, doctor consultation at home, nursing home care, and corporate wellness program. We continue to engage our clients and potential clients through events to better understand their needs. A trilateral program to celebrate the accomplishments of Ghana's digital innovation ecosystem and build momentum towards a common vision for its future.</p>
+    
+    <!-- Our Services Section -->
+    <h2>Our Services</h2>
+    <div class="gallery-grid">
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="experss2.jpg" alt="Telehealth Services" class="gallery-img">
+        </div>
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="express1.avif" alt="Mobile Labs" class="gallery-img">
+        </div>
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="express_image.jpg" alt="Medicine Delivery" class="gallery-img">
+        </div>
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="experss2.jpg" alt="Doctor Consultation" class="gallery-img">
+        </div>
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="express1.avif" alt="Nursing Home Care" class="gallery-img">
+        </div>
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="express_image.jpg" alt="Corporate Wellness" class="gallery-img">
+        </div>
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="experss2.jpg" alt="Health Checkup" class="gallery-img">
+        </div>
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="express1.avif" alt="Lab Testing" class="gallery-img">
+        </div>
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="express_image.jpg" alt="Patient Care" class="gallery-img">
+        </div>
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="experss2.jpg" alt="Health Education" class="gallery-img">
+        </div>
+    </div>
+    
+    <!-- Healthcare in Action / Achievement Section -->
+    <h2>Healthcare in Action</h2>
+    <div class="achievement-box">
+        <h3 class="achievement-title">GROWTH AFRICA ACCELERATOR PROGRAM - 2022 COHORT</h3>
+        <p class="achievement-desc">ExpressMed Healthcare was selected to be part of Growth Africa's 6-month intensive startup acceleration program. We were among 75+ cohort members, joining entrepreneurs from Ghana, Kenya, Ethiopia, Gambia, and Uganda. The program selected startups with ideas that impact the community and have high growth potential. Throughout the program, our staff engaged in various teamwork sessions focused on product-solution fit, value architecture, gap analysis, growth planning, and budgeting.</p>
+        
+        <div class="achievement-gallery">
+            <img src="express_image.jpg" alt="Growth Africa Cohort" class="achievement-img" onclick="openModal(this)">
+            <img src="express1.avif" alt="Training Session" class="achievement-img" onclick="openModal(this)">
+            <img src="express_image.jpg" alt="Teamwork Session" class="achievement-img" onclick="openModal(this)">
+            <img src="experss2.jpg" alt="Presentation" class="achievement-img" onclick="openModal(this)">
+            <img src="express_image.jpg" alt="Group Discussion" class="achievement-img" onclick="openModal(this)">
+            <img src="express1.avif" alt="Workshop" class="achievement-img" onclick="openModal(this)">
+            <img src="express_image.jpg" alt="Planning Session" class="achievement-img" onclick="openModal(this)">
+            <img src="experss2.jpg" alt="Team Building" class="achievement-img" onclick="openModal(this)">
+            <img src="express1.avif" alt="Strategy Meeting" class="achievement-img" onclick="openModal(this)">
+            <img src="express_image.jpg" alt="Program Graduation" class="achievement-img" onclick="openModal(this)">
+        </div>
+    </div>
+    
+    <!-- Modal for enlarged images -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="enlargedImg">
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 ExpressMed Healthcare. All Rights Reserved.</p>
+    </footer>
+    
+    <script>
+        // JavaScript for image modal functionality
+        function openModal(element) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("enlargedImg");
+            const img = element.querySelector("img");
+            
+            modal.style.display = "flex";
+            modalImg.src = img.src;
+        }
+        
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+        
+        // Close modal when pressing escape key
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
