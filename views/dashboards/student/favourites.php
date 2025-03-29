@@ -35,7 +35,7 @@
                 <div class="col-md-9">
                     <div class="dashboard-card">
                         <h4>
-                            My Registrations
+                            Favourites
                         </h4>
                         <!-- Table of favourite events of student will be output here from backend -->
                     </div>
