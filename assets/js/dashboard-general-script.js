@@ -53,8 +53,9 @@ const adminSidebar = `<div class="sidebar">
 
 // Functions
 function getSidebar(type, menuIndex = 0) {
+    console.log('function called')
     var sidebar = null;
-    switch (key) {
+    switch (type) {
         case 's':
             sidebar = studentSidebar
             break;
@@ -70,3 +71,5 @@ function getSidebar(type, menuIndex = 0) {
 
     document.getElementById('sidebar').innerHTML = sidebar;
 }
+console.log('script loaded')
+getSidebar('s')

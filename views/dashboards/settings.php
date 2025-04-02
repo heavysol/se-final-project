@@ -35,17 +35,25 @@
             <div class="row mb-4">
                 <div class="col-md-9 dashboard-card">
                     <div>
-                        <h4>
-                            Account
-                        </h4>
+                        <h4> Account </h4>
                         Email: <!-- email output from db-->
+                        <br>
+                        Role: <!-- role output from db -->
                         <br>
                         Password: <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required> <!-- User's current password output in text box from db -->
                         <button class="input-group-text toggle-password" data-target="password">🔓</button> <button> Edit password </button>
+
+                        <button> Delete account </button>
                     </div>
                 </div> 
             </div>
 
+            <div class="row mb-4">
+                <div class="col-md-9 dashboard-card">
+                    <div>
+                        <h4> 
+                </div>
+            </div>
             <!-- 
         </div>
     </div>
