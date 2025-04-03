@@ -1,22 +1,21 @@
 <?php
 // Debugging: Check if config.php is included
-if (!file_exists("../config.php")) {
+if (!file_exists("./db/config.php")) {
     die("Error: config.php not found! Check the file path.");
 }
-include("../config.php");
+include("./db/config.php");
 
 echo "Config file included successfully.";
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fullName = trim($_POST['fullName']);
+    $firstName = trim($_POST['first_name']);
+    $lastName = trim($_POST['last_name']);
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
     $confirmPassword = trim($_POST['confirmPassword']);
-    $role = trim($_POST['role']);
 
     // Basic validation
-    if (empty($fullName) || empty($email) || empty($password) || empty($confirmPassword) || empty($role)) {
+    if (empty($firstName) || empty($lastName) || empty($email) || empty($password) || empty($confirmPassword)) {
         echo "All fields are required.";
         exit();
     }
@@ -31,9 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    // Determine user role based on the email address
+    $role = 'student'; // Default role is student
+    if (strpos($email, 'admin') !== false) {
+        $role = 'admin';
+    } elseif (strpos($email, 'organizer') !== false) {
+        $role = 'organizer';
+    }
+
     try {
         // Check if email already exists
-        $stmt = $conn->prepare("SELECT id FROM Users WHERE email = ?");
+        $stmt = $conn->prepare("SELECT user_id FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
@@ -50,11 +57,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert new user
-        $stmt = $conn->prepare("INSERT INTO Users (fullName, email, password, role) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $fullName, $email, $hashedPassword, $role);
-        
+        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, role) 
+                                VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $firstName, $lastName, $email, $hashedPassword, $role);
+
         if ($stmt->execute()) {
-            echo "success"; // This response is checked in JavaScript
+            echo "Account created successfully.";
+            header("Location: login.php");
+            exit();
         } else {
             echo "Error: " . $conn->error;
         }

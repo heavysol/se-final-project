@@ -39,32 +39,32 @@
             
             <hr>
             
-            <form id="signupForm">
+            <form id="signupForm" action="signup_action.php" methid="POST">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">First Name</label>
-                        <input type="text" class="form-control" placeholder="Enter first name" required>
+                        <input type="text" class="form-control" name="first_name" placeholder="Enter first name" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Last Name</label>
-                        <input type="text" class="form-control" placeholder="Enter last name" required>
+                        <input type="text" class="form-control" name="lasst_name" placeholder="Enter last name" required>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Email</label>
-                    <input type="email" class="form-control" placeholder="Enter email" required>
+                    <input type="email" class="form-control" name="email" placeholder="Enter email" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Password</label>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+                        <input type="password" class="form-control"  name="password" id="password" placeholder="Enter password" required>
                         <span class="input-group-text" onclick="togglePassword('password')">🔒</span>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Confirm Password</label>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required>
+                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" required>
                         <span class="input-group-text" onclick="togglePassword('confirmPassword')">🔒</span>
                     </div>
                 </div>
