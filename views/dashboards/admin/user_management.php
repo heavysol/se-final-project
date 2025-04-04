@@ -20,11 +20,15 @@
                     <div class="modal-body">
                         <form id="userCreationForm">
                             <div class="mb-3">
-                                <label class="form-label">Full Name</label>
-                                <input type="text" class="form-control" name="fullName" required>
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" name="firstName" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Ashesi Email</label>
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" name="lastName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
                                 <input type="email" class="form-control" name="email" required>
                             </div>
                             <div class="mb-3">
@@ -64,15 +68,7 @@
                         </tr>
                     </thead>
                     <tbody id="userTableBody">
-                        <tr>
-                            <td>John Doe</td>
-                            <td>john.doe@ashesi.edu.gh</td>
-                            <td><span class="badge bg-primary">Student</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-info">Edit</button>
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </td>
-                        </tr>
+                        <!-- Populated dynamically -->
                     </tbody>
                 </table>
             </div>
@@ -81,11 +77,74 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        document.addEventListener("DOMContentLoaded", loadUsers);
+
+        function loadUsers() {
+            fetch("../../../actions/user_management_action.php")
+                .then(res => res.json())
+                .then(data => {
+                    const tbody = document.getElementById("userTableBody");
+                    tbody.innerHTML = "";
+                    data.forEach(user => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${user.first_name} ${user.last_name}</td>
+                                <td>${user.email}</td>
+                                <td><span class="badge bg-primary">${user.role}</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="editUser(${user.user_id})">Edit</button>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteUser(${user.user_id})">Delete</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                });
+        }
+
         document.getElementById('userCreationForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Frontend validation and AJAX submission logic here
-            console.log('User Creation Submitted');
+            const formData = new FormData(this);
+            formData.append("action", "create");
+
+            fetch("../../../actions/user_management_action.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.status === 'success') {
+                    alert("User created successfully");
+                    document.getElementById('userCreationForm').reset();
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('createUserModal'));
+                    modal.hide();
+                    loadUsers();
+                } else {
+                    alert("Error: " + result.message);
+                }
+            });
         });
+
+        function deleteUser(userId) {
+            if (!confirm("Are you sure you want to delete this user?")) return;
+
+            const formData = new FormData();
+            formData.append("action", "delete");
+            formData.append("user_id", userId);
+
+            fetch("../../../actions/user_management_action.php", {
+                method: "POST",
+                body: formData
+            }).then(res => res.json())
+            .then(data => {
+                if (data.status === "deleted") {
+                    loadUsers();
+                }
+            });
+        }
+
+        function editUser(userId) {
+            alert("Edit functionality coming soon.");
+        }
     </script>
 </body>
 </html>
