@@ -1,13 +1,16 @@
-/* For styling of the student, organiser and admin dashboards */
-
 :root {
     --sidebar-width: 250px;
-    --primary-color: #0B5394;
-    --secondary-color: #F3F6F9;
-    --accent-color: #FFD700;
-    --success-color: #28a745;
-    --warning-color: #ffc107;
-    --danger-color: #dc3545;
+    --primary-color: rgb(155, 12, 12);
+    --secondary-color: black;
+    --accent-color: bi-calendar2-check;
+    --success-color:rgb(155, 12, 12) ;
+    --warning-color: black;
+    --danger-color:rgb(155, 12, 12);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
 }
 
 .sidebar {
@@ -65,20 +68,16 @@
     padding: 20px;
 }
 
-.search {
-    width: 40%;
-}
-
 .dashboard-card {
     background-color: white;
-    border-radius: 8px;
+    border-radius: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     padding: 20px;
     margin-bottom: 20px;
     height: 100%;
 }
 
-.dashboard-card, .search-area h4 /* to influence search bars */ {
+.dashboard-card h4 {
     margin-top: 0;
     color: var(--primary-color);
     font-size: 1.1rem;
@@ -153,124 +152,58 @@
     font-size: 0.9rem;
 }
 
-
 .table-responsive {
-overflow-x: auto;
+    overflow-x: auto;
 }
 
 .event-action-btn {
-width: 2rem;
-height: 2rem;
-display: inline-flex;
-align-items: center;
-justify-content: center;
-border-radius: 50%;
-background-color: var(--secondary-color);
-color: var(--primary-color);
-margin-right: 5px;
-cursor: pointer;
-text-decoration: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(155, 12, 12);
+    color: white;
+    cursor: pointer;
+    font-size: 0.9em;
 }
 
 .event-action-btn:hover {
-background-color: var(--primary-color);
-color: white;
+    background-color: rgb(155, 12, 12);
 }
 
 .event-status {
-display: inline-block;
-padding: 3px 10px;
-border-radius: 30px;
-font-size: 0.8rem;
-font-weight: 500;
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 500;
 }
 
 .event-status.active {
-background-color: rgba(40, 167, 69, 0.1);
-color: var(--success-color);
+    background-color: rgba(40, 167, 69, 0.1);
+    color: var(--success-color);
 }
 
 .event-status.pending {
-background-color: rgba(255, 193, 7, 0.1);
-color: var(--warning-color);
+    background-color: rgba(255, 193, 7, 0.1);
+    color: var(--warning-color);
 }
 
 .event-status.cancelled {
-background-color: rgba(220, 53, 69, 0.1);
-color: var(--danger-color);
-}
-
-.progress {
-height: 10px;
-border-radius: 5px;
-}
-
-.progress-sm {
-height: 5px;
-}
-
-.task-item {
-display: flex;
-align-items: center;
-padding: 10px 0;
-border-bottom: 1px solid #f0f0f0;
-}
-
-.task-item:last-child {
-border-bottom: none;
-}
-
-.task-checkbox {
-margin-right: 15px;
-}
-
-.task-title {
-flex-grow: 1;
-}
-
-.task-date {
-color: #777;
-font-size: 0.8rem;
-}
-
-.attendee-item {
-display: flex;
-align-items: center;
-padding: 10px 0;
-border-bottom: 1px solid #f0f0f0;
-}
-
-.attendee-item:last-child {
-border-bottom: none;
-}
-
-.attendee-avatar {
-width: 40px;
-height: 40px;
-border-radius: 50%;
-background-color: #e9ecef;
-display: flex;
-align-items: center;
-justify-content: center;
-margin-right: 15px;
-}
-
-.attendee-info {
-flex-grow: 1;
-}
-
-.attendee-name {
-font-weight: 500;
-margin: 0;
-}
-
-.attendee-email {
-color: #777;
-font-size: 0.8rem;
-margin: 0;
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--danger-color);
 }
 
 .chart-container {
-position: relative;
-height: 300px;
+    position: relative;
+    height: 300px;
+}
+
+.pagination {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.dropdown-toggle::after {
+    display: none;
 }
