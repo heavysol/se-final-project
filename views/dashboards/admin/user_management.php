@@ -33,7 +33,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Role</label>
-                                <select class="form-select" name="role">
+                                <select class="form-select" name="role" required>
                                     <option>Student</option>
                                     <option>Event Organizer</option>
                                     <option>Admin</option>
@@ -44,6 +44,44 @@
                                 <input type="password" class="form-control" name="password" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Create User</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit User Modal -->
+        <div class="modal fade" id="editUserModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editUserForm">
+                            <input type="hidden" name="user_id" id="editUserId">
+                            <div class="mb-3">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" name="firstName" id="editFirstName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" name="lastName" id="editLastName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" id="editEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Role</label>
+                                <select class="form-select" name="role" id="editRole" required>
+                                    <option>Student</option>
+                                    <option>Organizer</option>
+                                    <option>Admin</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
                         </form>
                     </div>
                 </div>
@@ -77,6 +115,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Function to load users and display them in the table
         document.addEventListener("DOMContentLoaded", loadUsers);
 
         function loadUsers() {
@@ -101,6 +140,7 @@
                 });
         }
 
+        // Handle the form submission for creating a user
         document.getElementById('userCreationForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
@@ -124,6 +164,7 @@
             });
         });
 
+        // Delete user
         function deleteUser(userId) {
             if (!confirm("Are you sure you want to delete this user?")) return;
 
@@ -142,9 +183,45 @@
             });
         }
 
+        // Edit user and show the modal with pre-filled data
         function editUser(userId) {
-            alert("Edit functionality coming soon.");
+            fetch("../../../actions/user_management_action.php?action=get&user_id=" + userId)
+                .then(res => res.json())
+                .then(user => {
+                    document.getElementById("editUserId").value = user.user_id;
+                    document.getElementById("editFirstName").value = user.first_name;
+                    document.getElementById("editLastName").value = user.last_name;
+                    document.getElementById("editEmail").value = user.email;
+                    document.getElementById("editRole").value = user.role;
+
+                    const editModal = new bootstrap.Modal(document.getElementById("editUserModal"));
+                    editModal.show();
+                });
         }
+
+        // Handle the form submission for updating user information
+        document.getElementById('editUserForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            formData.append("action", "update");
+
+            fetch("../../../actions/user_management_action.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.status === 'updated') {
+                    alert("User updated successfully!");
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('editUserModal'));
+                    modal.hide();
+                    loadUsers();
+                } else {
+                    alert("Error: " + result.message);
+                }
+            });
+        });
     </script>
 </body>
 </html>
