@@ -18,12 +18,12 @@
         </div>
         <ul class="sidebar-menu">
             <li><a href="./student_dashboard.php"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-            <li><a href="#" class = 'active'><i class="bi bi-calendar-event"></i> Events</a></li>
-            <li><a href="#"><i class="bi bi-journal-check"></i> My Registrations</a></li>
-            <li><a href="#"><i class="bi bi-star"></i> Favorites</a></li>
-            <li><a href="#"><i class="bi bi-people"></i> Clubs & Organizations</a></li>
+            <li><a href="./events.php" class = 'active'><i class="bi bi-calendar-event"></i> Events</a></li>
+            <li><a href="./registrations.php"><i class="bi bi-journal-check"></i> My Registrations</a></li>
+            <li><a href="./favourites.php"><i class="bi bi-star"></i> Favorites</a></li>
+            <li><a href="./clubs-orgs.php"><i class="bi bi-people"></i> Clubs & Organizations</a></li>
             <li><a href="../../notifications.php"><i class="bi bi-bell"></i> Notifications</a></li>
-            <li><a href="#"><i class="bi bi-gear"></i> Settings</a></li>
+            <li><a href="../../settings.php"><i class="bi bi-gear"></i> Settings</a></li>
         </ul>
     </div>
 

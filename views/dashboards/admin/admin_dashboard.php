@@ -16,14 +16,14 @@
             <div class="text-white-50 small">Admin Dashboard</div>
         </div>
         <ul class="sidebar-menu">
-            <li><a href="#" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+            <li><a href="./student_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
             <li><a href="#"><i class="bi bi-calendar-event"></i> Events Management</a></li>
             <li><a href="#"><i class="bi bi-people"></i> User Management</a></li>
             <li><a href="#"><i class="bi bi-building"></i> Organizations</a></li>
             <li><a href="#"><i class="bi bi-graph-up"></i> Analytics</a></li>
-            <li><a href="#"><i class="bi bi-bell"></i> Notifications</a></li>
+            <li><a href="../../notifications.php"><i class="bi bi-gear"></i> Settings</a></li>
             <li><a href="#"><i class="bi bi-flag"></i> Reports</a></li>
-            <li><a href="#"><i class="bi bi-gear"></i> Settings</a></li>
+            <li><a href="../../settings.php"><i class="bi bi-gear"></i> Settings</a></li>
         </ul>
     </div>
 

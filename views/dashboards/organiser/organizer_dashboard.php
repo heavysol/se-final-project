@@ -16,14 +16,14 @@
     <div class="text-white-50 small">Organizer Dashboard</div>
 </div>
 <ul class="sidebar-menu">
-    <li><a href="#" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+    <li><a href="./organizer_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
     <li><a href="#"><i class="bi bi-calendar-event"></i> My Events</a></li>
     <li><a href="#"><i class="bi bi-plus-circle"></i> Create Event</a></li>
-    <li><a href="#"><i class="bi bi-people"></i> Attendees</a></li>
+    <!--PROBABLY NOT NEEDED: attendee info can be in Analytics <li><a href="#"><i class="bi bi-people"></i> Attendees</a></li>-->
     <li><a href="#"><i class="bi bi-graph-up"></i> Analytics</a></li>
-    <li><a href="#"><i class="bi bi-chat-dots"></i> Feedback</a></li>
-    <li><a href="#"><i class="bi bi-bell"></i> Notifications</a></li>
-    <li><a href="#"><i class="bi bi-gear"></i> Settings</a></li>
+    <!--PROBABLY NOT NEEDED: feedback info can be in Analytics <li><a href="#"><i class="bi bi-chat-dots"></i> Feedback</a></li>-->
+    <li><a href="../../notifications.php"><i class="bi bi-bell"></i> Notifications</a></li>
+    <li><a href="../../settings.php"><i class="bi bi-gear"></i> Settings</a></li>
 </ul>
 </div>
 
