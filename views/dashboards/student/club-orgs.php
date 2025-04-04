@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Registrations - Campus Events</title>
+    <title>Clubs and Organizations - Campus Events</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
     <link rel="stylesheet" href="../../../assets/css/dashboard-styles.css">
@@ -35,9 +35,9 @@
                 <div class="col-md-9">
                     <div class="dashboard-card">
                         <h4>
-                            My Registrations
+                            Clubs and Organizations
                         </h4>
-                        <!-- Table of events student registered for will be output here from backend -->
+                        <!-- Table of clubs and organisations will be output here from backend -->
                     </div>
                 </div>   
         </div>
