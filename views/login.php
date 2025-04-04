@@ -1,69 +1,247 @@
+<?php
+session_start();
+require '../db/config.php';
+
+$error_message = '';
+$success_message = '';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+
+    if (empty($email) || empty($password)) {
+        $error_message = "Please fill in all fields";
+    } else {
+        // Modify the query to fetch first_name and last_name
+        $stmt = $conn->prepare("SELECT user_id, first_name, last_name, role, email, password FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows == 0) {
+            $error_message = "Invalid email or password";
+        } else {
+            $user = $result->fetch_assoc();
+            if (password_verify($password, $user['password'])) {
+                // Combine first_name and last_name to create full_name
+                $full_name = $user['first_name'] . ' ' . $user['last_name'];
+
+                // Store session data
+                $_SESSION['user_id'] = $user['user_id'];
+                $_SESSION['full_name'] = $full_name; // Store the combined full_name
+                $_SESSION['role'] = $user['role'];
+
+                // Redirect based on the role from the database
+                switch ($user['role']) {
+                    case 'admin': // Admin role
+                        header("Location: ./dashboards/admin/admin_dashboard.php");
+                        break;
+                    case 'organizer': // Organizer role
+                        header("Location: ./dashboards/organiser/organizer_dashboard.php");
+                        break;
+                    case 'student': // Student role
+                        header("Location: ./dashboards/student/student_dashboard.php");
+                        break;
+                    default:
+                        $error_message = "Invalid role assigned.";
+                        break;
+                }
+                exit(); // Ensure that the script halts here after redirect
+            } else {
+                $error_message = "Invalid email or password";
+            }
+        }
+        $stmt->close();
+    }
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/general-styles.css">
-    <link rel="stylesheet" href="../assets/css/logsign-styles.css">
-    
-</head>
-<body class="bg-light">
-    <div class="container d-flex justify-content-center align-items-center vh-100">
-        <div class="card p-4 shadow-lg">
-            <h4 class="text-center">Log in</h4>
-            
-            <!-- Google Sign-in button with multicolor logo -->
-            <button type="button" id="googleBtn" class="btn btn-google oauth-btn w-100 my-2">
-                <span class="google-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px">
-                        <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
-                        <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
-                        <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
-                        <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
-                    </svg>
-                </span>
-                Continue with Google
-            </button>
-            
-            <!-- SSO button -->
-            <button type="button" id="ssoBtn" class="btn btn-sso oauth-btn w-100 mb-2">
-                <i class="fas fa-key me-2"></i>Continue with SSO
-            </button>
-            
-            <!-- GitHub button -->
-            <button type="button" id="githubBtn" class="btn btn-github oauth-btn w-100 mb-3">
-                <i class="fab fa-github me-2"></i>Continue with GitHub
-            </button>
-            
-            <hr>
-            
-            <!-- Login Form -->
-            <form id="loginForm">
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email" placeholder="Enter email" required>
-                </div>
-                
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
-                        <span class="input-group-text toggle-password" data-target="password">🔓</span>
-                    </div>
-                </div>
-                
-                <button type="submit" class="btn btn-primary w-100">Log in</button>
-            </form>
+    <title>Login | FitInspire Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-            <p class="text-center mt-3">
-                <a href="#">Forgot password?</a> | <a href="Signup.php">Sign up</a>
-            </p>
+        /* Navbar Styles */
+        .navbar {
+            background-color: #f8f9fa;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #343a40;
+            font-weight: bold;
+            margin: 0 1rem;
+            font-size: 1rem;
+        }
+
+        .navbar a:hover {
+            color: #BC1E4A;
+        }
+
+        .navbar .btn {
+            background-color: #BC1E4A;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .btn:hover {
+            background-color: #8A1435;
+        }
+
+        .login-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #BC1E4A;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #BC1E4A;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(188, 30, 74, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #BC1E4A;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #8A1435;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c00;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #666;
+        }
+
+        .signup-link a {
+            color: #BC1E4A;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+ 
+
+    <!-- Login Form -->
+    <div class="login-container">
+        <div class="form-container">
+            <h1><i class="fas fa-dumbbell"></i> Login</h1>
+            <?php if ($error_message): ?>
+                <div class="error-message">
+                    <?php echo $error_message; ?>
+                </div>
+            <?php endif; ?>
+            <form method="POST" action="login.php">
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" name="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" name="password" id="password" required>
+                </div>
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            <div class="signup-link">
+                Don't have an account? <a href="signup.php">Sign up here</a>
+            </div>
         </div>
     </div>
-
-    <script src = '../assets/js/login-script.js'></script>
 </body>
 </html>
