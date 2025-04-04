@@ -22,8 +22,8 @@
     <!--PROBABLY NOT NEEDED: attendee info can be in Analytics <li><a href="#"><i class="bi bi-people"></i> Attendees</a></li>-->
     <li><a href="./analytics.php"><i class="bi bi-graph-up"></i> Analytics</a></li>
     <!--PROBABLY NOT NEEDED: feedback info can be in Analytics <li><a href="#"><i class="bi bi-chat-dots"></i> Feedback</a></li>-->
-    <li><a href="../../notifications.php"><i class="bi bi-bell"></i> Notifications</a></li>
-    <li><a href="../../settings.php"><i class="bi bi-gear"></i> Settings</a></li>
+    <li><a href="../notifications.php"><i class="bi bi-bell"></i> Notifications</a></li>
+    <li><a href="../settings.php"><i class="bi bi-gear"></i> Settings</a></li>
 </ul>
 </div>
 

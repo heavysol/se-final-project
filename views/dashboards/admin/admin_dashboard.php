@@ -21,9 +21,9 @@
             <li><a href="#"><i class="bi bi-people"></i> User Management</a></li>
             <li><a href="#"><i class="bi bi-building"></i> Organizations</a></li>
             <li><a href="#"><i class="bi bi-graph-up"></i> Analytics</a></li>
-            <li><a href="../../notifications.php"><i class="bi bi-gear"></i> Settings</a></li>
+            <li><a href="../notifications.php"><i class="bi bi-gear"></i> Settings</a></li>
             <li><a href="#"><i class="bi bi-flag"></i> Reports</a></li>
-            <li><a href="../../settings.php"><i class="bi bi-gear"></i> Settings</a></li>
+            <li><a href="../settings.php"><i class="bi bi-gear"></i> Settings</a></li>
         </ul>
     </div>
 
