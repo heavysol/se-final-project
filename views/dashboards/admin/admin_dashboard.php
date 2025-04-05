@@ -17,7 +17,7 @@
         </div>
         <ul class="sidebar-menu">
             <li><a href="./student_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-            <li><a href="event_management.html"><i class="bi bi-calendar-event"></i> Events Management</a></li>
+            <li><a href="event_management.php"><i class="bi bi-calendar-event"></i> Events Management</a></li>
             <li><a href="user_management.php"><i class="bi bi-people"></i> User Management</a></li>
             <li><a href="event_organization.php"><i class="bi bi-building"></i> Organizations</a></li>
             <li><a href="analytics.html"><i class="bi bi-graph-up"></i> Analytics</a></li>
