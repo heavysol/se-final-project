@@ -26,6 +26,7 @@ CREATE TABLE Events (
     category VARCHAR(100),
     max_capacity INT,
     is_public BOOLEAN DEFAULT TRUE,
+    status ENUM('pending', 'approved', 'rejected','cancelled') DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (organizer_id) REFERENCES Users(user_id)

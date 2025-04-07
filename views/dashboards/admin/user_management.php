@@ -35,7 +35,7 @@
                                 <label class="form-label">Role</label>
                                 <select class="form-select" name="role" required>
                                     <option>Student</option>
-                                    <option>Event Organizer</option>
+                                    <option>Organizer</option>
                                     <option>Admin</option>
                                 </select>
                             </div>
