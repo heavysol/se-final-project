@@ -18,10 +18,7 @@
 <ul class="sidebar-menu">
     <li><a href="./organizer_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
     <li><a href="./events-organiser.php"><i class="bi bi-calendar-event"></i> My Events</a></li>
-    <li><a href="./create-events.php"><i class="bi bi-plus-circle"></i> Create Event</a></li>
-    <!--PROBABLY NOT NEEDED: attendee info can be in Analytics <li><a href="#"><i class="bi bi-people"></i> Attendees</a></li>-->
     <li><a href="./analytics.php"><i class="bi bi-graph-up"></i> Analytics</a></li>
-    <!--PROBABLY NOT NEEDED: feedback info can be in Analytics <li><a href="#"><i class="bi bi-chat-dots"></i> Feedback</a></li>-->
     <li><a href="../notifications.php"><i class="bi bi-bell"></i> Notifications</a></li>
     <li><a href="../settings.php"><i class="bi bi-gear"></i> Settings</a></li>
 </ul>
@@ -36,7 +33,52 @@
             <p class="text-muted">Welcome, ASC Event Coordinator!</p>
         </div>
         <div class="col-md-6 text-end">
-            <button class="btn btn-primary"><i class="bi bi-plus"></i> Create New Event</button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createEventModal"><i class="bi bi-plus"></i> Create New Event</button>
+        </div>
+    </div>
+
+    <!-- Event Creation Modal -->
+    <div class="modal fade" id="createEventModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="eventCreationForm" method="post" action="event_management_action.php">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Event Title</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="start_datetime" class="form-label">Date Event is Posted</label>
+                            <input type="datetime-local" class="form-control" id="start_datetime" name="start_datetime" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="end_datetime" class="form-label">Date Event is Happening</label>
+                            <input type="datetime-local" class="form-control" id="end_datetime" name="end_datetime" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Location</label>
+                            <input type="text" class="form-control" id="location" name="location" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Category</label>
+                            <input type="text" class="form-control" id="category" name="category" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="max_capacity" class="form-label">Max Capacity</label>
+                            <input type="number" class="form-control" id="max_capacity" name="max_capacity" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -338,6 +380,29 @@
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src = '../../../assets/js/organizer-script.js'></script>
+<script>
+document.getElementById('eventCreationForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(this);
+
+    fetch('../../../actions/create_event_action.php', { // Ensure this path is correct
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        const feedbackMessage = document.getElementById('feedbackMessage');
+        if (data.success) {
+            feedbackMessage.innerHTML = '<div class="alert alert-success">Event created successfully!</div>';
+        } else {
+            feedbackMessage.innerHTML = '<div class="alert alert-danger">An error occurred: ' + data.message + '</div>';
+        }
+    })
+    .catch(error => {
+        document.getElementById('feedbackMessage').innerHTML = '<div class="alert alert-danger">An error occurred: ' + error.message + '</div>';
+    });
+});
+</script>
 </body>
 </html>
