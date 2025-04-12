@@ -18,7 +18,6 @@
 <ul class="sidebar-menu">
     <li><a href="./organizer_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
     <li><a href="./events-organiser.php"><i class="bi bi-calendar-event"></i> My Events</a></li>
-    <li><a href="./create-events.php"><i class="bi bi-plus-circle"></i> Create Event</a></li>
     <!--PROBABLY NOT NEEDED: attendee info can be in Analytics <li><a href="#"><i class="bi bi-people"></i> Attendees</a></li>-->
     <li><a href="./analytics.php"><i class="bi bi-graph-up"></i> Analytics</a></li>
     <!--PROBABLY NOT NEEDED: feedback info can be in Analytics <li><a href="#"><i class="bi bi-chat-dots"></i> Feedback</a></li>-->
