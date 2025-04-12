@@ -1,7 +1,7 @@
 <?php
 include '../db/config.php';
 $query = "SELECT * FROM events WHERE status = 'pending'";
-$result = $pdo->query($query);
+$result = $conn->query($query);
 
 while ($row = $result->fetch_assoc()) {
     echo "<div class='card mb-2'>

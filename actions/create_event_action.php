@@ -20,12 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try {
             $sql = "INSERT INTO events (title, description, start_datetime, end_datetime, location, organizer_id, category, max_capacity, is_public, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$title, $description, $start_datetime, $end_datetime, $location, $organizer_id, $category, $max_capacity, $is_public, $status]);
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sssssissis", $title, $description, $start_datetime, $end_datetime, $location, $organizer_id, $category, $max_capacity, $is_public, $status);
+            $stmt->execute();
 
             $response['success'] = true;
             $response['message'] = 'Event created successfully!';
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             $response['message'] = 'An error occurred while creating the event: ' . $e->getMessage();
         }
     } else {

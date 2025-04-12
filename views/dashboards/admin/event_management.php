@@ -52,7 +52,25 @@ if ($result) {
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/event-management-styles.css">
-
+    <style>
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .status-approved {
+            background-color: #198754;  /* Bootstrap success green */
+            color: white;
+        }
+        .status-pending {
+            background-color: #ffc107;  /* Bootstrap warning yellow */
+            color: black;
+        }
+        .status-rejected {
+            background-color: #dc3545;  /* Bootstrap danger red */
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid mt-3">
@@ -165,19 +183,38 @@ if ($result) {
 
                 if ($result) {
                     while ($event = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td><input type='checkbox' class='event-select' data-id='{$event['id']}'></td>";
+                        $eventId = $event['event_id'] ?? '';
+                        $maxCapacity = $event['max_capacity'] ?? 'N/A';
+                        
+                        // Determine the appropriate Bootstrap badge class
+                        $statusBadgeClass = '';
+                        switch(strtolower($event['status'])) {
+                            case 'approved':
+                                $statusBadgeClass = 'bg-success';
+                                break;
+                            case 'pending':
+                                $statusBadgeClass = 'bg-warning text-dark';
+                                break;
+                            case 'rejected':
+                                $statusBadgeClass = 'bg-danger';
+                                break;
+                            default:
+                                $statusBadgeClass = 'bg-secondary';
+                        }
+                        
+                        echo "<tr data-event-id='{$eventId}'>";
+                        echo "<td><input type='checkbox' class='event-select' data-id='{$eventId}'></td>";
                         echo "<td>{$event['title']}</td>";
                         echo "<td>{$event['start_datetime']} - {$event['end_datetime']}</td>";
                         echo "<td>{$event['category']}</td>";
                         echo "<td>{$event['location']}</td>";
                         echo "<td>{$event['organizer_id']}</td>";
-                        echo "<td>{$event['capacity']}</td>";
-                        echo "<td><span class='badge status-{$event['status']}'>{$event['status']}</span></td>";
+                        echo "<td>{$maxCapacity}</td>";
+                        echo "<td><span class='badge {$statusBadgeClass}'>" . ucfirst($event['status']) . "</span></td>";
                         echo "<td>
-                                <button class='btn btn-sm btn-info' onclick='viewEventDetails({$event['id']})'>View</button>
-                                <button class='btn btn-sm btn-primary' onclick='editEvent({$event['id']})'>Edit</button>
-                                <button class='btn btn-sm btn-danger' onclick='deleteEvent({$event['id']})'>Delete</button>
+                                <button class='btn btn-sm btn-info' onclick='viewEventDetails({$eventId})'>View</button>
+                                <button class='btn btn-sm btn-primary' onclick='editEvent({$eventId})'>Edit</button>
+                                <button class='btn btn-sm btn-danger' onclick='deleteEvent({$eventId})'>Delete</button>
                             </td>";
                         echo "</tr>";
                     }
@@ -262,7 +299,6 @@ if ($result) {
                                         <th>Date & Time</th>
                                         <th>Organization</th>
                                         <th>Venue</th>
-                                        <th>Submitted By</th>
                                         <th>Submission Date</th>
                                         <th>Actions</th>
                                     </tr>
@@ -270,20 +306,21 @@ if ($result) {
                                 <tbody id="pendingEventsTable">
                                     <?php
                                     $query = "SELECT * FROM events WHERE status = 'pending'";
-                                    $stmt = $pdo->query($query);
-                                    while ($event = $stmt->fetch()) {
-                                        echo "<tr>";
-                                        echo "<td><input type='checkbox' class='pending-select' data-id='{$event['id']}'></td>";
+                                    $result = $conn->query($query);
+                                    while ($event = $result->fetch_assoc()) {
+                                        $eventId = $event['event_id'] ?? '';
+                                        
+                                        echo "<tr data-event-id='{$eventId}'>";
+                                        echo "<td><input type='checkbox' class='pending-select' data-id='{$eventId}'></td>";
                                         echo "<td>{$event['title']}</td>";
                                         echo "<td>{$event['start_datetime']} - {$event['end_datetime']}</td>";
                                         echo "<td>{$event['organizer_id']}</td>";
                                         echo "<td>{$event['location']}</td>";
-                                        echo "<td>{$event['submitted_by']}</td>";
                                         echo "<td>{$event['created_at']}</td>";
                                         echo "<td>
-                                                <button class='btn btn-sm btn-info' onclick='viewPendingEvent({$event['id']})'>Review</button>
-                                                <button class='btn btn-sm btn-success' onclick='approveEvent({$event['id']})'>Approve</button>
-                                                <button class='btn btn-sm btn-danger' onclick='rejectEvent({$event['id']})'>Reject</button>
+                                                <button class='btn btn-sm btn-info' onclick='viewPendingEvent({$eventId})'>Review</button>
+                                                <button class='btn btn-sm btn-success' onclick='approveEvent({$eventId})'>Approve</button>
+                                                <button class='btn btn-sm btn-danger' onclick='rejectEvent({$eventId})'>Reject</button>
                                               </td>";
                                         echo "</tr>";
                                     }
@@ -310,7 +347,7 @@ if ($result) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="eventCreationForm" method="post" action="event_management_action.php">
+                        <form id="eventCreationForm">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Event Title</label>
                                 <input type="text" class="form-control" id="title" name="title" required>
@@ -320,138 +357,72 @@ if ($result) {
                                 <textarea class="form-control" id="description" name="description" required></textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="start_datetime" class="form-label">Date Event is Posted</label>
+                                <label for="start_datetime" class="form-label">Start Date & Time</label>
                                 <input type="datetime-local" class="form-control" id="start_datetime" name="start_datetime" required>
                             </div>
                             <div class="mb-3">
-                                <label for="end_datetime" class="form-label">Date Event is Happening</label>
+                                <label for="end_datetime" class="form-label">End Date & Time</label>
                                 <input type="datetime-local" class="form-control" id="end_datetime" name="end_datetime" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="mb-3">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="location" name="location" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Category</label>
+                                <select class="form-control" id="category" name="category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="academic">Academic</option>
+                                    <option value="social">Social</option>
+                                    <option value="cultural">Cultural</option>
+                                    <option value="sports">Sports</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="max_capacity" class="form-label">Maximum Capacity</label>
+                                <input type="number" class="form-control" id="max_capacity" name="max_capacity" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create Event</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
         
+        <!-- View Event Modal -->
         <div class="modal fade" id="eventDetailModal" tabindex="-1">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Event Details</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                
-                            <div class="col-md-7">
-                                <ul class="nav nav-tabs" id="detailTabs" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="attendees-tab" data-bs-toggle="tab" data-bs-target="#attendeesTab">Attendees</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="checkin-tab" data-bs-toggle="tab" data-bs-target="#checkinTab">Check-in</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="feedback-tab" data-bs-toggle="tab" data-bs-target="#feedbackTab">Feedback</button>
-                                    </li>
-                                </ul>
+                    <div class="modal-body">
+                        <!-- Content will be dynamically populated -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-                                <div class="tab-content mt-3" id="detailTabContent">
-                                    <div class="tab-pane fade show active" id="attendeesTab" role="tabpanel">
-                                        <div class="d-flex justify-content-between mb-3">
-                                            <div><strong>Registration Stats:</strong> <span id="registrationStats">80/100 registered (80% capacity)</span></div>
-                                            <button class="btn btn-sm btn-primary" id="addAttendee"><i class="fas fa-plus"></i> Add Attendee</button>
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="Search attendees..." id="attendeeSearch">
-                                            <button class="btn btn-outline-secondary" type="button">Search</button>
-                                        </div>
-                                        <div class="attendee-list">
-                                            <table class="table table-sm">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Name</th>
-                                                        <th>Email</th>
-                                                        <th>Registration Date</th>
-                                                        <th>Status</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="attendeeTableBody">
-                                                    <tr>
-                                                        <td>Michael Johnson</td>
-                                                        <td>michael@example.com</td>
-                                                        <td>April 2, 2025</td>
-                                                        <td><span class="badge bg-success">Confirmed</span></td>
-                                                        <td><button class="btn btn-sm btn-danger">Remove</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Emily Chen</td>
-                                                        <td>emily@example.com</td>
-                                                        <td>April 1, 2025</td>
-                                                        <td><span class="badge bg-success">Confirmed</span></td>
-                                                        <td><button class="btn btn-sm btn-danger">Remove</button></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-        
-                                    <div class="tab-pane fade" id="checkinTab" role="tabpanel">
-                                        <div class="mb-3">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Scan badge or enter email..." id="checkinInput">
-                                                <button class="btn btn-primary" type="button">Check-in</button>
-                                            </div>
-                                        </div>
-                                        <div class="row text-center">
-                                            <div class="col-6">
-                                                <div class="card bg-light mb-3">
-                                                    <div class="card-body">
-                                                        <h3 id="checkedInCount">42</h3>
-                                                        <p class="text-muted">Checked-in</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="card bg-light mb-3">
-                                                    <div class="card-body">
-                                                        <h3 id="remainingCount">38</h3>
-                                                        <p class="text-muted">Remaining</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <h6>Recent Check-ins</h6>
-                                            <div class="list-group" id="recentCheckins">
-                                                <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <strong>Emily Chen</strong>
-                                                        <small class="d-block text-muted">emily@example.com</small>
-                                                    </div>
-                                                    <span class="text-muted">2:45 PM</span>
-                                                </div>
-                                                <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <strong>Michael Johnson</strong>
-                                                        <small class="d-block text-muted">michael@example.com</small>
-                                                    </div>
-                                                    <span class="text-muted">2:42 PM</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-        
-                                    <div class="tab-pane fade" id="feedbackTab" role="tabpanel">
-                                        <p>No feedback available yet.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- /.modal-body -->
-                </div> <!-- /.modal-content -->
-            </div> <!-- /.modal-dialog -->
-        </div> <!-- /.modal -->
+        <!-- Edit Event Modal -->
+        <div class="modal fade" id="editEventModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Event</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editEventForm" action="../../../actions/event_management_action.php" method="POST">
+                            <!-- Form will be dynamically populated -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <script>
             document.getElementById('createEventModal')?.addEventListener('submit', function(e) {
@@ -478,29 +449,27 @@ if ($result) {
         endInput.value = formattedEndDateTime;
     });
 
-    document.getElementById('eventCreationForm')?.addEventListener('submit', function(e) {
+    document.getElementById('eventCreationForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
     const formData = new FormData(this);
+    formData.append('action', 'create'); // Add action parameter
     
-    fetch('event_management_action.php', {
-tion.php', {
+    fetch('../../../actions/event_management_action.php', {
         method: 'POST',
         body: formData
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert(data.message);
-            // Close the modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('createEventModal'));
-            modal.hide();
-            // Refresh the approval queue
-            loadApprovalQueue();
-            fetch('../event_management_action.php', {
-  .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while creating the event.');
+            alert('Event created successfully!');
+            location.reload(); // Refresh the page to show the new event
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        alert('Error: ' + error.message);
     });
 });
 
@@ -509,6 +478,209 @@ function loadApprovalQueue() {
     // Implement AJAX call to load pending events
     console.log('Loading approval queue...');
     // This would update the #pendingEventsTable content
+}
+
+function viewEventDetails(eventId) {
+    // Fetch event details and show in modal
+    fetch(`../../../actions/event_management_action.php?action=view&event_id=${eventId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Populate modal with event details
+                document.getElementById('eventDetailModal').querySelector('.modal-body').innerHTML = `
+                    <div class="container">
+                        <h4>${data.event.title}</h4>
+                        <p><strong>Description:</strong> ${data.event.description}</p>
+                        <p><strong>Date & Time:</strong> ${data.event.start_datetime} - ${data.event.end_datetime}</p>
+                        <p><strong>Location:</strong> ${data.event.location}</p>
+                        <p><strong>Category:</strong> ${data.event.category}</p>
+                        <p><strong>Status:</strong> ${data.event.status}</p>
+                    </div>
+                `;
+                // Show the modal
+                new bootstrap.Modal(document.getElementById('eventDetailModal')).show();
+            } else {
+                alert('Error loading event details: ' + data.message);
+            }
+        })
+        .catch(error => {
+            alert('Error: ' + error.message);
+        });
+}
+
+function editEvent(eventId) {
+    // Fetch event details and populate edit form
+    fetch(`../../../actions/event_management_action.php?action=view&event_id=${eventId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Populate edit form
+                document.getElementById('editEventForm').innerHTML = `
+                    <input type="hidden" name="event_id" value="${eventId}">
+                    <input type="hidden" name="action" value="update">
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-control" name="title" value="${data.event.title}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="description" required>${data.event.description}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Start Date & Time</label>
+                        <input type="datetime-local" class="form-control" name="start_datetime" value="${data.event.start_datetime}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">End Date & Time</label>
+                        <input type="datetime-local" class="form-control" name="end_datetime" value="${data.event.end_datetime}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Location</label>
+                        <input type="text" class="form-control" name="location" value="${data.event.location}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Event</button>
+                `;
+                // Show edit modal
+                new bootstrap.Modal(document.getElementById('editEventModal')).show();
+            } else {
+                alert('Error loading event details: ' + data.message);
+            }
+        })
+        .catch(error => {
+            alert('Error: ' + error.message);
+        });
+}
+
+function deleteEvent(eventId) {
+    if (confirm('Are you sure you want to delete this event? This action cannot be undone.')) {
+        // Add console.log for debugging
+        console.log('Deleting event:', eventId);
+        
+        fetch('../../../actions/event_management_action.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'action=delete&event_id=' + eventId
+        })
+        .then(response => {
+            // Add console.log for debugging
+            console.log('Response:', response);
+            return response.json();
+        })
+        .then(data => {
+            // Add console.log for debugging
+            console.log('Data:', data);
+            
+            if (data.success) {
+                alert('Event deleted successfully');
+                // Remove the row from the table
+                const row = document.querySelector(`tr[data-event-id="${eventId}"]`);
+                if (row) {
+                    row.remove();
+                } else {
+                    location.reload(); // Fallback: reload the page
+                }
+            } else {
+                alert('Error deleting event: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error: ' + error.message);
+        });
+    }
+}
+
+function viewPendingEvent(eventId) {
+    fetch(`../../../actions/event_management_action.php?action=view&event_id=${eventId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Populate modal with event details
+                document.getElementById('eventDetailModal').querySelector('.modal-body').innerHTML = `
+                    <div class="container">
+                        <h4>${data.event.title}</h4>
+                        <p><strong>Description:</strong> ${data.event.description}</p>
+                        <p><strong>Date & Time:</strong> ${data.event.start_datetime} - ${data.event.end_datetime}</p>
+                        <p><strong>Location:</strong> ${data.event.location}</p>
+                        <p><strong>Category:</strong> ${data.event.category}</p>
+                        <p><strong>Organization:</strong> ${data.event.organizer_id}</p>
+                    </div>
+                `;
+                // Show the modal
+                new bootstrap.Modal(document.getElementById('eventDetailModal')).show();
+            } else {
+                alert('Error loading event details: ' + data.message);
+            }
+        })
+        .catch(error => {
+            alert('Error: ' + error.message);
+        });
+}
+
+function approveEvent(eventId) {
+    if (confirm('Are you sure you want to approve this event?')) {
+        fetch('../../../actions/event_management_action.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `action=approve&event_id=${eventId}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Event approved successfully');
+                // Remove the row from the pending queue
+                const row = document.querySelector(`tr[data-event-id="${eventId}"]`);
+                if (row) {
+                    row.remove();
+                } else {
+                    location.reload(); // Fallback: reload the page
+                }
+            } else {
+                alert('Error approving event: ' + data.message);
+                console.error('Error details:', data);
+            }
+        })
+        .catch(error => {
+            alert('Error: ' + error.message);
+            console.error('Error details:', error);
+        });
+    }
+}
+
+function rejectEvent(eventId) {
+    if (confirm('Are you sure you want to reject this event?')) {
+        fetch('../../../actions/event_management_action.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `action=reject&event_id=${eventId}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Event rejected successfully');
+                // Remove the row from the pending queue
+                const row = document.querySelector(`tr[data-event-id="${eventId}"]`);
+                if (row) {
+                    row.remove();
+                } else {
+                    location.reload(); // Fallback: reload the page
+                }
+            } else {
+                alert('Error rejecting event: ' + data.message);
+                console.error('Error details:', data);
+            }
+        })
+        .catch(error => {
+            alert('Error: ' + error.message);
+            console.error('Error details:', error);
+        });
+    }
 }
         </script>
         
