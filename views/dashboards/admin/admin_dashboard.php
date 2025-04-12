@@ -1,3 +1,26 @@
+<?php
+session_start();
+include('../../../db/config.php');
+
+// Get count of approved events
+$event_query = "SELECT COUNT(*) as active_events FROM events WHERE status = 'approved'";
+$event_result = $conn->query($event_query);
+$active_events = $event_result->fetch_assoc()['active_events'];
+
+// Hardcoded value for total registrations
+$total_registrations = 150; // Hardcoded value
+
+// Get total number of users
+$users_query = "SELECT COUNT(*) as total_users FROM users";
+$users_result = $conn->query($users_query);
+$total_users = $users_result->fetch_assoc()['total_users'];
+
+// Get count of organizers
+$organizers_query = "SELECT COUNT(*) as total_organizers FROM users WHERE role = 'organizer'";
+$organizers_result = $conn->query($organizers_query);
+$total_organizers = $organizers_result->fetch_assoc()['total_organizers'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,50 +72,53 @@
                 </div>
             </div>
 
-            <div class="row mb-4">
+            <!-- Statistics Cards -->
+            <div class="row g-3 my-2">
                 <div class="col-md-3">
-                    <div class="stats-card">
-                        <div class="stats-icon primary">
-                            <i class="bi bi-calendar2-check"></i>
+                    <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                        <div>
+                            <h3 class="fs-2"><?php echo $active_events; ?></h3>
+                            <p class="fs-5">Active Events</p>
                         </div>
-                        <div class="stats-info">
-                            <h3 class="stats-number">42</h3>
-                            <p class="stats-label">Active Events</p>
-                        </div>
+                        <i class="fas fa-calendar-check fs-1 primary-text"></i>
                     </div>
                 </div>
+
                 <div class="col-md-3">
-                    <div class="stats-card">
-                        <div class="stats-icon success">
-                            <i class="bi bi-person-check"></i>
+                    <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                        <div>
+                            <h3 class="fs-2"><?php echo $total_registrations; ?></h3>
+                            <p class="fs-5">Event Registrations</p>
                         </div>
-                        <div class="stats-info">
-                            <h3 class="stats-number">1,284</h3>
-                            <p class="stats-label">Total Registrations</p>
-                        </div>
+                        <i class="fas fa-ticket-alt fs-1 primary-text"></i>
                     </div>
                 </div>
+
                 <div class="col-md-3">
-                    <div class="stats-card">
-                        <div class="stats-icon warning">
-                            <i class="bi bi-building"></i>
+                    <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                        <div>
+                            <h3 class="fs-2"><?php echo $total_users; ?></h3>
+                            <p class="fs-5">Total Users</p>
                         </div>
-                        <div class="stats-info">
-                            <h3 class="stats-number">18</h3>
-                            <p class="stats-label">Active Organizations</p>
-                        </div>
+                        <i class="fas fa-users fs-1 primary-text"></i>
                     </div>
                 </div>
+
                 <div class="col-md-3">
-                    <div class="stats-card">
-                        <div class="stats-icon danger">
-                            <i class="bi bi-exclamation-triangle"></i>
+                    <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                        <div>
+                            <h3 class="fs-2"><?php echo $total_organizers; ?></h3>
+                            <p class="fs-5">Active Organizations</p>
                         </div>
-                        <div class="stats-info">
-                            <h3 class="stats-number">5</h3>
-                            <!-- <p class="stats-label">Pending Approvals</p> -->
-                        </div>
+                        <i class="fas fa-building fs-1 primary-text"></i>
                     </div>
+                </div>
+            </div>
+
+            <!-- Main content area can be used for other dashboard features -->
+            <div class="row my-5">
+                <div class="col">
+                    <!-- Add any additional dashboard content here -->
                 </div>
             </div>
 
@@ -109,72 +135,53 @@
                                         <th>Date</th>
                                         <th>Registered</th>
                                         <th>Status</th>
-                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Akwaaba Night</td>
-                                        <td>ASC</td>
-                                        <td>20 Mar 2025</td>
-                                        <td>156/200</td>
-                                        <td><span class="event-status active">Active</span></td>
-                                        <td>
-                                            <button class="event-action-btn" title="Edit">Edit</button>
-                                            <button class="event-action-btn" title="Delete">Delete</button>
-                                            <button class="event-action-btn" title="Details">Details</button>
-                                          </td>                                     
-                                    </tr>
-                                    <tr>
-                                        <td>Global Café: Spanish Culture</td>
-                                        <td>OSCA</td>
-                                        <td>21 Mar 2025</td>
-                                        <td>98/120</td>
-                                        <td><span class="event-status active">Active</span></td>
-                                        <td>
-                                            <a href="#" class="event-action-btn" title="Edit">Edit</a>
-                                            <a href="#" class="event-action-btn" title="Delete">Delete</a>
-                                            <a href="#" class="event-action-btn" title="Details">Details</a>
-                                          </td>                                          
-                                    </tr>
-                                    <td>Annual Career Fair</td>
-                                    <td>Career Services</td>
-                                    <td>24 Mar 2025</td>
-                                    <td>210/300</td>
-                                    <td><span class="event-status active">Active</span></td>
-                                    <td>
-                                        <button class="event-action-btn" title="Edit">Edit</button>
-                                        <button class="event-action-btn" title="Delete">Delete</button>
-                                        <button class="event-action-btn" title="Details">Details</button>
-                                      </td>                                 
-                                </tr>
-                                <tr>
-                                    <td>Entrepreneurship Workshop</td>
-                                    <td>Business Department</td>
-                                    <td>31 Mar 2025</td>
-                                    <td>45/100</td>
-                                    <td><span class="event-status pending">Pending</span></td>
-                                    <td>
-                                        <button class="event-action-btn" title="Edit">Edit</button>
-                                        <button class="event-action-btn" title="Delete">Delete</button>
-                                        <button class="event-action-btn" title="Details">Details</button>
-                                      </td>                                   
-                                </tr>
-                                <tr>
-                                    <td>Poetry Night</td>
-                                    <td>Literary Club</td>
-                                    <td>02 Apr 2025</td>
-                                    <td>0/50</td>
-                                    <td><span class="event-status cancelled">Cancelled</span></td>
-                                    <td>
-                                        <button class="event-action-btn" title="Edit">Edit</button>
-                                        <button class="event-action-btn" title="Delete">Delete</button>
-                                        <button class="event-action-btn" title="Details">Details</button>
-                                      </td>
-                                      
-                                </tr>
-                            </tbody>
-                        </table>
+                                    <?php
+                                    // Query to get events
+                                    $query = "SELECT * FROM events ORDER BY created_at DESC";
+                                    $result = $conn->query($query);
+
+                                    if ($result && $result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            // Determine status class
+                                            $statusClass = '';
+                                            switch(strtolower($row['status'])) {
+                                                case 'approved':
+                                                    $statusClass = 'active';
+                                                    break;
+                                                case 'pending':
+                                                    $statusClass = 'pending';
+                                                    break;
+                                                case 'rejected':
+                                                    $statusClass = 'cancelled';
+                                                    break;
+                                                default:
+                                                    $statusClass = '';
+                                            }
+
+                                            // Format the date
+                                            $eventDate = date('d M Y', strtotime($row['start_datetime']));
+                                            
+                                            // Hardcoded registration value (you can modify this as needed)
+                                            $registrationRatio = "0/100";
+
+                                            echo "<tr>";
+                                            echo "<td>{$row['title']}</td>";
+                                            echo "<td>{$row['organizer_id']}</td>";
+                                            echo "<td>{$eventDate}</td>";
+                                            echo "<td>{$registrationRatio}</td>";
+                                            echo "<td><span class='event-status {$statusClass}'>" . ucfirst($row['status']) . "</span></td>";
+                                            echo "</tr>";
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='5' class='text-center'>No events found</td></tr>";
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
