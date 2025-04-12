@@ -170,7 +170,7 @@ if ($result) {
                                         <th>Date & Time</th>
                                         <th>Category</th>
                                         <th>Venue</th>
-                                        <th>Organization</th>
+                                        <th>Organizer</th>
                                         <th>Capacity</th>
                                         <th>Status</th>
                                         <th>Actions</th>
@@ -297,7 +297,7 @@ if ($result) {
                                         <th><input type="checkbox" id="selectAllPending"></th>
                                         <th>Title</th>
                                         <th>Date & Time</th>
-                                        <th>Organization</th>
+                                        <th>Organizer</th>
                                         <th>Venue</th>
                                         <th>Submission Date</th>
                                         <th>Actions</th>
