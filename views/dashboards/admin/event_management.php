@@ -1,30 +1,47 @@
 <?php 
-    session_start();
-    include('../../../db/config.php'); // Ensure the path is correct
+session_start();
+include('../../../db/config.php'); // Ensure the path is correct
 
-    // Check if the user is logged in
-    if (!isset($_SESSION['user_id'])) {
-        header('Location: login.php');
-        exit;
-    }
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
 
-    // Check if the user is an admin
-    $user_id = $_SESSION['user_id'];
-    $query = "SELECT role FROM Users WHERE user_id = ?";
-    $stmt = $pdo->prepare($query); // Use PDO
-    $stmt->execute([$user_id]);
-    $user = $stmt->fetch();
-    
-    if ($user['role'] !== 'admin') {
+// Check if the user is an admin
+$user_id = $_SESSION['user_id'];
+$query = "SELECT role FROM Users WHERE user_id = ?";
+$stmt = $conn->prepare($query);
+
+if ($stmt) {
+    $stmt->bind_param("s", $user_id); // "s" means string
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+
+    if (!$user || $user['role'] !== 'admin') {
         header('Location: index.php');
         exit;
     }
 
-    // Calculate the number of pending events
-    $query = "SELECT COUNT(*) as pending_count FROM events WHERE status = 'pending'";
-    $stmt = $pdo->query($query);
-    $pendingCount = $stmt->fetchColumn();
+    $stmt->close();
+} else {
+    echo "Failed to prepare the statement.";
+    exit;
+}
+
+// Calculate the number of pending events
+$query = "SELECT COUNT(*) as pending_count FROM events WHERE status = 'pending'";
+$result = $conn->query($query);
+
+if ($result) {
+    $row = $result->fetch_assoc();
+    $pendingCount = $row['pending_count'];
+} else {
+    $pendingCount = 0;
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -142,27 +159,33 @@
                                     </tr>
                                 </thead>
                                 <tbody id="eventsTableBody">
-                                    <?php
-                                    $query = "SELECT * FROM events";
-                                    $stmt = $pdo->query($query);
-                                    while ($event = $stmt->fetch()) {
-                                        echo "<tr>";
-                                        echo "<td><input type='checkbox' class='event-select' data-id='{$event['id']}'></td>";
-                                        echo "<td>{$event['title']}</td>";
-                                        echo "<td>{$event['start_datetime']} - {$event['end_datetime']}</td>";
-                                        echo "<td>{$event['category']}</td>";
-                                        echo "<td>{$event['location']}</td>";
-                                        echo "<td>{$event['organizer_id']}</td>";
-                                        echo "<td>{$event['capacity']}</td>";
-                                        echo "<td><span class='badge status-{$event['status']}'>{$event['status']}</span></td>";
-                                        echo "<td>
-                                                <button class='btn btn-sm btn-info' onclick='viewEventDetails({$event['id']})'>View</button>
-                                                <button class='btn btn-sm btn-primary' onclick='editEvent({$event['id']})'>Edit</button>
-                                                <button class='btn btn-sm btn-danger' onclick='deleteEvent({$event['id']})'>Delete</button>
-                                              </td>";
-                                        echo "</tr>";
-                                    }
-                                    ?>
+                                <?php
+                $query = "SELECT * FROM events";
+                $result = $conn->query($query);
+
+                if ($result) {
+                    while ($event = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td><input type='checkbox' class='event-select' data-id='{$event['id']}'></td>";
+                        echo "<td>{$event['title']}</td>";
+                        echo "<td>{$event['start_datetime']} - {$event['end_datetime']}</td>";
+                        echo "<td>{$event['category']}</td>";
+                        echo "<td>{$event['location']}</td>";
+                        echo "<td>{$event['organizer_id']}</td>";
+                        echo "<td>{$event['capacity']}</td>";
+                        echo "<td><span class='badge status-{$event['status']}'>{$event['status']}</span></td>";
+                        echo "<td>
+                                <button class='btn btn-sm btn-info' onclick='viewEventDetails({$event['id']})'>View</button>
+                                <button class='btn btn-sm btn-primary' onclick='editEvent({$event['id']})'>Edit</button>
+                                <button class='btn btn-sm btn-danger' onclick='deleteEvent({$event['id']})'>Delete</button>
+                            </td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='9'>Failed to fetch events.</td></tr>";
+                }
+                ?>
+
                                 </tbody>
                             </table>
                         </div>
