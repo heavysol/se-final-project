@@ -25,3 +25,17 @@ body {
 .input-group-text {
     cursor: pointer;
 }
+
+/* SweetAlert2 icon fix for Safari */
+.swal2-icon {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Ensure other interactive elements have proper user selection behavior */
+button, 
+.btn,
+.nav-link {
+    -webkit-user-select: none;
+    user-select: none;
+}
