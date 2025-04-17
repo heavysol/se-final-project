@@ -1,43 +1,83 @@
 <?php
 require_once '../../../db/config.php';
 
-// We already have $conn from config.php, so we don't need to create a new connection
+// Initialize database connection
 if (!isset($conn) || $conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
 // Handle search functionality
-function searchEvents($searchTerm) {
+function searchEvents($searchTerm, $userId) {
     global $conn;
-    $searchTerm = '%' . $conn->real_escape_string($searchTerm) . '%';
     
-    $query = "SELECT * FROM events 
-              WHERE (title LIKE ? 
-              OR description LIKE ? 
-              OR location LIKE ?)
-              AND is_public = 1 
-              AND start_datetime >= NOW()
-              ORDER BY start_datetime ASC";
-              
+    // Split search term into keywords
+    $keywords = explode(' ', trim($searchTerm));
+    $conditions = [];
+    $params = [];
+    $types = '';
+    
+    // Create conditions for each keyword
+    foreach ($keywords as $keyword) {
+        $keyword = '%' . $conn->real_escape_string($keyword) . '%';
+        $conditions[] = "(e.title LIKE ? OR e.description LIKE ? OR e.location LIKE ? OR e.category LIKE ?)";
+        $params = array_merge($params, [$keyword, $keyword, $keyword, $keyword]);
+        $types .= "ssss";
+    }
+    
+    // Combine all conditions with AND
+    $whereClause = implode(' AND ', $conditions);
+    
+    $query = "SELECT e.*, 
+              CASE WHEN r.registration_id IS NOT NULL THEN 1 ELSE 0 END as is_registered,
+              CASE WHEN c.calendar_id IS NOT NULL THEN 1 ELSE 0 END as in_calendar
+              FROM Events e 
+              LEFT JOIN Registrations r ON e.event_id = r.event_id AND r.user_id = ?
+              LEFT JOIN EventCalendar c ON e.event_id = c.event_id AND c.user_id = ?
+              WHERE {$whereClause}
+              AND e.start_datetime >= NOW()
+              ORDER BY 
+                CASE 
+                    WHEN e.title LIKE ? THEN 1
+                    WHEN e.category LIKE ? THEN 2
+                    WHEN e.location LIKE ? THEN 3
+                    ELSE 4
+                END,
+                e.start_datetime ASC";
+    
+    // Add user_id parameters
+    array_unshift($params, $userId, $userId);
+    $types = "ii" . $types;
+    
+    // Add parameters for ORDER BY clause
+    $searchTerm = '%' . $searchTerm . '%';
+    $params = array_merge($params, [$searchTerm, $searchTerm, $searchTerm]);
+    $types .= "sss";
+    
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
+    $stmt->bind_param($types, ...$params);
     $stmt->execute();
     
     return $stmt->get_result();
 }
 
 // Get upcoming events
-function getUpcomingEvents() {
+function getUpcomingEvents($userId) {
     global $conn;
     
-    $query = "SELECT * FROM events 
-              WHERE start_datetime >= NOW() 
-              AND is_public = 1
-              ORDER BY start_datetime ASC 
+    $query = "SELECT e.*, 
+              CASE WHEN r.registration_id IS NOT NULL THEN 1 ELSE 0 END as is_registered,
+              CASE WHEN c.calendar_id IS NOT NULL THEN 1 ELSE 0 END as in_calendar
+              FROM Events e 
+              LEFT JOIN Registrations r ON e.event_id = r.event_id AND r.user_id = ?
+              LEFT JOIN EventCalendar c ON e.event_id = c.event_id AND c.user_id = ?
+              WHERE e.start_datetime >= NOW() 
+              ORDER BY e.start_datetime ASC 
               LIMIT 10";
               
-    $result = $conn->query($query);
-    return $result;
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ii", $userId, $userId);
+    $stmt->execute();
+    return $stmt->get_result();
 }
 
 // Handle AJAX requests
@@ -45,7 +85,11 @@ if (isset($_POST['action'])) {
     $response = array();
     
     if ($_POST['action'] === 'search' && isset($_POST['search_term'])) {
-        $results = searchEvents($_POST['search_term']);
+        if (!isset($_SESSION['user_id'])) {
+            session_start();
+        }
+        $userId = $_SESSION['user_id'] ?? 0;
+        $results = searchEvents($_POST['search_term'], $userId);
         $events = array();
         
         while ($row = $results->fetch_assoc()) {
@@ -57,15 +101,17 @@ if (isset($_POST['action'])) {
                 'end_date' => $row['end_datetime'],
                 'venue' => $row['location'],
                 'category' => $row['category'],
-                'max_capacity' => $row['max_capacity']
+                'max_capacity' => $row['max_capacity'],
+                'is_registered' => (bool)$row['is_registered'],
+                'in_calendar' => (bool)$row['in_calendar']
             );
         }
         
         $response['status'] = 'success';
         $response['events'] = $events;
+        
+        echo json_encode($response);
+        exit;
     }
-    
-    echo json_encode($response);
-    exit;
 }
 ?> 
