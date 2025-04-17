@@ -2,62 +2,117 @@
 require_once '../../../db/config.php';
 session_start();
 
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Log the request details
+error_log("Calendar action request: " . json_encode($_POST));
+
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['status' => 'error', 'message' => 'Please login to add events to calendar']);
+    echo json_encode(['status' => 'error', 'message' => 'User not logged in']);
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
-    $event_id = $_POST['event_id'];
-    $user_id = $_SESSION['user_id'];
+    $eventId = (int)$_POST['event_id'];
+    $userId = (int)$_SESSION['user_id'];
+    $action = isset($_POST['action']) ? $_POST['action'] : 'add';
     
-    // Get event details
-    $query = "SELECT * FROM Events WHERE event_id = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $event_id);
-    $stmt->execute();
-    $event = $stmt->get_result()->fetch_assoc();
+    error_log("Processing calendar action: " . json_encode([
+        'action' => $action,
+        'eventId' => $eventId,
+        'userId' => $userId
+    ]));
     
-    if ($event) {
-        // Add to EventCalendar table if not already added
-        $checkQuery = "SELECT * FROM EventCalendar WHERE user_id = ? AND event_id = ?";
-        $stmt = $conn->prepare($checkQuery);
-        $stmt->bind_param("ii", $user_id, $event_id);
-        $stmt->execute();
+    try {
+        // First verify the event exists
+        $checkEventQuery = "SELECT event_id FROM Events WHERE event_id = ?";
+        $checkEventStmt = $conn->prepare($checkEventQuery);
+        $checkEventStmt->bind_param("i", $eventId);
+        $checkEventStmt->execute();
+        $eventResult = $checkEventStmt->get_result();
         
-        if ($stmt->get_result()->num_rows === 0) {
-            $insertQuery = "INSERT INTO EventCalendar (user_id, event_id, sync_status) VALUES (?, ?, 'synced')";
-            $stmt = $conn->prepare($insertQuery);
-            $stmt->bind_param("ii", $user_id, $event_id);
-            $stmt->execute();
+        if ($eventResult->num_rows === 0) {
+            echo json_encode(['status' => 'error', 'message' => 'Event not found']);
+            exit;
         }
         
-        // Create ICS file content
-        $ics_content = "BEGIN:VCALENDAR\r\n";
-        $ics_content .= "VERSION:2.0\r\n";
-        $ics_content .= "PRODID:-//Ashesi University//Campus Events//EN\r\n";
-        $ics_content .= "CALSCALE:GREGORIAN\r\n";
-        $ics_content .= "METHOD:PUBLISH\r\n";
-        $ics_content .= "BEGIN:VEVENT\r\n";
-        $ics_content .= "UID:" . uniqid() . "\r\n";
-        $ics_content .= "DTSTAMP:" . gmdate('Ymd\THis\Z') . "\r\n";
-        $ics_content .= "DTSTART:" . date('Ymd\THis', strtotime($event['start_datetime'])) . "\r\n";
-        $ics_content .= "DTEND:" . date('Ymd\THis', strtotime($event['end_datetime'])) . "\r\n";
-        $ics_content .= "SUMMARY:" . str_replace(",", "\\,", $event['title']) . "\r\n";
-        $ics_content .= "DESCRIPTION:" . str_replace(",", "\\,", $event['description']) . "\r\n";
-        $ics_content .= "LOCATION:" . str_replace(",", "\\,", $event['location']) . "\r\n";
-        $ics_content .= "END:VEVENT\r\n";
-        $ics_content .= "END:VCALENDAR\r\n";
-        
-        // Set headers for file download
-        header('Content-Type: text/calendar; charset=utf-8');
-        header('Content-Disposition: attachment; filename="event.ics"');
-        
-        echo $ics_content;
-        exit;
+        if ($action === 'add') {
+            // Check if event is already in calendar
+            $checkQuery = "SELECT calendar_id FROM EventCalendar WHERE user_id = ? AND event_id = ?";
+            $checkStmt = $conn->prepare($checkQuery);
+            $checkStmt->bind_param("ii", $userId, $eventId);
+            $checkStmt->execute();
+            $result = $checkStmt->get_result();
+            
+            if ($result->num_rows > 0) {
+                echo json_encode(['status' => 'error', 'message' => 'Event already in calendar']);
+                exit;
+            }
+            
+            // Add event to calendar
+            $query = "INSERT INTO EventCalendar (user_id, event_id, sync_status) VALUES (?, ?, 'pending')";
+            $stmt = $conn->prepare($query);
+            
+            if (!$stmt) {
+                error_log("Database prepare failed: " . $conn->error);
+                echo json_encode(['status' => 'error', 'message' => 'Database prepare failed: ' . $conn->error]);
+                exit;
+            }
+            
+            $stmt->bind_param("ii", $userId, $eventId);
+            
+            if ($stmt->execute()) {
+                echo json_encode(['status' => 'success', 'message' => 'Event added to calendar']);
+            } else {
+                error_log("Failed to add event to calendar: " . $stmt->error);
+                echo json_encode(['status' => 'error', 'message' => 'Failed to add event to calendar: ' . $stmt->error]);
+            }
+        } else if ($action === 'remove') {
+            // Check if event is in calendar
+            $checkQuery = "SELECT calendar_id FROM EventCalendar WHERE user_id = ? AND event_id = ?";
+            $checkStmt = $conn->prepare($checkQuery);
+            $checkStmt->bind_param("ii", $userId, $eventId);
+            $checkStmt->execute();
+            $result = $checkStmt->get_result();
+            
+            if ($result->num_rows === 0) {
+                echo json_encode(['status' => 'error', 'message' => 'Event not found in calendar']);
+                exit;
+            }
+            
+            // Remove event from calendar
+            $query = "DELETE FROM EventCalendar WHERE user_id = ? AND event_id = ?";
+            $stmt = $conn->prepare($query);
+            
+            if (!$stmt) {
+                error_log("Database prepare failed: " . $conn->error);
+                echo json_encode(['status' => 'error', 'message' => 'Database prepare failed: ' . $conn->error]);
+                exit;
+            }
+            
+            $stmt->bind_param("ii", $userId, $eventId);
+            
+            if ($stmt->execute()) {
+                if ($stmt->affected_rows > 0) {
+                    echo json_encode(['status' => 'success', 'message' => 'Event removed from calendar']);
+                } else {
+                    error_log("No rows affected when removing event from calendar");
+                    echo json_encode(['status' => 'error', 'message' => 'Failed to remove event from calendar: No rows affected']);
+                }
+            } else {
+                error_log("Failed to remove event from calendar: " . $stmt->error);
+                echo json_encode(['status' => 'error', 'message' => 'Failed to remove event from calendar: ' . $stmt->error]);
+            }
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Invalid action']);
+        }
+    } catch (Exception $e) {
+        error_log("Calendar action error: " . $e->getMessage());
+        echo json_encode(['status' => 'error', 'message' => 'An error occurred: ' . $e->getMessage()]);
     }
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
 }
-
-echo json_encode(['status' => 'error', 'message' => 'Event not found']);
-exit;
 ?> 

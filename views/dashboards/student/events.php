@@ -68,6 +68,19 @@ session_start();
             border-radius: 5px;
             padding: 10px;
         }
+        /* Add highlighting styles */
+        mark {
+            background-color: #fff3cd;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        .alert {
+            border-radius: 8px;
+            padding: 12px 20px;
+        }
+        .alert i {
+            margin-right: 8px;
+        }
     </style>
 </head>
 
@@ -113,11 +126,22 @@ session_start();
                         </h4>
                         <div id="eventsList">
                             <?php
-                            $upcomingEvents = getUpcomingEvents();
+                            if (!isset($_SESSION['user_id'])) {
+                                session_start();
+                            }
+                            $userId = $_SESSION['user_id'] ?? 0;
+                            $upcomingEvents = getUpcomingEvents($userId);
                             if ($upcomingEvents->num_rows > 0) {
                                 while ($event = $upcomingEvents->fetch_assoc()) {
                                     $startDate = new DateTime($event['start_datetime']);
                                     $endDate = new DateTime($event['end_datetime']);
+                                    
+                                    // Set button states based on registration and calendar status
+                                    $registerBtnClass = $event['is_registered'] ? 'btn-danger' : 'btn-primary register-btn';
+                                    $registerBtnText = $event['is_registered'] ? 'Unregister' : 'Register';
+                                    
+                                    $calendarBtnClass = $event['in_calendar'] ? 'btn-outline-danger' : 'btn-outline-primary calendar-btn';
+                                    $calendarBtnText = $event['in_calendar'] ? 'Remove from Calendar' : 'Add to Calendar';
                                     ?>
                                     <div class="event-item">
                                         <div class="event-title"><?php echo htmlspecialchars($event['title']); ?></div>
@@ -139,8 +163,8 @@ session_start();
                                             <i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['location']); ?>
                                         </div>
                                         <div class="event-actions">
-                                            <button type="button" class="btn btn-sm btn-primary register-btn" data-event-id="<?php echo (int)$event['event_id']; ?>">Register</button>
-                                            <button type="button" class="btn btn-sm btn-outline-primary calendar-btn" data-event-id="<?php echo (int)$event['event_id']; ?>">Add to Calendar</button>
+                                            <button type="button" class="btn btn-sm <?php echo $registerBtnClass; ?>" data-event-id="<?php echo (int)$event['event_id']; ?>"><?php echo $registerBtnText; ?></button>
+                                            <button type="button" class="btn btn-sm <?php echo $calendarBtnClass; ?>" data-event-id="<?php echo (int)$event['event_id']; ?>"><?php echo $calendarBtnText; ?></button>
                                         </div>
                                     </div>
                                     <?php
@@ -160,123 +184,51 @@ session_start();
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // Wait for document to be ready
         $(document).ready(function() {
-            // Handle Register button click
-            $('.register-btn').on('click', function() {
-                const eventId = $(this).data('event-id');
-                const button = $(this);
+            let searchTimeout;
+            
+            // Real-time search on input
+            $('#searchInput').on('input', function() {
+                clearTimeout(searchTimeout);
+                const searchTerm = $(this).val().trim();
                 
-                // Disable button to prevent double clicks
-                button.prop('disabled', true);
+                // If search term is empty, show all upcoming events
+                if (searchTerm === '') {
+                    location.reload();
+                    return;
+                }
                 
-                $.ajax({
-                    url: 'event_registration.php',
-                    type: 'POST',
-                    data: {
-                        event_id: eventId
-                    },
-                    success: function(response) {
-                        try {
-                            const data = JSON.parse(response);
-                            if (data.status === 'success') {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success!',
-                                    text: data.message
-                                });
-                                button.text('Registered').addClass('btn-success').removeClass('btn-primary');
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error!',
-                                    text: data.message
-                                });
-                                button.prop('disabled', false);
-                            }
-                        } catch (e) {
-                            console.error('Error parsing response:', e);
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error!',
-                                text: 'An error occurred while processing your request'
-                            });
-                            button.prop('disabled', false);
-                        }
-                    },
-                    error: function() {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: 'Failed to connect to the server'
-                        });
-                        button.prop('disabled', false);
-                    }
-                });
+                // Add small delay to prevent too many requests
+                searchTimeout = setTimeout(function() {
+                    performSearch(searchTerm);
+                }, 300);
             });
 
-            // Handle Add to Calendar button click
-            $('.calendar-btn').on('click', function() {
-                const eventId = $(this).data('event-id');
-                const button = $(this);
-                
-                // Disable button temporarily
-                button.prop('disabled', true);
-                
-                $.ajax({
-                    url: 'calendar_action.php',
-                    type: 'POST',
-                    data: {
-                        event_id: eventId
-                    },
-                    xhrFields: {
-                        responseType: 'blob'
-                    },
-                    success: function(response) {
-                        // Create blob link to download
-                        const blob = new Blob([response], { type: 'text/calendar' });
-                        const url = window.URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'event.ics';
-                        document.body.appendChild(a);
-                        a.click();
-                        window.URL.revokeObjectURL(url);
-                        document.body.removeChild(a);
-                        
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success!',
-                            text: 'Event has been added to your calendar'
-                        });
-                    },
-                    error: function() {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: 'Failed to add event to calendar'
-                        });
-                    },
-                    complete: function() {
-                        button.prop('disabled', false);
-                    }
-                });
+            // Search button click
+            $('#searchButton').on('click', function() {
+                const searchTerm = $('#searchInput').val().trim();
+                performSearch(searchTerm);
             });
 
-            // Search functionality
-            $('#searchButton').click(function() {
-                performSearch();
-            });
-
-            $('#searchInput').keypress(function(e) {
-                if (e.which == 13) {
-                    performSearch();
+            // Enter key press
+            $('#searchInput').on('keypress', function(e) {
+                if (e.which === 13) {
+                    const searchTerm = $(this).val().trim();
+                    performSearch(searchTerm);
                 }
             });
 
-            function performSearch() {
-                const searchTerm = $('#searchInput').val();
-                
+            function performSearch(searchTerm) {
+                if (searchTerm === '') {
+                    location.reload();
+                    return;
+                }
+
+                // Show loading state
+                const searchButton = $('#searchButton');
+                const originalButtonText = searchButton.text();
+                searchButton.prop('disabled', true).text('Searching...');
+
                 $.ajax({
                     url: 'events_action.php',
                     method: 'POST',
@@ -288,62 +240,115 @@ session_start();
                         try {
                             const data = JSON.parse(response);
                             if (data.status === 'success') {
-                                displayEvents(data.events);
+                                displaySearchResults(data.events, searchTerm);
+                                // Rebind event handlers for the new buttons
+                                bindEventHandlers();
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Search Failed',
+                                    text: 'Failed to retrieve search results'
+                                });
                             }
                         } catch (e) {
-                            console.error(e);
+                            console.error('Error parsing search results:', e);
                             Swal.fire({
-                                title: 'Error!',
-                                text: 'Error parsing search results',
                                 icon: 'error',
-                                confirmButtonColor: '#3085d6'
+                                title: 'Error',
+                                text: 'An error occurred while processing search results'
                             });
                         }
                     },
                     error: function() {
                         Swal.fire({
-                            title: 'Error!',
-                            text: 'Error occurred while searching events',
                             icon: 'error',
-                            confirmButtonColor: '#3085d6'
+                            title: 'Error',
+                            text: 'Failed to connect to the server'
                         });
+                    },
+                    complete: function() {
+                        searchButton.prop('disabled', false).text(originalButtonText);
                     }
                 });
             }
 
-            function displayEvents(events) {
+            function displaySearchResults(events, searchTerm) {
                 const eventsContainer = $('#eventsList');
                 eventsContainer.empty();
 
                 if (events.length === 0) {
-                    eventsContainer.html('<p>No events found matching your search.</p>');
+                    eventsContainer.html(`
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle"></i> No events found matching "${escapeHtml(searchTerm)}"
+                        </div>
+                    `);
                     return;
                 }
+
+                // Add search results header
+                eventsContainer.append(`
+                    <div class="alert alert-success mb-4">
+                        <i class="bi bi-search"></i> Found ${events.length} event(s) matching "${escapeHtml(searchTerm)}"
+                    </div>
+                `);
 
                 events.forEach(function(event) {
                     const startDate = new Date(event.start_date);
                     const endDate = new Date(event.end_date);
+                    
+                    // Check if user is registered and event is in calendar
+                    const isRegistered = event.is_registered || false;
+                    const isInCalendar = event.in_calendar || false;
+                    
+                    const registerBtnClass = isRegistered ? 'btn-danger' : 'btn-primary register-btn';
+                    const registerBtnText = isRegistered ? 'Unregister' : 'Register';
+                    
+                    const calendarBtnClass = isInCalendar ? 'btn-outline-danger' : 'btn-outline-primary calendar-btn';
+                    const calendarBtnText = isInCalendar ? 'Remove from Calendar' : 'Add to Calendar';
+                    
                     const eventHtml = `
                         <div class="event-item">
-                            <div class="event-title">${event.title}</div>
-                            <div class="event-description">${event.description}</div>
+                            <div class="event-title">${highlightSearchTerm(event.title, searchTerm)}</div>
+                            <div class="event-description">${highlightSearchTerm(event.description, searchTerm)}</div>
                             <div class="event-meta">
-                                <span class="event-category"><i class="bi bi-tag"></i> ${event.category}</span>
+                                <span class="event-category"><i class="bi bi-tag"></i> ${escapeHtml(event.category)}</span>
                                 <span class="event-capacity"><i class="bi bi-people"></i> Capacity: ${event.max_capacity}</span>
                             </div>
                             <div class="event-details">
                                 <i class="bi bi-calendar"></i> ${formatDateRange(startDate, endDate)}
                                 <br>
-                                <i class="bi bi-geo-alt"></i> ${event.venue}
+                                <i class="bi bi-geo-alt"></i> ${escapeHtml(event.venue)}
                             </div>
                             <div class="event-actions">
-                                <button class="btn btn-sm btn-primary register-btn" data-event-id="${event.id}">Register</button>
-                                <button class="btn btn-sm btn-outline-primary calendar-btn" data-event-id="${event.id}">Add to Calendar</button>
+                                <button type="button" class="btn btn-sm ${registerBtnClass}" data-event-id="${event.id}">${registerBtnText}</button>
+                                <button type="button" class="btn btn-sm ${calendarBtnClass}" data-event-id="${event.id}">${calendarBtnText}</button>
                             </div>
                         </div>
                     `;
                     eventsContainer.append(eventHtml);
                 });
+                
+                // Rebind event handlers for the new buttons
+                bindEventHandlers();
+            }
+
+            function highlightSearchTerm(text, searchTerm) {
+                if (!searchTerm) return escapeHtml(text);
+                
+                const escapedText = escapeHtml(text);
+                const terms = searchTerm.split(' ').filter(term => term.length > 0);
+                
+                let highlightedText = escapedText;
+                terms.forEach(term => {
+                    const regex = new RegExp('(' + escapeRegExp(term) + ')', 'gi');
+                    highlightedText = highlightedText.replace(regex, '<mark>$1</mark>');
+                });
+                
+                return highlightedText;
+            }
+
+            function escapeRegExp(string) {
+                return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             }
 
             function formatDateRange(startDate, endDate) {
@@ -353,6 +358,165 @@ session_start();
                 }
                 return `${startDate.toLocaleDateString('en-US', options)} - ${endDate.toLocaleDateString('en-US', options)}`;
             }
+
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+
+            function bindEventHandlers() {
+                // Remove existing handlers
+                $(document).off('click', '.register-btn, .btn-danger, .calendar-btn, .btn-outline-danger');
+                
+                // Handle Register/Unregister button clicks
+                $(document).on('click', '.register-btn, .btn-danger', function() {
+                    const eventId = $(this).data('event-id');
+                    const button = $(this);
+                    const isUnregister = button.hasClass('btn-danger');
+                    
+                    button.prop('disabled', true);
+                    
+                    $.ajax({
+                        url: 'event_registration.php',
+                        type: 'POST',
+                        data: {
+                            event_id: eventId,
+                            action: isUnregister ? 'unregister' : 'register'
+                        },
+                        success: function(response) {
+                            try {
+                                const data = JSON.parse(response);
+                                if (data.status === 'success') {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success!',
+                                        text: isUnregister ? 
+                                            'You have successfully unregistered from this event' :
+                                            'You have successfully registered for this event'
+                                    });
+                                    
+                                    if (isUnregister) {
+                                        button.text('Register')
+                                            .removeClass('btn-danger')
+                                            .addClass('btn-primary register-btn');
+                                    } else {
+                                        button.text('Unregister')
+                                            .removeClass('btn-primary register-btn')
+                                            .addClass('btn-danger');
+                                    }
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error!',
+                                        text: data.message || 'Failed to process your request'
+                                    });
+                                }
+                            } catch (e) {
+                                console.error('Error parsing response:', e);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: 'An error occurred while processing your request'
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Failed to connect to the server'
+                            });
+                        },
+                        complete: function() {
+                            button.prop('disabled', false);
+                        }
+                    });
+                });
+
+                // Handle Calendar button clicks (both Add and Remove)
+                $(document).on('click', '.calendar-btn, .btn-outline-danger', function() {
+                    const eventId = $(this).data('event-id');
+                    const button = $(this);
+                    const isRemove = button.hasClass('btn-outline-danger');
+                    
+                    button.prop('disabled', true);
+                    
+                    console.log('Calendar button clicked:', {
+                        eventId: eventId,
+                        isRemove: isRemove,
+                        buttonClasses: button.attr('class')
+                    });
+                    
+                    $.ajax({
+                        url: 'calendar_action.php',
+                        type: 'POST',
+                        data: {
+                            event_id: eventId,
+                            action: isRemove ? 'remove' : 'add'
+                        },
+                        success: function(response) {
+                            console.log('Calendar action response:', response);
+                            try {
+                                const data = JSON.parse(response);
+                                if (data.status === 'success') {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success!',
+                                        text: isRemove ? 
+                                            'Event has been removed from your calendar' :
+                                            'Event has been added to your calendar'
+                                    });
+                                    
+                                    if (isRemove) {
+                                        button.text('Add to Calendar')
+                                            .removeClass('btn-outline-danger')
+                                            .addClass('btn-outline-primary calendar-btn');
+                                    } else {
+                                        button.text('Remove from Calendar')
+                                            .removeClass('btn-outline-primary calendar-btn')
+                                            .addClass('btn-outline-danger');
+                                    }
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error!',
+                                        text: data.message || 'Failed to process your request'
+                                    });
+                                }
+                            } catch (e) {
+                                console.error('Error parsing response:', e);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: 'An error occurred while processing your request'
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Calendar action error:', {
+                                status: status,
+                                error: error,
+                                response: xhr.responseText
+                            });
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Failed to connect to the server'
+                            });
+                        },
+                        complete: function() {
+                            button.prop('disabled', false);
+                        }
+                    });
+                });
+            }
+
+            // Initial binding of event handlers
+            bindEventHandlers();
         });
     </script>
 </body>

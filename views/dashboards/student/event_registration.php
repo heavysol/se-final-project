@@ -2,76 +2,129 @@
 require_once '../../../db/config.php';
 session_start();
 
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Log the request details
+error_log("Registration request: " . json_encode($_POST));
+
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['status' => 'error', 'message' => 'Please login to register for events']);
+    echo json_encode(['status' => 'error', 'message' => 'User not logged in']);
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $response = array();
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
+    $eventId = (int)$_POST['event_id'];
+    $userId = (int)$_SESSION['user_id'];
+    $action = isset($_POST['action']) ? $_POST['action'] : 'register';
     
-    if (isset($_POST['event_id'])) {
-        $event_id = $_POST['event_id'];
-        $user_id = $_SESSION['user_id'];
+    error_log("Processing registration action: " . json_encode([
+        'action' => $action,
+        'eventId' => $eventId,
+        'userId' => $userId
+    ]));
+    
+    try {
+        // First verify the event exists and check capacity
+        $checkEventQuery = "SELECT event_id, max_capacity, 
+            (SELECT COUNT(*) FROM Registrations WHERE event_id = Events.event_id) as current_registrations 
+            FROM Events WHERE event_id = ?";
+        $checkEventStmt = $conn->prepare($checkEventQuery);
+        $checkEventStmt->bind_param("i", $eventId);
+        $checkEventStmt->execute();
+        $eventResult = $checkEventStmt->get_result();
         
-        // Check if already registered
-        $checkQuery = "SELECT * FROM Registrations 
-                      WHERE event_id = ? AND user_id = ?";
-        $stmt = $conn->prepare($checkQuery);
-        $stmt->bind_param("ii", $event_id, $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        if ($eventResult->num_rows === 0) {
+            echo json_encode(['status' => 'error', 'message' => 'Event not found']);
+            exit;
+        }
         
-        if ($result->num_rows > 0) {
-            $response = [
-                'status' => 'error',
-                'message' => 'You are already registered for this event'
-            ];
-        } else {
-            // Check event capacity
-            $capacityQuery = "SELECT e.max_capacity, COUNT(r.registration_id) as current_registrations 
-                            FROM Events e 
-                            LEFT JOIN Registrations r ON e.event_id = r.event_id 
-                            WHERE e.event_id = ? 
-                            GROUP BY e.event_id";
-            $stmt = $conn->prepare($capacityQuery);
-            $stmt->bind_param("i", $event_id);
-            $stmt->execute();
-            $capacityResult = $stmt->get_result()->fetch_assoc();
+        $eventData = $eventResult->fetch_assoc();
+        
+        // Check if user is already registered
+        $checkRegQuery = "SELECT registration_id FROM Registrations WHERE user_id = ? AND event_id = ?";
+        $checkRegStmt = $conn->prepare($checkRegQuery);
+        $checkRegStmt->bind_param("ii", $userId, $eventId);
+        $checkRegStmt->execute();
+        $regResult = $checkRegStmt->get_result();
+        $isRegistered = $regResult->num_rows > 0;
+        
+        if ($action === 'register') {
+            if ($isRegistered) {
+                echo json_encode(['status' => 'error', 'message' => 'You are already registered for this event']);
+                exit;
+            }
             
-            if ($capacityResult && $capacityResult['current_registrations'] < $capacityResult['max_capacity']) {
-                // Register the user
-                $registerQuery = "INSERT INTO Registrations (user_id, event_id, registration_date, attendance_status) 
-                                VALUES (?, ?, NOW(), 'pending')";
-                $stmt = $conn->prepare($registerQuery);
-                $stmt->bind_param("ii", $user_id, $event_id);
-                
-                if ($stmt->execute()) {
-                    $response = [
+            // Check if event is full
+            if ($eventData['current_registrations'] >= $eventData['max_capacity']) {
+                echo json_encode(['status' => 'error', 'message' => 'Event has reached maximum capacity']);
+                exit;
+            }
+            
+            // Register user for event
+            $query = "INSERT INTO Registrations (user_id, event_id, registration_date) VALUES (?, ?, NOW())";
+            $stmt = $conn->prepare($query);
+            
+            if (!$stmt) {
+                error_log("Database prepare failed: " . $conn->error);
+                echo json_encode(['status' => 'error', 'message' => 'Database prepare failed: ' . $conn->error]);
+                exit;
+            }
+            
+            $stmt->bind_param("ii", $userId, $eventId);
+            
+            if ($stmt->execute()) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => 'Successfully registered for the event',
+                    'is_registered' => true
+                ]);
+            } else {
+                error_log("Failed to register: " . $stmt->error);
+                echo json_encode(['status' => 'error', 'message' => 'Failed to register for event: ' . $stmt->error]);
+            }
+        } else if ($action === 'unregister') {
+            if (!$isRegistered) {
+                echo json_encode(['status' => 'error', 'message' => 'You are not registered for this event']);
+                exit;
+            }
+            
+            // Unregister user from event
+            $query = "DELETE FROM Registrations WHERE user_id = ? AND event_id = ?";
+            $stmt = $conn->prepare($query);
+            
+            if (!$stmt) {
+                error_log("Database prepare failed: " . $conn->error);
+                echo json_encode(['status' => 'error', 'message' => 'Database prepare failed: ' . $conn->error]);
+                exit;
+            }
+            
+            $stmt->bind_param("ii", $userId, $eventId);
+            
+            if ($stmt->execute()) {
+                if ($stmt->affected_rows > 0) {
+                    echo json_encode([
                         'status' => 'success',
-                        'message' => 'Successfully registered for the event'
-                    ];
+                        'message' => 'Successfully unregistered from the event',
+                        'is_registered' => false
+                    ]);
                 } else {
-                    $response = [
-                        'status' => 'error',
-                        'message' => 'Error registering for the event'
-                    ];
+                    error_log("No rows affected when unregistering");
+                    echo json_encode(['status' => 'error', 'message' => 'Failed to unregister: No rows affected']);
                 }
             } else {
-                $response = [
-                    'status' => 'error',
-                    'message' => 'Event has reached maximum capacity'
-                ];
+                error_log("Failed to unregister: " . $stmt->error);
+                echo json_encode(['status' => 'error', 'message' => 'Failed to unregister from event: ' . $stmt->error]);
             }
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Invalid action']);
         }
-    } else {
-        $response = [
-            'status' => 'error',
-            'message' => 'Event ID not provided'
-        ];
+    } catch (Exception $e) {
+        error_log("Registration error: " . $e->getMessage());
+        echo json_encode(['status' => 'error', 'message' => 'An error occurred: ' . $e->getMessage()]);
     }
-    
-    echo json_encode($response);
-    exit;
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
 }
 ?> 
