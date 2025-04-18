@@ -97,5 +97,19 @@ CREATE TABLE tasks (
     FOREIGN KEY (organizer_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
+
+
+CREATE TABLE IF NOT EXISTS Notifications (
+    notification_id INT AUTO_INCREMENT PRIMARY KEY,
+    organizer_id INT NOT NULL,
+    event_id INT,
+    title VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    is_read TINYINT(1) DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (organizer_id) REFERENCES Users(user_id),
+    FOREIGN KEY (event_id) REFERENCES Events(event_id)
+);
+
 USE CampusEventManagement;
 SHOW TABLES;

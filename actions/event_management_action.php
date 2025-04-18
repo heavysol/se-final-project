@@ -1,4 +1,8 @@
 <?php
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 session_start();
 include('../db/config.php');
 
@@ -89,19 +93,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         throw new Exception("Event is not in pending status");
                     }
                     
-                    // Update the event status to approved
-                    $update_stmt = $conn->prepare("UPDATE events SET status = 'approved' WHERE event_id = ?");
-                    $update_stmt->bind_param("i", $event_id);
-                    
-                    if ($update_stmt->execute()) {
+                    // Start transaction
+                    $conn->begin_transaction();
+
+                    try {
+                        // Update event status
+                        $sql = "UPDATE events SET status = 'approved' WHERE event_id = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("i", $event_id);
+                        
+                        if (!$stmt->execute()) {
+                            throw new Exception("Failed to update event status");
+                        }
+
+                        // Get event details for notification
+                        $sql = "SELECT organizer_id, title FROM events WHERE event_id = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("i", $event_id);
+                        $stmt->execute();
+                        $event = $stmt->get_result()->fetch_assoc();
+
+                        // Create notification
+                        $sql = "INSERT INTO Notifications (organizer_id, event_id, title, message) 
+                                VALUES (?, ?, 'Event Approved', ?)";
+                        $stmt = $conn->prepare($sql);
+                        $message = "Your event '{$event['title']}' has been approved and is now live.";
+                        $stmt->bind_param("iis", $event['organizer_id'], $event_id, $message);
+                        
+                        if (!$stmt->execute()) {
+                            throw new Exception("Failed to create notification");
+                        }
+
+                        // Commit transaction
+                        $conn->commit();
+
                         $response['success'] = true;
                         $response['message'] = 'Event approved successfully';
-                    } else {
-                        throw new Exception("Error updating event status: " . $conn->error);
+                    } catch (Exception $e) {
+                        // Rollback transaction on error
+                        $conn->rollback();
+                        throw $e;
                     }
-                    
-                    $check_stmt->close();
-                    $update_stmt->close();
                 } catch (Exception $e) {
                     $response['message'] = $e->getMessage();
                 }
@@ -124,19 +156,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         throw new Exception("Event is not in pending status");
                     }
                     
-                    // Update the event status to rejected
-                    $update_stmt = $conn->prepare("UPDATE events SET status = 'rejected' WHERE event_id = ?");
-                    $update_stmt->bind_param("i", $event_id);
-                    
-                    if ($update_stmt->execute()) {
+                    // Start transaction
+                    $conn->begin_transaction();
+
+                    try {
+                        // Update event status
+                        $sql = "UPDATE events SET status = 'rejected' WHERE event_id = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("i", $event_id);
+                        
+                        if (!$stmt->execute()) {
+                            throw new Exception("Failed to update event status");
+                        }
+
+                        // Get event details for notification
+                        $sql = "SELECT organizer_id, title FROM events WHERE event_id = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("i", $event_id);
+                        $stmt->execute();
+                        $event = $stmt->get_result()->fetch_assoc();
+
+                        // Create notification
+                        $sql = "INSERT INTO Notifications (organizer_id, event_id, title, message) 
+                                VALUES (?, ?, 'Event Rejected', ?)";
+                        $stmt = $conn->prepare($sql);
+                        $message = "Your event '{$event['title']}' has been rejected. Please review the event details and submit again.";
+                        $stmt->bind_param("iis", $event['organizer_id'], $event_id, $message);
+                        
+                        if (!$stmt->execute()) {
+                            throw new Exception("Failed to create notification");
+                        }
+
+                        // Commit transaction
+                        $conn->commit();
+
                         $response['success'] = true;
                         $response['message'] = 'Event rejected successfully';
-                    } else {
-                        throw new Exception("Error updating event status: " . $conn->error);
+                    } catch (Exception $e) {
+                        // Rollback transaction on error
+                        $conn->rollback();
+                        throw $e;
                     }
-                    
-                    $check_stmt->close();
-                    $update_stmt->close();
                 } catch (Exception $e) {
                     $response['message'] = $e->getMessage();
                 }
@@ -155,37 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     echo json_encode($response);
     exit;
-    }
-
-    // Check if it's an approval/rejection request
-    elseif (isset($_POST['event_id'], $_POST['action'])) {
-        $event_id = intval($_POST['event_id']);
-        $action = $_POST['action'];
-
-        if ($action === 'approve') {
-            $status = 'approved';
-        } elseif ($action === 'reject') {
-            $status = 'rejected';
-        } else {
-        $response['message'] = 'Invalid action.';
-        echo json_encode($response);
-        exit;
-        }
-
-    try {
-        $sql = "UPDATE events SET status = ? WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("si", $status, $event_id);
-        $stmt->execute();
-
-        $response['success'] = true;
-        $response['message'] = "Event successfully $status.";
-    } catch (Exception $e) {
-        $response['message'] = 'An error occurred: ' . $e->getMessage();
-    }
-        } else {
-    $response['message'] = 'Invalid input data.';
-        }
+}
 
 echo json_encode($response);
 ?>

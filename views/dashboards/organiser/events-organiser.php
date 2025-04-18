@@ -301,13 +301,13 @@ try {
                                 echo "<td><span class='badge {$statusClass}'>" . ucfirst($event['status']) . "</span></td>";
                                 echo "<td>
                                         <div class='btn-group'>
-                                            <button type='button' class='btn btn-sm btn-info' onclick='viewEvent({$event['event_id']})'>
+                                            <button type='button' class='btn btn-sm btn-info view-event' data-event-id='{$event['event_id']}'>
                                                 <i class='fas fa-eye'></i>
                                             </button>
-                                            <button type='button' class='btn btn-sm btn-primary' onclick='editEvent({$event['event_id']})'>
+                                            <button type='button' class='btn btn-sm btn-primary edit-event' data-event-id='{$event['event_id']}'>
                                                 <i class='fas fa-edit'></i>
                                             </button>
-                                            <button type='button' class='btn btn-sm btn-danger' onclick='deleteEvent({$event['event_id']})'>
+                                            <button type='button' class='btn btn-sm btn-danger delete-event' data-event-id='{$event['event_id']}'>
                                                 <i class='fas fa-trash'></i>
                                             </button>
                                         </div>
@@ -327,7 +327,7 @@ try {
 
     <!-- Edit Event Modal -->
     <div class="modal fade" id="editEventModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Event</h5>
@@ -335,55 +335,52 @@ try {
                 </div>
                 <div class="modal-body">
                     <form id="editEventForm">
-                        <input type="hidden" id="edit_event_id" name="event_id">
+                        <input type="hidden" id="editEventId" name="event_id">
                         <div class="mb-3">
-                            <label for="edit_title" class="form-label">Event Title</label>
-                            <input type="text" class="form-control" id="edit_title" name="title" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_description" class="form-label">Description</label>
-                            <textarea class="form-control" id="edit_description" name="description" required></textarea>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="edit_start_datetime" class="form-label">Start Date & Time</label>
-                                <input type="datetime-local" class="form-control" id="edit_start_datetime" name="start_datetime" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="edit_end_datetime" class="form-label">End Date & Time</label>
-                                <input type="datetime-local" class="form-control" id="edit_end_datetime" name="end_datetime" required>
-                            </div>
+                            <label for="editTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="editTitle" name="title" required>
                         </div>
                         <div class="mb-3">
-                            <label for="edit_location" class="form-label">Venue</label>
-                            <input type="text" class="form-control" id="edit_location" name="location" required>
+                            <label for="editDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="editDescription" name="description" required></textarea>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="edit_category" class="form-label">Category</label>
-                                <select class="form-control" id="edit_category" name="category" required>
-                                    <option value="Academic">Academic</option>
-                                    <option value="Social">Social</option>
-                                    <option value="Cultural">Cultural</option>
-                                    <option value="Sports">Sports</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="edit_max_capacity" class="form-label">Maximum Capacity</label>
-                                <input type="number" class="form-control" id="edit_max_capacity" name="max_capacity" required min="1">
-                            </div>
+                        <div class="mb-3">
+                            <label for="editLocation" class="form-label">Location</label>
+                            <input type="text" class="form-control" id="editLocation" name="location" required>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <div class="mb-3">
+                            <label for="editCategory" class="form-label">Category</label>
+                            <select class="form-control" id="editCategory" name="category" required>
+                                <option value="Academic">Academic</option>
+                                <option value="Cultural">Cultural</option>
+                                <option value="Social">Social</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editMaxCapacity" class="form-label">Maximum Capacity</label>
+                            <input type="number" class="form-control" id="editMaxCapacity" name="max_capacity" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editStartDatetime" class="form-label">Start Date & Time</label>
+                            <input type="datetime-local" class="form-control" id="editStartDatetime" name="start_datetime" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEndDatetime" class="form-label">End Date & Time</label>
+                            <input type="datetime-local" class="form-control" id="editEndDatetime" name="end_datetime" required>
                         </div>
                     </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" form="editEventForm" class="btn btn-primary" id="saveEdit">Save Changes</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Add View Modal -->
+    <!-- View Event Modal -->
     <div class="modal fade" id="viewEventModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -391,8 +388,39 @@ try {
                     <h5 class="modal-title">Event Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body" id="viewEventDetails">
-                    <!-- Content will be dynamically populated -->
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <h6>Title</h6>
+                        <p id="viewEventTitle"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Description</h6>
+                        <p id="viewEventDescription"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Location</h6>
+                        <p id="viewEventLocation"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Category</h6>
+                        <p id="viewEventCategory"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Maximum Capacity</h6>
+                        <p id="viewEventCapacity"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Start Date & Time</h6>
+                        <p id="viewEventStart"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h6>End Date & Time</h6>
+                        <p id="viewEventEnd"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Status</h6>
+                        <p id="viewEventStatus"></p>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -408,309 +436,143 @@ try {
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     
     <script>
-        // Initialize DataTable
-        $(document).ready(function() {
-            const table = $('#eventsTable').DataTable({
-                processing: true,
-                serverSide: false,
-                ajax: {
-                    url: '../../../actions/organizer_action.php?action=get_my_events',
-                    type: 'GET',
-                    dataSrc: 'data'
+    $(document).ready(function() {
+        // View Event
+        $('.view-event').click(function() {
+            const eventId = $(this).data('event-id');
+            $.ajax({
+                url: '../../../actions/organizer_action.php',
+                method: 'POST',
+                data: {
+                    action: 'view',
+                    event_id: eventId
                 },
-                paging: false,
-                scrollY: false,
-                scrollX: false,
-                info: false,
-                columns: [
-                    { 
-                        data: 'title',
-                        width: '20%'
-                    },
-                    { 
-                        data: 'description',
-                        width: '35%',
-                        render: function(data) {
-                            return data.length > 200 ? data.substr(0, 197) + '...' : data;
-                        }
-                    },
-                    { 
-                        data: 'max_capacity',
-                        width: '10%',
-                        className: 'text-center'
-                    },
-                    { 
-                        data: 'category',
-                        width: '15%'
-                    },
-                    { 
-                        data: 'status',
-                        width: '10%',
-                        className: 'text-center',
-                        render: function(data) {
-                            const statusClasses = {
-                                'pending': 'warning',
-                                'approved': 'success',
-                                'rejected': 'danger'
-                            };
-                            return `<span class="badge bg-${statusClasses[data] || 'secondary'}">${data}</span>`;
-                        }
-                    },
-                    {
-                        data: 'id',
-                        width: '10%',
-                        orderable: false,
-                        className: 'text-center',
-                        render: function(data, type, row) {
-                            return `
-                                <div class="btn-group">
-                                    <button class="btn btn-sm btn-primary edit-event" data-id="${data}">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger delete-event" data-id="${data}">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </div>
-                            `;
-                        }
-                    }
-                ],
-                dom: '<"row"<"col-sm-12 col-md-6"f>>',
-                language: {
-                    search: "Search events:",
-                    zeroRecords: "No matching events found",
-                    emptyTable: "No events available"
-                }
-            });
-
-            // Edit Event Handler
-            $('#eventsTable').on('click', '.edit-event', function() {
-                const eventId = $(this).data('id');
-                // Fetch event details and populate modal
-                fetch(`../../../actions/organizer_action.php?action=get_event&id=${eventId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const event = data.event;
-                            $('#edit_event_id').val(event.id);
-                            $('#edit_title').val(event.title);
-                            $('#edit_description').val(event.description);
-                            $('#edit_max_capacity').val(event.max_capacity);
-                            $('#edit_category').val(event.category);
-                            $('#edit_location').val(event.location);
-                            $('#edit_start_datetime').val(event.start_datetime.slice(0, 16));
-                            $('#edit_end_datetime').val(event.end_datetime.slice(0, 16));
-                            $('#editEventModal').modal('show');
-                        } else {
-                            alert('Failed to load event details');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('An error occurred while loading event details');
-                    });
-            });
-
-            // Delete Event Handler
-            $('#eventsTable').on('click', '.delete-event', function() {
-                if (confirm('Are you sure you want to delete this event?')) {
-                    const eventId = $(this).data('id');
-                    const formData = new FormData();
-                    formData.append('action', 'delete');
-                    formData.append('event_id', eventId);
-
-                    fetch('../../../actions/organizer_action.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            table.ajax.reload();
-                            alert('Event deleted successfully');
-                        } else {
-                            alert(data.message || 'Failed to delete event');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('An error occurred while deleting the event');
-                    });
-                }
-            });
-
-            // Edit Event Form Submit Handler
-            $('#editEventForm').on('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(this);
-                formData.append('action', 'update');
-
-                fetch('../../../actions/organizer_action.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        $('#editEventModal').modal('hide');
-                        table.ajax.reload();
-                        alert('Event updated successfully');
+                success: function(response) {
+                    if (response.success && response.event) {
+                        const event = response.event;
+                        // Populate modal with event details
+                        $('#viewEventTitle').text(event.title);
+                        $('#viewEventDescription').text(event.description);
+                        $('#viewEventLocation').text(event.location);
+                        $('#viewEventCategory').text(event.category);
+                        $('#viewEventCapacity').text(event.max_capacity);
+                        $('#viewEventStart').text(new Date(event.start_datetime).toLocaleString());
+                        $('#viewEventEnd').text(new Date(event.end_datetime).toLocaleString());
+                        $('#viewEventStatus').text(event.status);
+                        
+                        // Show the modal
+                        $('#viewEventModal').modal('show');
                     } else {
-                        alert(data.message || 'Failed to update event');
+                        alert('Error loading event details: ' + (response.message || 'Unknown error'));
                     }
-                })
-                .catch(error => {
+                },
+                error: function(xhr, status, error) {
                     console.error('Error:', error);
-                    alert('An error occurred while updating the event');
-                });
+                    alert('Error loading event details. Please try again.');
+                }
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Handle View Event
-            function handleViewClick(eventId) {
-                    fetch(`../../../actions/organizer_action.php?action=get_event&event_id=${eventId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                const event = data.event;
-                            // Format dates
-                            const startDate = new Date(event.start_datetime).toLocaleString();
-                            const endDate = new Date(event.end_datetime).toLocaleString();
-                            
-                            document.getElementById('viewEventDetails').innerHTML = `
-                                <div class="event-info">
-                                    <h4>${event.title}</h4>
-                                    <p><strong>Description:</strong> ${event.description}</p>
-                                    <p><strong>Category:</strong> ${event.category}</p>
-                                    <p><strong>Venue:</strong> ${event.location}</p>
-                                    <p><strong>Capacity:</strong> ${event.max_capacity}</p>
-                                    <p><strong>Status:</strong> ${event.status}</p>
-                                    <p><strong>Start Date:</strong> ${startDate}</p>
-                                    <p><strong>End Date:</strong> ${endDate}</p>
-                                </div>
-                            `;
-                            new bootstrap.Modal(document.getElementById('viewEventModal')).show();
-                        } else {
-                            alert('Error loading event details: ' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error loading event details');
-                    });
-            }
-
-            // Handle Edit Event
-            function handleEditClick(eventId) {
-                fetch(`../../../actions/organizer_action.php?action=get_event&event_id=${eventId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const event = data.event;
-                            document.getElementById('edit_event_id').value = event.event_id;
-                            document.getElementById('edit_title').value = event.title;
-                            document.getElementById('edit_description').value = event.description;
-                            document.getElementById('edit_start_datetime').value = event.start_datetime.slice(0, 16);
-                            document.getElementById('edit_end_datetime').value = event.end_datetime.slice(0, 16);
-                            document.getElementById('edit_location').value = event.location;
-                            document.getElementById('edit_category').value = event.category;
-                            document.getElementById('edit_max_capacity').value = event.max_capacity;
-                            
-                            new bootstrap.Modal(document.getElementById('editEventModal')).show();
-                        } else {
-                            alert('Error loading event details: ' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error loading event details');
-                    });
-            }
-
-            // Add click handlers for both buttons and icons
-            document.addEventListener('click', function(e) {
-                // Handle view clicks
-                if (e.target.classList.contains('view-btn') || e.target.classList.contains('fa-eye')) {
-                    const button = e.target.closest('.view-btn');
-                    if (button) {
-                        handleViewClick(button.dataset.id);
+        // Edit Event
+        $('.edit-event').click(function() {
+            const eventId = $(this).data('event-id');
+            $.ajax({
+                url: '../../../actions/organizer_action.php',
+                method: 'POST',
+                data: {
+                    action: 'view',
+                    event_id: eventId
+                },
+                success: function(response) {
+                    if (response.success && response.event) {
+                        const event = response.event;
+                        // Populate edit form with event details
+                        $('#editEventId').val(event.event_id);
+                        $('#editTitle').val(event.title);
+                        $('#editDescription').val(event.description);
+                        $('#editLocation').val(event.location);
+                        $('#editCategory').val(event.category);
+                        $('#editMaxCapacity').val(event.max_capacity);
+                        $('#editStartDatetime').val(event.start_datetime.replace(' ', 'T'));
+                        $('#editEndDatetime').val(event.end_datetime.replace(' ', 'T'));
+                        
+                        // Show the modal
+                        $('#editEventModal').modal('show');
+                    } else {
+                        alert('Error loading event details: ' + (response.message || 'Unknown error'));
                     }
-                }
-                
-                // Handle edit clicks
-                if (e.target.classList.contains('edit-btn') || e.target.classList.contains('fa-edit')) {
-                    const button = e.target.closest('.edit-btn');
-                    if (button) {
-                        handleEditClick(button.dataset.id);
-                    }
-                }
-                
-                // Handle delete clicks
-                if (e.target.classList.contains('delete-btn') || e.target.classList.contains('fa-trash')) {
-                    const button = e.target.closest('.delete-btn');
-                    if (button && confirm('Are you sure you want to delete this event?')) {
-                        const eventId = button.dataset.id;
-                        const formData = new FormData();
-                        formData.append('action', 'delete');
-                        formData.append('event_id', eventId);
-
-                        fetch('../../../actions/organizer_action.php', {
-                            method: 'POST',
-                            body: formData
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                button.closest('tr').remove();
-                                alert('Event deleted successfully');
-                            } else {
-                                alert('Error deleting event: ' + data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Error deleting event');
-                        });
-                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('Error loading event details. Please try again.');
                 }
             });
+        });
 
-            // Handle Edit Form Submit
-            document.getElementById('editEventForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const submitButton = this.querySelector('button[type="submit"]');
-                const originalText = submitButton.innerHTML;
-                submitButton.disabled = true;
-                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-                
-                const formData = new FormData(this);
-                formData.append('action', 'update');
+        // Handle edit form submission
+        $('#editEventForm').submit(function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitButton = $('#saveEdit');
+            submitButton.prop('disabled', true)
+                       .html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
 
-                fetch('../../../actions/organizer_action.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
+            const formData = new FormData(this);
+            formData.append('action', 'edit');
+
+            $.ajax({
+                url: '../../../actions/organizer_action.php',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
                         alert('Event updated successfully!');
+                        $('#editEventModal').modal('hide');
                         location.reload();
                     } else {
-                        alert('Error updating event: ' + data.message);
+                        alert('Error updating event: ' + (response.message || 'Unknown error'));
                     }
-                })
-                .catch(error => {
+                },
+                error: function(xhr, status, error) {
                     console.error('Error:', error);
-                    alert('Error updating event');
-                })
-                .finally(() => {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalText;
-                });
+                    alert('Error updating event. Please try again.');
+                },
+                complete: function() {
+                    submitButton.prop('disabled', false).html('Save Changes');
+                }
             });
         });
+
+        // Delete Event
+        $('.delete-event').click(function() {
+            if (confirm('Are you sure you want to delete this event? This action cannot be undone.')) {
+                const eventId = $(this).data('event-id');
+                $.ajax({
+                    url: '../../../actions/organizer_action.php',
+                    method: 'POST',
+                    data: {
+                        action: 'delete',
+                        event_id: eventId
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert('Event deleted successfully!');
+                            location.reload();
+                        } else {
+                            alert('Error deleting event: ' + (response.message || 'Unknown error'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        alert('Error deleting event. Please try again.');
+                    }
+                });
+            }
+        });
+    });
     </script>
 </body>
 </html>

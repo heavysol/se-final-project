@@ -243,28 +243,33 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
                     // Fetch tasks for the current organizer
                     $tasks_query = "SELECT * FROM Tasks WHERE organizer_id = ? ORDER BY due_date ASC";
                     $stmt = $conn->prepare($tasks_query);
-                    $stmt->bind_param("i", $_SESSION['user_id']);
-                    $stmt->execute();
-                    $tasks_result = $stmt->get_result();
+                    if ($stmt) {
+                        $stmt->bind_param("i", $_SESSION['user_id']);
+                        $stmt->execute();
+                        $tasks_result = $stmt->get_result();
 
-                    if ($tasks_result->num_rows > 0) {
-                        while ($task = $tasks_result->fetch_assoc()) {
-                            $status_class = $task['status'] === 'completed' ? 'completed' : '';
-                            $checked = $task['status'] === 'completed' ? 'checked' : '';
-                            $due_date = $task['due_date'] ? date('M d', strtotime($task['due_date'])) : 'No due date';
-                            echo "<div class='task-item {$status_class}' data-task-id='{$task['task_id']}'>
-                                    <div class='task-checkbox'>
-                                        <input type='checkbox' class='form-check-input task-status' {$checked}>
-                                    </div>
-                                    <div class='task-title'>{$task['title']}</div>
-                                    <div class='task-date'>{$due_date}</div>
-                                    <button class='btn btn-sm btn-danger delete-task' data-task-id='{$task['task_id']}'>
-                                        <i class='fas fa-trash'></i>
-                                    </button>
-                                </div>";
+                        if ($tasks_result->num_rows > 0) {
+                            while ($task = $tasks_result->fetch_assoc()) {
+                                $status_class = $task['status'] === 'completed' ? 'completed' : '';
+                                $checked = $task['status'] === 'completed' ? 'checked' : '';
+                                $due_date = $task['due_date'] ? date('M d', strtotime($task['due_date'])) : 'No due date';
+                                echo "<div class='task-item {$status_class}' data-task-id='{$task['task_id']}'>
+                                        <div class='task-checkbox'>
+                                            <input type='checkbox' class='form-check-input task-status' {$checked}>
+                                        </div>
+                                        <div class='task-title'>{$task['title']}</div>
+                                        <div class='task-date'>{$due_date}</div>
+                                        <button class='btn btn-sm btn-danger delete-task' data-task-id='{$task['task_id']}'>
+                                            <i class='fas fa-trash'></i>
+                                        </button>
+                                    </div>";
+                            }
+                        } else {
+                            echo "<div class='text-center text-muted'>No tasks yet</div>";
                         }
                     } else {
-                        echo "<div class='text-center text-muted'>No tasks yet</div>";
+                        echo "<div class='text-center text-danger'>Error loading tasks</div>";
+                        error_log("Error preparing tasks query: " . $conn->error);
                     }
                     ?>
                 </div>
@@ -274,30 +279,58 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
             <div class="dashboard-card">
                 <h4>
                     Recent Notifications
-                    <span class="badge badge-custom">3 New</span>
+                    <?php
+                    // Count unread notifications
+                    $notifications_count_query = "SELECT COUNT(*) as unread_count FROM Notifications 
+                                                WHERE organizer_id = ? AND is_read = 0";
+                    $stmt = $conn->prepare($notifications_count_query);
+                    if ($stmt) {
+                        $stmt->bind_param("i", $_SESSION['user_id']);
+                        $stmt->execute();
+                        $notifications_count = $stmt->get_result()->fetch_assoc()['unread_count'];
+                        
+                        if ($notifications_count > 0) {
+                            echo "<span class='badge badge-custom'>{$notifications_count} New</span>";
+                        }
+                    } else {
+                        error_log("Error preparing notifications count query: " . $conn->error);
+                    }
+                    ?>
                 </h4>
                 <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1">New registration for Akwaaba Night</h6>
-                            <small>3 mins ago</small>
-                        </div>
-                        <p class="mb-1">15 new attendees registered for the upcoming event.</p>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1">Student Center venue confirmed</h6>
-                            <small>2 hours ago</small>
-                        </div>
-                        <p class="mb-1">Your venue request for Akwaaba Night has been approved.</p>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1">Feedback summary available</h6>
-                            <small>1 day ago</small>
-                        </div>
-                        <p class="mb-1">Feedback from Cultural Day is now available for review.</p>
-                    </a>
+                    <?php
+                    // Fetch recent notifications
+                    $notifications_query = "SELECT n.*, e.title as event_title 
+                                          FROM Notifications n 
+                                          LEFT JOIN Events e ON n.event_id = e.event_id 
+                                          WHERE n.organizer_id = ? 
+                                          ORDER BY n.created_at DESC 
+                                          LIMIT 5";
+                    $stmt = $conn->prepare($notifications_query);
+                    if ($stmt) {
+                        $stmt->bind_param("i", $_SESSION['user_id']);
+                        $stmt->execute();
+                        $notifications_result = $stmt->get_result();
+
+                        if ($notifications_result->num_rows > 0) {
+                            while ($notification = $notifications_result->fetch_assoc()) {
+                                $is_read_class = $notification['is_read'] ? '' : 'unread';
+                                
+                                echo "<a href='#' class='list-group-item list-group-item-action {$is_read_class}' data-notification-id='{$notification['notification_id']}'>
+                                        <div class='d-flex w-100 justify-content-between'>
+                                            <h6 class='mb-1'>{$notification['title']}</h6>
+                                        </div>
+                                        <p class='mb-1'>{$notification['message']}</p>
+                                    </a>";
+                            }
+                        } else {
+                            echo "<div class='text-center text-muted'>No notifications yet</div>";
+                        }
+                    } else {
+                        echo "<div class='text-center text-danger'>Error loading notifications</div>";
+                        error_log("Error preparing notifications query: " . $conn->error);
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -362,14 +395,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addTaskForm" onsubmit="return false;">
+                    <form id="addTaskForm">
                         <div class="mb-3">
-                            <label for="taskTitle" class="form-label">Task Title</label>
+                            <label for="taskTitle" class="form-label">Task Title *</label>
                             <input type="text" class="form-control" id="taskTitle" name="title" required>
                         </div>
                         <div class="mb-3">
                             <label for="taskDescription" class="form-label">Description</label>
-                            <textarea class="form-control" id="taskDescription" name="description"></textarea>
+                            <textarea class="form-control" id="taskDescription" name="description" rows="3"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="taskDueDate" class="form-label">Due Date</label>
@@ -553,32 +586,34 @@ $(document).ready(function() {
     $('#saveTask').click(function(e) {
         e.preventDefault();
         
+        // Get form data
+        const title = $('#taskTitle').val().trim();
+        const description = $('#taskDescription').val().trim();
+        const dueDate = $('#taskDueDate').val();
+        
         // Validate form
-        const title = $('#taskTitle').val();
         if (!title) {
             alert('Please enter a task title');
             return;
         }
 
-        // Get form data
+        // Create form data
         const formData = new FormData();
         formData.append('action', 'add');
         formData.append('title', title);
-        formData.append('description', $('#taskDescription').val());
-        formData.append('due_date', $('#taskDueDate').val());
-
-        console.log('Saving task with data:', {
-            title: title,
-            description: $('#taskDescription').val(),
-            due_date: $('#taskDueDate').val()
-        });
+        formData.append('description', description);
+        if (dueDate) {
+            formData.append('due_date', dueDate);
+        }
 
         // Show loading state
-        $('#saveTask').prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
+        const saveButton = $('#saveTask');
+        saveButton.prop('disabled', true)
+                 .html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
 
         // Make AJAX request
         $.ajax({
-            url: '../../../actions/task_action.php',  // Updated path
+            url: '../../../actions/task_action.php',
             method: 'POST',
             data: formData,
             processData: false,
@@ -586,6 +621,9 @@ $(document).ready(function() {
             success: function(response) {
                 console.log('Server response:', response);
                 if (response.success) {
+                    // Show success message
+                    alert('Task added successfully!');
+                    // Close modal and refresh page
                     $('#addTaskModal').modal('hide');
                     location.reload();
                 } else {
@@ -598,7 +636,7 @@ $(document).ready(function() {
             },
             complete: function() {
                 // Reset button state
-                $('#saveTask').prop('disabled', false).html('Save Task');
+                saveButton.prop('disabled', false).html('Save Task');
             }
         });
     });
@@ -667,6 +705,54 @@ $(document).ready(function() {
             });
         }
     });
+
+    // Handle notification clicks
+    $('.list-group-item').click(function(e) {
+        e.preventDefault();
+        const notificationId = $(this).data('notification-id');
+        
+        // Mark notification as read
+        $.ajax({
+            url: '../../../actions/notification_action.php',
+            method: 'POST',
+            data: {
+                action: 'mark_read',
+                notification_id: notificationId
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Remove unread class and update badge
+                    $(this).removeClass('unread');
+                    updateUnreadCount();
+                }
+            }
+        });
+    });
+
+    // Function to update unread count
+    function updateUnreadCount() {
+        $.ajax({
+            url: '../../../actions/notification_action.php',
+            method: 'POST',
+            data: {
+                action: 'get_unread_count'
+            },
+            success: function(response) {
+                if (response.success) {
+                    const badge = $('.badge-custom');
+                    if (response.count > 0) {
+                        badge.text(response.count + ' New');
+                        badge.show();
+                    } else {
+                        badge.hide();
+                    }
+                }
+            }
+        });
+    }
+
+    // Update unread count every 30 seconds
+    setInterval(updateUnreadCount, 30000);
 });
 </script>
 </body>
