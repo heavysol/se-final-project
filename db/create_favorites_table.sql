@@ -1,3 +1,5 @@
+USE CampusEventManagement;
+
 CREATE TABLE IF NOT EXISTS Favorites (
     favorite_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,

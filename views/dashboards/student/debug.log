@@ -1,0 +1,5361 @@
+[17-Apr-2025 18:14:59 Europe/Berlin] Request started - POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:14:59 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+)
+
+[17-Apr-2025 18:14:59 Europe/Berlin] PHP Warning:  require_once(../../../config.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 17
+[17-Apr-2025 18:14:59 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../../../config.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php:17
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 17
+[17-Apr-2025 18:15:01 Europe/Berlin] Request started - POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:15:01 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+)
+
+[17-Apr-2025 18:15:01 Europe/Berlin] PHP Warning:  require_once(../../../config.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 17
+[17-Apr-2025 18:15:01 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../../../config.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php:17
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 17
+[17-Apr-2025 18:15:13 Europe/Berlin] Request started - POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:15:13 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+)
+
+[17-Apr-2025 18:15:13 Europe/Berlin] PHP Warning:  require_once(../../../config.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 17
+[17-Apr-2025 18:15:13 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../../../config.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php:17
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 17
+[17-Apr-2025 18:16:19 Europe/Berlin] PHP Warning:  require_once(../../../config.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 30
+[17-Apr-2025 18:16:19 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../../../config.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php:30
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 30
+[17-Apr-2025 18:16:25 Europe/Berlin] PHP Warning:  require_once(../../../config.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 30
+[17-Apr-2025 18:16:25 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../../../config.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php:30
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 30
+[17-Apr-2025 18:16:26 Europe/Berlin] PHP Warning:  require_once(../../../config.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 30
+[17-Apr-2025 18:16:26 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../../../config.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php:30
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 30
+[17-Apr-2025 18:16:40 Europe/Berlin] PHP Warning:  require_once(../../../config.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 30
+[17-Apr-2025 18:16:40 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../../../config.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php:30
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 30
+[17-Apr-2025 18:16:47 Europe/Berlin] PHP Warning:  require_once(../../../config.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 30
+[17-Apr-2025 18:16:47 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../../../config.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php:30
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\se-final-project\views\dashboards\student\registration_action.php on line 30
+[17-Apr-2025 18:18:27 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:18:27 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+)
+
+[17-Apr-2025 18:18:27 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:18:27 Europe/Berlin] Error in registration_action.php: Config file not found
+[17-Apr-2025 18:18:27 Europe/Berlin] Stack trace: #0 {main}
+[17-Apr-2025 18:20:49 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:20:49 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+)
+
+[17-Apr-2025 18:20:49 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:31:14 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:31:14 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+)
+
+[17-Apr-2025 18:31:14 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:31:56 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:31:56 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+)
+
+[17-Apr-2025 18:31:56 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:32:44 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:32:44 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:32:44 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:33:22 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:33:22 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:33:22 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:33:43 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:33:43 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:33:43 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:33:46 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:33:46 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:33:46 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:33:50 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:33:50 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:33:50 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:33:53 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:33:53 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:33:53 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:34:10 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:34:10 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:34:10 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:34:14 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:34:14 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:34:14 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:34:22 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:34:22 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:34:22 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:34:28 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:34:28 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:34:28 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 10
+)
+
+[17-Apr-2025 18:35:04 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:35:04 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:35:04 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:37:22 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:37:22 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:37:22 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:38:28 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:38:28 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:38:28 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:38:32 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:38:32 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:38:32 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:38:41 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:38:41 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:38:41 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:38:49 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:38:49 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:38:49 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:38:55 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:38:55 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:38:55 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:38:56 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:38:56 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:38:56 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:39:05 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:39:05 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:39:05 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:41:21 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:41:21 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:41:21 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:41:23 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:41:23 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:41:23 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:41:24 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:41:24 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:41:24 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:41:27 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:41:27 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:41:27 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:43:42 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:43:42 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:43:42 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:43:43 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:43:43 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:43:43 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:43:45 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:43:45 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:43:45 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:43:48 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:43:48 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:43:48 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:44:50 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:44:50 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:44:50 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:48:26 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:48:26 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:48:26 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:48:26 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:48:26 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:48:26 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:48:26 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:48:26 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:48:26 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:48:26 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:48:26 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:48:26 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:48:27 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:48:27 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:48:27 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:48:28 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:48:28 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:48:28 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:48:28 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:48:28 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:48:28 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:48:28 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:48:28 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:48:28 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:48:28 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:48:28 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:48:28 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:48:28 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:48:28 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:48:28 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:48:31 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:48:31 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:48:31 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:48:31 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:48:31 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:48:31 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:48:31 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:48:31 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:48:31 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:48:31 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:48:31 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:48:31 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:53:45 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:53:45 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:53:45 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:53:45 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:53:45 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:53:45 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:53:45 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:53:45 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:53:45 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:53:45 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:53:45 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:53:45 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:54:06 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:06 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:54:06 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:54:06 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:54:06 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:54:06 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:54:06 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:54:06 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:54:06 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:54:06 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:54:06 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:54:06 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:54:08 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:08 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:54:08 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:54:08 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:54:08 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:54:08 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:54:08 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:54:08 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:54:08 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:54:08 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:54:08 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:54:08 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:54:09 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:54:09 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:09 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:54:09 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:09 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:54:09 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:54:09 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:54:09 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:54:09 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:54:09 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:54:09 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:54:09 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:54:09 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:54:09 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:54:09 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:54:12 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:54:12 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:12 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:54:12 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:12 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:54:12 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:54:12 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:54:12 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:54:12 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:54:12 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:54:12 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:54:12 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:54:12 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:54:12 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:54:12 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:54:13 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:54:13 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:13 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:54:16 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:16 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:54:16 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:54:16 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:54:16 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:54:16 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:54:16 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:54:16 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:54:16 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:54:16 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:54:16 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:54:16 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:54:16 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:54:16 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:16 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:54:16 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:16 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:54:16 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:54:16 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:54:16 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:54:16 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:54:16 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:54:16 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:54:16 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:54:16 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:54:16 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:54:16 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:54:32 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:32 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:54:32 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:54:32 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:54:32 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:54:32 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:54:32 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:54:32 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:54:32 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:54:32 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:54:32 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:54:32 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:54:35 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:35 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:54:35 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:54:35 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:54:35 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:54:35 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:54:35 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:54:35 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:54:35 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:54:35 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:54:35 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:54:35 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:54:50 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:50 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:54:50 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:54:50 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:54:50 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:54:50 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:54:50 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:54:50 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:54:50 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:54:50 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:54:50 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:54:50 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:54:53 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:53 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:54:53 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:54:53 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:54:53 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:54:53 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:54:53 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:54:53 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:54:53 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:54:53 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:54:53 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:54:53 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:54:53 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:54:53 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:53 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 18:54:57 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 18:54:57 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:54:57 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 18:55:01 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:55:01 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:55:01 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:55:01 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:55:01 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:55:01 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:55:01 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:55:01 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:55:01 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:55:01 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:55:01 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:55:01 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 18:55:02 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 18:55:02 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 18:55:02 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 18:55:02 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 18:55:02 Europe/Berlin] Raw query results:
+[17-Apr-2025 18:55:02 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 18:55:02 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 18:55:02 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 18:55:02 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 18:55:02 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 18:55:02 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 18:55:02 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 19:02:56 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:02:56 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 19:02:56 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 19:02:56 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 19:02:56 Europe/Berlin] Raw query results:
+[17-Apr-2025 19:02:56 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 19:02:56 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 19:02:56 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 19:02:56 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 19:02:56 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 19:02:56 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 19:02:56 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 19:03:04 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:03:04 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 19:03:04 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 19:03:04 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 19:03:04 Europe/Berlin] Raw query results:
+[17-Apr-2025 19:03:04 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 19:03:04 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 19:03:04 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 19:03:04 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 19:03:04 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 19:03:04 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 19:03:04 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 19:03:06 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:03:06 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 19:03:06 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 19:03:06 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 19:03:06 Europe/Berlin] Raw query results:
+[17-Apr-2025 19:03:06 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 19:03:06 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 19:03:06 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 19:03:06 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 19:03:06 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 19:03:06 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 19:03:06 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 19:03:07 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:03:07 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 19:03:07 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 19:03:07 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 19:03:07 Europe/Berlin] Raw query results:
+[17-Apr-2025 19:03:07 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 19:03:07 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 19:03:07 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 19:03:07 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 19:03:07 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 19:03:07 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 19:03:07 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 19:03:12 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:03:12 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 19:03:12 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 19:03:12 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 19:03:12 Europe/Berlin] Raw query results:
+[17-Apr-2025 19:03:12 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 19:03:12 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 19:03:12 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 19:03:12 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 19:03:12 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 19:03:12 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 19:03:12 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 19:03:17 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:03:18 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 19:03:18 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 19:03:18 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 19:03:18 Europe/Berlin] Raw query results:
+[17-Apr-2025 19:03:18 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 19:03:18 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 19:03:18 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 19:03:18 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 19:03:18 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 19:03:18 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 19:03:18 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 19:03:35 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:03:35 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 19:03:35 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 19:03:35 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 19:03:35 Europe/Berlin] Raw query results:
+[17-Apr-2025 19:03:35 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 19:03:35 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 19:03:35 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 19:03:35 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 19:03:35 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 19:03:35 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 19:03:35 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 19:03:37 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:03:37 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 19:03:37 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 19:03:37 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 19:03:37 Europe/Berlin] Raw query results:
+[17-Apr-2025 19:03:37 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 19:03:37 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 19:03:37 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 19:03:37 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 19:03:37 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 19:03:37 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 19:03:37 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 19:03:37 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:03:37 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 19:03:37 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 19:03:37 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 19:03:37 Europe/Berlin] Raw query results:
+[17-Apr-2025 19:03:37 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 19:03:37 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 19:03:37 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 19:03:37 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 19:03:37 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 19:03:37 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 19:03:37 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 19:03:38 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:03:38 Europe/Berlin] Processing request for user ID: 1
+[17-Apr-2025 19:03:38 Europe/Berlin] Requested action: getUpcomingEvents
+[17-Apr-2025 19:03:38 Europe/Berlin] User has 10 registrations
+[17-Apr-2025 19:03:38 Europe/Berlin] Raw query results:
+[17-Apr-2025 19:03:38 Europe/Berlin] Event ID: 1, Is Registered: 1
+[17-Apr-2025 19:03:38 Europe/Berlin] Event ID: 2, Is Registered: 1
+[17-Apr-2025 19:03:38 Europe/Berlin] Event ID: 3, Is Registered: 1
+[17-Apr-2025 19:03:38 Europe/Berlin] Event ID: 4, Is Registered: 1
+[17-Apr-2025 19:03:38 Europe/Berlin] Event ID: 5, Is Registered: 1
+[17-Apr-2025 19:03:38 Europe/Berlin] Sending response with 5 events for user ID: 1
+[17-Apr-2025 19:03:38 Europe/Berlin] Full response: Array
+(
+    [0] => Array
+        (
+            [event_id] => 1
+            [title] => Ashesi Tech Talk
+            [description] => A panel discussion on the future of tech in Africa.
+            [location] => Ashesi Auditorium
+            [category] => Technology
+            [start_date] => May 01, 2025 10:00 AM
+            [end_date] => May 01, 2025 12:00 PM
+            [max_capacity] => 120
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+    [1] => Array
+        (
+            [event_id] => 2
+            [title] => Career Fair
+            [description] => Meet top employers and explore internship opportunities.
+            [location] => Ashesi Career Center
+            [category] => Career
+            [start_date] => May 03, 2025 09:00 AM
+            [end_date] => May 03, 2025 03:00 PM
+            [max_capacity] => 150
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [2] => Array
+        (
+            [event_id] => 3
+            [title] => Sustainability Hackathon
+            [description] => Find innovative solutions for sustainability challenges.
+            [location] => Ashesi Lab 3
+            [category] => Innovation
+            [start_date] => May 05, 2025 08:00 AM
+            [end_date] => May 06, 2025 06:00 PM
+            [max_capacity] => 60
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [3] => Array
+        (
+            [event_id] => 4
+            [title] => Ashesi Film Night
+            [description] => Enjoy a curated list of documentaries and student films.
+            [location] => Open Air Theater
+            [category] => Entertainment
+            [start_date] => May 07, 2025 06:00 PM
+            [end_date] => May 07, 2025 09:00 PM
+            [max_capacity] => 80
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana
+        )
+
+    [4] => Array
+        (
+            [event_id] => 5
+            [title] => Women in Leadership Forum
+            [description] => Empowering young women to lead boldly.
+            [location] => Ashesi Hall A
+            [category] => Leadership
+            [start_date] => May 10, 2025 02:00 PM
+            [end_date] => May 10, 2025 05:00 PM
+            [max_capacity] => 90
+            [status] => 
+            [current_registrations] => 1
+            [is_registered] => 1
+            [can_register] => 
+            [registration_status] => registered
+            [organizer] => Steve Nsabimana Nsabimana
+        )
+
+)
+
+[17-Apr-2025 19:04:26 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:04:26 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:04:26 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 19:04:30 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:04:30 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:04:30 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 19:04:34 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:04:34 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:04:34 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 19:06:01 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:06:01 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:06:01 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 19:06:15 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:06:15 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:06:15 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 19:07:24 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:07:24 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:07:24 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 19:07:25 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:07:25 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:07:25 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 19:07:26 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:07:26 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:07:26 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 19:07:34 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:07:34 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:07:34 Europe/Berlin] POST data: Array
+(
+)
+
+[17-Apr-2025 19:09:39 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:09:39 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:09:39 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 19:10:10 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:10:10 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:10:10 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 19:10:19 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:10:19 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:10:19 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 19:11:31 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:11:31 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:11:31 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 19:13:02 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:13:02 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:13:02 Europe/Berlin] POST data: Array
+(
+    [action] => cancel
+    [event_id] => 4
+)
+
+[17-Apr-2025 19:13:21 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:13:21 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:13:21 Europe/Berlin] POST data: Array
+(
+    [action] => register
+    [event_id] => 1
+)
+
+[17-Apr-2025 19:35:01 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:35:01 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:35:01 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 19:45:41 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 19:45:41 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 19:45:41 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 20:01:58 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 20:01:58 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 20:01:58 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 20:04:05 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 20:04:05 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 20:04:05 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 20:04:13 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 20:04:13 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 20:04:13 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 20:15:44 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 20:15:44 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 20:15:44 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 20:16:23 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 20:16:23 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 20:16:23 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 20:26:09 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 20:26:09 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 20:26:09 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 21:14:38 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 21:14:38 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 21:14:38 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[17-Apr-2025 23:55:55 Europe/Berlin] Starting registration_action.php
+[17-Apr-2025 23:55:55 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[17-Apr-2025 23:55:55 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 00:03:07 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 00:03:07 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 00:03:07 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 00:34:47 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 00:34:47 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 00:34:47 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 00:35:10 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 00:35:10 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 00:35:10 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 00:35:13 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 00:35:13 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 00:35:13 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 00:35:14 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 00:35:14 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 00:35:14 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 01:23:20 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 01:23:20 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 01:23:20 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 01:29:49 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 01:29:49 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 01:29:49 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 01:29:54 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 01:29:54 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 01:29:54 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 9
+)
+
+[18-Apr-2025 01:30:00 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 01:30:00 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 01:30:00 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 9
+)
+
+[18-Apr-2025 01:30:10 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 01:30:10 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 01:30:10 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 7
+)
+
+[18-Apr-2025 02:03:04 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:03:04 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:03:04 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 02:04:09 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:04:09 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:04:09 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 02:04:19 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:04:19 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:04:19 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 02:04:24 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:04:24 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:04:24 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 1
+)
+
+[18-Apr-2025 02:06:11 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:06:11 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:06:11 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 02:06:34 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:06:34 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:06:34 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 02:06:40 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:06:40 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:06:40 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 02:06:58 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:06:58 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:06:58 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 02:07:53 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:07:53 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:07:53 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 02:07:56 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:07:56 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:07:56 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 02:07:57 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:07:57 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:07:57 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 02:24:17 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:24:17 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:24:17 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 02:25:04 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:25:04 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:25:04 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 02:59:03 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:59:03 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:59:03 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 02:59:18 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:59:18 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:59:18 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 02:59:22 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 02:59:22 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 02:59:22 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 2
+)
+
+[18-Apr-2025 03:00:31 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:00:31 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:00:31 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:00:34 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:00:34 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:00:34 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:08:33 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:08:33 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:08:33 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:08:36 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:08:36 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:08:36 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:08:49 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:08:49 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:08:49 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:08:56 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:08:56 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:08:56 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:09:22 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:09:22 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:09:22 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:09:24 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:09:24 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:09:24 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:09:26 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:09:26 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:09:26 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:09:31 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:09:31 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:09:31 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:10:01 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:10:01 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:10:01 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:10:04 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:10:04 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:10:04 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:10:04 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:10:04 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:10:04 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:10:05 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:10:05 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:10:05 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:10:06 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:10:06 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:10:06 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:10:09 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:10:09 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:10:09 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:10:26 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:10:26 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:10:26 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:11:26 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:11:26 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:11:26 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:11:34 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:11:34 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:11:34 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:11:35 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:11:35 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:11:35 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:11:39 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:11:39 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:11:39 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:13:10 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:13:10 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:13:10 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:13:11 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:13:11 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:13:11 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:13:11 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:13:11 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:13:11 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:13:14 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:13:14 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:13:14 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:13:41 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:13:41 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:13:41 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:13:45 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:13:45 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:13:45 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:13:47 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:13:47 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:13:47 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:13:54 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:13:54 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:13:54 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:13:57 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:13:57 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:13:57 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:14:59 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:14:59 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:14:59 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:15:11 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:15:11 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:15:11 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:15:15 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:15:15 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:15:15 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:15:43 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:15:43 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:15:43 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:15:46 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:15:46 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:15:46 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:15:48 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:15:48 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:15:48 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:15:49 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:15:49 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:15:49 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:15:51 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:15:51 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:15:51 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:17:30 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:17:30 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:17:30 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:17:32 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:17:32 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:17:32 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:17:35 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:17:35 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:17:35 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:18:51 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:18:51 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:18:51 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:19:17 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:19:17 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:19:17 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:23:03 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:23:03 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:23:03 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:23:06 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:23:06 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:23:06 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:23:15 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:23:15 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:23:15 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 4
+)
+
+[18-Apr-2025 03:23:30 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:23:30 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:23:30 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 2
+)
+
+[18-Apr-2025 03:26:51 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:26:51 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:26:51 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 4
+)
+
+[18-Apr-2025 03:26:55 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:26:55 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:26:55 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:27:15 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:27:15 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:27:15 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 3
+)
+
+[18-Apr-2025 03:27:16 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:27:16 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:27:16 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:27:35 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:27:35 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:27:35 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:27:47 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:27:47 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:27:47 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:32:14 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:32:14 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:32:14 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:32:16 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:32:16 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:32:16 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:32:39 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:32:39 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:32:39 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:32:46 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:32:46 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:32:46 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 2
+)
+
+[18-Apr-2025 03:32:47 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:32:47 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:32:47 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:32:52 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:32:52 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:32:52 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:36:01 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:36:01 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:36:01 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:39:15 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:39:15 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:39:15 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:39:18 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:39:18 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:39:18 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:39:38 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:39:38 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:39:38 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:39:43 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:39:43 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:39:43 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:39:44 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:39:44 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:39:44 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:39:55 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:39:55 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:39:55 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:40:18 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:40:18 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:40:18 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:40:53 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:40:53 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:40:53 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:41:50 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:41:50 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:41:50 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:41:54 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:41:54 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:41:54 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:41:57 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:41:57 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:41:57 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:41:58 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:41:58 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:41:58 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:42:00 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:42:00 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:42:00 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:42:10 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:42:10 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:42:10 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:42:11 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:42:11 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:42:11 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:43:19 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:43:19 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:43:19 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:43:30 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:43:30 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:43:30 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:44:08 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:44:08 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:44:08 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:44:30 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:44:30 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:44:30 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[18-Apr-2025 03:44:32 Europe/Berlin] Starting registration_action.php
+[18-Apr-2025 03:44:32 Europe/Berlin] Session data: Array
+(
+    [user_id] => 1
+    [full_name] => Kojo lem
+    [role] => student
+    [first_name] => Kojo
+)
+
+[18-Apr-2025 03:44:32 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+

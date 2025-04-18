@@ -1,3 +1,32 @@
+<?php
+session_start();
+
+// Check if user is logged in and is a student
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
+    header('Location: ../../../login.php');
+    exit();
+}
+
+// Include database configuration
+require_once '../../../db/config.php';
+
+// Fetch user details
+$userId = $_SESSION['user_id'];
+$stmt = $conn->prepare("SELECT first_name FROM Users WHERE user_id = ? AND role = 'student'");
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
+if (!$user) {
+    // If user not found in database, destroy session and redirect
+    session_destroy();
+    header('Location: ../../../login.php');
+    exit();
+}
+
+$_SESSION['first_name'] = $user['first_name'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,24 +34,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard - Campus Events</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
     <link rel="stylesheet" href="../../../assets/css/dashboard-styles.css">
+    <style>
+        .dashboard-stats {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .stat-card {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            margin-bottom: 15px;
+        }
+        .event-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #007bff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .event-card.cultural { border-left-color: #28a745; }
+        .event-card.sports { border-left-color: #dc3545; }
+        .event-card.academic { border-left-color: #17a2b8; }
+        .calendar-wrapper {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .quick-action-btn {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            border: none;
+            transition: all 0.3s;
+        }
+        .quick-action-btn:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        .favorite-btn {
+            background: none;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            margin-left: 8px;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+        }
+        .favorite-btn:hover {
+            transform: scale(1.05);
+            background-color: #ffe69c;
+        }
+        .favorite-btn .bi-plus-lg {
+            color: #856404;
+        }
+        .favorite-btn .bi-star-fill {
+            color: #ffd700;
+        }
+        .favorite-btn:not([data-favorite="true"]) {
+            background-color: #e9ecef;
+            border-color: #dee2e6;
+        }
+        .favorite-btn:not([data-favorite="true"]):hover {
+            background-color: #dde2e6;
+        }
+        .favorite-btn span {
+            margin-left: 4px;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-header">
-            <h3>Campus Events</h3>
+            <h3><i class="bi bi-calendar-event"></i> Student Dashboard</h3>
             <div class="text-white-50 small">Student Dashboard</div>
         </div>
         <ul class="sidebar-menu">
-        <li><a href="./student_dashboard.php"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-            <li><a href="./events.php" class = 'active'><i class="bi bi-calendar-event"></i> Events</a></li>
-            <li><a href="./registrations.php"><i class="bi bi-journal-check"></i> My Registrations</a></li>
-            <li><a href="./favourites.php"><i class="bi bi-star"></i> Favorites</a></li>
-            <li><a href="./clubs-orgs.php"><i class="bi bi-people"></i> Clubs & Organizations</a></li>
-            <li><a href="../notifications.php"><i class="bi bi-bell"></i> Notifications</a></li>
-            <li><a href="../settings.php"><i class="bi bi-gear"></i> Settings</a></li>
+            <li><a href="./student_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+            <li><a href="./events.php"><i class="bi bi-calendar-event"></i> Events</a></li>
+            <li><a href="./registrations.php"><i class="bi bi-journal-check"></i> My Registrations Events</a></li>
+            <li><a href="./favourites.php"><i class="bi bi-star"></i> My Favorites Events</a></li>
         </ul>
     </div>
 
@@ -30,165 +146,915 @@
     <div class="main-content">
         <div class="container-fluid">
             <div class="row mb-4">
-                <div class="col-md-8">
-                    <h2>Welcome, John!</h2>
-                    <p class="text-muted">Discover what's happening on campus this week</p>
-                </div>
-                <div class="col-md-4 text-end">
-                    <button class="btn btn-primary"><i class="bi bi-plus"></i> Find Events</button>
+                <div class="col-12">
+                    <h1 class="welcome-header">Welcome, <?php echo htmlspecialchars($_SESSION['first_name']); ?>!</h1>
+                    <p class="text-muted">Here's what's happening on campus this week</p>
                 </div>
             </div>
 
+            <!-- Quick Actions -->
             <div class="row mb-4">
-                <div class="col-md-9">
-                    <div class="dashboard-card">
-                        <h4>
-                            Upcoming Events
-                            <span class="badge badge-custom">4 This Week</span>
-                        </h4>
-                        <div class="event-item">
-                            <div class="event-title">Akwaaba Night</div>
-                            <div class="event-details">
-                                <i class="bi bi-calendar"></i> Thursday, 20 March 2025, 7:00 PM
-                                <br>
-                                <i class="bi bi-geo-alt"></i> Student Center
-                            </div>
-                            <div class="event-actions">
-                                <button class="btn btn-sm btn-primary">Register</button>
-                                <button class="btn btn-sm btn-outline-primary">Add to Calendar</button>
-                            </div>
-                        </div>
-                        <div class="event-item">
-                            <div class="event-title">Global Café: Spanish Culture</div>
-                            <div class="event-details">
-                                <i class="bi bi-calendar"></i> Friday, 21 March 2025, 4:00 PM
-                                <br>
-                                <i class="bi bi-geo-alt"></i> Hive
-                            </div>
-                            <div class="event-actions">
-                                <button class="btn btn-sm btn-primary">Register</button>
-                                <button class="btn btn-sm btn-outline-primary">Add to Calendar</button>
-                            </div>
-                        </div>
-                        <div class="event-item">
-                            <div class="event-title">Annual Career Fair</div>
-                            <div class="event-details">
-                                <i class="bi bi-calendar"></i> Monday, 24 March 2025, 9:00 AM
-                                <br>
-                                <i class="bi bi-geo-alt"></i> Archer Cornfield Courtyard
-                            </div>
-                            <div class="event-actions">
-                                <button class="btn btn-sm btn-primary">Register</button>
-                                <button class="btn btn-sm btn-outline-primary">Add to Calendar</button>
-                            </div>
-                        </div>
+                <div class="col-12">
+                    <div class="quick-actions">
+                        <button class="quick-action-btn" onclick="window.location.href='./events.php'">
+                            <i class="bi bi-search"></i><br>
+                            Find Events
+                        </button>
+                        <button class="quick-action-btn" onclick="window.location.href='./registrations.php'">
+                            <i class="bi bi-ticket-perforated"></i><br>
+                            My Tickets
+                        </button>
+                        <button class="quick-action-btn" onclick="window.location.href='./calendar.php'">
+                            <i class="bi bi-calendar3"></i><br>
+                            Calendar
+                        </button>
                     </div>
                 </div>
+            </div>
+
+            <!-- Dashboard Stats -->
+            <div class="row mb-4">
                 <div class="col-md-3">
-                    <div class="dashboard-card">
-                        <h4>My Calendar</h4>
-                        <table class="small-calendar">
-                            <thead>
-                                <tr>
-                                    <th>M</th>
-                                    <th>T</th>
-                                    <th>W</th>
-                                    <th>T</th>
-                                    <th>F</th>
-                                    <th>S</th>
-                                    <th>S</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>16</td>
-                                    <td>17</td>
-                                    <td>18</td>
-                                    <td>19</td>
-                                    <td class="has-event" title="Akwaaba Night">20</td>
-                                    <td class="has-event" title="Global Café">21</td>
-                                    <td>22</td>
-                                </tr>
-                                <tr>
-                                    <td>23</td>
-                                    <td class="has-event" title="Career Fair">24</td>
-                                    <td>25</td>
-                                    <td>26</td>
-                                    <td>27</td>
-                                    <td>28</td>
-                                    <td>29</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="text-center mt-3">
-                            <button class="btn btn-sm btn-outline-primary">View Full Calendar</button>
-                        </div>
+                    <div class="stat-card">
+                        <i class="bi bi-calendar2-check text-primary fs-4"></i>
+                        <h3 class="mt-2" id="registered-events-count">0</h3>
+                        <p class="text-muted mb-0">Registered Events</p>
                     </div>
                 </div>
+                   
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <i class="bi bi-star text-warning fs-4"></i>
+                        <h3 class="mt-2" id="favorite-events-count">0</h3>
+                        <p class="text-muted mb-0">Favorite Events</p>
+                    </div>
+                </div>
+               
             </div>
 
             <div class="row">
-                <div class="col-md-6">
+                <!-- Upcoming Events -->
+                <div class="col-md-8">
                     <div class="dashboard-card">
-                        <h4>Recommended For You</h4>
-                        <div class="event-item">
-                            <div class="event-title">Ashesi Premier League Final</div>
-                            <div class="event-details">
-                                <i class="bi bi-calendar"></i> Sunday, 29 March 2025, 3:00 PM
-                                <br>
-                                <i class="bi bi-geo-alt"></i> Sports Complex
-                            </div>
-                            <div class="event-actions">
-                                <button class="btn btn-sm btn-primary">Register</button>
-                            </div>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4><i class="bi bi-calendar2-week"></i> Upcoming Events</h4>
+                            <a href="./events.php" class="btn btn-sm btn-primary">View All</a>
                         </div>
-                        <div class="event-item">
-                            <div class="event-title">Entrepreneurship Workshop</div>
-                            <div class="event-details">
-                                <i class="bi bi-calendar"></i> Tuesday, 31 March 2025, 2:00 PM
-                                <br>
-                                <i class="bi bi-geo-alt"></i> R5 Building
-                            </div>
-                            <div class="event-actions">
-                                <button class="btn btn-sm btn-primary">Register</button>
-                            </div>
+                        <div id="upcoming-events-list">
+                            <?php
+                            // Get upcoming events
+                            $query = "SELECT e.*, 
+                                    CASE WHEN r.registration_id IS NOT NULL THEN 1 ELSE 0 END as is_registered,
+                                    CASE WHEN c.calendar_id IS NOT NULL THEN 1 ELSE 0 END as in_calendar,
+                                    CASE WHEN f.favorite_id IS NOT NULL THEN 1 ELSE 0 END as is_favorite,
+                                    (SELECT COUNT(*) FROM Registrations WHERE event_id = e.event_id) as current_registrations
+                                    FROM Events e 
+                                    LEFT JOIN Registrations r ON e.event_id = r.event_id AND r.user_id = ?
+                                    LEFT JOIN EventCalendar c ON e.event_id = c.event_id AND c.user_id = ?
+                                    LEFT JOIN Favorites f ON e.event_id = f.event_id AND f.user_id = ?
+                                    WHERE e.start_datetime >= NOW() 
+                                    ORDER BY e.start_datetime ASC 
+                                    LIMIT 5";
+                            
+                            $stmt = $conn->prepare($query);
+                            $stmt->bind_param("iii", $_SESSION['user_id'], $_SESSION['user_id'], $_SESSION['user_id']);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            
+                            if ($result->num_rows > 0) {
+                                while ($event = $result->fetch_assoc()) {
+                                    $startDate = new DateTime($event['start_datetime']);
+                                    $endDate = new DateTime($event['end_datetime']);
+                                    
+                                    // Set button states
+                                    $registerBtnClass = $event['is_registered'] ? 'btn-danger' : 'btn-primary register-btn';
+                                    $registerBtnText = $event['is_registered'] ? 'Unregister' : 'Register';
+                                    
+                                    $calendarBtnClass = $event['in_calendar'] ? 'btn-outline-danger' : 'btn-outline-primary calendar-btn';
+                                    $calendarBtnText = $event['in_calendar'] ? 'Remove from Calendar' : 'Add to Calendar';
+                                    ?>
+                                    <div class="event-card mb-3 p-3 border rounded">
+                                        <h5 class="event-title"><?php echo htmlspecialchars($event['title']); ?></h5>
+                                        <p class="event-location"><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($event['location']); ?></p>
+                                        <p class="event-date"><i class="far fa-calendar-alt"></i> <?php echo $startDate->format('F j, Y g:i A'); ?> - <?php echo $endDate->format('F j, Y g:i A'); ?></p>
+                                        <div class="event-actions mt-2">
+                                            <button type="button" class="btn btn-sm <?php echo $registerBtnClass; ?>" 
+                                                    data-event-id="<?php echo $event['event_id']; ?>">
+                                                <?php echo $registerBtnText; ?>
+                                            </button>
+                                            <button type="button" class="btn btn-sm <?php echo $calendarBtnClass; ?>" 
+                                                    data-event-id="<?php echo $event['event_id']; ?>">
+                                                <?php echo $calendarBtnText; ?>
+                                            </button>
+                                            <button class="favorite-btn" onclick="toggleFavorite(this, <?php echo $event['event_id']; ?>)" 
+                                                    data-event-id="<?php echo $event['event_id']; ?>"
+                                                    <?php echo $event['is_favorite'] ? 'data-favorite="true"' : ''; ?>>
+                                                <i class="bi <?php echo $event['is_favorite'] ? 'bi-star-fill' : 'bi-plus-lg'; ?>"></i>
+                                                <span><?php echo $event['is_favorite'] ? 'Remove from Favorites event' : 'Add to Favorites'; ?></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                            } else {
+                                echo '<p class="text-muted">No upcoming events found.</p>';
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="dashboard-card">
-                        <h4>My Registrations</h4>
-                        <div class="event-item">
-                            <div class="event-title">Global Café: Spanish Culture</div>
-                            <div class="event-details">
-                                <i class="bi bi-calendar"></i> Friday, 21 March 2025, 4:00 PM
-                                <br>
-                                <i class="bi bi-geo-alt"></i> Hive
-                            </div>
-                            <div class="event-actions">
-                                <button class="btn btn-sm btn-outline-primary">View Ticket</button>
-                                <button class="btn btn-sm btn-outline-danger">Cancel</button>
-                            </div>
-                        </div>
-                        <div class="event-item">
-                            <div class="event-title">Annual Career Fair</div>
-                            <div class="event-details">
-                                <i class="bi bi-calendar"></i> Monday, 24 March 2025, 9:00 AM
-                                <br>
-                                <i class="bi bi-geo-alt"></i> Archer Cornfield Courtyard
-                            </div>
-                            <div class="event-actions">
-                                <button class="btn btn-sm btn-outline-primary">View Ticket</button>
-                                <button class="btn btn-sm btn-outline-danger">Cancel</button>
-                            </div>
-                        </div>
+
+                <!-- Calendar -->
+                <div class="col-md-4">
+                    <div class="calendar-wrapper">
+                        <h4 class="mb-4"><i class="bi bi-calendar3"></i> My Calendar</h4>
+                        <div id="calendar"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Function to animate counter - in global scope
+        function animateCounter($element, start, end, duration) {
+            if (typeof start !== 'number') start = 0;
+            if (typeof end !== 'number') end = 0;
+            
+            const startTime = performance.now();
+            const change = end - start;
+
+            function step(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const currentCount = Math.floor(start + (change * progress));
+                $element.text(Math.max(0, currentCount));
+                
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            }
+            window.requestAnimationFrame(step);
+        }
+
+        // Function to update dashboard stats - moved to global scope
+        function updateDashboardStats() {
+            $.ajax({
+                url: 'get_dashboard_stats.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        // Get current values
+                        const elements = {
+                            registered: $('#registered-events-count'),
+                            upcoming: $('#upcoming-events-count'),
+                            favorites: $('#favorite-events-count'),
+                            clubs: $('#clubs-count')
+                        };
+
+                        const currentValues = {
+                            registered: parseInt(elements.registered.text()) || 0,
+                            upcoming: parseInt(elements.upcoming.text()) || 0,
+                            favorites: parseInt(elements.favorites.text()) || 0,
+                            clubs: parseInt(elements.clubs.text()) || 0
+                        };
+
+                        // Animate each counter
+                        animateCounter(elements.registered, currentValues.registered, response.stats.registered_events, 1000);
+                        animateCounter(elements.upcoming, currentValues.upcoming, response.stats.upcoming_events, 1000);
+                        animateCounter(elements.favorites, currentValues.favorites, response.stats.favorite_events, 1000);
+                        animateCounter(elements.clubs, currentValues.clubs, response.stats.clubs_joined, 1000);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading dashboard stats:', error);
+                }
+            });
+        }
+
+        // Function to load upcoming events - in global scope
+        function loadUpcomingEvents() {
+            $.ajax({
+                url: 'get_upcoming_events.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    if (data.status === 'success') {
+                        const eventsContainer = $('#upcoming-events-list');
+                        eventsContainer.empty();
+                        
+                        if (data.events && data.events.length > 0) {
+                            data.events.forEach(event => {
+                                const startDate = new Date(event.start_date);
+                                const endDate = new Date(event.end_date);
+                                
+                                const eventHtml = `
+                                    <div class="event-card mb-3 p-3 border rounded">
+                                        <h5 class="event-title">${event.title}</h5>
+                                        <p class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.venue}</p>
+                                        <p class="event-date"><i class="far fa-calendar-alt"></i> ${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}</p>
+                                        <div class="event-actions mt-2">
+                                            ${event.is_registered ? 
+                                                `<button class="btn btn-danger" data-event-id="${event.event_id}">Unregister</button>` :
+                                                `<button class="btn btn-primary register-btn" data-event-id="${event.event_id}">Register</button>`
+                                            }
+                                            ${event.in_calendar ?
+                                                `<button class="btn btn-outline-danger ms-2" data-event-id="${event.event_id}">Remove from Calendar</button>` :
+                                                `<button class="btn btn-outline-primary calendar-btn ms-2" data-event-id="${event.event_id}">Add to Calendar</button>`
+                                            }
+                                            <button class="favorite-btn ms-2" onclick="toggleFavorite(this, ${event.event_id})" 
+                                                    data-event-id="${event.event_id}"
+                                                    ${event.is_favorite ? 'data-favorite="true"' : ''}>
+                                                <i class="bi ${event.is_favorite ? 'bi-star-fill' : 'bi-plus-lg'}"></i>
+                                                <span>${event.is_favorite ? 'Remove from Favorites event' : 'Add to Favorites'}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                `;
+                                eventsContainer.append(eventHtml);
+                            });
+                        } else {
+                            eventsContainer.html('<p class="text-center">No upcoming events found.</p>');
+                        }
+                    } else {
+                        console.error('Error loading events:', data.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Failed to load upcoming events:', error);
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            // Initialize FullCalendar
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,listWeek'
+                },
+                events: 'calendar_events.php',
+                eventClick: function(info) {
+                    showEventDetails(info.event.id);
+                },
+                eventDidMount: function(info) {
+                    const category = info.event.extendedProps.category;
+                    if (category) {
+                        info.el.classList.add(`event-${category.toLowerCase()}`);
+                    }
+                }
+            });
+            calendar.render();
+
+            // Function to bind event handlers
+            function bindEventHandlers() {
+                // Remove existing handlers
+                $(document).off('click', '.register-btn, .btn-danger, .calendar-btn, .btn-outline-danger');
+                
+                // Handle Register/Unregister button clicks
+                $(document).on('click', '.register-btn, .btn-danger', function() {
+                    const eventId = $(this).data('event-id');
+                    const button = $(this);
+                    const isUnregister = button.hasClass('btn-danger');
+                    const currentCount = parseInt($('#registered-events-count').text()) || 0;
+                    
+                    button.prop('disabled', true);
+                    
+                    $.ajax({
+                        url: 'event_registration.php',
+                        type: 'POST',
+                        data: {
+                            event_id: eventId,
+                            action: isUnregister ? 'unregister' : 'register'
+                        },
+                        success: function(response) {
+                            try {
+                                const data = JSON.parse(response);
+                                if (data.status === 'success') {
+                                    if (isUnregister) {
+                                        button.text('Register')
+                                            .removeClass('btn-danger')
+                                            .addClass('btn-primary register-btn');
+                                        // Animate counter down
+                                        animateCounter($('#registered-events-count'), currentCount, currentCount - 1, 500);
+                                        
+                                        // Remove from calendar if it was there
+                                        removeFromCalendar(eventId);
+                                    } else {
+                                        button.text('Unregister')
+                                            .removeClass('btn-primary register-btn')
+                                            .addClass('btn-danger');
+                                        // Animate counter up
+                                        animateCounter($('#registered-events-count'), currentCount, currentCount + 1, 500);
+                                        
+                                        // Add to calendar automatically
+                                        addToCalendar(eventId);
+                                    }
+                                    
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success!',
+                                        text: isUnregister ? 
+                                            'You have successfully unregistered from this event' :
+                                            'You have successfully registered for this event',
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                    });
+                                    
+                                    // Update upcoming events count as well
+                                    updateUpcomingEventsCount();
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error!',
+                                        text: data.message || 'Failed to process your request',
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                    });
+                                }
+                            } catch (e) {
+                                console.error('Error parsing response:', e);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: 'An error occurred while processing your request',
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Failed to connect to the server',
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+                        },
+                        complete: function() {
+                            button.prop('disabled', false);
+                        }
+                    });
+                });
+                
+                // Handle Calendar button clicks (both Add and Remove)
+                $(document).on('click', '.calendar-btn, .btn-outline-danger', function() {
+                    const eventId = $(this).data('event-id');
+                    const button = $(this);
+                    const isRemove = button.hasClass('btn-outline-danger');
+                    
+                    button.prop('disabled', true);
+                    
+                    console.log('Calendar button clicked:', {
+                        eventId: eventId,
+                        isRemove: isRemove,
+                        buttonClasses: button.attr('class')
+                    });
+                    
+                    $.ajax({
+                        url: 'calendar_action.php',
+                        type: 'POST',
+                        data: {
+                            event_id: eventId,
+                            action: isRemove ? 'remove' : 'add'
+                        },
+                        success: function(response) {
+                            console.log('Calendar action response:', response);
+                            try {
+                                const data = JSON.parse(response);
+                                if (data.status === 'success') {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success!',
+                                        text: isRemove ? 
+                                            'Event has been removed from your calendar' :
+                                            'Event has been added to your calendar'
+                                    });
+                                    
+                                    if (isRemove) {
+                                        button.text('Add to Calendar')
+                                            .removeClass('btn-outline-danger')
+                                            .addClass('btn-outline-primary calendar-btn');
+                                    } else {
+                                        button.text('Remove from Calendar')
+                                            .removeClass('btn-outline-primary calendar-btn')
+                                            .addClass('btn-outline-danger');
+                                    }
+                                    
+                                    // Refresh the calendar
+                                    if (calendar) {
+                                        calendar.refetchEvents();
+                                    }
+                                    
+                                    // Update dashboard stats
+                                    updateDashboardStats();
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error!',
+                                        text: data.message || 'Failed to process your request'
+                                    });
+                                }
+                            } catch (e) {
+                                console.error('Error parsing response:', e);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: 'An error occurred while processing your request'
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Calendar action error:', {
+                                status: status,
+                                error: error,
+                                response: xhr.responseText
+                            });
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Failed to connect to the server'
+                            });
+                        },
+                        complete: function() {
+                            button.prop('disabled', false);
+                        }
+                    });
+                });
+            }
+
+            // Function to show event details in a modal
+            function showEventDetails(eventId) {
+                $.ajax({
+                    url: 'events_action.php',
+                    method: 'GET',
+                    data: { action: 'getEventDetails', event_id: eventId },
+                    success: function(response) {
+                        if (response.status === 'success' && response.event) {
+                            const event = response.event;
+                            const modal = `
+                                <div class="modal fade" id="eventModal" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">${event.title}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><strong>Date:</strong> ${new Date(event.start_datetime).toLocaleString()}</p>
+                                                <p><strong>Location:</strong> ${event.location}</p>
+                                                <p><strong>Category:</strong> ${event.category}</p>
+                                                <p><strong>Description:</strong> ${event.description}</p>
+                                                <p><strong>Capacity:</strong> ${event.current_registrations}/${event.max_capacity}</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn ${event.is_registered ? 'btn-danger' : 'btn-primary'}" 
+                                                        data-event-id="${event.event_id}">
+                                                    ${event.is_registered ? 'Unregister' : 'Register'}
+                                                </button>
+                                                <button type="button" class="btn ${event.in_calendar ? 'btn-outline-danger' : 'btn-outline-primary'}" 
+                                                        data-event-id="${event.event_id}">
+                                                    ${event.in_calendar ? 'Remove from Calendar' : 'Add to Calendar'}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            $('body').append(modal);
+                            const eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
+                            eventModal.show();
+                            
+                            // Bind event handlers for modal buttons
+                            $('#eventModal').on('click', '.btn-primary, .btn-danger', function() {
+                                const eventId = $(this).data('event-id');
+                                const isUnregister = $(this).hasClass('btn-danger');
+                                if (isUnregister) {
+                                    cancelRegistration(eventId);
+                                } else {
+                                    registerForEvent(eventId);
+                                }
+                            });
+                            
+                            $('#eventModal').on('click', '.btn-outline-primary, .btn-outline-danger', function() {
+                                const eventId = $(this).data('event-id');
+                                const isRemove = $(this).hasClass('btn-outline-danger');
+                                if (isRemove) {
+                                    removeFromCalendar(eventId);
+                                } else {
+                                    addToCalendar(eventId);
+                                }
+                            });
+                            
+                            $('#eventModal').on('hidden.bs.modal', function () {
+                                $(this).remove();
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error loading event details:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'Failed to load event details'
+                        });
+                    }
+                });
+            }
+
+            // Function to register for an event
+            function registerForEvent(eventId) {
+                $.ajax({
+                    url: 'event_registration.php',
+                    method: 'POST',
+                    data: { action: 'register', event_id: eventId },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            // Refresh the events list and calendar
+                            loadUpcomingEvents();
+                            calendar.refetchEvents();
+                            // Show success message
+                            showAlert('Successfully registered for the event!', 'success');
+                            updateDashboardStats();
+                            const currentCount = parseInt($('#registered-events-count').text()) || 0;
+                            animateCounter($('#registered-events-count'), currentCount, currentCount + 1, 500);
+                            
+                            // Automatically add to calendar
+                            addToCalendar(eventId);
+                        } else {
+                            showAlert(response.message || 'Failed to register for the event', 'danger');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error registering for event:', error);
+                        showAlert('Failed to register for the event. Please try again later.', 'danger');
+                    }
+                });
+            }
+
+            // Function to cancel registration
+            function cancelRegistration(eventId) {
+                if (confirm('Are you sure you want to cancel this registration?')) {
+                    $.ajax({
+                        url: 'event_registration.php',
+                        method: 'POST',
+                        data: { action: 'unregister', event_id: eventId },
+                        success: function(response) {
+                            if (response.status === 'success') {
+                                // Refresh the events list and calendar
+                                loadUpcomingEvents();
+                                calendar.refetchEvents();
+                                // Show success message
+                                showAlert('Registration cancelled successfully!', 'success');
+                                updateDashboardStats();
+                                const currentCount = parseInt($('#registered-events-count').text()) || 0;
+                                animateCounter($('#registered-events-count'), currentCount, currentCount - 1, 500);
+                                
+                                // Automatically remove from calendar
+                                removeFromCalendar(eventId);
+                            } else {
+                                showAlert(response.message || 'Failed to cancel registration', 'danger');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error cancelling registration:', error);
+                            showAlert('Failed to cancel registration. Please try again later.', 'danger');
+                        }
+                    });
+                }
+            }
+
+            // Function to add event to calendar
+            function addToCalendar(eventId) {
+                $.ajax({
+                    url: 'calendar_action.php',
+                    type: 'POST',
+                    data: {
+                        action: 'add',
+                        event_id: eventId
+                    },
+                    success: function(response) {
+                        try {
+                            const data = JSON.parse(response);
+                            if (data.status === 'success') {
+                                // Update calendar button if it exists
+                                const calendarBtn = $(`.calendar-btn[data-event-id="${eventId}"]`);
+                                if (calendarBtn.length) {
+                                    calendarBtn.removeClass('btn-outline-primary calendar-btn')
+                                             .addClass('btn-outline-danger')
+                                             .text('Remove from Calendar');
+                                }
+                                
+                                // Refresh the calendar view
+                                if (calendar) {
+                                    calendar.refetchEvents();
+                                }
+                            }
+                        } catch (e) {
+                            console.error('Error adding to calendar:', e);
+                        }
+                    }
+                });
+            }
+
+            // Function to remove event from calendar
+            function removeFromCalendar(eventId) {
+                $.ajax({
+                    url: 'calendar_action.php',
+                    type: 'POST',
+                    data: {
+                        action: 'remove',
+                        event_id: eventId
+                    },
+                    success: function(response) {
+                        try {
+                            const data = JSON.parse(response);
+                            if (data.status === 'success') {
+                                // Update calendar button if it exists
+                                const calendarBtn = $(`.btn-outline-danger[data-event-id="${eventId}"]`);
+                                if (calendarBtn.length) {
+                                    calendarBtn.removeClass('btn-outline-danger')
+                                             .addClass('btn-outline-primary calendar-btn')
+                                             .text('Add to Calendar');
+                                }
+                                
+                                // Refresh the calendar view
+                                if (calendar) {
+                                    calendar.refetchEvents();
+                                }
+                            }
+                        } catch (e) {
+                            console.error('Error removing from calendar:', e);
+                        }
+                    }
+                });
+            }
+
+            // Function to show alerts
+            function showAlert(message, type) {
+                const alert = `
+                    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+                $('#alerts-container').html(alert);
+                setTimeout(() => {
+                    $('.alert').alert('close');
+                }, 5000);
+            }
+
+            // Function to update upcoming events count
+            function updateUpcomingEventsCount() {
+                $.ajax({
+                    url: 'get_dashboard_stats.php',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            const currentCount = parseInt($('#upcoming-events-count').text()) || 0;
+                            const newCount = parseInt(response.stats.upcoming_events) || 0;
+                            if (currentCount !== newCount) {
+                                animateCounter($('#upcoming-events-count'), currentCount, newCount, 500);
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Initial binding of event handlers
+            bindEventHandlers();
+
+            // Load initial data
+            updateDashboardStats();
+            loadUpcomingEvents();
+
+            // Refresh data every 5 minutes
+            setInterval(() => {
+                console.log('Running scheduled stats update');
+                updateDashboardStats();
+                calendar.refetchEvents();
+            }, 300000);
+        });
+
+        function toggleFavorite(button, eventId) {
+            const isFavorite = button.getAttribute('data-favorite') === 'true';
+            
+            // Disable the button while processing
+            button.disabled = true;
+            
+            // Store the current favorite count
+            const currentCount = parseInt($('#favorite-events-count').text()) || 0;
+            
+            $.ajax({
+                url: 'favorites_action.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    action: isFavorite ? 'removeFavorite' : 'addFavorite',
+                    event_id: eventId
+                },
+                success: function(data) {
+                    console.log('Server response:', data);
+                    
+                    if (data.status === 'success') {
+                        // Toggle the favorite state
+                        if (isFavorite) {
+                            $(button).find('i').removeClass('bi-star-fill').addClass('bi-plus-lg');
+                            $(button).find('span').text('Add to Favorites');
+                            button.setAttribute('data-favorite', 'false');
+                            // Animate counter down
+                            animateCounter($('#favorite-events-count'), currentCount, currentCount - 1, 500);
+                        } else {
+                            $(button).find('i').removeClass('bi-plus-lg').addClass('bi-star-fill');
+                            $(button).find('span').text('Remove from Favorites event');
+                            button.setAttribute('data-favorite', 'true');
+                            // Animate counter up
+                            animateCounter($('#favorite-events-count'), currentCount, currentCount + 1, 500);
+                        }
+                        
+                        // Show success message
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: data.message,
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+
+                        // Update the events list and dashboard stats
+                        setTimeout(() => {
+                            loadUpcomingEvents();
+                            updateDashboardStats();
+                        }, 500);
+                    } else {
+                        console.error('Error response:', data);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: data.message || 'Failed to update favorites',
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', {
+                        status: status,
+                        error: error,
+                        response: xhr.responseText
+                    });
+                    
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Failed to update favorites',
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                },
+                complete: function() {
+                    // Re-enable the button
+                    button.disabled = false;
+                }
+            });
+        }
+
+        function updateFavoriteCount() {
+            $.ajax({
+                url: 'favorites_action.php',
+                type: 'GET',
+                data: { action: 'getFavorites' },
+                success: function(response) {
+                    if (response.status === 'success' && response.favorites) {
+                        $('#favorite-events-count').text(response.favorites.length);
+                    }
+                }
+            });
+        }
+
+        // Initial update of favorite count
+        $(document).ready(function() {
+            updateFavoriteCount();
+        });
+
+        // Function to handle club membership
+        function toggleClubMembership(button, clubId) {
+            const isMember = button.getAttribute('data-member') === 'true';
+            const currentCount = parseInt($('#clubs-count').text()) || 0;
+            
+            button.disabled = true;
+            
+            $.ajax({
+                url: 'club_membership_action.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    action: isMember ? 'leave' : 'join',
+                    club_id: clubId
+                },
+                success: function(data) {
+                    if (data.status === 'success') {
+                        if (isMember) {
+                            $(button).removeClass('btn-danger').addClass('btn-primary');
+                            $(button).text('Join Club');
+                            button.setAttribute('data-member', 'false');
+                            // Animate counter down
+                            animateCounter($('#clubs-count'), currentCount, currentCount - 1, 500);
+                        } else {
+                            $(button).removeClass('btn-primary').addClass('btn-danger');
+                            $(button).text('Leave Club');
+                            button.setAttribute('data-member', 'true');
+                            // Animate counter up
+                            animateCounter($('#clubs-count'), currentCount, currentCount + 1, 500);
+                        }
+                        
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: data.message,
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: data.message || 'Failed to update club membership',
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Failed to update club membership',
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                },
+                complete: function() {
+                    button.disabled = false;
+                }
+            });
+        }
+
+        // Function to update upcoming events count
+        function updateUpcomingEventsCount() {
+            $.ajax({
+                url: 'get_dashboard_stats.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        const currentCount = parseInt($('#upcoming-events-count').text()) || 0;
+                        const newCount = parseInt(response.stats.upcoming_events) || 0;
+                        if (currentCount !== newCount) {
+                            animateCounter($('#upcoming-events-count'), currentCount, newCount, 500);
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update all counters periodically
+        setInterval(() => {
+            updateUpcomingEventsCount();
+        }, 300000); // Every 5 minutes
+    </script>
 </body>
 </html>
