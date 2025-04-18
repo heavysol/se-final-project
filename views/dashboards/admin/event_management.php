@@ -51,26 +51,8 @@ if ($result) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/event-management-styles.css">
-    <style>
-        .status-badge {
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-weight: 500;
-        }
-        .status-approved {
-            background-color: #198754;  /* Bootstrap success green */
-            color: white;
-        }
-        .status-pending {
-            background-color: #ffc107;  /* Bootstrap warning yellow */
-            color: black;
-        }
-        .status-rejected {
-            background-color: #dc3545;  /* Bootstrap danger red */
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="../../../assets/css/general-styles.css">
+    <link rel="stylesheet" href="../../../assets/css/dashboard-styles.css">
 </head>
 <body>
     <div class="container-fluid mt-3">

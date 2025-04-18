@@ -1,4 +1,19 @@
-<!DOCTYPE html>
+<?php
+session_start();
+require_once '../../../db/config.php';  // Add this line to include the database connection
+
+// Check if connection is successful
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Verify user is logged in and is an organizer
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
+    header("Location: ../../../login.php");
+    exit();
+}
+
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,8 +27,8 @@
 <!-- Updated Sidebar HTML -->
 <div class="sidebar">
     <div class="logo-container">
-        <h3>FitInspire Hub</h3>
-    </div>
+    <h3>Campus Events</h3>
+</div>
 
     <ul class="nav-list">
         <li>
@@ -42,7 +57,7 @@
                 <span class="link-name">Logout</span>
             </a>
         </li>
-    </ul>
+</ul>
 </div>
 
 <!-- Main Content -->
@@ -70,7 +85,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="eventCreationForm" method="post" action="event_management_action.php">
+                    <form id="eventCreationForm" method="post">
                         <div class="mb-3">
                             <label for="title" class="form-label">Event Title</label>
                             <input type="text" class="form-control" id="title" name="title" required>
@@ -80,12 +95,13 @@
                             <textarea class="form-control" id="description" name="description" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="start_datetime" class="form-label">Date Event is Posted</label>
-                            <input type="datetime-local" class="form-control" id="start_datetime" name="start_datetime" required>
+                            <label for="start_datetime" class="form-label">Date Event Post</label>
+                            <input type="datetime-local" class="form-control" id="start_datetime" name="start_datetime" required readonly>
                         </div>
                         <div class="mb-3">
                             <label for="end_datetime" class="form-label">Date Event is Happening</label>
                             <input type="datetime-local" class="form-control" id="end_datetime" name="end_datetime" required>
+                            <small class="text-muted">Event must be at least 1 hour and 30 minutes after post time</small>
                         </div>
                         <div class="mb-3">
                             <label for="location" class="form-label">Location</label>
@@ -93,18 +109,79 @@
                         </div>
                         <div class="mb-3">
                             <label for="category" class="form-label">Category</label>
-                            <input type="text" class="form-control" id="category" name="category" required>
+                            <select class="form-control" id="category" name="category" required>
+                                <option value="">Select a category</option>
+                                <option value="Academic">Academic</option>
+                                <option value="Cultural">Cultural</option>
+                                <option value="Social">Social</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Other">Other</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="max_capacity" class="form-label">Max Capacity</label>
-                            <input type="number" class="form-control" id="max_capacity" name="max_capacity" required>
+                            <input type="number" class="form-control" id="max_capacity" name="max_capacity" min="1" required>
                         </div>
+                        <div class="alert alert-danger" id="formError" style="display: none;"></div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <?php
+    // Add this code after your session checks and database connection
+
+    // Get current date for comparison
+    $current_date = date('Y-m-d H:i:s');
+
+    // 1. Active Events Count (events by this organizer that haven't happened yet and are approved)
+    $active_query = "SELECT COUNT(*) as active_count 
+                     FROM Events 
+                     WHERE organizer_id = ? 
+                     AND status = 'approved' 
+                     AND end_datetime > ?";
+    $stmt = $conn->prepare($active_query);
+    $stmt->bind_param("is", $_SESSION['user_id'], $current_date);
+    $stmt->execute();
+    $active_result = $stmt->get_result();
+    $active_events = $active_result->fetch_assoc()['active_count'];
+
+    // 2. Total Attendees (sum of all registrations for this organizer's events)
+    $attendees_query = "SELECT COUNT(r.registration_id) as total_attendees
+                       FROM Events e
+                       LEFT JOIN Registrations r ON e.event_id = r.event_id
+                       WHERE e.organizer_id = ?";
+    $stmt = $conn->prepare($attendees_query);
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $attendees_result = $stmt->get_result();
+    $total_attendees = $attendees_result->fetch_assoc()['total_attendees'];
+
+    // 3. Pending Events Count
+    $pending_query = "SELECT COUNT(*) as pending_count 
+                     FROM Events 
+                     WHERE organizer_id = ? 
+                     AND status = 'pending'";
+    $stmt = $conn->prepare($pending_query);
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $pending_result = $stmt->get_result();
+    $pending_events = $pending_result->fetch_assoc()['pending_count'];
+
+    // 4. Average Rating
+    $rating_query = "SELECT AVG(r.rating) as avg_rating
+                     FROM Events e
+                     LEFT JOIN Feedback r ON e.event_id = r.event_id
+                     WHERE e.organizer_id = ?
+                     AND r.rating IS NOT NULL";
+    $stmt = $conn->prepare($rating_query);
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $rating_result = $stmt->get_result();
+    $avg_rating = number_format($rating_result->fetch_assoc()['avg_rating'] ?? 0, 1);
+    ?>
 
     <div class="row mb-4">
         <div class="col-md-3">
@@ -113,7 +190,7 @@
                     <i class="bi bi-calendar2-check"></i>
                 </div>
                 <div class="stats-info">
-                    <h3 class="stats-number">12</h3>
+                    <h3 class="stats-number"><?php echo $active_events; ?></h3>
                     <p class="stats-label">Active Events</p>
                 </div>
             </div>
@@ -124,7 +201,7 @@
                     <i class="bi bi-person-check"></i>
                 </div>
                 <div class="stats-info">
-                    <h3 class="stats-number">347</h3>
+                    <h3 class="stats-number"><?php echo $total_attendees; ?></h3>
                     <p class="stats-label">Total Attendees</p>
                 </div>
             </div>
@@ -135,7 +212,7 @@
                     <i class="bi bi-clock"></i>
                 </div>
                 <div class="stats-info">
-                    <h3 class="stats-number">4</h3>
+                    <h3 class="stats-number"><?php echo $pending_events; ?></h3>
                     <p class="stats-label">Pending Events</p>
                 </div>
             </div>
@@ -146,7 +223,7 @@
                     <i class="bi bi-star"></i>
                 </div>
                 <div class="stats-info">
-                    <h3 class="stats-number">4.7</h3>
+                    <h3 class="stats-number"><?php echo $avg_rating; ?></h3>
                     <p class="stats-label">Average Rating</p>
                 </div>
             </div>
@@ -159,48 +236,40 @@
             <div class="dashboard-card">
                 <h4>
                     Checklist
-                    <button class="btn btn-sm btn-outline-primary">Add Task</button>
+                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">Add Task</button>
                 </h4>
                 <div class="task-list">
-                    <div class="task-item">
-                        <div class="task-checkbox">
-                            <input type="checkbox" class="form-check-input" id="task1" checked>
-                        </div>
-                        <div class="task-title">Submit event proposal for Cultural Night</div>
-                        <div class="task-date">Yesterday</div>
-                    </div>
-                    <div class="task-item">
-                        <div class="task-checkbox">
-                            <input type="checkbox" class="form-check-input" id="task2" checked>
-                        </div>
-                        <div class="task-title">Book venue for Akwaaba Night</div>
-                        <div class="task-date">Mar 10</div>
-                    </div>
-                    <div class="task-item">
-                        <div class="task-checkbox">
-                            <input type="checkbox" class="form-check-input" id="task3">
-                        </div>
-                        <div class="task-title">Coordinate with speakers for Career Fair</div>
-                        <div class="task-date">Today</div>
-                    </div>
-                    <div class="task-item">
-                        <div class="task-checkbox">
-                            <input type="checkbox" class="form-check-input" id="task4">
-                        </div>
-                        <div class="task-title">Send reminders for Global Café attendees</div>
-                        <div class="task-date">Tomorrow</div>
-                    </div>
-                    <div class="task-item">
-                        <div class="task-checkbox">
-                            <input type="checkbox" class="form-check-input" id="task5">
-                        </div>
-                        <div class="task-title">Prepare feedback forms for Akwaaba Night</div>
-                        <div class="task-date">Mar 19</div>
-                    </div>
+                    <?php
+                    // Fetch tasks for the current organizer
+                    $tasks_query = "SELECT * FROM Tasks WHERE organizer_id = ? ORDER BY due_date ASC";
+                    $stmt = $conn->prepare($tasks_query);
+                    $stmt->bind_param("i", $_SESSION['user_id']);
+                    $stmt->execute();
+                    $tasks_result = $stmt->get_result();
+
+                    if ($tasks_result->num_rows > 0) {
+                        while ($task = $tasks_result->fetch_assoc()) {
+                            $status_class = $task['status'] === 'completed' ? 'completed' : '';
+                            $checked = $task['status'] === 'completed' ? 'checked' : '';
+                            $due_date = $task['due_date'] ? date('M d', strtotime($task['due_date'])) : 'No due date';
+                            echo "<div class='task-item {$status_class}' data-task-id='{$task['task_id']}'>
+                                    <div class='task-checkbox'>
+                                        <input type='checkbox' class='form-check-input task-status' {$checked}>
+                                    </div>
+                                    <div class='task-title'>{$task['title']}</div>
+                                    <div class='task-date'>{$due_date}</div>
+                                    <button class='btn btn-sm btn-danger delete-task' data-task-id='{$task['task_id']}'>
+                                        <i class='fas fa-trash'></i>
+                                    </button>
+                                </div>";
+                        }
+                    } else {
+                        echo "<div class='text-center text-muted'>No tasks yet</div>";
+                    }
+                    ?>
                 </div>
             </div>
         </div>
-
         <div class="col-md-6">
             <div class="dashboard-card">
                 <h4>
@@ -283,32 +352,320 @@
             </div>
         </div>
     </div>
+
+    <!-- Add Task Modal -->
+    <div class="modal fade" id="addTaskModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addTaskForm" onsubmit="return false;">
+                        <div class="mb-3">
+                            <label for="taskTitle" class="form-label">Task Title</label>
+                            <input type="text" class="form-control" id="taskTitle" name="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="taskDescription" name="description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskDueDate" class="form-label">Due Date</label>
+                            <input type="datetime-local" class="form-control" id="taskDueDate" name="due_date">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveTask">Save Task</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-document.getElementById('eventCreationForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    const formData = new FormData(this);
-
-    fetch('../../../actions/create_event_action.php', { // Ensure this path is correct
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        const feedbackMessage = document.getElementById('feedbackMessage');
-        if (data.success) {
-            feedbackMessage.innerHTML = '<div class="alert alert-success">Event created successfully!</div>';
-        } else {
-            feedbackMessage.innerHTML = '<div class="alert alert-danger">An error occurred: ' + data.message + '</div>';
+document.getElementById('eventCreationForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Show loading state
+    const submitButton = this.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Creating...';
+    
+    try {
+        // Collect form data
+        const formData = new FormData(this);
+        formData.append('action', 'create');
+        
+        // Debug: Log form data
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
         }
-    })
-    .catch(error => {
-        document.getElementById('feedbackMessage').innerHTML = '<div class="alert alert-danger">An error occurred: ' + error.message + '</div>';
+
+        // Make the request
+        const response = await fetch('../../../actions/organizer_action.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        // Debug: Log response details
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+
+        // Get the raw text first
+        const responseText = await response.text();
+        console.log('Raw response:', responseText);
+
+        // Try to parse as JSON
+        let data;
+        try {
+            data = JSON.parse(responseText);
+        } catch (parseError) {
+            console.error('Failed to parse JSON:', parseError);
+            throw new Error('Server returned invalid JSON response');
+        }
+
+        if (!data) {
+            throw new Error('Empty response received');
+        }
+
+        if (data.success) {
+            alert('Event created successfully!');
+            // Close modal and refresh
+            document.querySelector('#createEventModal .btn-close').click();
+            location.reload();
+        } else {
+            throw new Error(data.message || 'Failed to create event');
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error: ' + error.message);
+    } finally {
+        // Reset button state
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit';
+    }
+});
+
+// Function to set current date and time for post date
+function setCurrentDateTime() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    
+    // Set start datetime to current time
+    const startInput = document.getElementById('start_datetime');
+    startInput.value = `${year}-${month}-${day}T${hours}:${minutes}`;
+    
+    // Set minimum end datetime
+    const minEndDate = new Date(now.getTime() + (90 * 60000)); // 90 minutes in milliseconds
+    const endInput = document.getElementById('end_datetime');
+    endInput.min = `${year}-${month}-${day}T${hours}:${minutes}`;
+    
+    // Clear any previous end datetime value when modal opens
+    endInput.value = '';
+}
+
+// Validate end datetime when it changes
+document.getElementById('end_datetime').addEventListener('change', function() {
+    const startDate = new Date(document.getElementById('start_datetime').value);
+    const endDate = new Date(this.value);
+    const minEndDate = new Date(startDate.getTime() + (90 * 60000)); // 90 minutes in milliseconds
+    
+    if (endDate < startDate) {
+        this.setCustomValidity('Event happening time cannot be before post time');
+    } else if (endDate < minEndDate) {
+        this.setCustomValidity('Event must be at least 1 hour and 30 minutes after post time');
+    } else {
+        this.setCustomValidity('');
+    }
+});
+
+// Set current date/time when modal opens
+document.getElementById('createEventModal').addEventListener('show.bs.modal', function () {
+    setCurrentDateTime();
+});
+
+// Add functions for edit and delete
+async function editEvent(eventId) {
+    // Fetch event details and populate form
+    const formData = new FormData();
+    formData.append('action', 'edit');
+    formData.append('event_id', eventId);
+    // Add other form data...
+    
+    try {
+        const response = await fetch('../../../actions/organizer_action.php', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+        if (data.success) {
+            alert(data.message);
+            location.reload();
+        } else {
+            alert(data.message || 'Failed to update event');
+        }
+    } catch (error) {
+        alert('An error occurred while updating the event');
+    }
+}
+
+async function deleteEvent(eventId) {
+    if (!confirm('Are you sure you want to delete this event?')) {
+        return;
+    }
+    
+    const formData = new FormData();
+    formData.append('action', 'delete');
+    formData.append('event_id', eventId);
+    
+    try {
+        const response = await fetch('../../../actions/organizer_action.php', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+        if (data.success) {
+            alert(data.message);
+            location.reload();
+        } else {
+            alert(data.message || 'Failed to delete event');
+        }
+    } catch (error) {
+        alert('An error occurred while deleting the event');
+    }
+}
+
+// Task Management
+$(document).ready(function() {
+    // Add new task
+    $('#saveTask').click(function(e) {
+        e.preventDefault();
+        
+        // Validate form
+        const title = $('#taskTitle').val();
+        if (!title) {
+            alert('Please enter a task title');
+            return;
+        }
+
+        // Get form data
+        const formData = new FormData();
+        formData.append('action', 'add');
+        formData.append('title', title);
+        formData.append('description', $('#taskDescription').val());
+        formData.append('due_date', $('#taskDueDate').val());
+
+        console.log('Saving task with data:', {
+            title: title,
+            description: $('#taskDescription').val(),
+            due_date: $('#taskDueDate').val()
+        });
+
+        // Show loading state
+        $('#saveTask').prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
+
+        // Make AJAX request
+        $.ajax({
+            url: '../../../actions/task_action.php',  // Updated path
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log('Server response:', response);
+                if (response.success) {
+                    $('#addTaskModal').modal('hide');
+                    location.reload();
+                } else {
+                    alert('Error adding task: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX error:', { xhr, status, error });
+                alert('Error adding task. Please check the console for details.');
+            },
+            complete: function() {
+                // Reset button state
+                $('#saveTask').prop('disabled', false).html('Save Task');
+            }
+        });
+    });
+
+    // Clear form when modal is closed
+    $('#addTaskModal').on('hidden.bs.modal', function () {
+        $('#addTaskForm')[0].reset();
+    });
+
+    // Update task status
+    $('.task-status').change(function() {
+        const taskId = $(this).closest('.task-item').data('task-id');
+        const isCompleted = $(this).is(':checked');
+        
+        console.log('Updating task status:', { taskId, isCompleted });
+        
+        $.ajax({
+            url: '../../../actions/task_action.php',
+            method: 'POST',
+            data: {
+                action: 'update_status',
+                task_id: taskId,
+                status: isCompleted ? 'completed' : 'pending'
+            },
+            success: function(response) {
+                console.log('Server response:', response);
+                if (response.success) {
+                    location.reload();
+                } else {
+                    alert('Error updating task: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX error:', { xhr, status, error });
+                alert('Error updating task. Please check the console for details.');
+            }
+        });
+    });
+
+    // Delete task
+    $('.delete-task').click(function() {
+        if (confirm('Are you sure you want to delete this task?')) {
+            const taskId = $(this).data('task-id');
+            
+            console.log('Deleting task:', taskId);
+            
+            $.ajax({
+                url: '../../../actions/task_action.php',
+                method: 'POST',
+                data: {
+                    action: 'delete',
+                    task_id: taskId
+                },
+                success: function(response) {
+                    console.log('Server response:', response);
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Error deleting task: ' + response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX error:', { xhr, status, error });
+                    alert('Error deleting task. Please check the console for details.');
+                }
+            });
+        }
     });
 });
 </script>

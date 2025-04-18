@@ -39,7 +39,7 @@ $total_organizers = $organizers_result->fetch_assoc()['total_organizers'];
             <div class="text-white-50 small">Admin Dashboard</div>
         </div>
         <ul class="sidebar-menu">
-            <li><a href="./student_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+            <li><a href="admin_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
             <li><a href="event_management.php"><i class="bi bi-calendar-event"></i> Events Management</a></li>
             <li><a href="user_management.php"><i class="bi bi-people"></i> User Management</a></li>
             <li><a href="event_organization.php"><i class="bi bi-building"></i> Organizations</a></li>

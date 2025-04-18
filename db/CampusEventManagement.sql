@@ -84,5 +84,18 @@ CREATE TABLE EventCalendar (
     FOREIGN KEY (event_id) REFERENCES Events(event_id) ON DELETE CASCADE
 );
 
+-- Tasks table
+CREATE TABLE tasks (
+    task_id INT AUTO_INCREMENT PRIMARY KEY,
+    organizer_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    due_date DATETIME,
+    status ENUM('pending', 'completed') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (organizer_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
 USE CampusEventManagement;
 SHOW TABLES;
