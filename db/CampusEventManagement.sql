@@ -84,6 +84,7 @@ CREATE TABLE EventCalendar (
     FOREIGN KEY (event_id) REFERENCES Events(event_id) ON DELETE CASCADE
 );
 
+<<<<<<< HEAD
 -- Tasks table
 CREATE TABLE tasks (
     task_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -109,6 +110,16 @@ CREATE TABLE IF NOT EXISTS Notifications (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (organizer_id) REFERENCES Users(user_id),
     FOREIGN KEY (event_id) REFERENCES Events(event_id)
+=======
+CREATE TABLE IF NOT EXISTS Favorites (
+    favorite_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    event_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_favorite (user_id, event_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (event_id) REFERENCES Events(event_id) ON DELETE CASCADE
+>>>>>>> ed24b3299e1115bd0808e98d01f9ae8a543a96d5
 );
 
 USE CampusEventManagement;

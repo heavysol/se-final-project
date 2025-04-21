@@ -81,6 +81,42 @@ session_start();
         .alert i {
             margin-right: 8px;
         }
+        .favorite-btn {
+            background: none;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            margin-left: 8px;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+        }
+        .favorite-btn:hover {
+            transform: scale(1.05);
+            background-color: #ffe69c;
+        }
+        .favorite-btn .bi-plus-lg {
+            color: #856404;
+        }
+        .favorite-btn .bi-star-fill {
+            color: #ffd700;
+        }
+        .favorite-btn:not([data-favorite="true"]) {
+            background-color: #e9ecef;
+            border-color: #dee2e6;
+        }
+        .favorite-btn:not([data-favorite="true"]):hover {
+            background-color: #dde2e6;
+        }
+        .favorite-btn span {
+            margin-left: 4px;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 
@@ -88,17 +124,14 @@ session_start();
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-header">
-            <h3>Campus Events</h3>
+            <h3>Student Dashboard</h3>
             <div class="text-white-50 small">Student Dashboard</div>
         </div>
         <ul class="sidebar-menu">
-            <li><a href="./student_dashboard.php"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-            <li><a href="./events.php" class='active'><i class="bi bi-calendar-event"></i> Events</a></li>
-            <li><a href="./registrations.php"><i class="bi bi-journal-check"></i> My Registrations</a></li>
-            <li><a href="./favourites.php"><i class="bi bi-star"></i> Favorites</a></li>
-            <li><a href="./clubs-orgs.php"><i class="bi bi-people"></i> Clubs & Organizations</a></li>
-            <li><a href="../notifications.php"><i class="bi bi-bell"></i> Notifications</a></li>
-            <li><a href="../settings.php"><i class="bi bi-gear"></i> Settings</a></li>
+            <li><a href="./student_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+            <li><a href="./events.php"><i class="bi bi-calendar-event"></i> Events</a></li>
+            <li><a href="./registrations.php"><i class="bi bi-journal-check"></i> My Registrations Events</a></li>
+            <li><a href="./favourites.php"><i class="bi bi-star"></i> My Favorites Events</a></li>
         </ul>
     </div>
 
@@ -144,27 +177,43 @@ session_start();
                                     $calendarBtnText = $event['in_calendar'] ? 'Remove from Calendar' : 'Add to Calendar';
                                     ?>
                                     <div class="event-item">
-                                        <div class="event-title"><?php echo htmlspecialchars($event['title']); ?></div>
-                                        <div class="event-description"><?php echo htmlspecialchars($event['description']); ?></div>
-                                        <div class="event-meta">
-                                            <span class="event-category"><i class="bi bi-tag"></i> <?php echo htmlspecialchars($event['category']); ?></span>
-                                            <span class="event-capacity"><i class="bi bi-people"></i> Capacity: <?php echo htmlspecialchars($event['max_capacity']); ?></span>
-                                        </div>
-                                        <div class="event-details">
-                                            <i class="bi bi-calendar"></i> <?php 
-                                                echo $startDate->format('F j, Y g:i A');
-                                                if ($startDate->format('Y-m-d') !== $endDate->format('Y-m-d')) {
-                                                    echo ' - ' . $endDate->format('F j, Y g:i A');
-                                                } else {
-                                                    echo ' - ' . $endDate->format('g:i A');
-                                                }
-                                            ?>
-                                            <br>
-                                            <i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['location']); ?>
-                                        </div>
-                                        <div class="event-actions">
-                                            <button type="button" class="btn btn-sm <?php echo $registerBtnClass; ?>" data-event-id="<?php echo (int)$event['event_id']; ?>"><?php echo $registerBtnText; ?></button>
-                                            <button type="button" class="btn btn-sm <?php echo $calendarBtnClass; ?>" data-event-id="<?php echo (int)$event['event_id']; ?>"><?php echo $calendarBtnText; ?></button>
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div>
+                                                <h5 class="event-title mb-2"><?php echo htmlspecialchars($event['title']); ?></h5>
+                                                <div class="event-description"><?php echo htmlspecialchars($event['description']); ?></div>
+                                                <div class="event-meta">
+                                                    <span class="event-category"><i class="bi bi-tag"></i> <?php echo htmlspecialchars($event['category']); ?></span>
+                                                    <span class="event-capacity"><i class="bi bi-people"></i> Capacity: <?php echo htmlspecialchars($event['max_capacity']); ?></span>
+                                                </div>
+                                                <div class="event-details">
+                                                    <i class="bi bi-calendar"></i> <?php 
+                                                        echo $startDate->format('F j, Y g:i A');
+                                                        if ($startDate->format('Y-m-d') !== $endDate->format('Y-m-d')) {
+                                                            echo ' - ' . $endDate->format('F j, Y g:i A');
+                                                        } else {
+                                                            echo ' - ' . $endDate->format('g:i A');
+                                                        }
+                                                    ?>
+                                                    <br>
+                                                    <i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['location']); ?>
+                                                </div>
+                                                <div class="event-actions mt-3">
+                                                    <button type="button" class="btn btn-sm <?php echo $registerBtnClass; ?>" 
+                                                            data-event-id="<?php echo (int)$event['event_id']; ?>">
+                                                        <?php echo $registerBtnText; ?>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm <?php echo $calendarBtnClass; ?>" 
+                                                            data-event-id="<?php echo (int)$event['event_id']; ?>">
+                                                        <?php echo $calendarBtnText; ?>
+                                                    </button>
+                                                    <button class="favorite-btn" onclick="toggleFavorite(this, <?php echo (int)$event['event_id']; ?>)" 
+                                                            data-event-id="<?php echo (int)$event['event_id']; ?>"
+                                                            <?php echo isset($event['is_favorite']) && $event['is_favorite'] ? 'data-favorite="true"' : ''; ?>>
+                                                        <i class="bi <?php echo isset($event['is_favorite']) && $event['is_favorite'] ? 'bi-star-fill' : 'bi-plus-lg'; ?>"></i>
+                                                        <span><?php echo isset($event['is_favorite']) && $event['is_favorite'] ? 'Remove from Favorites events' : 'Add to Favorites event'; ?></span>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <?php
@@ -247,23 +296,35 @@ session_start();
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Search Failed',
-                                    text: 'Failed to retrieve search results'
+                                    text: data.message || 'Unable to search events at this time. Please try again later.',
+                                    confirmButtonText: 'Try Again'
                                 });
                             }
                         } catch (e) {
                             console.error('Error parsing search results:', e);
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Error',
-                                text: 'An error occurred while processing search results'
+                                title: 'Search Error',
+                                text: 'There was a problem processing the search results. Please try again.',
+                                confirmButtonText: 'Try Again'
                             });
                         }
                     },
-                    error: function() {
+                    error: function(xhr, status, error) {
+                        let errorMessage = 'Unable to connect to the server. ';
+                        if (xhr.status === 0) {
+                            errorMessage += 'Please check your internet connection.';
+                        } else if (xhr.status === 404) {
+                            errorMessage += 'The search service is currently unavailable.';
+                        } else {
+                            errorMessage += 'Please try again later.';
+                        }
+                        
                         Swal.fire({
                             icon: 'error',
-                            title: 'Error',
-                            text: 'Failed to connect to the server'
+                            title: 'Connection Error',
+                            text: errorMessage,
+                            confirmButtonText: 'Try Again'
                         });
                     },
                     complete: function() {
@@ -308,20 +369,36 @@ session_start();
                     
                     const eventHtml = `
                         <div class="event-item">
-                            <div class="event-title">${highlightSearchTerm(event.title, searchTerm)}</div>
-                            <div class="event-description">${highlightSearchTerm(event.description, searchTerm)}</div>
-                            <div class="event-meta">
-                                <span class="event-category"><i class="bi bi-tag"></i> ${escapeHtml(event.category)}</span>
-                                <span class="event-capacity"><i class="bi bi-people"></i> Capacity: ${event.max_capacity}</span>
-                            </div>
-                            <div class="event-details">
-                                <i class="bi bi-calendar"></i> ${formatDateRange(startDate, endDate)}
-                                <br>
-                                <i class="bi bi-geo-alt"></i> ${escapeHtml(event.venue)}
-                            </div>
-                            <div class="event-actions">
-                                <button type="button" class="btn btn-sm ${registerBtnClass}" data-event-id="${event.id}">${registerBtnText}</button>
-                                <button type="button" class="btn btn-sm ${calendarBtnClass}" data-event-id="${event.id}">${calendarBtnText}</button>
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="event-title mb-2">${highlightSearchTerm(event.title, searchTerm)}</h5>
+                                    <div class="event-description">${highlightSearchTerm(event.description, searchTerm)}</div>
+                                    <div class="event-meta">
+                                        <span class="event-category"><i class="bi bi-tag"></i> ${escapeHtml(event.category)}</span>
+                                        <span class="event-capacity"><i class="bi bi-people"></i> Capacity: ${event.max_capacity}</span>
+                                    </div>
+                                    <div class="event-details">
+                                        <i class="bi bi-calendar"></i> ${formatDateRange(startDate, endDate)}
+                                        <br>
+                                        <i class="bi bi-geo-alt"></i> ${escapeHtml(event.venue)}
+                                    </div>
+                                    <div class="event-actions mt-3">
+                                        <button type="button" class="btn btn-sm ${event.is_registered ? 'btn-danger' : 'btn-primary register-btn'}" 
+                                                data-event-id="${event.id}">
+                                            ${event.is_registered ? 'Unregister' : 'Register'}
+                                        </button>
+                                        <button type="button" class="btn btn-sm ${event.in_calendar ? 'btn-outline-danger' : 'btn-outline-primary calendar-btn'}" 
+                                                data-event-id="${event.id}">
+                                            ${event.in_calendar ? 'Remove from Calendar' : 'Add to Calendar'}
+                                        </button>
+                                        <button class="favorite-btn" onclick="toggleFavorite(this, ${event.id})" 
+                                                data-event-id="${event.id}"
+                                                ${event.is_favorite ? 'data-favorite="true"' : ''}>
+                                            <i class="bi ${event.is_favorite ? 'bi-star-fill' : 'bi-plus-lg'}"></i>
+                                            <span>${event.is_favorite ? 'Remove from Favorites events' : 'Add to Favorites'}</span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -518,6 +595,113 @@ session_start();
             // Initial binding of event handlers
             bindEventHandlers();
         });
+
+        function toggleFavorite(button, eventId) {
+            const isFavorite = button.getAttribute('data-favorite') === 'true';
+            const action = isFavorite ? 'removeFavorite' : 'addFavorite';
+            
+            // Disable the button while processing
+            button.disabled = true;
+            
+            // Log the request details
+            console.log('Sending favorite request:', {
+                action: action,
+                eventId: eventId,
+                isFavorite: isFavorite
+            });
+            
+            $.ajax({
+                url: 'favorites_action.php',
+                type: 'POST',
+                data: {
+                    action: action,
+                    event_id: eventId
+                },
+                success: function(response) {
+                    console.log('Server response:', response); // Log the raw response
+                    
+                    try {
+                        const data = typeof response === 'string' ? JSON.parse(response) : response;
+                        console.log('Parsed response:', data); // Log the parsed data
+                        
+                        if (data.status === 'success') {
+                            // Toggle the favorite state
+                            if (isFavorite) {
+                                $(button).find('i').removeClass('bi-star-fill').addClass('bi-plus-lg');
+                                $(button).find('span').text('Add to Favorites event');
+                                button.setAttribute('data-favorite', 'false');
+                            } else {
+                                $(button).find('i').removeClass('bi-plus-lg').addClass('bi-star-fill');
+                                $(button).find('span').text('Remove from Favorites events');
+                                button.setAttribute('data-favorite', 'true');
+                            }
+                            
+                            // Show success message
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: data.message,
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+                        } else {
+                            console.error('Error response:', data); // Log error details
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: data.message || 'An error occurred while updating favorites',
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+                        }
+                    } catch (e) {
+                        console.error('Error parsing response:', e, 'Raw response:', response);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'An error occurred while processing the server response',
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', {
+                        status: status,
+                        error: error,
+                        response: xhr.responseText
+                    });
+                    
+                    let errorMessage = 'An error occurred while updating favorites';
+                    try {
+                        const response = JSON.parse(xhr.responseText);
+                        errorMessage = response.message || errorMessage;
+                    } catch (e) {
+                        console.error('Error parsing error response:', e);
+                    }
+                    
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: errorMessage,
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                },
+                complete: function() {
+                    // Re-enable the button
+                    button.disabled = false;
+                }
+            });
+        }
     </script>
 </body>
 </html>

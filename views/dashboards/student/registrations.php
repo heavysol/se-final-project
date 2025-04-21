@@ -52,6 +52,53 @@ echo "<script>
             width: calc(100% - 40px);
             margin: 0 20px;
         }
+        .dropdown-menu {
+            background-color: #2c3e50;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 0.5rem 0;
+            margin-top: 10px;
+            min-width: 200px;
+        }
+
+        .dropdown-menu:before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 20px;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid #2c3e50;
+        }
+
+        .dropdown-item {
+            color: #ecf0f1;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-item:hover {
+            background-color: #34495e;
+            color: #3498db;
+            transform: translateX(5px);
+        }
+
+        .dropdown-item i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-divider {
+            border-top: 1px solid #34495e;
+            margin: 0.5rem 0;
+        }
     </style>
 </head>
 
@@ -59,7 +106,7 @@ echo "<script>
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-header">
-            <h3>Campus Events</h3>
+            <h3>Student Dashboard</h3>
             <div class="text-white-50 small">Student Dashboard</div>
         </div>
         <ul class="sidebar-menu">
@@ -70,26 +117,27 @@ echo "<script>
                 <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                     <i class="bi bi-calendar-event"></i> Events
                 </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="./events.php">All Events</a></li>
-                    <li><a class="dropdown-item" href="./events.php?filter=upcoming">Upcoming Events</a></li>
-                    <li><a class="dropdown-item" href="./events.php?filter=past">Past Events</a></li>
-                    <li><a class="dropdown-item" href="./events.php?filter=today">Today's Events</a></li>
-                </ul>
+                <!-- <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="./events.php">
+                        <i class="bi bi-calendar-week"></i>All Events
+                    </a></li>
+                    <li><a class="dropdown-item" href="./events.php?filter=upcoming">
+                        <i class="bi bi-calendar-plus"></i>Upcoming Events
+                    </a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="./events.php?filter=today">
+                        <i class="bi bi-calendar-check"></i>Today's Events
+                    </a></li>
+                    <li><a class="dropdown-item" href="./events.php?filter=past">
+                        <i class="bi bi-calendar-x"></i>Past Events
+                    </a></li>
+                </ul> -->
             </li>
             
-            <li><a href="./registrations.php" class="active"><i class="bi bi-journal-check"></i> My Registrations</a></li>
-            <li><a href="./favourites.php"><i class="bi bi-star"></i> Favorites</a></li>
-            <li><a href="./club-orgs.php"><i class="bi bi-people"></i> Clubs & Organizations</a></li>
-            <li><a href="../notifications.php"><i class="bi bi-bell"></i> Notifications</a></li>
-            <li><a href="../settings.php"><i class="bi bi-gear"></i> Settings</a></li>
-            
+            <li><a href="./registrations.php" class="active"><i class="bi bi-journal-check"></i> My Registrations events</a></li>
+            <li><a href="./favourites.php"><i class="bi bi-star"></i> MyFavorites Events</a></li>
             <!-- Logout Button -->
-            <li>
-                <a href="./log_out_action.php" class="btn btn-danger logout-btn" onclick="return confirm('Are you sure you want to logout?')">
-                    <i class="bi bi-box-arrow-right"></i> Logout
-                </a>
-            </li>
+           
         </ul>
     </div>
 

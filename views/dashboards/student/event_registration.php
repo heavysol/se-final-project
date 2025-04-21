@@ -75,6 +75,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
             $stmt->bind_param("ii", $userId, $eventId);
             
             if ($stmt->execute()) {
+                // If registering, also add to calendar
+                $calendarQuery = "INSERT INTO EventCalendar (user_id, event_id, sync_status) VALUES (?, ?, 'pending')";
+                $calendarStmt = $conn->prepare($calendarQuery);
+                $calendarStmt->bind_param("ii", $userId, $eventId);
+                $calendarStmt->execute();
+                
                 echo json_encode([
                     'status' => 'success',
                     'message' => 'Successfully registered for the event',
@@ -104,6 +110,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
             
             if ($stmt->execute()) {
                 if ($stmt->affected_rows > 0) {
+                    // If unregistering, also remove from calendar
+                    $calendarQuery = "DELETE FROM EventCalendar WHERE user_id = ? AND event_id = ?";
+                    $calendarStmt = $conn->prepare($calendarQuery);
+                    $calendarStmt->bind_param("ii", $userId, $eventId);
+                    $calendarStmt->execute();
+                    
                     echo json_encode([
                         'status' => 'success',
                         'message' => 'Successfully unregistered from the event',

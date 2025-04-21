@@ -203,9 +203,76 @@ try {
 
     switch ($action) {
         case 'getRegisteredEvents':
-            $response = getRegisteredEvents($conn, $userId);
-            sendJsonResponse($response);
+            try {
+                $result = getRegisteredEvents($conn, $userId);
+                sendJsonResponse($result);
+            } catch (Exception $e) {
+                sendJsonResponse([
+                    'status' => 'error',
+                    'message' => $e->getMessage()
+                ], 500);
+            }
             break;
+
+        case 'cancelRegistration':
+            try {
+                // Validate event_id
+                if (!isset($_POST['event_id']) || !is_numeric($_POST['event_id'])) {
+                    throw new Exception('Invalid event ID');
+                }
+                $eventId = (int)$_POST['event_id'];
+
+                // Check if registration exists
+                $checkStmt = $conn->prepare("SELECT registration_id FROM Registrations WHERE user_id = ? AND event_id = ?");
+                if (!$checkStmt) {
+                    throw new Exception("Failed to prepare registration check: " . $conn->error);
+                }
+
+                $checkStmt->bind_param("ii", $userId, $eventId);
+                $checkStmt->execute();
+                $result = $checkStmt->get_result();
+                
+                if ($result->num_rows === 0) {
+                    throw new Exception("Registration not found");
+                }
+                $checkStmt->close();
+
+                // Delete the registration
+                $deleteStmt = $conn->prepare("DELETE FROM Registrations WHERE user_id = ? AND event_id = ?");
+                if (!$deleteStmt) {
+                    throw new Exception("Failed to prepare delete query: " . $conn->error);
+                }
+
+                $deleteStmt->bind_param("ii", $userId, $eventId);
+                if (!$deleteStmt->execute()) {
+                    throw new Exception("Failed to cancel registration: " . $deleteStmt->error);
+                }
+
+                if ($deleteStmt->affected_rows === 0) {
+                    throw new Exception("Failed to cancel registration");
+                }
+
+                // Also remove from calendar if it exists
+                $calendarStmt = $conn->prepare("DELETE FROM EventCalendar WHERE user_id = ? AND event_id = ?");
+                if ($calendarStmt) {
+                    $calendarStmt->bind_param("ii", $userId, $eventId);
+                    $calendarStmt->execute();
+                    $calendarStmt->close();
+                }
+
+                sendJsonResponse([
+                    'status' => 'success',
+                    'message' => 'Registration cancelled successfully'
+                ]);
+            } catch (Exception $e) {
+                error_log("Error in cancelRegistration: " . $e->getMessage());
+                sendJsonResponse([
+                    'status' => 'error',
+                    'message' => $e->getMessage()
+                ], 500);
+            }
+            break;
+
         default:
             sendJsonResponse([
                 'status' => 'error',
@@ -214,16 +281,10 @@ try {
     }
 
 } catch (Exception $e) {
-    error_log("Error in registration_action.php: " . $e->getMessage());
-    error_log("Stack trace: " . $e->getTraceAsString());
-    
+    error_log("Critical error in registration_action.php: " . $e->getMessage());
     sendJsonResponse([
         'status' => 'error',
-        'message' => 'Failed to load registered events',
-        'debug' => [
-            'error' => $e->getMessage(),
-            'trace' => $e->getTraceAsString()
-        ]
+        'message' => 'An unexpected error occurred'
     ], 500);
 }
 
