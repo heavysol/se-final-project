@@ -19,6 +19,45 @@ $action = isset($_POST['action']) ? $_POST['action'] : '';
 $response = ['success' => false, 'message' => 'Invalid action'];
 
 switch ($action) {
+    case 'create':
+        if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['start_datetime']) && 
+            isset($_POST['end_datetime']) && isset($_POST['location']) && isset($_POST['category']) && 
+            isset($_POST['max_capacity'])) {
+            
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+            $start_datetime = $_POST['start_datetime'];
+            $end_datetime = $_POST['end_datetime'];
+            $location = $_POST['location'];
+            $category = $_POST['category'];
+            $max_capacity = $_POST['max_capacity'];
+            $organizer_id = $_SESSION['user_id'];
+
+            $stmt = $conn->prepare("INSERT INTO Events (title, description, start_datetime, end_datetime, 
+                                  location, category, max_capacity, organizer_id, status) 
+                                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')");
+            
+            $stmt->bind_param("ssssssii", 
+                $title, 
+                $description, 
+                $start_datetime, 
+                $end_datetime, 
+                $location, 
+                $category, 
+                $max_capacity, 
+                $organizer_id
+            );
+
+            if ($stmt->execute()) {
+                $response = ['success' => true, 'message' => 'Event created successfully'];
+            } else {
+                $response = ['success' => false, 'message' => 'Failed to create event: ' . $stmt->error];
+            }
+        } else {
+            $response = ['success' => false, 'message' => 'Missing required fields'];
+        }
+        break;
+
     case 'view':
         if (isset($_POST['event_id'])) {
             $event_id = $_POST['event_id'];

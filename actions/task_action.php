@@ -9,7 +9,7 @@ session_start();
 error_log('Session data: ' . print_r($_SESSION, true));
 
 // Fix the path to database.php
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../db/config.php';
 
 // Verify database connection
 if (!$conn) {
@@ -46,10 +46,12 @@ try {
                 error_log('Using organizer_id: ' . $organizer_id);
 
                 // Prepare the SQL statement
-                $sql = "INSERT INTO Tasks (organizer_id, title, description, due_date, status) VALUES (?, ?, ?, ?, 'pending')";
+                $sql = "INSERT INTO tasks (organizer_id, title, description, due_date, status) 
+                        VALUES (?, ?, ?, ?, 'pending')";
                 $stmt = $conn->prepare($sql);
                 
                 if (!$stmt) {
+                    error_log("SQL Error: " . $conn->error);
                     throw new Exception("Prepare failed: " . $conn->error);
                 }
 
@@ -57,6 +59,8 @@ try {
                 $title = trim($_POST['title']);
                 $description = isset($_POST['description']) ? trim($_POST['description']) : '';
                 $due_date = !empty($_POST['due_date']) ? $_POST['due_date'] : null;
+                
+                error_log("Binding parameters: organizer_id=$organizer_id, title=$title, description=$description, due_date=$due_date");
                 
                 $stmt->bind_param("isss", 
                     $organizer_id,
@@ -71,6 +75,7 @@ try {
                     $response['message'] = 'Task added successfully';
                     error_log('Task added successfully for organizer_id: ' . $organizer_id);
                 } else {
+                    error_log("Execute Error: " . $stmt->error);
                     throw new Exception("Execute failed: " . $stmt->error);
                 }
                 break;
@@ -80,8 +85,13 @@ try {
                     throw new Exception('Task ID and status are required');
                 }
 
-                $sql = "UPDATE Tasks SET status = ? WHERE task_id = ? AND organizer_id = ?";
+                $sql = "UPDATE tasks SET status = ? WHERE task_id = ? AND organizer_id = ?";
                 $stmt = $conn->prepare($sql);
+                
+                if (!$stmt) {
+                    throw new Exception("Prepare failed: " . $conn->error);
+                }
+                
                 $stmt->bind_param("sii", 
                     $_POST['status'],
                     $_POST['task_id'],
@@ -101,8 +111,13 @@ try {
                     throw new Exception('Task ID is required');
                 }
 
-                $sql = "DELETE FROM Tasks WHERE task_id = ? AND organizer_id = ?";
+                $sql = "DELETE FROM tasks WHERE task_id = ? AND organizer_id = ?";
                 $stmt = $conn->prepare($sql);
+                
+                if (!$stmt) {
+                    throw new Exception("Prepare failed: " . $conn->error);
+                }
+                
                 $stmt->bind_param("ii", 
                     $_POST['task_id'],
                     $_SESSION['user_id']

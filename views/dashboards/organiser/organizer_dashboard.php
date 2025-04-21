@@ -22,6 +22,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
     <link rel="stylesheet" href="../../../assets/css/dashboard-styles.css">
+    <!-- Add jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 <!-- Updated Sidebar HTML -->
@@ -161,7 +164,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
 
     // 3. Pending Events Count
     $pending_query = "SELECT COUNT(*) as pending_count 
-                     FROM Events 
+                     FROM events 
                      WHERE organizer_id = ? 
                      AND status = 'pending'";
     $stmt = $conn->prepare($pending_query);
@@ -172,8 +175,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
 
     // 4. Average Rating
     $rating_query = "SELECT AVG(r.rating) as avg_rating
-                     FROM Events e
-                     LEFT JOIN Feedback r ON e.event_id = r.event_id
+                     FROM events e
+                     LEFT JOIN feedback r ON e.event_id = r.event_id
                      WHERE e.organizer_id = ?
                      AND r.rating IS NOT NULL";
     $stmt = $conn->prepare($rating_query);
@@ -241,7 +244,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
                 <div class="task-list">
                     <?php
                     // Fetch tasks for the current organizer
-                    $tasks_query = "SELECT * FROM Tasks WHERE organizer_id = ? ORDER BY due_date ASC";
+                    $tasks_query = "SELECT * FROM tasks WHERE organizer_id = ? ORDER BY due_date ASC";
                     $stmt = $conn->prepare($tasks_query);
                     if ($stmt) {
                         $stmt->bind_param("i", $_SESSION['user_id']);
@@ -281,7 +284,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
                     Recent Notifications
                     <?php
                     // Count unread notifications
-                    $notifications_count_query = "SELECT COUNT(*) as unread_count FROM Notifications 
+                    $notifications_count_query = "SELECT COUNT(*) as unread_count FROM notifications 
                                                 WHERE organizer_id = ? AND is_read = 0";
                     $stmt = $conn->prepare($notifications_count_query);
                     if ($stmt) {
@@ -301,8 +304,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
                     <?php
                     // Fetch recent notifications
                     $notifications_query = "SELECT n.*, e.title as event_title 
-                                          FROM Notifications n 
-                                          LEFT JOIN Events e ON n.event_id = e.event_id 
+                                          FROM notifications n 
+                                          LEFT JOIN events e ON n.event_id = e.event_id 
                                           WHERE n.organizer_id = ? 
                                           ORDER BY n.created_at DESC 
                                           LIMIT 5";
@@ -421,7 +424,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
 </div>
 
 <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 document.getElementById('eventCreationForm').addEventListener('submit', async function(e) {
     e.preventDefault();
