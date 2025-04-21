@@ -2,7 +2,8 @@
 session_start();
 include('../../../db/config.php');
 
-// Get count of approved events
+// Get count of approved events for the dashboard
+
 $event_query = "SELECT COUNT(*) as active_events FROM events WHERE status = 'approved'";
 $event_result = $conn->query($event_query);
 $active_events = $event_result->fetch_assoc()['active_events'];
@@ -33,6 +34,7 @@ $total_organizers = $organizers_result->fetch_assoc()['total_organizers'];
 </head>
 <body>
     <!-- Sidebar -->
+       
     <div class="sidebar">
         <div class="sidebar-header">
             <h3>Campus Events</h3>
