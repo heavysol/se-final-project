@@ -46,12 +46,11 @@ try {
                 error_log('Using organizer_id: ' . $organizer_id);
 
                 // Prepare the SQL statement
-                $sql = "INSERT INTO tasks (organizer_id, title, description, due_date, status) 
-                        VALUES (?, ?, ?, ?, 'pending')";
+                $sql = "INSERT INTO tasks (organizer_id, title, description, due_date, status, created_at, updated_at) 
+                        VALUES (?, ?, ?, ?, 'pending', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
                 $stmt = $conn->prepare($sql);
                 
                 if (!$stmt) {
-                    error_log("SQL Error: " . $conn->error);
                     throw new Exception("Prepare failed: " . $conn->error);
                 }
 
@@ -59,8 +58,6 @@ try {
                 $title = trim($_POST['title']);
                 $description = isset($_POST['description']) ? trim($_POST['description']) : '';
                 $due_date = !empty($_POST['due_date']) ? $_POST['due_date'] : null;
-                
-                error_log("Binding parameters: organizer_id=$organizer_id, title=$title, description=$description, due_date=$due_date");
                 
                 $stmt->bind_param("isss", 
                     $organizer_id,
@@ -75,7 +72,6 @@ try {
                     $response['message'] = 'Task added successfully';
                     error_log('Task added successfully for organizer_id: ' . $organizer_id);
                 } else {
-                    error_log("Execute Error: " . $stmt->error);
                     throw new Exception("Execute failed: " . $stmt->error);
                 }
                 break;

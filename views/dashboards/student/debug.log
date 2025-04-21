@@ -5359,3 +5359,166 @@ Stack trace:
     [action] => getRegisteredEvents
 )
 
+[22-Apr-2025 00:03:27 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 00:03:27 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [full_name] => Girl Owusu
+    [role] => student
+    [first_name] => Girl
+)
+
+[22-Apr-2025 00:03:27 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[22-Apr-2025 00:18:15 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 00:18:15 Europe/Berlin] Session data: Array
+(
+    [user_id] => 3
+    [full_name] => Steve Nar
+    [role] => admin
+    [first_name] => Girl
+)
+
+[22-Apr-2025 00:18:15 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[22-Apr-2025 00:18:15 Europe/Berlin] Error in getRegisteredEvents: User is not a student
+[22-Apr-2025 00:18:35 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 00:18:35 Europe/Berlin] Session data: Array
+(
+    [user_id] => 3
+    [full_name] => Steve Nar
+    [role] => admin
+    [first_name] => Girl
+)
+
+[22-Apr-2025 00:18:35 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[22-Apr-2025 00:18:35 Europe/Berlin] Error in getRegisteredEvents: User is not a student
+[22-Apr-2025 00:18:45 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 00:18:45 Europe/Berlin] Session data: Array
+(
+    [user_id] => 3
+    [full_name] => Steve Nar
+    [role] => admin
+    [first_name] => Girl
+)
+
+[22-Apr-2025 00:18:45 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[22-Apr-2025 00:18:45 Europe/Berlin] Error in getRegisteredEvents: User is not a student
+[22-Apr-2025 00:18:48 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 00:18:48 Europe/Berlin] Session data: Array
+(
+    [user_id] => 3
+    [full_name] => Steve Nar
+    [role] => admin
+    [first_name] => Girl
+)
+
+[22-Apr-2025 00:18:48 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[22-Apr-2025 00:18:48 Europe/Berlin] Error in getRegisteredEvents: User is not a student
+[22-Apr-2025 00:18:55 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 00:18:55 Europe/Berlin] Session data: Array
+(
+    [user_id] => 3
+    [full_name] => Steve Nar
+    [role] => admin
+    [first_name] => Girl
+)
+
+[22-Apr-2025 00:18:55 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[22-Apr-2025 00:18:55 Europe/Berlin] Error in getRegisteredEvents: User is not a student
+[22-Apr-2025 00:18:58 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 00:18:58 Europe/Berlin] Session data: Array
+(
+    [user_id] => 3
+    [full_name] => Steve Nar
+    [role] => admin
+    [first_name] => Girl
+)
+
+[22-Apr-2025 00:18:58 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[22-Apr-2025 00:18:58 Europe/Berlin] Error in getRegisteredEvents: User is not a student
+[22-Apr-2025 00:24:14 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 00:24:14 Europe/Berlin] Session data: Array
+(
+    [user_id] => 3
+    [full_name] => Steve Nar
+    [role] => admin
+    [first_name] => Girl
+)
+
+[22-Apr-2025 00:24:14 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[22-Apr-2025 00:24:14 Europe/Berlin] Error in getRegisteredEvents: User is not a student
+[22-Apr-2025 00:24:19 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 00:24:19 Europe/Berlin] Session data: Array
+(
+    [user_id] => 3
+    [full_name] => Steve Nar
+    [role] => admin
+    [first_name] => Girl
+)
+
+[22-Apr-2025 00:24:19 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[22-Apr-2025 00:24:19 Europe/Berlin] Error in getRegisteredEvents: User is not a student
+[22-Apr-2025 00:24:26 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 00:24:26 Europe/Berlin] Session data: Array
+(
+    [user_id] => 3
+    [full_name] => Steve Nar
+    [role] => admin
+    [first_name] => Girl
+)
+
+[22-Apr-2025 00:24:26 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[22-Apr-2025 00:24:26 Europe/Berlin] Error in getRegisteredEvents: User is not a student
+[22-Apr-2025 00:26:15 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 00:26:15 Europe/Berlin] Session data: Array
+(
+    [user_id] => 2
+    [full_name] => Girl Owusu
+    [role] => student
+    [first_name] => Girl
+)
+
+[22-Apr-2025 00:26:15 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+

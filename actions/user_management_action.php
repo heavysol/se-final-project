@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Check if we're fetching a single user by ID
     if (isset($_GET['user_id'])) {
         $user_id = $_GET['user_id'];
-        $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
+        $stmt = $conn->prepare("SELECT * FROM Users WHERE user_id = ?");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     // Fetch all users if no specific user is requested
-    $result = $conn->query("SELECT * FROM users ORDER BY created_at DESC");
+    $result = $conn->query("SELECT * FROM Users ORDER BY created_at DESC");
 
     $users = [];
     while ($row = $result->fetch_assoc()) {
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $role = $_POST['role'];
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())");
+        $stmt = $conn->prepare("INSERT INTO Users (first_name, last_name, email, password, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())");
         $stmt->bind_param("sssss", $firstName, $lastName, $email, $password, $role);
 
         if ($stmt->execute()) {
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'delete') {
         $user_id = $_POST['user_id'];
 
-        $stmt = $conn->prepare("DELETE FROM users WHERE user_id = ?");
+        $stmt = $conn->prepare("DELETE FROM Users WHERE user_id = ?");
         $stmt->bind_param("i", $user_id);
 
         if ($stmt->execute()) {
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['email'];
         $role = $_POST['role'];
 
-        $stmt = $conn->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, role = ?, updated_at = NOW() WHERE user_id = ?");
+        $stmt = $conn->prepare("UPDATE Users SET first_name = ?, last_name = ?, email = ?, role = ?, updated_at = NOW() WHERE user_id = ?");
         $stmt->bind_param("ssssi", $firstName, $lastName, $email, $role, $userId);
 
         if ($stmt->execute()) {

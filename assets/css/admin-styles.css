@@ -1,0 +1,200 @@
+/* Admin Dashboard Styles */
+:root {
+    --admin-primary: #2c3e50;
+    --admin-secondary: #34495e;
+    --admin-accent: #3498db;
+    --admin-text: #ecf0f1;
+    --admin-hover: #2980b9;
+}
+
+/* Sidebar Styles */
+.admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background: var(--admin-primary);
+    color: var(--admin-text);
+    padding: 0;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.admin-sidebar-header {
+    padding: 20px;
+    background: var(--admin-secondary);
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-sidebar-header h3 {
+    margin: 0;
+    color: var(--admin-text);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.admin-sidebar-header .small {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.admin-sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.admin-sidebar-menu li {
+    margin: 0;
+    padding: 0;
+}
+
+.admin-sidebar-menu a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: var(--admin-text);
+    text-decoration: none;
+    transition: all 0.3s;
+    border-left: 4px solid transparent;
+}
+
+.admin-sidebar-menu a i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    width: 20px;
+    text-align: center;
+}
+
+.admin-sidebar-menu a:hover {
+    background: var(--admin-secondary);
+    border-left: 4px solid var(--admin-accent);
+    color: var(--admin-text);
+}
+
+.admin-sidebar-menu a.active {
+    background: var(--admin-secondary);
+    border-left: 4px solid var(--admin-accent);
+    color: var(--admin-text);
+}
+
+/* Main Content Area */
+.admin-main-content {
+    margin-left: 250px;
+    padding: 20px;
+    min-height: 100vh;
+    background: #f8f9fa;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        width: 70px;
+    }
+    
+    .admin-sidebar-header h3,
+    .admin-sidebar-header .small,
+    .admin-sidebar-menu a span {
+        display: none;
+    }
+    
+    .admin-sidebar-menu a {
+        padding: 15px;
+        justify-content: center;
+    }
+    
+    .admin-sidebar-menu a i {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+    
+    .admin-main-content {
+        margin-left: 70px;
+    }
+}
+
+/* Dashboard Cards */
+.admin-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.3s;
+}
+
+.admin-card:hover {
+    transform: translateY(-5px);
+}
+
+.admin-card-title {
+    color: var(--admin-primary);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.admin-card-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--admin-accent);
+}
+
+/* Tables */
+.admin-table {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.admin-table th {
+    background: var(--admin-secondary);
+    color: var(--admin-text);
+    padding: 15px;
+}
+
+.admin-table td {
+    padding: 12px 15px;
+    vertical-align: middle;
+}
+
+/* Buttons */
+.admin-btn {
+    background: var(--admin-accent);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.admin-btn:hover {
+    background: var(--admin-hover);
+    color: white;
+}
+
+/* Forms */
+.admin-form-group {
+    margin-bottom: 20px;
+}
+
+.admin-form-label {
+    color: var(--admin-primary);
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.admin-form-control {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    transition: all 0.3s;
+}
+
+.admin-form-control:focus {
+    border-color: var(--admin-accent);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+} 
