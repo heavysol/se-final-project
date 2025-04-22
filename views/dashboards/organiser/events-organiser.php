@@ -158,6 +158,19 @@ try {
         html, body {
             overflow-x: hidden;
         }
+
+        /* Hide DataTables controls */
+        .dataTables_length,
+        .dataTables_filter,
+        .dataTables_info,
+        .dataTables_paginate {
+            display: none !important;
+        }
+        
+        /* Ensure table takes full width */
+        .table {
+            width: 100% !important;
+        }
     </style>
 </head>
 <body>
@@ -206,52 +219,29 @@ try {
         </div>
 
         <!-- Search and Filter Options -->
-            <div class="row mb-4">
+        <div class="row mb-4">
             <div class="col-12">
                 <div class="card w-100">
                     <div class="card-body">
                         <div class="row g-3">
-                            <div class="col-md-3">
-                                <input type="text" class="form-control w-100" placeholder="Search events..." id="eventSearch">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search events by title..." id="eventSearch">
+                                    <button class="btn btn-outline-secondary" type="button" id="clearSearch">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col-md-2">
-                                <select class="form-select w-100" id="statusFilter">
-                                    <option value="">All Statuses</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <select class="form-select w-100" id="categoryFilter">
-                                    <option value="">All Categories</option>
-                                    <option value="Academic">Academic</option>
-                                    <option value="Social">Social</option>
-                                    <option value="Cultural">Cultural</option>
-                                    <option value="Sports">Sports</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <select class="form-select w-100" id="sortOption">
-                                    <option value="date_desc">Date (Newest First)</option>
-                                    <option value="date_asc">Date (Oldest First)</option>
-                                    <option value="title">Title (A-Z)</option>
-                                    <option value="status">Status</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-primary w-100" id="applyFilters">Apply</button>
-                            </div>
+                        </div>
                     </div>
-                </div>  
-            </div> 
+                </div>
+            </div>
         </div>
-    </div>
 
         <!-- Events Table -->
         <div class="card w-100">
             <div class="card-body p-0">
-                <table class="table table-striped table-hover mb-0">
+                <table class="table table-striped table-hover mb-0" id="eventsTable">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -571,6 +561,15 @@ try {
                     }
                 });
             }
+        });
+
+        // Initialize DataTable with minimal features
+        $('#eventsTable').DataTable({
+            searching: false,
+            paging: false,
+            info: false,
+            ordering: false,
+            responsive: true
         });
     });
     </script>
