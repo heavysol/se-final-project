@@ -8,8 +8,10 @@ $event_query = "SELECT COUNT(*) as active_events FROM events WHERE status = 'app
 $event_result = $conn->query($event_query);
 $active_events = $event_result->fetch_assoc()['active_events'];
 
-// Hardcoded value for total registrations
-$total_registrations = 150; // Hardcoded value
+// Get total number of registrations from the database
+$registrations_query = "SELECT COUNT(*) as total_registrations FROM registrations";
+$registrations_result = $conn->query($registrations_query);
+$total_registrations = $registrations_result->fetch_assoc()['total_registrations'];
 
 // Get total number of users
 $users_query = "SELECT COUNT(*) as total_users FROM users";
@@ -20,6 +22,31 @@ $total_users = $users_result->fetch_assoc()['total_users'];
 $organizers_query = "SELECT COUNT(*) as total_organizers FROM users WHERE role = 'organizer'";
 $organizers_result = $conn->query($organizers_query);
 $total_organizers = $organizers_result->fetch_assoc()['total_organizers'];
+
+// Get recent upcoming approved events
+$recent_events_query = "SELECT e.*, u.first_name as organizer_name 
+                       FROM events e 
+                       JOIN users u ON e.organizer_id = u.user_id 
+                       WHERE e.status = 'approved' 
+                       ORDER BY e.updated_at DESC 
+                       LIMIT 5";
+$recent_events_result = $conn->query($recent_events_query);
+
+// Debug query to check all upcoming events
+$debug_query = "SELECT e.*, u.first_name as organizer_name 
+                FROM events e 
+                JOIN users u ON e.organizer_id = u.user_id 
+                WHERE e.status = 'approved' 
+                ORDER BY e.updated_at DESC";
+$debug_result = $conn->query($debug_query);
+
+// Log the results for debugging
+error_log("Number of approved events found: " . ($debug_result ? $debug_result->num_rows : 0));
+if ($debug_result && $debug_result->num_rows > 0) {
+    while($event = $debug_result->fetch_assoc()) {
+        error_log("Event found: " . $event['title'] . " - Updated: " . $event['updated_at']);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -50,17 +77,11 @@ $total_organizers = $organizers_result->fetch_assoc()['total_organizers'];
             <li><a href="user_management.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'user_management.php' ? 'active' : ''; ?>">
                 <i class="bi bi-people"></i> User Management
             </a></li>
-            <li><a href="event_organization.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'event_organization.php' ? 'active' : ''; ?>">
-                <i class="bi bi-building"></i> Organizations
-            </a></li>
             <li><a href="analytics.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'analytics.php' ? 'active' : ''; ?>">
                 <i class="bi bi-graph-up"></i> Analytics
             </a></li>
-            <li><a href="../notifications.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'notifications.php' ? 'active' : ''; ?>">
+            <li><a href="notifications.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'notifications.php' ? 'active' : ''; ?>">
                 <i class="bi bi-bell"></i> Notifications
-            </a></li>
-            <li><a href="../settings.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'settings.php' ? 'active' : ''; ?>">
-                <i class="bi bi-gear"></i> Settings
             </a></li>
             <li><a href="../../logout.php">
                 <i class="bi bi-box-arrow-right"></i> Logout
@@ -119,11 +140,23 @@ $total_organizers = $organizers_result->fetch_assoc()['total_organizers'];
                                         <th>Organizer</th>
                                         <th>Date</th>
                                         <th>Status</th>
-                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Activity rows will be populated here -->
+                                    <?php if ($recent_events_result && $recent_events_result->num_rows > 0): ?>
+                                        <?php while($event = $recent_events_result->fetch_assoc()): ?>
+                                            <tr>
+                                                <td><?php echo htmlspecialchars($event['title']); ?></td>
+                                                <td><?php echo htmlspecialchars($event['organizer_name']); ?></td>
+                                                <td><?php echo date('M d, Y h:i A', strtotime($event['updated_at'])); ?></td>
+                                                <td><span class="badge bg-success">Approved</span></td>
+                                            </tr>
+                                        <?php endwhile; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="4" class="text-center">No upcoming approved events found</td>
+                                        </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>

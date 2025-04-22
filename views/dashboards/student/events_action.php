@@ -46,24 +46,11 @@ function searchEvents($searchTerm, $userId) {
               LEFT JOIN eventcalendar c ON e.event_id = c.event_id AND c.user_id = ?
               LEFT JOIN favorites f ON e.event_id = f.event_id AND f.user_id = ?
               WHERE {$whereClause}
-              AND e.start_datetime >= NOW()
-              ORDER BY 
-                CASE 
-                    WHEN e.title LIKE ? THEN 1
-                    WHEN e.category LIKE ? THEN 2
-                    WHEN e.location LIKE ? THEN 3
-                    ELSE 4
-                END,
-                e.start_datetime ASC";
+              ORDER BY e.start_datetime ASC";
     
     // Add user_id parameters (for the three LEFT JOINs)
     array_unshift($params, $userId, $userId, $userId);
     $types = "iii" . $types;
-    
-    // Add parameters for ORDER BY clause
-    $searchTerm = '%' . $searchTerm . '%';
-    $params = array_merge($params, [$searchTerm, $searchTerm, $searchTerm]);
-    $types .= "sss";
     
     $stmt = $conn->prepare($query);
     $stmt->bind_param($types, ...$params);
@@ -88,6 +75,27 @@ function getUpcomingEvents($userId) {
               WHERE e.start_datetime >= NOW() 
               ORDER BY e.start_datetime ASC 
               LIMIT 10";
+              
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("iii", $userId, $userId, $userId);
+    $stmt->execute();
+    return $stmt->get_result();
+}
+
+// Get all events without any restrictions
+function getAllUpcomingEvents($userId) {
+    global $conn;
+    
+    $query = "SELECT e.*, 
+              CASE WHEN r.registration_id IS NOT NULL THEN 1 ELSE 0 END as is_registered,
+              CASE WHEN c.calendar_id IS NOT NULL THEN 1 ELSE 0 END as in_calendar,
+              CASE WHEN f.favorite_id IS NOT NULL THEN 1 ELSE 0 END as is_favorite,
+              (SELECT COUNT(*) FROM registrations WHERE event_id = e.event_id) as current_registrations
+              FROM events e 
+              LEFT JOIN registrations r ON e.event_id = r.event_id AND r.user_id = ?
+              LEFT JOIN eventcalendar c ON e.event_id = c.event_id AND c.user_id = ?
+              LEFT JOIN favorites f ON e.event_id = f.event_id AND f.user_id = ?
+              ORDER BY e.start_datetime ASC";
               
     $stmt = $conn->prepare($query);
     $stmt->bind_param("iii", $userId, $userId, $userId);
@@ -188,6 +196,34 @@ if (isset($_POST['action'])) {
             'status' => 'success',
             'events' => $events
         ));
+        exit;
+    }
+    elseif ($_POST['action'] === 'getAllEvents') {
+        $results = getAllUpcomingEvents($userId);
+        $events = array();
+        
+        while ($row = $results->fetch_assoc()) {
+            $events[] = array(
+                'id' => $row['event_id'],
+                'title' => $row['title'],
+                'description' => $row['description'],
+                'start_date' => $row['start_datetime'],
+                'end_date' => $row['end_datetime'],
+                'venue' => $row['location'],
+                'category' => $row['category'],
+                'max_capacity' => $row['max_capacity'],
+                'current_registrations' => $row['current_registrations'],
+                'is_registered' => (bool)$row['is_registered'],
+                'in_calendar' => (bool)$row['in_calendar'],
+                'is_favorite' => (bool)$row['is_favorite']
+            );
+        }
+        
+        header('Content-Type: application/json');
+        echo json_encode([
+            'status' => 'success',
+            'events' => $events
+        ]);
         exit;
     }
 }

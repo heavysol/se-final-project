@@ -1,8 +1,36 @@
 <?php
-require_once 'events_action.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+// Include events action file for event-related functions
+require_once 'events_action.php';
+
+// Check if user is logged in and is a student
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
+    header('Location: ../../../login.php');
+    exit();
+}
+
+// Include database configuration
+require_once '../../../db/config.php';
+
+// Fetch user details
+$userId = $_SESSION['user_id'];
+$stmt = $conn->prepare("SELECT first_name FROM Users WHERE user_id = ? AND role = 'student'");
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
+if (!$user) {
+    // If user not found in database, destroy session and redirect
+    session_destroy();
+    header('Location: ../../../login.php');
+    exit();
+}
+
+$_SESSION['first_name'] = $user['first_name'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -161,67 +189,44 @@ if (session_status() === PHP_SESSION_NONE) {
                         </h4>
                         <div id="eventsList">
                             <?php
-                            if (!isset($_SESSION['user_id'])) {
-                                session_start();
-                            }
-                            $userId = $_SESSION['user_id'] ?? 0;
-                            $upcomingEvents = getUpcomingEvents($userId);
+                            $upcomingEvents = getAllUpcomingEvents($userId);
                             if ($upcomingEvents->num_rows > 0) {
                                 while ($event = $upcomingEvents->fetch_assoc()) {
                                     $startDate = new DateTime($event['start_datetime']);
                                     $endDate = new DateTime($event['end_datetime']);
                                     
-                                    // Set button states based on registration and calendar status
+                                    // Set button states
                                     $registerBtnClass = $event['is_registered'] ? 'btn-danger' : 'btn-primary register-btn';
                                     $registerBtnText = $event['is_registered'] ? 'Unregister' : 'Register';
                                     
                                     $calendarBtnClass = $event['in_calendar'] ? 'btn-outline-danger' : 'btn-outline-primary calendar-btn';
                                     $calendarBtnText = $event['in_calendar'] ? 'Remove from Calendar' : 'Add to Calendar';
                                     ?>
-                                    <div class="event-item">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div>
-                                                <h5 class="event-title mb-2"><?php echo htmlspecialchars($event['title']); ?></h5>
-                                                <div class="event-description"><?php echo htmlspecialchars($event['description']); ?></div>
-                                                <div class="event-meta">
-                                                    <span class="event-category"><i class="bi bi-tag"></i> <?php echo htmlspecialchars($event['category']); ?></span>
-                                                    <span class="event-capacity"><i class="bi bi-people"></i> Capacity: <?php echo htmlspecialchars($event['max_capacity']); ?></span>
-                                                </div>
-                                                <div class="event-details">
-                                                    <i class="bi bi-calendar"></i> <?php 
-                                                        echo $startDate->format('F j, Y g:i A');
-                                                        if ($startDate->format('Y-m-d') !== $endDate->format('Y-m-d')) {
-                                                            echo ' - ' . $endDate->format('F j, Y g:i A');
-                                                        } else {
-                                                            echo ' - ' . $endDate->format('g:i A');
-                                                        }
-                                                    ?>
-                                                    <br>
-                                                    <i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['location']); ?>
-                                                </div>
-                                                <div class="event-actions mt-3">
-                                                    <button type="button" class="btn btn-sm <?php echo $registerBtnClass; ?>" 
-                                                            data-event-id="<?php echo (int)$event['event_id']; ?>">
-                                                        <?php echo $registerBtnText; ?>
-                                                    </button>
-                                                    <button type="button" class="btn btn-sm <?php echo $calendarBtnClass; ?>" 
-                                                            data-event-id="<?php echo (int)$event['event_id']; ?>">
-                                                        <?php echo $calendarBtnText; ?>
-                                                    </button>
-                                                    <button class="favorite-btn" onclick="toggleFavorite(this, <?php echo (int)$event['event_id']; ?>)" 
-                                                            data-event-id="<?php echo (int)$event['event_id']; ?>"
-                                                            <?php echo isset($event['is_favorite']) && $event['is_favorite'] ? 'data-favorite="true"' : ''; ?>>
-                                                        <i class="bi <?php echo isset($event['is_favorite']) && $event['is_favorite'] ? 'bi-star-fill' : 'bi-plus-lg'; ?>"></i>
-                                                        <span><?php echo isset($event['is_favorite']) && $event['is_favorite'] ? 'Remove from Favorites events' : 'Add to Favorites event'; ?></span>
-                                                    </button>
-                                                </div>
-                                            </div>
+                                    <div class="event-card mb-3 p-3 border rounded">
+                                        <h5 class="event-title"><?php echo htmlspecialchars($event['title']); ?></h5>
+                                        <p class="event-location"><i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['location']); ?></p>
+                                        <p class="event-date"><i class="bi bi-calendar"></i> <?php echo $startDate->format('F j, Y g:i A'); ?> - <?php echo $endDate->format('F j, Y g:i A'); ?></p>
+                                        <div class="event-actions mt-2">
+                                            <button type="button" class="btn btn-sm <?php echo $registerBtnClass; ?>" 
+                                                    data-event-id="<?php echo $event['event_id']; ?>">
+                                                <?php echo $registerBtnText; ?>
+                                            </button>
+                                            <button type="button" class="btn btn-sm <?php echo $calendarBtnClass; ?>" 
+                                                    data-event-id="<?php echo $event['event_id']; ?>">
+                                                <?php echo $calendarBtnText; ?>
+                                            </button>
+                                            <button class="favorite-btn" onclick="toggleFavorite(this, <?php echo $event['event_id']; ?>)" 
+                                                    data-event-id="<?php echo $event['event_id']; ?>"
+                                                    <?php echo $event['is_favorite'] ? 'data-favorite="true"' : ''; ?>>
+                                                <i class="bi <?php echo $event['is_favorite'] ? 'bi-star-fill' : 'bi-plus-lg'; ?>"></i>
+                                                <span><?php echo $event['is_favorite'] ? 'Remove from Favorites' : 'Add to Favorites'; ?></span>
+                                            </button>
                                         </div>
                                     </div>
                                     <?php
                                 }
                             } else {
-                                echo '<p>No upcoming events found.</p>';
+                                echo '<p class="text-muted">No events found.</p>';
                             }
                             ?>
                         </div>

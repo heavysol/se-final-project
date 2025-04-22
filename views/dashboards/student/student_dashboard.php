@@ -198,11 +198,13 @@ $_SESSION['first_name'] = $user['first_name'];
                     <div class="dashboard-card">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h4><i class="bi bi-calendar2-week"></i> Upcoming Events</h4>
-                            <a href="./events.php" class="btn btn-sm btn-primary">View All</a>
+                            <a href="./events.php" class="btn btn-sm btn-primary">
+                                <i class="bi bi-list"></i> View All Events
+                            </a>
                         </div>
                         <div id="upcoming-events-list">
                             <?php
-                            // Get upcoming events
+                            // Get upcoming events (limited to 5 by default)
                             $query = "SELECT e.*, 
                                     CASE WHEN r.registration_id IS NOT NULL THEN 1 ELSE 0 END as is_registered,
                                     CASE WHEN c.calendar_id IS NOT NULL THEN 1 ELSE 0 END as in_calendar,
@@ -235,8 +237,8 @@ $_SESSION['first_name'] = $user['first_name'];
                                     ?>
                                     <div class="event-card mb-3 p-3 border rounded">
                                         <h5 class="event-title"><?php echo htmlspecialchars($event['title']); ?></h5>
-                                        <p class="event-location"><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($event['location']); ?></p>
-                                        <p class="event-date"><i class="far fa-calendar-alt"></i> <?php echo $startDate->format('F j, Y g:i A'); ?> - <?php echo $endDate->format('F j, Y g:i A'); ?></p>
+                                        <p class="event-location"><i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['location']); ?></p>
+                                        <p class="event-date"><i class="bi bi-calendar"></i> <?php echo $startDate->format('F j, Y g:i A'); ?> - <?php echo $endDate->format('F j, Y g:i A'); ?></p>
                                         <div class="event-actions mt-2">
                                             <button type="button" class="btn btn-sm <?php echo $registerBtnClass; ?>" 
                                                     data-event-id="<?php echo $event['event_id']; ?>">
@@ -250,7 +252,7 @@ $_SESSION['first_name'] = $user['first_name'];
                                                     data-event-id="<?php echo $event['event_id']; ?>"
                                                     <?php echo $event['is_favorite'] ? 'data-favorite="true"' : ''; ?>>
                                                 <i class="bi <?php echo $event['is_favorite'] ? 'bi-star-fill' : 'bi-plus-lg'; ?>"></i>
-                                                <span><?php echo $event['is_favorite'] ? 'Remove from Favorites event' : 'Add to Favorites'; ?></span>
+                                                <span><?php echo $event['is_favorite'] ? 'Remove from Favorites' : 'Add to Favorites'; ?></span>
                                             </button>
                                         </div>
                                     </div>
@@ -373,7 +375,7 @@ $_SESSION['first_name'] = $user['first_name'];
                                                     data-event-id="${event.event_id}"
                                                     ${event.is_favorite ? 'data-favorite="true"' : ''}>
                                                 <i class="bi ${event.is_favorite ? 'bi-star-fill' : 'bi-plus-lg'}"></i>
-                                                <span>${event.is_favorite ? 'Remove from Favorites event' : 'Add to Favorites'}</span>
+                                                <span>${event.is_favorite ? 'Remove from Favorites' : 'Add to Favorites'}</span>
                                             </button>
                                         </div>
                                     </div>
@@ -855,6 +857,150 @@ $_SESSION['first_name'] = $user['first_name'];
                 updateDashboardStats();
                 calendar.refetchEvents();
             }, 300000);
+
+            // Handle View All button click
+            $('#viewAllEvents').click(function() {
+                const button = $(this);
+                const originalText = button.html();
+                button.html('<i class="bi bi-hourglass-split"></i> Loading...').prop('disabled', true);
+
+                $.ajax({
+                    url: 'events_action.php',
+                    method: 'POST',
+                    data: {
+                        action: 'getAllEvents'
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            const eventsContainer = $('#upcoming-events-list');
+                            eventsContainer.empty();
+
+                            if (response.events.length === 0) {
+                                eventsContainer.html('<p class="text-muted">No upcoming events found.</p>');
+                                return;
+                            }
+
+                            // Group events by date
+                            const groupedEvents = {};
+                            response.events.forEach(event => {
+                                const date = new Date(event.start_date).toDateString();
+                                if (!groupedEvents[date]) {
+                                    groupedEvents[date] = [];
+                                }
+                                groupedEvents[date].push(event);
+                            });
+
+                            // Sort dates
+                            const sortedDates = Object.keys(groupedEvents).sort((a, b) => 
+                                new Date(a) - new Date(b)
+                            );
+
+                            // Display events grouped by date
+                            sortedDates.forEach(date => {
+                                const dateHeader = formatDateHeader(new Date(date));
+                                const eventsHtml = groupedEvents[date].map(event => {
+                                    const startDate = new Date(event.start_date);
+                                    const endDate = new Date(event.end_date);
+                                    return `
+                                        <div class="event-card mb-3 p-3 border rounded">
+                                            <h5 class="event-title">${escapeHtml(event.title)}</h5>
+                                            <p class="event-location"><i class="bi bi-geo-alt"></i> ${escapeHtml(event.venue)}</p>
+                                            <p class="event-date"><i class="bi bi-calendar"></i> ${formatEventTime(startDate, endDate)}</p>
+                                            <div class="event-actions mt-2">
+                                                <button type="button" class="btn btn-sm ${event.is_registered ? 'btn-danger' : 'btn-primary register-btn'}" 
+                                                        data-event-id="${event.id}">
+                                                    ${event.is_registered ? 'Unregister' : 'Register'}
+                                                </button>
+                                                <button type="button" class="btn btn-sm ${event.in_calendar ? 'btn-outline-danger' : 'btn-outline-primary calendar-btn'}" 
+                                                        data-event-id="${event.id}">
+                                                    ${event.in_calendar ? 'Remove from Calendar' : 'Add to Calendar'}
+                                                </button>
+                                                <button class="favorite-btn" onclick="toggleFavorite(this, ${event.id})" 
+                                                        data-event-id="${event.id}"
+                                                        ${event.is_favorite ? 'data-favorite="true"' : ''}>
+                                                    <i class="bi ${event.is_favorite ? 'bi-star-fill' : 'bi-plus-lg'}"></i>
+                                                    <span>${event.is_favorite ? 'Remove from Favorites' : 'Add to Favorites'}</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('');
+
+                                eventsContainer.append(`
+                                    <div class="date-group mb-4">
+                                        <h5 class="text-muted mb-3">${dateHeader}</h5>
+                                        ${eventsHtml}
+                                    </div>
+                                `);
+                            });
+
+                            // Add a button to show less events
+                            eventsContainer.append(`
+                                <div class="text-center mt-4">
+                                    <button class="btn btn-secondary" onclick="location.reload()">
+                                        <i class="bi bi-arrow-up"></i> Show Less
+                                    </button>
+                                </div>
+                            `);
+
+                            // Rebind event handlers
+                            bindEventHandlers();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Failed to load events'
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Failed to connect to the server'
+                        });
+                    },
+                    complete: function() {
+                        button.html(originalText).prop('disabled', false);
+                    }
+                });
+            });
+
+            function formatDateHeader(date) {
+                const today = new Date();
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+
+                if (date.toDateString() === today.toDateString()) {
+                    return 'Today';
+                } else if (date.toDateString() === tomorrow.toDateString()) {
+                    return 'Tomorrow';
+                } else {
+                    return date.toLocaleDateString('en-US', { 
+                        weekday: 'long',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                }
+            }
+
+            function formatEventTime(startDate, endDate) {
+                const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
+                if (startDate.toDateString() === endDate.toDateString()) {
+                    return `${startDate.toLocaleTimeString('en-US', timeOptions)} - ${endDate.toLocaleTimeString('en-US', timeOptions)}`;
+                } else {
+                    return `${startDate.toLocaleString('en-US', timeOptions)} - ${endDate.toLocaleString('en-US', timeOptions)}`;
+                }
+            }
+
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
         });
 
         function toggleFavorite(button, eventId) {

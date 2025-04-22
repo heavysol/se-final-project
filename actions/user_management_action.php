@@ -8,6 +8,9 @@ header("Content-Type: application/json");
 // Include the config from db folder
 include_once("../db/config.php");
 
+// Initialize response array
+$response = ['success' => false, 'message' => ''];
+
 // Handle GET (fetch users)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Check if we're fetching a single user by ID
@@ -40,64 +43,145 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Create User
     if ($action === 'create') {
-        $firstName = $_POST['firstName'];
-        $lastName = $_POST['lastName'];
-        $email = $_POST['email'];
-        $role = $_POST['role'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        try {
+            // Validate required fields
+            $required_fields = ['firstName', 'lastName', 'email', 'role', 'password'];
+            foreach ($required_fields as $field) {
+                if (!isset($_POST[$field]) || empty($_POST[$field])) {
+                    throw new Exception("Missing required field: " . $field);
+                }
+            }
 
-        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())");
-        $stmt->bind_param("sssss", $firstName, $lastName, $email, $password, $role);
+            $firstName = trim($_POST['firstName']);
+            $lastName = trim($_POST['lastName']);
+            $email = trim($_POST['email']);
+            $role = trim($_POST['role']);
+            $password = $_POST['password'];
 
-        if ($stmt->execute()) {
-            echo json_encode(["status" => "success"]);
-        } else {
-            echo json_encode(["status" => "error", "message" => $conn->error]);
+            // Validate email format
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                throw new Exception("Invalid email format");
+            }
+
+            // Check if email already exists
+            $check_stmt = $conn->prepare("SELECT user_id FROM users WHERE email = ?");
+            $check_stmt->bind_param("s", $email);
+            $check_stmt->execute();
+            if ($check_stmt->get_result()->num_rows > 0) {
+                throw new Exception("Email already exists");
+            }
+            $check_stmt->close();
+
+            // Hash password
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            // Insert new user
+            $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())");
+            $stmt->bind_param("sssss", $firstName, $lastName, $email, $hashedPassword, $role);
+
+            if ($stmt->execute()) {
+                $response['success'] = true;
+                $response['message'] = 'User created successfully';
+            } else {
+                throw new Exception("Error creating user: " . $conn->error);
+            }
+
+            $stmt->close();
+        } catch (Exception $e) {
+            $response['message'] = $e->getMessage();
         }
-
-        $stmt->close();
-        exit;
     }
 
     // Delete User
-    if ($action === 'delete') {
-        $user_id = $_POST['user_id'];
+    else if ($action === 'delete') {
+        try {
+            if (!isset($_POST['user_id'])) {
+                throw new Exception("Missing user_id");
+            }
 
-        $stmt = $conn->prepare("DELETE FROM users WHERE user_id = ?");
-        $stmt->bind_param("i", $user_id);
+            $user_id = $_POST['user_id'];
 
-        if ($stmt->execute()) {
-            echo json_encode(["status" => "deleted"]);
-        } else {
-            echo json_encode(["status" => "error", "message" => $conn->error]);
+            // Check if user exists
+            $check_stmt = $conn->prepare("SELECT user_id FROM users WHERE user_id = ?");
+            $check_stmt->bind_param("i", $user_id);
+            $check_stmt->execute();
+            if ($check_stmt->get_result()->num_rows === 0) {
+                throw new Exception("User not found");
+            }
+            $check_stmt->close();
+
+            // Delete user
+            $stmt = $conn->prepare("DELETE FROM users WHERE user_id = ?");
+            $stmt->bind_param("i", $user_id);
+
+            if ($stmt->execute()) {
+                $response['success'] = true;
+                $response['message'] = 'User deleted successfully';
+            } else {
+                throw new Exception("Error deleting user: " . $conn->error);
+            }
+
+            $stmt->close();
+        } catch (Exception $e) {
+            $response['message'] = $e->getMessage();
         }
-
-        $stmt->close();
-        exit;
     }
 
     // Update User
-    if ($action === 'update') {
-        $userId = $_POST['user_id'];
-        $firstName = $_POST['firstName'];
-        $lastName = $_POST['lastName'];
-        $email = $_POST['email'];
-        $role = $_POST['role'];
+    else if ($action === 'update') {
+        try {
+            // Validate required fields
+            $required_fields = ['user_id', 'firstName', 'lastName', 'email', 'role'];
+            foreach ($required_fields as $field) {
+                if (!isset($_POST[$field]) || empty($_POST[$field])) {
+                    throw new Exception("Missing required field: " . $field);
+                }
+            }
 
-        $stmt = $conn->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, role = ?, updated_at = NOW() WHERE user_id = ?");
-        $stmt->bind_param("ssssi", $firstName, $lastName, $email, $role, $userId);
+            $userId = $_POST['user_id'];
+            $firstName = trim($_POST['firstName']);
+            $lastName = trim($_POST['lastName']);
+            $email = trim($_POST['email']);
+            $role = trim($_POST['role']);
 
-        if ($stmt->execute()) {
-            echo json_encode(["status" => "updated"]);
-        } else {
-            echo json_encode(["status" => "error", "message" => $conn->error]);
+            // Validate email format
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                throw new Exception("Invalid email format");
+            }
+
+            // Check if email already exists for another user
+            $check_stmt = $conn->prepare("SELECT user_id FROM users WHERE email = ? AND user_id != ?");
+            $check_stmt->bind_param("si", $email, $userId);
+            $check_stmt->execute();
+            if ($check_stmt->get_result()->num_rows > 0) {
+                throw new Exception("Email already exists");
+            }
+            $check_stmt->close();
+
+            // Update user
+            $stmt = $conn->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, role = ?, updated_at = NOW() WHERE user_id = ?");
+            $stmt->bind_param("ssssi", $firstName, $lastName, $email, $role, $userId);
+
+            if ($stmt->execute()) {
+                $response['success'] = true;
+                $response['message'] = 'User updated successfully';
+            } else {
+                throw new Exception("Error updating user: " . $conn->error);
+            }
+
+            $stmt->close();
+        } catch (Exception $e) {
+            $response['message'] = $e->getMessage();
         }
-
-        $stmt->close();
-        exit;
     }
 
-    echo json_encode(["status" => "error", "message" => "Unknown action"]);
+    else {
+        $response['message'] = "Invalid action";
+    }
+
+    echo json_encode($response);
+    exit;
 }
 
+echo json_encode($response);
 ?>

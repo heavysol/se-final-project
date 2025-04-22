@@ -30,37 +30,34 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
 <!-- Updated Sidebar HTML -->
 <div class="sidebar">
     <div class="logo-container">
-    <h3>Campus Events</h3>
-</div>
-
+        <h3>Campus Events</h3>
+    </div>
     <ul class="nav-list">
         <li>
-            <a href="organizer_dashboard.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'organizer_dashboard.php' ? 'active' : ''; ?>">
+            <a href="organizer_dashboard.php" class="active">
                 <i class="fas fa-home"></i>
                 <span class="link-name">Dashboard</span>
             </a>
         </li>
         <li>
-            <a href="events-organiser.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'events-organiser.php' ? 'active' : ''; ?>">
+            <a href="events-organiser.php">
                 <i class="fas fa-calendar"></i>
                 <span class="link-name">My Events</span>
             </a>
         </li>
         <li>
-            <a href="analytics.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'analytics.php' ? 'active' : ''; ?>">
+            <a href="analytics.php">
                 <i class="fas fa-chart-bar"></i>
                 <span class="link-name">Analytics</span>
             </a>
         </li>
-        
-        <!-- Logout with divider -->
         <li class="logout-divider">
             <a href="../../logout.php">
                 <i class="fas fa-sign-out-alt"></i>
                 <span class="link-name">Logout</span>
             </a>
         </li>
-</ul>
+    </ul>
 </div>
 
 <!-- Main Content -->
