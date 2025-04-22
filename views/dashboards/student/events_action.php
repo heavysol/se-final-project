@@ -1,9 +1,18 @@
 <?php
 require_once '../../../db/config.php';
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Initialize database connection
 if (!isset($conn) || $conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    header('Content-Type: application/json');
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Database connection failed'
+    ]);
+    exit;
 }
 
 // Handle search functionality
@@ -29,10 +38,13 @@ function searchEvents($searchTerm, $userId) {
     
     $query = "SELECT e.*, 
               CASE WHEN r.registration_id IS NOT NULL THEN 1 ELSE 0 END as is_registered,
-              CASE WHEN c.calendar_id IS NOT NULL THEN 1 ELSE 0 END as in_calendar
-              FROM Events e 
-              LEFT JOIN Registrations r ON e.event_id = r.event_id AND r.user_id = ?
-              LEFT JOIN EventCalendar c ON e.event_id = c.event_id AND c.user_id = ?
+              CASE WHEN c.calendar_id IS NOT NULL THEN 1 ELSE 0 END as in_calendar,
+              CASE WHEN f.favorite_id IS NOT NULL THEN 1 ELSE 0 END as is_favorite,
+              (SELECT COUNT(*) FROM registrations WHERE event_id = e.event_id) as current_registrations
+              FROM events e 
+              LEFT JOIN registrations r ON e.event_id = r.event_id AND r.user_id = ?
+              LEFT JOIN eventcalendar c ON e.event_id = c.event_id AND c.user_id = ?
+              LEFT JOIN favorites f ON e.event_id = f.event_id AND f.user_id = ?
               WHERE {$whereClause}
               AND e.start_datetime >= NOW()
               ORDER BY 
@@ -44,9 +56,9 @@ function searchEvents($searchTerm, $userId) {
                 END,
                 e.start_datetime ASC";
     
-    // Add user_id parameters
-    array_unshift($params, $userId, $userId);
-    $types = "ii" . $types;
+    // Add user_id parameters (for the three LEFT JOINs)
+    array_unshift($params, $userId, $userId, $userId);
+    $types = "iii" . $types;
     
     // Add parameters for ORDER BY clause
     $searchTerm = '%' . $searchTerm . '%';
@@ -68,11 +80,11 @@ function getUpcomingEvents($userId) {
               CASE WHEN r.registration_id IS NOT NULL THEN 1 ELSE 0 END as is_registered,
               CASE WHEN c.calendar_id IS NOT NULL THEN 1 ELSE 0 END as in_calendar,
               CASE WHEN f.favorite_id IS NOT NULL THEN 1 ELSE 0 END as is_favorite,
-              (SELECT COUNT(*) FROM Registrations WHERE event_id = e.event_id) as current_registrations
-              FROM Events e 
-              LEFT JOIN Registrations r ON e.event_id = r.event_id AND r.user_id = ?
-              LEFT JOIN EventCalendar c ON e.event_id = c.event_id AND c.user_id = ?
-              LEFT JOIN Favorites f ON e.event_id = f.event_id AND f.user_id = ?
+              (SELECT COUNT(*) FROM registrations WHERE event_id = e.event_id) as current_registrations
+              FROM events e 
+              LEFT JOIN registrations r ON e.event_id = r.event_id AND r.user_id = ?
+              LEFT JOIN eventcalendar c ON e.event_id = c.event_id AND c.user_id = ?
+              LEFT JOIN favorites f ON e.event_id = f.event_id AND f.user_id = ?
               WHERE e.start_datetime >= NOW() 
               ORDER BY e.start_datetime ASC 
               LIMIT 10";
@@ -85,34 +97,70 @@ function getUpcomingEvents($userId) {
 
 // Handle AJAX requests
 if (isset($_POST['action'])) {
-    if (!isset($_SESSION['user_id'])) {
-        session_start();
-    }
     $userId = $_SESSION['user_id'] ?? 0;
-    $response = array();
     
     if ($_POST['action'] === 'search' && isset($_POST['search_term'])) {
-        $results = searchEvents($_POST['search_term'], $userId);
-        $events = array();
+        header('Content-Type: application/json');
         
-        while ($row = $results->fetch_assoc()) {
-            $events[] = array(
-                'id' => $row['event_id'],
-                'title' => $row['title'],
-                'description' => $row['description'],
-                'start_date' => $row['start_datetime'],
-                'end_date' => $row['end_datetime'],
-                'venue' => $row['location'],
-                'category' => $row['category'],
-                'max_capacity' => $row['max_capacity'],
-                'is_registered' => (bool)$row['is_registered'],
-                'in_calendar' => (bool)$row['in_calendar'],
-                'is_favorite' => (bool)$row['is_favorite']
-            );
+        if (empty($_POST['search_term'])) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Please enter a search term'
+            ]);
+            exit;
         }
         
-        $response['status'] = 'success';
-        $response['events'] = $events;
+        try {
+            $results = searchEvents($_POST['search_term'], $userId);
+            
+            if ($results === false) {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'An error occurred while searching for events'
+                ]);
+                exit;
+            }
+            
+            $events = array();
+            while ($row = $results->fetch_assoc()) {
+                $events[] = array(
+                    'id' => $row['event_id'],
+                    'title' => $row['title'],
+                    'description' => $row['description'],
+                    'start_date' => $row['start_datetime'],
+                    'end_date' => $row['end_datetime'],
+                    'venue' => $row['location'],
+                    'category' => $row['category'],
+                    'max_capacity' => $row['max_capacity'],
+                    'current_registrations' => $row['current_registrations'],
+                    'is_registered' => (bool)$row['is_registered'],
+                    'in_calendar' => (bool)$row['in_calendar'],
+                    'is_favorite' => (bool)$row['is_favorite']
+                );
+            }
+            
+            if (empty($events)) {
+                echo json_encode([
+                    'status' => 'no_results',
+                    'message' => 'No events found matching your search'
+                ]);
+                exit;
+            }
+            
+            echo json_encode([
+                'status' => 'success',
+                'events' => $events,
+                'message' => count($events) . ' event(s) found'
+            ]);
+            exit;
+            
+        } catch (Exception $e) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'An error occurred while searching'
+            ]);
+            exit;
+        }
     }
     elseif ($_POST['action'] === 'getEvents') {
         $results = getUpcomingEvents($userId);
@@ -135,12 +183,12 @@ if (isset($_POST['action'])) {
             );
         }
         
-        $response['status'] = 'success';
-        $response['events'] = $events;
+        header('Content-Type: application/json');
+        echo json_encode(array(
+            'status' => 'success',
+            'events' => $events
+        ));
+        exit;
     }
-    
-    header('Content-Type: application/json');
-    echo json_encode($response);
-    exit;
 }
 ?> 

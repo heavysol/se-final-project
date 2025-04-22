@@ -1,6 +1,8 @@
 <?php
 require_once 'events_action.php';
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -285,47 +287,55 @@ session_start();
                         action: 'search',
                         search_term: searchTerm
                     },
+                    dataType: 'json',
                     success: function(response) {
-                        try {
-                            const data = JSON.parse(response);
-                            if (data.status === 'success') {
-                                displaySearchResults(data.events, searchTerm);
-                                // Rebind event handlers for the new buttons
-                                bindEventHandlers();
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Search Failed',
-                                    text: data.message || 'Unable to search events at this time. Please try again later.',
-                                    confirmButtonText: 'Try Again'
-                                });
-                            }
-                        } catch (e) {
-                            console.error('Error parsing search results:', e);
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Search Error',
-                                text: 'There was a problem processing the search results. Please try again.',
-                                confirmButtonText: 'Try Again'
-                            });
+                        console.log('Search response:', response);
+                        
+                        const eventsContainer = $('#eventsList');
+                        eventsContainer.empty();
+                        
+                        if (response.status === 'success') {
+                            // Add search results header
+                            eventsContainer.append(`
+                                <div class="alert alert-success mb-4">
+                                    <i class="bi bi-search"></i> ${response.message}
+                                </div>
+                            `);
+                            displaySearchResults(response.events, searchTerm);
+                            bindEventHandlers();
+                        } 
+                        else if (response.status === 'no_results') {
+                            eventsContainer.html(`
+                                <div class="alert alert-info">
+                                    <i class="bi bi-info-circle"></i> ${response.message}
+                                </div>
+                                <button class="btn btn-secondary mt-3" onclick="location.reload()">
+                                    <i class="bi bi-arrow-clockwise"></i> Show All Events
+                                </button>
+                            `);
+                        }
+                        else {
+                            eventsContainer.html(`
+                                <div class="alert alert-danger">
+                                    <i class="bi bi-exclamation-triangle"></i> ${response.message}
+                                </div>
+                                <button class="btn btn-secondary mt-3" onclick="location.reload()">
+                                    <i class="bi bi-arrow-clockwise"></i> Show All Events
+                                </button>
+                            `);
                         }
                     },
                     error: function(xhr, status, error) {
-                        let errorMessage = 'Unable to connect to the server. ';
-                        if (xhr.status === 0) {
-                            errorMessage += 'Please check your internet connection.';
-                        } else if (xhr.status === 404) {
-                            errorMessage += 'The search service is currently unavailable.';
-                        } else {
-                            errorMessage += 'Please try again later.';
-                        }
-                        
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Connection Error',
-                            text: errorMessage,
-                            confirmButtonText: 'Try Again'
-                        });
+                        console.error('Search error:', { xhr, status, error });
+                        const eventsContainer = $('#eventsList');
+                        eventsContainer.html(`
+                            <div class="alert alert-danger">
+                                <i class="bi bi-exclamation-triangle"></i> Unable to connect to the server. Please try again later.
+                            </div>
+                            <button class="btn btn-secondary mt-3" onclick="location.reload()">
+                                <i class="bi bi-arrow-clockwise"></i> Show All Events
+                            </button>
+                        `);
                     },
                     complete: function() {
                         searchButton.prop('disabled', false).text(originalButtonText);
@@ -335,37 +345,10 @@ session_start();
 
             function displaySearchResults(events, searchTerm) {
                 const eventsContainer = $('#eventsList');
-                eventsContainer.empty();
-
-                if (events.length === 0) {
-                    eventsContainer.html(`
-                        <div class="alert alert-info">
-                            <i class="bi bi-info-circle"></i> No events found matching "${escapeHtml(searchTerm)}"
-                        </div>
-                    `);
-                    return;
-                }
-
-                // Add search results header
-                eventsContainer.append(`
-                    <div class="alert alert-success mb-4">
-                        <i class="bi bi-search"></i> Found ${events.length} event(s) matching "${escapeHtml(searchTerm)}"
-                    </div>
-                `);
-
+                
                 events.forEach(function(event) {
                     const startDate = new Date(event.start_date);
                     const endDate = new Date(event.end_date);
-                    
-                    // Check if user is registered and event is in calendar
-                    const isRegistered = event.is_registered || false;
-                    const isInCalendar = event.in_calendar || false;
-                    
-                    const registerBtnClass = isRegistered ? 'btn-danger' : 'btn-primary register-btn';
-                    const registerBtnText = isRegistered ? 'Unregister' : 'Register';
-                    
-                    const calendarBtnClass = isInCalendar ? 'btn-outline-danger' : 'btn-outline-primary calendar-btn';
-                    const calendarBtnText = isInCalendar ? 'Remove from Calendar' : 'Add to Calendar';
                     
                     const eventHtml = `
                         <div class="event-item">
@@ -380,7 +363,7 @@ session_start();
                                     <div class="event-details">
                                         <i class="bi bi-calendar"></i> ${formatDateRange(startDate, endDate)}
                                         <br>
-                                        <i class="bi bi-geo-alt"></i> ${escapeHtml(event.venue)}
+                                        <i class="bi bi-geo-alt"></i> ${highlightSearchTerm(event.venue, searchTerm)}
                                     </div>
                                     <div class="event-actions mt-3">
                                         <button type="button" class="btn btn-sm ${event.is_registered ? 'btn-danger' : 'btn-primary register-btn'}" 
@@ -404,9 +387,6 @@ session_start();
                     `;
                     eventsContainer.append(eventHtml);
                 });
-                
-                // Rebind event handlers for the new buttons
-                bindEventHandlers();
             }
 
             function highlightSearchTerm(text, searchTerm) {
@@ -621,7 +601,7 @@ session_start();
                     console.log('Server response:', response); // Log the raw response
                     
                     try {
-                        const data = typeof response === 'string' ? JSON.parse(response) : response;
+                        const data = response;
                         console.log('Parsed response:', data); // Log the parsed data
                         
                         if (data.status === 'success') {

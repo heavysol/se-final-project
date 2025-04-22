@@ -5522,3 +5522,75 @@ Stack trace:
     [action] => getRegisteredEvents
 )
 
+[22-Apr-2025 01:03:24 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 01:03:24 Europe/Berlin] Session data: Array
+(
+    [user_id] => 3
+    [full_name] => Steve Nar
+    [role] => admin
+    [first_name] => Girl
+)
+
+[22-Apr-2025 01:03:24 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[22-Apr-2025 01:03:24 Europe/Berlin] Error in getRegisteredEvents: User is not a student
+[22-Apr-2025 02:11:57 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 02:11:57 Europe/Berlin] Session data: Array
+(
+    [user_id] => 10
+    [full_name] => ana ssd
+    [role] => student
+    [first_name] => ana
+)
+
+[22-Apr-2025 02:11:57 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[22-Apr-2025 02:12:02 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 02:12:02 Europe/Berlin] Session data: Array
+(
+    [user_id] => 10
+    [full_name] => ana ssd
+    [role] => student
+    [first_name] => ana
+)
+
+[22-Apr-2025 02:12:02 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 1
+)
+
+[22-Apr-2025 02:12:04 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 02:12:04 Europe/Berlin] Session data: Array
+(
+    [user_id] => 10
+    [full_name] => ana ssd
+    [role] => student
+    [first_name] => ana
+)
+
+[22-Apr-2025 02:12:04 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[22-Apr-2025 02:12:45 Europe/Berlin] Starting registration_action.php
+[22-Apr-2025 02:12:45 Europe/Berlin] Session data: Array
+(
+    [user_id] => 10
+    [full_name] => ana ssd
+    [role] => student
+    [first_name] => ana
+)
+
+[22-Apr-2025 02:12:45 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
