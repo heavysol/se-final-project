@@ -151,7 +151,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
     $active_result = $stmt->get_result();
     $active_events = $active_result->fetch_assoc()['active_count'];
 
-    // 2. Total Attendees (sum of all registrations for this organizer's events)
+    // 2. Total Registrees (sum of all registrations for this organizer's events)
     $attendees_query = "SELECT COUNT(r.registration_id) as total_attendees
                        FROM Events e
                        LEFT JOIN Registrations r ON e.event_id = r.event_id
@@ -184,6 +184,29 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
     $stmt->execute();
     $rating_result = $stmt->get_result();
     $avg_rating = number_format($rating_result->fetch_assoc()['avg_rating'] ?? 0, 1);
+
+    // Get recent registrations for organizer's events
+    $recent_registrations_query = "
+        SELECT r.registration_id, 
+               CONCAT(u.first_name, ' ', u.last_name) as name, 
+               u.email, 
+               e.title as event_title, 
+               r.registration_date
+        FROM registrations r
+        JOIN users u ON r.user_id = u.user_id
+        JOIN events e ON r.event_id = e.event_id
+        WHERE e.organizer_id = ?
+        ORDER BY r.registration_date DESC
+        LIMIT 5
+    ";
+    $stmt = $conn->prepare($recent_registrations_query);
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $recent_registrations_result = $stmt->get_result();
+    $recent_registrations = [];
+    while ($row = $recent_registrations_result->fetch_assoc()) {
+        $recent_registrations[] = $row;
+    }
     ?>
 
     <div class="row mb-4">
@@ -205,7 +228,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
                 </div>
                 <div class="stats-info">
                     <h3 class="stats-number"><?php echo $total_attendees; ?></h3>
-                    <p class="stats-label">Total Attendees</p>
+                    <p class="stats-label">Total Registrees</p>
                 </div>
             </div>
         </div>
@@ -339,51 +362,36 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
         </div>
     </div>
 
-    <!-- Third row with full-width Recent Attendees -->
+    <!-- Third row with full-width Recent Registrees -->
     <div class="row mb-4">
         <div class="col-md-12">
             <div class="dashboard-card">
                 <h4>
-                    Recent Attendees
-                    <button class="btn btn-sm btn-outline-primary">View All</button>
+                    Recent Registrees
+                    <a href="registrations.php" class="btn btn-sm btn-outline-primary">View All</a>
                 </h4>
                 <div class="attendee-list">
-                    <div class="attendee-item">
-                        <div class="attendee-avatar">
-                            <i class="bi bi-person"></i>
-                        </div>
-                        <div class="attendee-info">
-                            <h6 class="attendee-name">Amina Osei</h6>
-                            <p class="attendee-email">aosei@ashesi.edu.gh</p>
-                        </div>
-                        <div class="attendee-event">
-                            <span class="badge bg-light text-dark">Akwaaba Night</span>
-                        </div>
-                    </div>
-                    <div class="attendee-item">
-                        <div class="attendee-avatar">
-                            <i class="bi bi-person"></i>
-                        </div>
-                        <div class="attendee-info">
-                            <h6 class="attendee-name">David Mensah</h6>
-                            <p class="attendee-email">dmensah@ashesi.edu.gh</p>
-                        </div>
-                        <div class="attendee-event">
-                            <span class="badge bg-light text-dark">Entrepreneurship Workshop</span>
-                        </div>
-                    </div>
-                    <div class="attendee-item">
-                        <div class="attendee-avatar">
-                            <i class="bi bi-person"></i>
-                        </div>
-                        <div class="attendee-info">
-                            <h6 class="attendee-name">Fatima Bello</h6>
-                            <p class="attendee-email">fbello@ashesi.edu.gh</p>
-                        </div>
-                        <div class="attendee-event">
-                            <span class="badge bg-light text-dark">Global Café</span>
-                        </div>
-                    </div>
+                    <?php
+                    if (empty($recent_registrations)) {
+                        echo '<div class="text-center text-muted">No recent registrations</div>';
+                    } else {
+                        foreach ($recent_registrations as $registration) {
+                            echo '<div class="attendee-item">
+                                    <div class="attendee-avatar">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+                                    <div class="attendee-info">
+                                        <h6 class="attendee-name">' . htmlspecialchars($registration['name']) . '</h6>
+                                        <p class="attendee-email">' . htmlspecialchars($registration['email']) . '</p>
+                                    </div>
+                                    <div class="attendee-event">
+                                        <span class="badge bg-light text-dark">' . htmlspecialchars($registration['event_title']) . '</span>
+                                        <small class="text-muted d-block">' . date('M d, Y', strtotime($registration['registration_date'])) . '</small>
+                                    </div>
+                                </div>';
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         </div>
