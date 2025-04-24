@@ -38,6 +38,8 @@ body {
 
     line-height: 1.6;
 
+    padding-top: 80px; /* Add padding to account for fixed header */
+
 }
 
 
@@ -50,7 +52,19 @@ header {
 
     padding: 1rem 0;
 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    right: 0;
+
+    z-index: 1000;
+
+    height: 80px;
 
 }
 
@@ -78,15 +92,17 @@ header {
 
 
 
-/* Fixed logo size */
+/* Updated logo styles */
 
 .logo img {
 
-    width: 40px;
+    width: 50px;
 
-    height: 40px;
+    height: 50px;
 
     object-fit: contain;
+
+    filter: brightness(0) invert(1); /* Makes the logo white */
 
 }
 
@@ -96,7 +112,11 @@ header {
 
     font-size: 1.5rem;
 
-    margin-left: 10px;
+    margin-left: 15px;
+
+    color: white;
+
+    font-weight: 600;
 
 }
 
@@ -112,6 +132,8 @@ nav {
 
     padding: 0.5rem 0;
 
+    height: 100%;
+
 }
 
 
@@ -121,6 +143,10 @@ nav {
     display: flex;
 
     list-style: none;
+
+    margin: 0;
+
+    padding: 0;
 
 }
 
@@ -136,6 +162,10 @@ nav {
 
     transition: all 0.3s ease;
 
+    font-weight: 500;
+
+    font-size: 1.1rem;
+
 }
 
 
@@ -150,11 +180,21 @@ nav {
 
 
 
+.nav-links li a.active {
+
+    background-color: rgba(255,255,255,0.2);
+
+    border-radius: 4px;
+
+}
+
+
+
 .auth-buttons {
 
     display: flex;
 
-    gap: 10px;
+    gap: 15px;
 
 }
 
@@ -162,7 +202,7 @@ nav {
 
 .btn {
 
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
 
     border: none;
 
@@ -173,6 +213,10 @@ nav {
     font-weight: 500;
 
     transition: all 0.3s ease;
+
+    text-decoration: none;
+
+    font-size: 1rem;
 
 }
 
@@ -192,7 +236,7 @@ nav {
 
     background-color: transparent;
 
-    border: 1px solid white;
+    border: 2px solid white;
 
     color: white;
 
@@ -200,11 +244,21 @@ nav {
 
 
 
-.btn:hover {
+.btn-primary:hover {
 
-    opacity: 0.9;
+    background-color: #e68a00;
 
-    transform: translate(-2px);
+    transform: translateY(-2px);
+
+}
+
+
+
+.btn-outline:hover {
+
+    background-color: rgba(255,255,255,0.1);
+
+    transform: translateY(-2px);
 
 }
 

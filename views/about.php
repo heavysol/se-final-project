@@ -32,14 +32,113 @@ function getDashboardUrl() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - Ashesi Campus Events</title>
     <link rel="stylesheet" href="../assets/css/general-styles.css">
+    <link rel="stylesheet" href="../assets/css/homepage-styles.css">
     <link rel="stylesheet" href="../assets/css/about-styles.css">
+    <style>
+        header {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            height: 45px;
+            width: auto;
+            filter: none;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .nav-links li a {
+            color: #333;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .nav-links li a:hover,
+        .nav-links li a.active {
+            color: #28a745;
+            background-color: transparent;
+        }
+
+        .nav-links li a.active {
+            border-bottom: 2px solid #28a745;
+            border-radius: 0;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-outline {
+            border: 1.5px solid #28a745;
+            color: #28a745;
+            background-color: transparent;
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .btn-primary:hover {
+            background-color: #218838;
+        }
+
+        /* Add padding to body to account for fixed header */
+        body {
+            padding-top: 80px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="container">
             <nav>
                 <div class="logo">
-                    <img src="../Ashesi logo.jpg" alt="Ashesi Events Logo">
+                    <img src="../assets/images/Ashesi_University_Logo (1).webp" alt="Ashesi Events Logo">
                     <h1>Ashesi Campus Events</h1>
                 </div>
                 
@@ -109,58 +208,51 @@ function getDashboardUrl() {
                 </div>
             </div>
         </section>
-
-        <section class="team">
-            <div class="container">
-                <h2>Our Team</h2>
-                <p class="team-description">A dedicated group of students and staff working together to enhance campus life at Ashesi University.</p>
-                <div class="team-grid">
-                    <div class="team-member">
-                        <div class="member-image">
-                            <img src="../assets/images/team-placeholder.jpg" alt="Team Member">
-                        </div>
-                        <h3>Student Team</h3>
-                        <p>Event Management</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="member-image">
-                            <img src="../assets/images/team-placeholder.jpg" alt="Team Member">
-                        </div>
-                        <h3>Staff Support</h3>
-                        <p>Administration</p>
-                    </div>
-                    <div class="team-member">
-                        <div class="member-image">
-                            <img src="../assets/images/team-placeholder.jpg" alt="Team Member">
-                        </div>
-                        <h3>Technical Team</h3>
-                        <p>Platform Development</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="contact">
-            <div class="container">
-                <h2>Get in Touch</h2>
-                <p>Have questions or suggestions? We'd love to hear from you!</p>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <span class="icon">📧</span>
-                        <p>events@ashesi.edu.gh</p>
-                    </div>
-                    <div class="contact-item">
-                        <span class="icon">📍</span>
-                        <p>Ashesi University, Berekuso</p>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <?php 
-    require_once('../includes/config.php');
-    include('../includes/footer.php'); 
-    ?>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About</h3>
+                    <p>Ashesi Campus Events is a platform designed to enhance student engagement and simplify event management for the Ashesi University community.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.php">Home</a></li>
+                        <li><a href="<?php echo getDashboardUrl(); ?>">Events</a></li>
+                        <li><a href="#">Calendar</a></li>
+                        <li><a href="signup.php">Sign Up</a></li>
+                        <li><a href="login.php">Log In</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Support</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <p>Office of Student & Community Affairs (OSCA)<br>
+                    Ashesi University<br>
+                    1 University Avenue<br>
+                    Berekuso, Eastern Region</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Ashesi Campus Events. A Group 19 Project.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html> 

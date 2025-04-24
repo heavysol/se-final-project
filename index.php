@@ -58,48 +58,29 @@ function getEventRegistrationUrl($eventId) {
 <body>
 
     <header>
-
         <div class="container">
-
             <nav>
-
                 <div class="logo">
-
-                    <img src="Ashesi logo.jpg" alt="Ashesi Events Logo">
-
+                    <img src="assets/images/Ashesi_University_Logo (1).webp" alt="Ashesi Events Logo">
                     <h1>Ashesi Campus Events</h1>
-
                 </div>
-
                 
-
                 <ul class="nav-links">
-
                     <li><a href="./index.php">Home</a></li>
-
                     <li><a href="<?php echo getDashboardUrl(); ?>">Events</a></li>
-
                     <li><a href="views/about.php">About</a></li>
-
                 </ul>
-
                 
-
                 <div class="auth-buttons">
-
                     <?php if (isLoggedIn()): ?>
                         <a href="views/logout.php" class="btn btn-outline">Log Out</a>
                     <?php else: ?>
                         <a href="views/login.php" class="btn btn-outline">Log In</a>
                         <a href="views/signup.php" class="btn btn-primary">Sign Up</a>
                     <?php endif; ?>
-
                 </div>
-
             </nav>
-
         </div>
-
     </header>
 
     
