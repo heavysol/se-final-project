@@ -127,39 +127,67 @@ if ($debug_result && $debug_result->num_rows > 0) {
                 </div>
             </div>
 
-            <!-- Recent Activity Section -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="admin-card">
-                        <h4 class="admin-card-title">Recent Activity</h4>
-                        <div class="table-responsive">
-                            <table class="table admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>Event</th>
-                                        <th>Organizer</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php if ($recent_events_result && $recent_events_result->num_rows > 0): ?>
-                                        <?php while($event = $recent_events_result->fetch_assoc()): ?>
-                                            <tr>
-                                                <td><?php echo htmlspecialchars($event['title']); ?></td>
-                                                <td><?php echo htmlspecialchars($event['organizer_name']); ?></td>
-                                                <td><?php echo date('M d, Y h:i A', strtotime($event['updated_at'])); ?></td>
-                                                <td><span class="badge bg-success">Approved</span></td>
-                                            </tr>
-                                        <?php endwhile; ?>
-                                    <?php else: ?>
-                                        <tr>
-                                            <td colspan="4" class="text-center">No upcoming approved events found</td>
-                                        </tr>
-                                    <?php endif; ?>
-                                </tbody>
-                            </table>
-                        </div>
+            <!-- Recent Events -->
+            <div class="col-md-8">
+                <div class="dashboard-card">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4><i class="bi bi-calendar2-week"></i> Recent Events</h4>
+                        <a href="./event_management.php" class="btn btn-sm btn-primary">
+                            <i class="bi bi-list"></i> View All Events
+                        </a>
+                    </div>
+                    <div id="recent-events-list">
+                        <?php
+                        // Get recent events ordered by start date
+                        $query = "SELECT e.*, 
+                                (SELECT COUNT(*) FROM Registrations WHERE event_id = e.event_id) as current_registrations,
+                                u.first_name as organizer_name
+                                FROM Events e 
+                                LEFT JOIN Users u ON e.organizer_id = u.user_id
+                                ORDER BY e.start_datetime ASC 
+                                LIMIT 5";
+                        
+                        $stmt = $conn->prepare($query);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        
+                        if ($result->num_rows > 0) {
+                            while ($event = $result->fetch_assoc()) {
+                                $startDate = new DateTime($event['start_datetime']);
+                                $endDate = new DateTime($event['end_datetime']);
+                                ?>
+                                <div class="event-card mb-3 p-3 border rounded">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5 class="event-title mb-2">
+                                                <?php echo htmlspecialchars($event['title']); ?>
+                                            </h5>
+                                            <div class="event-meta">
+                                                <span class="event-category"><i class="bi bi-tag"></i> <?php echo htmlspecialchars($event['category']); ?></span>
+                                                <span class="event-capacity"><i class="bi bi-people"></i> <?php echo $event['current_registrations']; ?>/<?php echo $event['max_capacity']; ?> registered</span>
+                                            </div>
+                                            <div class="event-details">
+                                                <p class="mb-1"><i class="bi bi-calendar"></i> <?php echo $startDate->format('F j, Y g:i A'); ?> - <?php echo $endDate->format('F j, Y g:i A'); ?></p>
+                                                <p class="mb-1"><i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['location']); ?></p>
+                                                <p class="mb-1"><i class="bi bi-person"></i> Organized by: <?php echo htmlspecialchars($event['organizer_name']); ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="event-actions mt-3">
+                                        <a href="./event_management.php?action=edit&id=<?php echo $event['event_id']; ?>" class="btn btn-sm btn-primary">
+                                            <i class="bi bi-pencil"></i> Edit
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-danger delete-event" data-event-id="<?php echo $event['event_id']; ?>">
+                                            <i class="bi bi-trash"></i> Delete
+                                        </button>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        } else {
+                            echo '<p class="text-muted">No events found.</p>';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

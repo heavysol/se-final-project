@@ -39,6 +39,121 @@ $_SESSION['first_name'] = $user['first_name'];
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
     <link rel="stylesheet" href="../../../assets/css/dashboard-styles.css">
     <style>
+        /* Enhanced Sidebar Styles */
+        .sidebar {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            width: 250px;
+            position: fixed;
+            height: 100vh;
+            padding: 1.5rem;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-header h3 i {
+            color: #3498db;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu a i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar-menu a.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-weight: 500;
+        }
+
+        .sidebar-menu a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 60%;
+            background: #3498db;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Main Content Adjustment */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            min-height: 100vh;
+            background: #f8f9fa;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                padding: 1rem 0.5rem;
+            }
+
+            .sidebar-header h3 span,
+            .sidebar-menu a span {
+                display: none;
+            }
+
+            .sidebar-header h3 {
+                justify-content: center;
+            }
+
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 0.8rem;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+        }
         .dashboard-stats {
             background: #fff;
             border-radius: 10px;
@@ -236,10 +351,20 @@ $_SESSION['first_name'] = $user['first_name'];
                                     $calendarBtnText = $event['in_calendar'] ? 'Remove from Calendar' : 'Add to Calendar';
                                     ?>
                                     <div class="event-card mb-3 p-3 border rounded">
-                                        <h5 class="event-title"><?php echo htmlspecialchars($event['title']); ?></h5>
-                                        <p class="event-location"><i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['location']); ?></p>
-                                        <p class="event-date"><i class="bi bi-calendar"></i> <?php echo $startDate->format('F j, Y g:i A'); ?> - <?php echo $endDate->format('F j, Y g:i A'); ?></p>
-                                        <div class="event-actions mt-2">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div>
+                                                <h5 class="event-title mb-2"><?php echo htmlspecialchars($event['title']); ?></h5>
+                                                <div class="event-meta">
+                                                    <span class="event-category"><i class="bi bi-tag"></i> <?php echo htmlspecialchars($event['category']); ?></span>
+                                                    <span class="event-capacity"><i class="bi bi-people"></i> <?php echo $event['current_registrations']; ?>/<?php echo $event['max_capacity']; ?> registered</span>
+                                                </div>
+                                                <div class="event-details">
+                                                    <p class="mb-1"><i class="bi bi-calendar"></i> <?php echo $startDate->format('F j, Y g:i A'); ?> - <?php echo $endDate->format('F j, Y g:i A'); ?></p>
+                                                    <p class="mb-1"><i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['location']); ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="event-actions mt-3">
                                             <button type="button" class="btn btn-sm <?php echo $registerBtnClass; ?>" 
                                                     data-event-id="<?php echo $event['event_id']; ?>">
                                                 <?php echo $registerBtnText; ?>

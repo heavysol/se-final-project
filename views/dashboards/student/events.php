@@ -38,13 +38,127 @@ $_SESSION['first_name'] = $user['first_name'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events - Campus Events</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../../assets/css/general-styles.css">
-    <link rel="stylesheet" href="../../../assets/css/dashboard-styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../../assets/css/student-dashboard-styles.css" rel="stylesheet">
     <!-- Add SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
+        /* Enhanced Sidebar Styles */
+        .sidebar {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            width: 250px;
+            position: fixed;
+            height: 100vh;
+            padding: 1.5rem;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-header h3 i {
+            color: #3498db;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu a i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar-menu a.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-weight: 500;
+        }
+
+        .sidebar-menu a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 60%;
+            background: #3498db;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Main Content Adjustment */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            min-height: 100vh;
+            background: #f8f9fa;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                padding: 1rem 0.5rem;
+            }
+
+            .sidebar-header h3 span,
+            .sidebar-menu a span {
+                display: none;
+            }
+
+            .sidebar-header h3 {
+                justify-content: center;
+            }
+
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 0.8rem;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+        }
         .event-item {
             border: 1px solid #ddd;
             padding: 20px;
@@ -154,14 +268,14 @@ $_SESSION['first_name'] = $user['first_name'];
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-header">
-            <h3>Student Dashboard</h3>
-            <div class="text-white-50 small">Student Dashboard</div>
+            <h3><i class="bi bi-calendar-event"></i> <span>Campus Events</span></h3>
         </div>
         <ul class="sidebar-menu">
-            <li><a href="./student_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-            <li><a href="./events.php"><i class="bi bi-calendar-event"></i> Events</a></li>
-            <li><a href="./registrations.php"><i class="bi bi-journal-check"></i> My Registrations Events</a></li>
-            <li><a href="./favourites.php"><i class="bi bi-star"></i> My Favorites Events</a></li>
+            <li><a href="student_dashboard.php"><i class="bi bi-house"></i> <span>Dashboard</span></a></li>
+            <li><a href="events.php" class="active"><i class="bi bi-calendar3"></i> <span>Events</span></a></li>
+            <li><a href="registrations.php"><i class="bi bi-ticket-perforated"></i> <span>My Registrations</span></a></li>
+            <li><a href="favorites.php"><i class="bi bi-heart"></i> <span>My Favorites</span></a></li>
+            <li><a href="../../auth/logout.php"><i class="bi bi-box-arrow-right"></i> <span>Logout</span></a></li>
         </ul>
     </div>
 

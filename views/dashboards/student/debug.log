@@ -5594,3 +5594,157 @@ Stack trace:
     [action] => getRegisteredEvents
 )
 
+[24-Apr-2025 02:46:36 Europe/Berlin] Starting registration_action.php
+[24-Apr-2025 02:46:36 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => Girl Owusu
+    [role] => student
+    [first_name] => Girl
+)
+
+[24-Apr-2025 02:46:36 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[24-Apr-2025 02:47:25 Europe/Berlin] Starting registration_action.php
+[24-Apr-2025 02:47:25 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => Girl Owusu
+    [role] => student
+    [first_name] => Girl
+)
+
+[24-Apr-2025 02:47:25 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[24-Apr-2025 02:50:55 Europe/Berlin] Starting registration_action.php
+[24-Apr-2025 02:50:55 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => Girl Owusu
+    [role] => student
+    [first_name] => Girl
+)
+
+[24-Apr-2025 02:50:55 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[24-Apr-2025 02:51:07 Europe/Berlin] Starting registration_action.php
+[24-Apr-2025 02:51:07 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => Girl Owusu
+    [role] => student
+    [first_name] => Girl
+)
+
+[24-Apr-2025 02:51:07 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[24-Apr-2025 02:51:20 Europe/Berlin] Starting registration_action.php
+[24-Apr-2025 02:51:20 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => Girl Owusu
+    [role] => student
+    [first_name] => Girl
+)
+
+[24-Apr-2025 02:51:20 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[24-Apr-2025 02:51:25 Europe/Berlin] Starting registration_action.php
+[24-Apr-2025 02:51:25 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => Girl Owusu
+    [role] => student
+    [first_name] => Girl
+)
+
+[24-Apr-2025 02:51:25 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[24-Apr-2025 02:55:54 Europe/Berlin] Starting registration_action.php
+[24-Apr-2025 02:55:54 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => Girl Owusu
+    [role] => student
+    [first_name] => Girl
+)
+
+[24-Apr-2025 02:55:54 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[24-Apr-2025 02:56:15 Europe/Berlin] Starting registration_action.php
+[24-Apr-2025 02:56:15 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => Girl Owusu
+    [role] => student
+    [first_name] => Girl
+)
+
+[24-Apr-2025 02:56:15 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[24-Apr-2025 02:58:50 Europe/Berlin] Starting registration_action.php
+[24-Apr-2025 02:58:50 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => Girl Owusu
+    [role] => student
+    [first_name] => Girl
+)
+
+[24-Apr-2025 02:58:50 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[24-Apr-2025 03:18:07 Europe/Berlin] Starting registration_action.php
+[24-Apr-2025 03:18:07 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => Girl Owusu
+    [role] => student
+    [first_name] => Girl
+)
+
+[24-Apr-2025 03:18:07 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[24-Apr-2025 03:24:44 Europe/Berlin] Starting registration_action.php
+[24-Apr-2025 03:24:44 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => Girl Owusu
+    [role] => student
+    [first_name] => Girl
+)
+
+[24-Apr-2025 03:24:44 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+

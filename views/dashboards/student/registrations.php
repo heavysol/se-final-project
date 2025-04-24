@@ -28,11 +28,11 @@ echo "<script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Registrations - Campus Events</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
-    <link rel="stylesheet" href="../../../assets/css/dashboard-styles.css">
+    <link href="../../../assets/css/student-dashboard-styles.css" rel="stylesheet">
     <style>
         .sidebar-menu .dropdown-menu {
             background-color: rgba(0, 0, 0, 0.2);
@@ -106,38 +106,14 @@ echo "<script>
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-header">
-            <h3>Student Dashboard</h3>
-            <div class="text-white-50 small">Student Dashboard</div>
+            <h3><i class="bi bi-calendar-event"></i> <span>Campus Events</span></h3>
         </div>
         <ul class="sidebar-menu">
-            <li><a href="./student_dashboard.php"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-            
-            <!-- Events Dropdown -->
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
-                    <i class="bi bi-calendar-event"></i> Events
-                </a>
-                <!-- <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="./events.php">
-                        <i class="bi bi-calendar-week"></i>All Events
-                    </a></li>
-                    <li><a class="dropdown-item" href="./events.php?filter=upcoming">
-                        <i class="bi bi-calendar-plus"></i>Upcoming Events
-                    </a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="./events.php?filter=today">
-                        <i class="bi bi-calendar-check"></i>Today's Events
-                    </a></li>
-                    <li><a class="dropdown-item" href="./events.php?filter=past">
-                        <i class="bi bi-calendar-x"></i>Past Events
-                    </a></li>
-                </ul> -->
-            </li>
-            
-            <li><a href="./registrations.php" class="active"><i class="bi bi-journal-check"></i> My Registrations events</a></li>
-            <li><a href="./favourites.php"><i class="bi bi-star"></i> MyFavorites Events</a></li>
-            <!-- Logout Button -->
-           
+            <li><a href="student_dashboard.php"><i class="bi bi-house"></i> <span>Dashboard</span></a></li>
+            <li><a href="events.php"><i class="bi bi-calendar3"></i> <span>Events</span></a></li>
+            <li><a href="registrations.php" class="active"><i class="bi bi-ticket-perforated"></i> <span>My Registrations</span></a></li>
+            <li><a href="favorites.php"><i class="bi bi-heart"></i> <span>My Favorites</span></a></li>
+            <li><a href="../../auth/logout.php"><i class="bi bi-box-arrow-right"></i> <span>Logout</span></a></li>
         </ul>
     </div>
 
