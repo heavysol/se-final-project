@@ -164,7 +164,7 @@ require_once '../../../db/config.php';
             <li><a href="./student_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
             <li><a href="./events.php"><i class="bi bi-calendar-event"></i> Events</a></li>
             <li><a href="./registrations.php"><i class="bi bi-journal-check"></i> My Registrations Events</a></li>
-            <li><a href="./favourites.php"><i class="bi bi-star"></i> My Favorites Events</a></li>
+            <li><a href="./favorites.php"><i class="bi bi-star"></i> My Favorites Events</a></li>
         </ul>
     </div>
 

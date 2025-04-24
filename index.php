@@ -1,3 +1,44 @@
+<?php
+session_start();
+require_once 'db/config.php';
+
+// Function to check if user is logged in
+function isLoggedIn() {
+    return isset($_SESSION['user_id']) && isset($_SESSION['role']);
+}
+
+// Function to get the appropriate dashboard URL based on user role
+function getDashboardUrl() {
+    if (!isLoggedIn()) {
+        return 'views/login.php';
+    }
+    
+    switch ($_SESSION['role']) {
+        case 'admin':
+            return 'views/dashboards/admin/admin_dashboard.php';
+        case 'organizer':
+            return 'views/dashboards/organiser/organizer_dashboard.php';
+        case 'student':
+            return 'views/dashboards/student/student_dashboard.php';
+        default:
+            return 'views/login.php';
+    }
+}
+
+// Function to get the appropriate event registration URL
+function getEventRegistrationUrl($eventId) {
+    if (!isLoggedIn()) {
+        return 'views/login.php';
+    }
+    
+    switch ($_SESSION['role']) {
+        case 'student':
+            return 'views/dashboards/student/student_dashboard.php?event_id=' . $eventId;
+        default:
+            return 'views/login.php';
+    }
+}
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -36,13 +77,9 @@
 
                     <li><a href="./index.php">Home</a></li>
 
-                    <li><a href="./views/dashboards/student/student_dashboard.php">Events</a></li>
+                    <li><a href="<?php echo getDashboardUrl(); ?>">Events</a></li>
 
-                    <li><a href="#">Calendar</a></li>
-
-                    <li><a href="./views/dashboards/student/events.php">My Events</a></li>
-
-                    <li><a href="#">About</a></li>
+                    <li><a href="views/about.php">About</a></li>
 
                 </ul>
 
@@ -50,9 +87,12 @@
 
                 <div class="auth-buttons">
 
-                    <button class="btn btn-outline">Log In</button>
-
-                    <button class="btn btn-primary">Sign Up</button>
+                    <?php if (isLoggedIn()): ?>
+                        <a href="views/logout.php" class="btn btn-outline">Log Out</a>
+                    <?php else: ?>
+                        <a href="views/login.php" class="btn btn-outline">Log In</a>
+                        <a href="views/signup.php" class="btn btn-primary">Sign Up</a>
+                    <?php endif; ?>
 
                 </div>
 
@@ -65,25 +105,10 @@
     
 
     <section class="hero">
-
         <div class="container">
-
             <h2>Discover, Register, Engage</h2>
-
             <p>Your one-stop platform for all Ashesi University campus events. Never miss an opportunity to connect, learn, and grow.</p>
-
-            
-
-            <div class="search-bar">
-
-                <input type="text" placeholder="Search for events...">
-
-                <button>Search</button>
-
-            </div>
-
         </div>
-
     </section>
 
     
@@ -98,123 +123,92 @@
 
             <div class="event-grid">
 
-                <div class="event-card">
+                <?php
 
-                    <div class="event-img">
-
-                        <img src="akwaba_night.jpg" alt="Akwaaba Night">
-
-                    </div>
-
-                    <div class="event-details">
-
-                        <h3>Akwaaba Night</h3>
-
-                        <div class="event-meta">
-
-                            <span>April 2, 2025</span>
-
-                            <span>7:00 PM</span>
-
-                        </div>
-
-                        <p>Welcome new students with an evening of music, food, and networking.</p>
-
-                        <a href="#" class="register-btn">Register Now</a>
-
-                    </div>
-
-                </div>
-
+                // Get one event from each category
+                $categories = ['academic', 'cultural', 'sports', 'social'];
+                $events = [];
                 
-
-                <div class="event-card">
-
-                    <div class="event-img">
-
-                        <img src="global_cafe.jpg" alt="Global Café">
-
-                    </div>
-
-                    <div class="event-details">
-
-                        <h3>Global Café</h3>
-
-                        <div class="event-meta">
-
-                            <span>April 10, 2025</span>
-
-                            <span>4:00 PM</span>
-
-                        </div>
-
-                        <p>Experience diverse cultures through food, music, and traditional performances.</p>
-
-                        <a href="#" class="register-btn">Register Now</a>
-
-                    </div>
-
-                </div>
-
+                foreach ($categories as $category) {
+                    $query = "SELECT * FROM events 
+                             WHERE start_datetime >= NOW() 
+                             AND LOWER(category) = ?
+                             ORDER BY start_datetime ASC 
+                             LIMIT 1";
+                    
+                    $stmt = $conn->prepare($query);
+                    $stmt->bind_param("s", $category);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    
+                    if ($result && $result->num_rows > 0) {
+                        $events[] = $result->fetch_assoc();
+                    }
+                }
                 
-
-                <div class="event-card">
-
-                    <div class="event-img">
-
-                        <img src="annual_career.jpg" alt="Career Fair">
-
-                    </div>
-
-                    <div class="event-details">
-
-                        <h3>Annual Career Fair</h3>
-
-                        <div class="event-meta">
-
-                            <span>April 15, 2025</span>
-
-                            <span>9:00 AM</span>
-
-                        </div>
-
-                        <p>Connect with potential employers and explore career opportunities.</p>
-
-                        <a href="#" class="register-btn">Register Now</a>
-
-                    </div>
-
-                </div>
-
+                // If we don't have enough events from different categories, get more upcoming events
+                if (count($events) < 4) {
+                    $remaining = 4 - count($events);
+                    $query = "SELECT * FROM events 
+                             WHERE start_datetime >= NOW() 
+                             AND event_id NOT IN (" . implode(',', array_map(function($e) { return $e['event_id']; }, $events)) . ")
+                             ORDER BY start_datetime ASC 
+                             LIMIT " . $remaining;
+                    
+                    $result = $conn->query($query);
+                    if ($result) {
+                        while ($row = $result->fetch_assoc()) {
+                            $events[] = $row;
+                        }
+                    }
+                }
                 
-
-                <div class="event-card">
-
-                    <div class="event-img">
-
-                        <img src="ubora_imge.webp" alt="Ubora Awards">
-
-                    </div>
-
-                    <div class="event-details">
-
-                        <h3>Ubora Awards</h3>
-
-                        <div class="event-meta">
-
-                            <span>April 22, 2025</span>
-
-                            <span>6:30 PM</span>
-
-                        </div>
-
-                        <p>Celebrating excellence and achievement within the Ashesi community.</p>
-
-                        <a href="#" class="register-btn">Register Now</a>
-
-                    </div>
-
-                </div>
+                if (!empty($events)) {
+                    foreach ($events as $event) {
+                        // Determine image based on category
+                        $category = strtolower($event['category']);
+                        $imagePath = 'assets/images/';
+                        
+                        switch ($category) {
+                            case 'academic':
+                                $imagePath .= 'accademic.jpg';
+                                break;
+                            case 'cultural':
+                                $imagePath .= 'cultural.jpg';
+                                break;
+                            case 'sports':
+                                $imagePath .= 'sport.jpg';
+                                break;
+                            case 'social':
+                                $imagePath .= 'Social.jpg';
+                                break;
+                            default:
+                                $imagePath .= 'student-party.jpg';
+                        }
+                        
+                        // Format date and time
+                        $date = date('F j, Y', strtotime($event['start_datetime']));
+                        $time = date('g:i A', strtotime($event['start_datetime']));
+                        
+                        echo '<div class="event-card">
+                                <div class="event-img">
+                                    <img src="' . $imagePath . '" alt="' . htmlspecialchars($event['title']) . '">
+                                </div>
+                                <div class="event-details">
+                                    <h3>' . htmlspecialchars($event['title']) . '</h3>
+                                    <div class="event-meta">
+                                        <span>' . $date . '</span>
+                                        <span>' . $time . '</span>
+                                    </div>
+                                    <p>' . htmlspecialchars($event['description']) . '</p>
+                                    <a href="' . getEventRegistrationUrl($event['event_id']) . '" class="register-btn">Register Now</a>
+                                </div>
+                            </div>';
+                    }
+                } else {
+                    echo '<p class="no-events">No upcoming events found.</p>';
+                }
+                ?>
 
             </div>
 
@@ -222,7 +216,7 @@
 
             <div style="text-align: center; margin-top: 2rem;">
 
-                <a href="#" style="color: var(--primary); font-weight: 500; text-decoration: none;">View All Events →</a>
+                <a href="<?php echo getDashboardUrl(); ?>" style="color: var(--primary); font-weight: 500; text-decoration: none;">View All Events →</a>
 
             </div>
 
@@ -289,22 +283,6 @@
                 </div>
 
             </div>
-
-        </div>
-
-    </section>
-
-    
-
-    <section class="cta">
-
-        <div class="container">
-
-            <h2>Ready to Get Involved?</h2>
-
-            <p>Join Ashesi Campus Events platform today to discover exciting opportunities, connect with peers, and make the most of your university experience.</p>
-
-            <button class="btn btn-primary">Sign Up with Ashesi Email</button>
 
         </div>
 
@@ -399,6 +377,37 @@
         </div>
 
     </footer>
+
+    <style>
+        .error-message {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #c62828;
+        }
+        .debug-info {
+            background-color: #e3f2fd;
+            color: #1565c0;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #1565c0;
+        }
+        .no-events {
+            background-color: #fff3e0;
+            color: #ef6c00;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #ef6c00;
+        }
+        .no-events ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+    </style>
 
 </body>
 
