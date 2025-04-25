@@ -31,8 +31,24 @@ function signInWithGitHub() {
 
 // Form submission
 document.getElementById('signupForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    console.log("Form submitted");
-    alert("Form submitted successfully!");
-    // In a real implementation, you would handle form submission here
+    // Get form values
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm_password').value;
+    
+    // Validate password match
+    if (password !== confirmPassword) {
+        event.preventDefault();
+        alert('Passwords do not match!');
+        return;
+    }
+    
+    // Validate password length
+    if (password.length < 8) {
+        event.preventDefault();
+        alert('Password must be at least 8 characters long!');
+        return;
+    }
+    
+    // If all validations pass, allow form to submit
+    console.log("Form validation passed, submitting...");
 });

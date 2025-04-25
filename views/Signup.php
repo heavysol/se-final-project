@@ -222,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php endif; ?>
 
             <?php if (!$success_message): ?>
-                <form method="POST" action="Signup.php">
+                <form method="POST" action="Signup.php" id="signupForm">
                     <div class="form-group">
                         <label for="first_name"><i class="fas fa-user"></i> First Name</label>
                         <input type="text" name="first_name" id="first_name" required>
