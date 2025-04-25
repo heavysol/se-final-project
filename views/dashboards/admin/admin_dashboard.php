@@ -68,6 +68,9 @@ if ($debug_result && $debug_result->num_rows > 0) {
             <div class="small">Admin Dashboard</div>
         </div>
         <ul class="admin-sidebar-menu">
+            <li><a href="../../../index.php">
+                <i class="bi bi-house-door"></i> Home
+            </a></li>
             <li><a href="admin_dashboard.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'admin_dashboard.php' ? 'active' : ''; ?>">
                 <i class="bi bi-speedometer2"></i> Dashboard
             </a></li>

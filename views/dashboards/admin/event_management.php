@@ -60,7 +60,13 @@ if ($result) {
             <h3>Campus Events</h3>
             <div class="small">Admin Dashboard</div>
         </div>
+
+        
+        
         <ul class="admin-sidebar-menu">
+            <li><a href="../../../index.php">
+                <i class="bi bi-house-door"></i> Home
+            </a></li>
             <li><a href="admin_dashboard.php">
                 <i class="bi bi-speedometer2"></i> Dashboard
             </a></li>
