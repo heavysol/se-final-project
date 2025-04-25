@@ -161,10 +161,13 @@ require_once '../../../db/config.php';
             <div class="text-white-50 small">Student Dashboard</div>
         </div>
         <ul class="sidebar-menu">
+            <li><a href="../../../index.php"><i class="bi bi-house-door"></i> Home</a></li>
             <li><a href="./student_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
             <li><a href="./events.php"><i class="bi bi-calendar-event"></i> Events</a></li>
             <li><a href="./registrations.php"><i class="bi bi-journal-check"></i> My Registrations Events</a></li>
+            <li><a href="./calendar.php" class="active"><i class="bi bi-calendar3"></i> Calendar</a></li>
             <li><a href="./favorites.php"><i class="bi bi-star"></i> My Favorites Events</a></li>
+            <li><a href="../../../views/logout.php"><i class="bi bi-box-arrow-right"></i> <span>Logout</span></a></li>
         </ul>
     </div>
 

@@ -35,6 +35,74 @@ if (!$user) {
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
     <link rel="stylesheet" href="../../../assets/css/dashboard-styles.css">
     <style>
+                /* Sidebar Styles */
+                .sidebar {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            min-height: 100vh;
+            width: 250px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 1.5rem 0;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .sidebar-header h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding-left: 2rem;
+        }
+
+        .sidebar-menu a.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border-left: 4px solid #ffd700;
+        }
+
+        .sidebar-menu i {
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-menu a.active i {
+            color: #ffd700;
+        }
         .calendar-container {
             background: #fff;
             border-radius: 10px;
@@ -61,12 +129,12 @@ if (!$user) {
             <div class="text-white-50 small">Student Dashboard</div>
         </div>
         <ul class="sidebar-menu">
-            <li><a href="./student_dashboard.php"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+            <li><a href="../../../index.php"><i class="bi bi-house-door"></i> Home</a></li>
+            <li><a href="./student_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
             <li><a href="./events.php"><i class="bi bi-calendar-event"></i> Events</a></li>
-            <li><a href="./registrations.php"><i class="bi bi-journal-check"></i> My Registrations Event</a></li>
-            <li><a href="./favourites.php"><i class="bi bi-star"></i> My Favorites Events</a></li>
-            <li><a href="./calendar.php" class="active"><i class="bi bi-calendar3"></i> Calendar</a></li>
-
+            <li><a href="./registrations.php"><i class="bi bi-journal-check"></i> My Registrations Events</a></li>
+            <li><a href="./favorites.php"><i class="bi bi-star"></i> My Favorites Events</a></li>
+            <li><a href="../../../views/logout.php"><i class="bi bi-box-arrow-right"></i> <span>Logout</span></a></li>
         </ul>
     </div>
 
