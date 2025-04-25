@@ -153,7 +153,7 @@ function getDashboardUrl() {
                         <a href="logout.php" class="btn btn-outline">Log Out</a>
                     <?php else: ?>
                         <a href="login.php" class="btn btn-outline">Log In</a>
-                        <a href="signup.php" class="btn btn-primary">Sign Up</a>
+                        <a href="Signup.php" class="btn btn-primary">Sign Up</a>
                     <?php endif; ?>
                 </div>
             </nav>
@@ -225,7 +225,7 @@ function getDashboardUrl() {
                         <li><a href="<?php echo getDashboardUrl(); ?>">Events</a></li>
                         <li><a href="<?php echo getDashboardUrl(); ?>">Dashboard</a></li>
                         <li><a href="#">Calendar</a></li>
-                        <li><a href="signup.php">Sign Up</a></li>
+                        <li><a href="Signup.php">Sign Up</a></li>
                         <li><a href="login.php">Log In</a></li>
                     </ul>
                 </div>

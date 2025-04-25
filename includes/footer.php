@@ -12,7 +12,7 @@
                     <li><a href="<?php echo $base_url; ?>index.php">Home</a></li>
                     <li><a href="<?php echo $base_url; ?>views/events.php">Events</a></li>
                     <li><a href="#">Calendar</a></li>
-                    <li><a href="<?php echo $base_url; ?>views/signup.php">Sign Up</a></li>
+                    <li><a href="<?php echo $base_url; ?>views/Signup.php">Sign Up</a></li>
                     <li><a href="<?php echo $base_url; ?>views/login.php">Log In</a></li>
                 </ul>
             </div>

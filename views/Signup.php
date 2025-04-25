@@ -35,15 +35,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Check if the email is valid for the selected role
             if (stripos($email, 'admin') !== false && $role !== 'admin') {
                 $error_message = "Invalid role selection for this admin email type";
-                header("Location: signup.php?error=" . urlencode($error_message));  // Redirect with error message
+                header("Location: Signup.php?error=" . urlencode($error_message));  // Redirect with error message
                 exit();
             } elseif (stripos($email, 'organizer') !== false && $role !== 'organizer') {
                 $error_message = "Invalid role selection for this organizer email type";
-                header("Location: signup.php?error=" . urlencode($error_message));  // Redirect with error message
+                header("Location: Signup.php?error=" . urlencode($error_message));  // Redirect with error message
                 exit();
             } elseif (stripos($email, 'admin') === false && stripos($email, 'organizer') === false && $role !== 'student') {
                 $error_message = "This email is only valid for student accounts";
-                header("Location: signup.php?error=" . urlencode($error_message));  // Redirect with error message
+                header("Location: Signup.php?error=" . urlencode($error_message));  // Redirect with error message
                 exit();
             }
 
@@ -222,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php endif; ?>
 
             <?php if (!$success_message): ?>
-                <form method="POST" action="signup.php">
+                <form method="POST" action="Signup.php">
                     <div class="form-group">
                         <label for="first_name"><i class="fas fa-user"></i> First Name</label>
                         <input type="text" name="first_name" id="first_name" required>

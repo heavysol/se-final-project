@@ -239,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </button>
             </form>
             <div class="signup-link">
-                Don't have an account? <a href="signup.php">Sign up here</a>
+                Don't have an account? <a href="Signup.php">Sign up here</a>
             </div>
         </div>
     </div>
