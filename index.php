@@ -77,7 +77,7 @@ function getEventRegistrationUrl($eventId) {
                         <a href="views/logout.php" class="btn btn-outline">Log Out</a>
                     <?php else: ?>
                         <a href="views/login.php" class="btn btn-outline">Log In</a>
-                        <a href="views/Signup.php" class="btn btn-primary">Sign Up</a>
+                        <a href="views/signup.php" class="btn btn-primary">Sign Up</a>
                     <?php endif; ?>
                 </div>
             </nav>
