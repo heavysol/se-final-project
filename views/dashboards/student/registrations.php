@@ -99,21 +99,53 @@ echo "<script>
             border-top: 1px solid #34495e;
             margin: 0.5rem 0;
         }
+        .logo-container {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        .logo-container h2 {
+            color: white;
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .logo-container .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin: 5px 0 0 0;
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #2c3e50 0%, #3a506b 100%);
+            color: white;
+            width: 250px;
+            position: fixed;
+            height: 100vh;
+            padding-top: 0;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
     </style>
 </head>
 
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="sidebar-header">
-            <h3><i class="bi bi-calendar-event"></i> <span>Campus Events</span></h3>
+        <div class="logo-container">
+            <h2>Campus Events</h2>
+            <p class="subtitle">Student Dashboard</p>
         </div>
         <ul class="sidebar-menu">
-            <li><a href="../../../index.php"><i class="active"> class="bi bi-house-door"></i> Home</a></li>
-            <li><a href="./student_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+            <li><a href="../../../index.php"><i class="bi bi-house-door"></i> Home</a></li>
+            <li><a href="./student_dashboard.php" ><i class="bi bi-speedometer2"></i> Dashboard</a></li>
             <li><a href="./events.php"><i class="bi bi-calendar-event"></i> Events</a></li>
             <li><a href="./registrations.php"><i class="bi bi-journal-check"></i> My Registrations Events</a></li>
-            <li><a href="./calendar.php" class="active"><i class="bi bi-calendar3"></i> Calendar</a></li>
+            <li><a href="./calendar.php" ><i class="bi bi-calendar3"></i> Calendar</a></li>
             <li><a href="./favorites.php"><i class="bi bi-star"></i> My Favorites Events</a></li>
             <li><a href="../../../views/logout.php"><i class="bi bi-box-arrow-right"></i> <span>Logout</span></a></li>
         </ul>

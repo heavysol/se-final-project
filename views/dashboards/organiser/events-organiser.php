@@ -39,6 +39,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Events - Campus Events</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
     <link rel="stylesheet" href="../../../assets/css/dashboard-styles.css">
@@ -171,42 +172,83 @@ try {
         .table {
             width: 100% !important;
         }
+
+        .logo-container {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        .logo-container h2 {
+            color: white;
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .logo-container .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin: 5px 0 0 0;
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #2c3e50 0%, #3a506b 100%);
+            color: white;
+            width: 250px;
+            position: fixed;
+            height: 100vh;
+            padding-top: 0;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
     </style>
 </head>
-<body>
-<!-- Sidebar -->
-<div class="sidebar">
+    <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
         <div class="logo-container">
-    <h3>Campus Events</h3>
-</div>
+            <h2>Campus Events</h2>
+            <p class="subtitle">Organizer Dashboard</p>
+        </div>
 
         <ul class="nav-list">
             <li>
+                <a href="../../../index.php">
+                    <i class="bi bi-house-door"></i>
+                    <span class="link-name">Home</span>
+                </a>
+            </li>
+            <li>
                 <a href="organizer_dashboard.php">
-                    <i class="fas fa-home"></i>
+                    <i class="bi bi-speedometer2"></i>
                     <span class="link-name">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="events-organiser.php" class="active">
-                    <i class="fas fa-calendar"></i>
-                    <span class="link-name">My Events</span>
-                </a>
-            </li>
-            <li>
-                <a href="analytics.php">
-                    <i class="fas fa-chart-bar"></i>
-                    <span class="link-name">Analytics</span>
-                </a>
-            </li>
-            <li class="logout-divider">
-                <a href="../../logout.php">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span class="link-name">Logout</span>
-                </a>
-            </li>
-</ul>
-</div>
+                <li>
+                    <a href="events-organiser.php">
+                        <i class="bi bi-calendar-event"></i>
+                        <span class="link-name">My Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="analytics.php" class="active">
+                        <i class="bi bi-graph-up"></i>
+                        <span class="link-name">Analytics</span>
+                    </a>
+                </li>
+                <li class="logout-divider">
+                    <a href="../../logout.php">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span class="link-name">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
     <!-- Main Content -->
 <div class="main-content">

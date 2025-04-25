@@ -6420,3 +6420,227 @@ Stack trace:
     [action] => getRegisteredEvents
 )
 
+[25-Apr-2025 04:58:14 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 04:58:14 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 04:58:14 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 04:58:40 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 04:58:40 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 04:58:40 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 04:58:54 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 04:58:54 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 04:58:54 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 04:58:55 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 04:58:55 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 04:58:55 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 04:58:55 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 04:58:55 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 04:58:55 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 04:59:06 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 04:59:06 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 04:59:06 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 04:59:14 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 04:59:14 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 04:59:14 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 04:59:16 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 04:59:16 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 04:59:16 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 04:59:30 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 04:59:30 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 04:59:30 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 05:00:39 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 05:00:39 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 05:00:39 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 05:01:10 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 05:01:10 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 05:01:10 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 05:01:35 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 05:01:35 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 05:01:35 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 05:03:04 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 05:03:04 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 05:03:04 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 05:10:42 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 05:10:42 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 05:10:42 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 05:12:16 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 05:12:16 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 05:12:16 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[25-Apr-2025 05:17:25 Europe/Berlin] Starting registration_action.php
+[25-Apr-2025 05:17:25 Europe/Berlin] Session data: Array
+(
+    [user_id] => 14
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[25-Apr-2025 05:17:25 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+

@@ -35,19 +35,37 @@ if (!$user) {
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
     <link rel="stylesheet" href="../../../assets/css/dashboard-styles.css">
     <style>
-                /* Sidebar Styles */
-                .sidebar {
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-            min-height: 100vh;
+        .logo-container {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        .logo-container h2 {
+            color: white;
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .logo-container .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin: 5px 0 0 0;
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #2c3e50 0%, #3a506b 100%);
+            color: white;
             width: 250px;
             position: fixed;
-            left: 0;
-            top: 0;
-            padding: 1.5rem 0;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            height: 100vh;
+            padding-top: 0;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
             z-index: 1000;
         }
-
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
         .sidebar-header {
             padding: 0 1.5rem;
             margin-bottom: 2rem;
@@ -124,13 +142,17 @@ if (!$user) {
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
+        <div class="logo-container">
+            <h2>Campus Events</h2>
+            <p class="subtitle">Student Dashboard</p>
+        </div>
         <div class="sidebar-header">
             <h3><i class="bi bi-calendar-event"></i> Student Dashboard</h3>
             <div class="text-white-50 small">Student Dashboard</div>
         </div>
         <ul class="sidebar-menu">
             <li><a href="../../../index.php"><i class="bi bi-house-door"></i> Home</a></li>
-            <li><a href="./student_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+            <li><a href="./student_dashboard.php" ><i class="bi bi-speedometer2"></i> Dashboard</a></li>
             <li><a href="./events.php"><i class="bi bi-calendar-event"></i> Events</a></li>
             <li><a href="./registrations.php"><i class="bi bi-journal-check"></i> My Registrations Events</a></li>
             <li><a href="./favorites.php"><i class="bi bi-star"></i> My Favorites Events</a></li>

@@ -68,6 +68,7 @@ function getEventRegistrationUrl($eventId) {
                 <ul class="nav-links">
                     <li><a href="./index.php">Home</a></li>
                     <li><a href="<?php echo getDashboardUrl(); ?>">Events</a></li>
+                    <li><a href="<?php echo getDashboardUrl(); ?>">Dashboard</a></li>
                     <li><a href="views/about.php">About</a></li>
                 </ul>
                 

@@ -34,22 +34,37 @@ $_SESSION['first_name'] = $user['first_name'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard - Campus Events</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
     <link rel="stylesheet" href="../../../assets/css/dashboard-styles.css">
     <style>
         /* Enhanced Sidebar Styles */
         .sidebar {
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            background: linear-gradient(180deg, #2c3e50 0%, #3a506b 100%);
             color: white;
             width: 250px;
             position: fixed;
             height: 100vh;
-            padding: 1.5rem;
+            padding-top: 0;
             box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            z-index: 1000;
+        }
+
+        .logo-container {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        .logo-container h2 {
+            color: white;
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .logo-container .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin: 5px 0 0 0;
         }
 
         .sidebar-header {
@@ -247,16 +262,16 @@ $_SESSION['first_name'] = $user['first_name'];
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="sidebar-header">
-            <h3><i class="bi bi-calendar-event"></i> Student Dashboard</h3>
-            <div class="text-white-50 small">Student Dashboard</div>
+        <div class="logo-container">
+            <h2>Campus Events</h2>
+            <p class="subtitle">Student Dashboard</p>
         </div>
         <ul class="sidebar-menu">
             <li><a href="../../../index.php"><i class="bi bi-house-door"></i> Home</a></li>
-            <li><a href="./student_dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+            <li><a href="./student_dashboard.php" ><i class="bi bi-speedometer2"></i> Dashboard</a></li>
             <li><a href="./events.php"><i class="bi bi-calendar-event"></i> Events</a></li>
             <li><a href="./registrations.php"><i class="bi bi-journal-check"></i> My Registrations Events</a></li>
-            <li><a href="./calendar.php" class="active"><i class="bi bi-calendar3"></i> Calendar</a></li>
+            <li><a href="./calendar.php" ><i class="bi bi-calendar3"></i> Calendar</a></li>
             <li><a href="./favorites.php"><i class="bi bi-star"></i> My Favorites Events</a></li>
             <li><a href="../../../views/logout.php"><i class="bi bi-box-arrow-right"></i> <span>Logout</span></a></li>
         </ul>
