@@ -3,8 +3,8 @@
 
 $host = 'localhost';
 $username = 'root';
-$password = '';
-$database = 'campuseventmanagement';
+$password = 'root';
+$database = 'CampusEventManagement';
 
 $conn = new mysqli($host, $username, $password, $database);
 
