@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$query = "SELECT role FROM Users WHERE user_id = ?";
+$query = "SELECT role FROM users WHERE user_id = ?";
 $stmt = $conn->prepare($query);
 
 if ($stmt) {
