@@ -101,8 +101,8 @@ function getEventRegistrationUrl($eventId) {
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-light);
             padding: 6rem 0;
             text-align: center;
             position: relative;
@@ -117,7 +117,7 @@ function getEventRegistrationUrl($eventId) {
             right: 0;
             bottom: 0;
             background: url('assets/images/pattern.png') repeat;
-            opacity: 0.05;
+            opacity: 0.1;
             z-index: 1;
         }
 
@@ -126,28 +126,19 @@ function getEventRegistrationUrl($eventId) {
             z-index: 2;
         }
 
-        .hero-content {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
         .hero h2 {
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
-            color: #2c3e50;
-            text-shadow: none;
+            color: var(--text-light);
+            text-shadow: 2px 2px 4px var(--shadow-color);
         }
 
         .hero p {
             font-size: 1.25rem;
             max-width: 800px;
             margin: 0 auto 2rem;
-            color: #34495e;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .hero .cta-buttons {
@@ -158,34 +149,32 @@ function getEventRegistrationUrl($eventId) {
         }
 
         .hero .btn-primary {
-            background-color: #e74c3c;
-            color: #ffffff;
+            background-color: var(--accent-color);
+            color: var(--text-light);
             padding: 0.75rem 2rem;
             font-size: 1.1rem;
             border-radius: 50px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px var(--shadow-color);
         }
 
         .hero .btn-primary:hover {
-            background-color: #c0392b;
+            background-color: var(--hover-color);
             transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 8px var(--shadow-color);
         }
 
         .hero .btn-outline {
             background-color: transparent;
-            color: #2c3e50;
-            border: 2px solid #2c3e50;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
             padding: 0.75rem 2rem;
             font-size: 1.1rem;
             border-radius: 50px;
-            transition: all 0.3s ease;
         }
 
         .hero .btn-outline:hover {
-            background-color: #2c3e50;
-            color: #ffffff;
+            background-color: var(--text-light);
+            color: var(--primary-color);
             transform: translateY(-2px);
         }
 
@@ -297,13 +286,11 @@ function getEventRegistrationUrl($eventId) {
 
     <section class="hero">
         <div class="container">
-            <div class="hero-content">
-                <h2>Discover, Register, Engage</h2>
-                <p>Your one-stop platform for all Ashesi University campus events. Never miss an opportunity to connect, learn, and grow.</p>
-                <div class="cta-buttons">
-                    <a href="views/Signup.php" class="btn btn-primary">Get Started</a>
-                    <a href="views/login.php" class="btn btn-outline">Learn More</a>
-                </div>
+            <h2>Discover, Register, Engage</h2>
+            <p>Your one-stop platform for all Ashesi University campus events. Never miss an opportunity to connect, learn, and grow.</p>
+            <div class="cta-buttons">
+                <a href="views/Signup.php" class="btn btn-primary">Get Started</a>
+                <a href="views/login.php" class="btn btn-outline">Learn More</a>
             </div>
         </div>
     </section>
