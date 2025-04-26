@@ -59,6 +59,83 @@ if ($debug_result && $debug_result->num_rows > 0) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
     <link rel="stylesheet" href="../../../assets/css/admin-styles.css">
+    <style>
+        .stats-card {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px var(--shadow-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+        
+        .stats-icon {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+        
+        .user-card {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px var(--shadow-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .user-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+        
+        .user-role {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+        
+        .notification-card {
+            background-color: var(--background-color);
+            border-left: 4px solid var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+        
+        .notification-card.unread {
+            border-left-color: var(--primary-color);
+            background-color: var(--secondary-color);
+        }
+
+        .admin-card {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px var(--shadow-color);
+            transition: transform 0.3s ease;
+        }
+
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .admin-card-title {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .admin-card-value {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
     <!-- Admin Sidebar -->

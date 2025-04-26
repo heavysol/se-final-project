@@ -217,29 +217,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
  
 
     <!-- Login Form -->
-    <div class="login-container">
-        <div class="form-container">
-            <h1><i class="fas fa-dumbbell"></i> Login</h1>
-            <?php if ($error_message): ?>
-                <div class="error-message">
-                    <?php echo $error_message; ?>
+    <div class="container" style="background-color: var(--secondary-color);">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card" style="border: none; box-shadow: 0 2px 4px var(--shadow-color);">
+                    <div class="card-header" style="background-color: var(--primary-color); color: var(--text-light);">
+                        <h3 class="text-center">Login</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="loginForm" method="POST" action="login_process.php">
+                            <div class="form-group">
+                                <label for="email" style="color: var(--text-dark);">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required 
+                                       style="border-color: var(--border-color);">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" style="color: var(--text-dark);">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required 
+                                       style="border-color: var(--border-color);">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block" 
+                                    style="background-color: var(--primary-color); border-color: var(--primary-color); color: var(--text-light);">
+                                Login
+                            </button>
+                        </form>
+                        <div class="text-center mt-3">
+                            <p style="color: var(--text-secondary);">Don't have an account? 
+                                <a href="signup.php" style="color: var(--primary-color);">Sign up</a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            <?php endif; ?>
-            <form method="POST" action="login.php">
-                <div class="form-group">
-                    <label for="email"><i class="fas fa-envelope"></i> Email</label>
-                    <input type="email" name="email" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password"><i class="fas fa-lock"></i> Password</label>
-                    <input type="password" name="password" id="password" required>
-                </div>
-                <button type="submit" class="login-btn">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </button>
-            </form>
-            <div class="signup-link">
-                Don't have an account? <a href="Signup.php">Sign up here</a>
             </div>
         </div>
     </div>

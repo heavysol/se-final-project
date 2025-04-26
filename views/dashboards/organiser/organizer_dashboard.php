@@ -26,6 +26,81 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
     <!-- Add jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .event-card {
+            background-color: var(--background-color);
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+        
+        .event-card.pending { 
+            border-left-color: var(--warning-color); 
+        }
+        
+        .event-card.approved { 
+            border-left-color: var(--success-color); 
+        }
+        
+        .event-card.rejected { 
+            border-left-color: var(--danger-color); 
+        }
+        
+        .stats-card {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px var(--shadow-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+        
+        .stats-icon {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+        
+        .task-card {
+            background-color: var(--background-color);
+            border-left: 4px solid var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .task-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+        
+        .task-card.completed {
+            border-left-color: var(--success-color);
+            opacity: 0.8;
+        }
+        
+        .task-card.pending {
+            border-left-color: var(--warning-color);
+        }
+        
+        .task-card.overdue {
+            border-left-color: var(--danger-color);
+        }
+
+        .badge-custom {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+        }
+
+        .list-group-item.unread {
+            background-color: var(--secondary-color);
+            border-left: 4px solid var(--primary-color);
+        }
+    </style>
 </head>
 <body>
 

@@ -188,12 +188,39 @@ $_SESSION['first_name'] = $user['first_name'];
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 15px;
-            border-left: 4px solid #007bff;
+            border-left: 4px solid var(--primary-color);
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
         }
-        .event-card.cultural { border-left-color: #28a745; }
-        .event-card.sports { border-left-color: #dc3545; }
-        .event-card.academic { border-left-color: #17a2b8; }
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+        .event-card.cultural { border-left-color: var(--success-color); }
+        .event-card.sports { border-left-color: var(--danger-color); }
+        .event-card.academic { border-left-color: var(--accent-color); }
+        .notification {
+            background-color: var(--secondary-color);
+            border-left: 4px solid var(--warning-color);
+            color: var(--text-dark);
+        }
+        .notification.warning {
+            background-color: var(--secondary-color);
+            border-left-color: var(--warning-color);
+        }
+        .notification.success {
+            background-color: var(--secondary-color);
+            border-left-color: var(--success-color);
+        }
+        .stats-card {
+            background-color: var(--text-light);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+        .stats-icon {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
         .calendar-wrapper {
             background: #fff;
             border-radius: 10px;
