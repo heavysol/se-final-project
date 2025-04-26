@@ -100,24 +100,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
             background-color: var(--secondary-color);
             border-left: 4px solid var(--primary-color);
         }
-    </style>
-</head>
-<body>
 
-<!-- Sidebar -->
-<div class="sidebar">
-    <div class="logo-container">
-        <h2>Campus Events</h2>
-        <p class="subtitle">Organizer Dashboard</p>
-    </div>
-    <style>
         .logo-container {
             padding: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 20px;
         }
         .logo-container h2 {
-            color: white;
+            color: var(--text-light);
             margin: 0;
             font-size: 24px;
             font-weight: 600;
@@ -128,15 +118,51 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
             margin: 5px 0 0 0;
         }
         .sidebar {
-            background: linear-gradient(180deg, #2c3e50 0%, #3a506b 100%);
-            color: white;
+            background: var(--primary-color);
+            color: var(--text-light);
             width: 250px;
             position: fixed;
             height: 100vh;
             padding-top: 0;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 4px 0 10px var(--shadow-color);
+        }
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-list li a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        .nav-list li a:hover {
+            background-color: var(--hover-color);
+        }
+        .nav-list li a.active {
+            background-color: var(--active-color);
+        }
+        .nav-list li a i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        .logout-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
         }
     </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="logo-container">
+        <h2>Campus Events</h2>
+        <p class="subtitle">Organizer Dashboard</p>
+    </div>
     <ul class="nav-list">
         <li>
             <a href="../../../index.php">

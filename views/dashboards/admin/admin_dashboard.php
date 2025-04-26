@@ -60,6 +60,68 @@ if ($debug_result && $debug_result->num_rows > 0) {
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
     <link rel="stylesheet" href="../../../assets/css/admin-styles.css">
     <style>
+        .admin-sidebar {
+            background: var(--primary-color);
+            color: var(--text-light);
+            width: 250px;
+            position: fixed;
+            height: 100vh;
+            padding-top: 0;
+            box-shadow: 4px 0 10px var(--shadow-color);
+        }
+        
+        .admin-sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .admin-sidebar-header h3 {
+            color: var(--text-light);
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .admin-sidebar-header .small {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin: 5px 0 0 0;
+        }
+        
+        .admin-sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .admin-sidebar-menu li a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .admin-sidebar-menu li a:hover {
+            background-color: var(--hover-color);
+        }
+        
+        .admin-sidebar-menu li a.active {
+            background-color: var(--active-color);
+        }
+        
+        .admin-sidebar-menu li a i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .admin-sidebar-menu li:last-child {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+        
         .stats-card {
             background-color: var(--background-color);
             border: 1px solid var(--border-color);

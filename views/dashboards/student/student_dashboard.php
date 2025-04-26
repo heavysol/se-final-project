@@ -39,104 +39,67 @@ $_SESSION['first_name'] = $user['first_name'];
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
     <link rel="stylesheet" href="../../../assets/css/dashboard-styles.css">
     <style>
-        /* Enhanced Sidebar Styles */
-        .sidebar {
-            background: linear-gradient(180deg, #2c3e50 0%, #3a506b 100%);
-            color: white;
+        .student-sidebar {
+            background: var(--primary-color);
+            color: var(--text-light);
             width: 250px;
             position: fixed;
             height: 100vh;
             padding-top: 0;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 4px 0 10px var(--shadow-color);
         }
-
-        .logo-container {
+        
+        .student-sidebar-header {
             padding: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 20px;
         }
-        .logo-container h2 {
-            color: white;
+        
+        .student-sidebar-header h3 {
+            color: var(--text-light);
             margin: 0;
             font-size: 24px;
             font-weight: 600;
         }
-        .logo-container .subtitle {
+        
+        .student-sidebar-header .small {
             color: rgba(255, 255, 255, 0.7);
             font-size: 14px;
             margin: 5px 0 0 0;
         }
-
-        .sidebar-header {
-            padding: 1rem 0;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .sidebar-header h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .sidebar-header h3 i {
-            color: #3498db;
-        }
-
-        .sidebar-menu {
+        
+        .student-sidebar-menu {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-
-        .sidebar-menu li {
-            margin-bottom: 0.5rem;
-        }
-
-        .sidebar-menu a {
-            color: rgba(255, 255, 255, 0.8);
+        
+        .student-sidebar-menu li a {
+            color: var(--text-light);
             text-decoration: none;
-            padding: 0.8rem 1rem;
+            padding: 12px 20px;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s ease;
         }
-
-        .sidebar-menu a i {
-            font-size: 1.1rem;
-            width: 20px;
-            text-align: center;
+        
+        .student-sidebar-menu li a:hover {
+            background-color: var(--hover-color);
         }
-
-        .sidebar-menu a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            transform: translateX(5px);
+        
+        .student-sidebar-menu li a.active {
+            background-color: var(--active-color);
         }
-
-        .sidebar-menu a.active {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            font-weight: 500;
+        
+        .student-sidebar-menu li a i {
+            margin-right: 10px;
+            font-size: 1.2rem;
         }
-
-        .sidebar-menu a.active::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 60%;
-            background: #3498db;
-            border-radius: 0 4px 4px 0;
+        
+        .student-sidebar-menu li:last-child {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
         }
-
-        /* Main Content Adjustment */
         .main-content {
             margin-left: 250px;
             padding: 2rem;
@@ -288,12 +251,12 @@ $_SESSION['first_name'] = $user['first_name'];
 
 <body>
     <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="logo-container">
-            <h2>Campus Events</h2>
-            <p class="subtitle">Student Dashboard</p>
+    <div class="student-sidebar">
+        <div class="student-sidebar-header">
+            <h3>Campus Events</h3>
+            <small>Student Dashboard</small>
         </div>
-        <ul class="sidebar-menu">
+        <ul class="student-sidebar-menu">
             <li><a href="../../../index.php"><i class="bi bi-house-door"></i> Home</a></li>
             <li><a href="./student_dashboard.php" ><i class="bi bi-speedometer2"></i> Dashboard</a></li>
             <li><a href="./events.php"><i class="bi bi-calendar-event"></i> Events</a></li>
