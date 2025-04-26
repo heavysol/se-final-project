@@ -52,6 +52,160 @@ if ($result) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
     <link rel="stylesheet" href="../../../assets/css/admin-styles.css">
+    <style>
+        .admin-sidebar {
+            background: var(--primary-color);
+            color: var(--text-light);
+            width: 250px;
+            position: fixed;
+            height: 100vh;
+            padding-top: 0;
+            box-shadow: 4px 0 10px var(--shadow-color);
+        }
+        
+        .admin-sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .admin-sidebar-header h3 {
+            color: var(--text-light);
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .admin-sidebar-header .small {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin: 5px 0 0 0;
+        }
+        
+        .admin-sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .admin-sidebar-menu li a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .admin-sidebar-menu li a:hover {
+            background-color: var(--hover-color);
+        }
+        
+        .admin-sidebar-menu li a.active {
+            background-color: var(--active-color);
+        }
+        
+        .admin-sidebar-menu li a i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .admin-sidebar-menu li:last-child {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        .admin-main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            background-color: var(--background-color);
+            min-height: 100vh;
+        }
+
+        .event-card {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .event-status {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background-color: var(--warning-color);
+            color: var(--text-light);
+        }
+
+        .status-approved {
+            background-color: var(--success-color);
+            color: var(--text-light);
+        }
+
+        .status-rejected {
+            background-color: var(--danger-color);
+            color: var(--text-light);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--text-light);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--hover-color);
+            border-color: var(--hover-color);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            border-color: var(--danger-color);
+        }
+
+        .btn-danger:hover {
+            background-color: var(--danger-hover);
+            border-color: var(--danger-hover);
+        }
+
+        .text-muted {
+            color: var(--text-secondary) !important;
+        }
+
+        h2 {
+            color: var(--text-primary);
+        }
+
+        .table {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+        }
+
+        .table thead th {
+            background-color: var(--secondary-color);
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .table tbody tr {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table tbody tr:hover {
+            background-color: var(--hover-color);
+        }
+    </style>
 </head>
 <body>
     <!-- Admin Sidebar -->

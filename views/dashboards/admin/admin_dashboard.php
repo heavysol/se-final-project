@@ -122,80 +122,66 @@ if ($debug_result && $debug_result->num_rows > 0) {
             margin-top: 20px;
         }
         
-        .stats-card {
-            background-color: var(--background-color);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 2px 4px var(--shadow-color);
-            transition: transform 0.3s ease;
-        }
-        
-        .stats-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px var(--shadow-color);
-        }
-        
-        .stats-icon {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-        }
-        
-        .user-card {
-            background-color: var(--background-color);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 2px 4px var(--shadow-color);
-            transition: transform 0.3s ease;
-        }
-        
-        .user-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px var(--shadow-color);
-        }
-        
-        .user-role {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.875rem;
-        }
-        
-        .notification-card {
-            background-color: var(--background-color);
-            border-left: 4px solid var(--accent-color);
-            transition: transform 0.3s ease;
-        }
-        
-        .notification-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px var(--shadow-color);
-        }
-        
-        .notification-card.unread {
-            border-left-color: var(--primary-color);
-            background-color: var(--secondary-color);
-        }
-
         .admin-card {
             background-color: var(--background-color);
             border: 1px solid var(--border-color);
             box-shadow: 0 2px 4px var(--shadow-color);
             transition: transform 0.3s ease;
+            padding: 1.5rem;
+            border-radius: 8px;
         }
-
+        
         .admin-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 4px 8px var(--shadow-color);
         }
-
+        
         .admin-card-title {
             color: var(--text-secondary);
             font-size: 0.875rem;
+            margin-bottom: 0.5rem;
         }
-
+        
         .admin-card-value {
             color: var(--primary-color);
             font-size: 1.5rem;
             font-weight: 600;
+        }
+
+        .admin-main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            background-color: var(--background-color);
+            min-height: 100vh;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--text-light);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--hover-color);
+            border-color: var(--hover-color);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            border-color: var(--danger-color);
+        }
+
+        .btn-danger:hover {
+            background-color: var(--danger-hover);
+            border-color: var(--danger-hover);
+        }
+
+        .text-muted {
+            color: var(--text-secondary) !important;
+        }
+
+        h2 {
+            color: var(--text-primary);
         }
     </style>
 </head>

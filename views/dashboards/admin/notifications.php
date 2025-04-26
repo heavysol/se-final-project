@@ -50,6 +50,164 @@ $system_alerts_result = $conn->query($system_alerts_query);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
     <link rel="stylesheet" href="../../../assets/css/admin-styles.css">
+    <style>
+        .admin-sidebar {
+            background: var(--primary-color);
+            color: var(--text-light);
+            width: 250px;
+            position: fixed;
+            height: 100vh;
+            padding-top: 0;
+            box-shadow: 4px 0 10px var(--shadow-color);
+        }
+        
+        .admin-sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .admin-sidebar-header h3 {
+            color: var(--text-light);
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .admin-sidebar-header .small {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin: 5px 0 0 0;
+        }
+        
+        .admin-sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .admin-sidebar-menu li a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .admin-sidebar-menu li a:hover {
+            background-color: var(--hover-color);
+        }
+        
+        .admin-sidebar-menu li a.active {
+            background-color: var(--active-color);
+        }
+        
+        .admin-sidebar-menu li a i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .admin-sidebar-menu li:last-child {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        .admin-main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            background-color: var(--background-color);
+            min-height: 100vh;
+        }
+
+        .notification-card {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .notification-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .notification-card.unread {
+            border-left: 4px solid var(--primary-color);
+            background-color: var(--secondary-color);
+        }
+
+        .notification-title {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .notification-message {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .notification-time {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .notification-badge {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--text-light);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--hover-color);
+            border-color: var(--hover-color);
+        }
+
+        .text-muted {
+            color: var(--text-secondary) !important;
+        }
+
+        h2 {
+            color: var(--text-primary);
+        }
+
+        .alert {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .alert-warning {
+            background-color: var(--warning-color);
+            border-color: var(--warning-color);
+            color: var(--text-light);
+        }
+
+        .alert-success {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+            color: var(--text-light);
+        }
+
+        .alert-danger {
+            background-color: var(--danger-color);
+            border-color: var(--danger-color);
+            color: var(--text-light);
+        }
+    </style>
 </head>
 <body>
     <!-- Admin Sidebar -->
