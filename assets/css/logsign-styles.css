@@ -45,81 +45,52 @@ body {
     transform: translateY(-2px);
 }
 
-/* Sign-Up Form Container */
-.form-container {
-    background: linear-gradient(135deg, #BC1E4A, #8A1435);
-    padding: 50px;
-    max-width: 500px;
-    margin: 50px auto;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+/* Login/Signup Page Styles */
+.auth-container {
+    background-color: var(--background-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    border: 1px solid var(--border-color);
 }
 
-h1 {
-    font-size: 2.5rem;
-    color: white;
-    margin-bottom: 20px;
+.auth-header {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 1.5rem;
+    border-radius: 8px 8px 0 0;
 }
 
-label {
-    font-size: 1.2rem;
-    color: #fff;
-    margin-bottom: 5px;
-    display: block;
+.auth-form {
+    padding: 2rem;
 }
 
-input[type="text"], input[type="email"], input[type="password"], select {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    box-sizing: border-box;
-    transition: border-color 0.3s;
-    background-color: #fff;
+.form-control {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
 }
 
-input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
-    border-color: #BC1E4A;
-    outline: none;
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(165, 56, 56, 0.25);
 }
 
-input::placeholder {
-    color: #BC1E4A;
+.auth-btn {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--text-light);
 }
 
-button {
-    width: 100%;
-    padding: 15px;
-    background-color: #BC1E4A;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+.auth-btn:hover {
+    background-color: var(--hover-color);
+    border-color: var(--hover-color);
 }
 
-button:hover {
-    background-color: #8A1435;
-    transform: translateY(-3px);
+.auth-link {
+    color: var(--primary-color);
 }
 
-p {
-    color: white;
-    margin-top: 15px;
-}
-
-a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a:hover {
-    color: #BC1E4A;
+.auth-link:hover {
+    color: var(--hover-color);
 }
 
 /* Footer */

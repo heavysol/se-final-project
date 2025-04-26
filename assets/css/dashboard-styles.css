@@ -6,6 +6,8 @@
     --success-color: #10B981;
     --warning-color: #F59E0B;
     --danger-color: #EF4444;
+    --sidebar-color: #D45D5D;
+    --sidebar-hover: #A53838;
 }
 
 body {
@@ -14,7 +16,7 @@ body {
 }
 
 .sidebar {
-    background: #A53838;
+    background: var(--sidebar-color);
     width: 250px;
     height: 100vh;
     position: fixed;
@@ -59,12 +61,12 @@ body {
 }
 
 .nav-list li a:hover {
-    background: #8B2D2D;
+    background: var(--sidebar-hover);
     color: #ffffff;
 }
 
 .nav-list li a.active {
-    background: #8B2D2D;
+    background: var(--sidebar-hover);
     color: #ffffff;
     border-left: 4px solid #ffffff;
 }

@@ -1,29 +1,64 @@
 /* For styling across all the pages on the platform */
 
 :root {
+    /* Main Colors */
     --primary-color: #A53838;
-    --secondary-color: #F8FAFC;
-    --accent-color: #3B82F6;
-    --success-color: #10B981;
-    --warning-color: #F59E0B;
-    --danger-color: #EF4444;
-    --text-primary: #1F2937;
-    --text-secondary: #6B7280;
-    --border-color: #E5E7EB;
-    --sidebar-color: #A53838;
+    --secondary-color: #F8F1F1;
+    --accent-color: #D45D5D;
+    --background-color: #FFFFFF;
+    
+    /* Text Colors */
+    --text-primary: #2C1810;
+    --text-secondary: #666666;
+    --text-light: #FFFFFF;
+    
+    /* Status Colors */
+    --success-color: #4CAF50;
+    --warning-color: #FFC107;
+    --danger-color: #F44336;
+    
+    /* Component Colors */
+    --border-color: #E0E0E0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    
+    /* Interactive States */
+    --hover-color: #8B2D2D;
+    --active-color: #7A2525;
 }
 
 body {
-    background: url('../images/background.jpg') no-repeat center center fixed;
-    background-size: cover;
+    background-color: var(--background-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5;
+    color: var(--text-primary);
 }
 
 .card {
-    width: 350px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--text-light);
+}
+
+.btn-primary:hover {
+    background-color: var(--hover-color);
+    border-color: var(--hover-color);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--accent-color);
+    color: var(--text-light);
 }
 
 .input-group-text {
