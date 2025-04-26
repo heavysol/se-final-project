@@ -205,61 +205,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </style>
 </head>
 <body>
-    <div class="container" style="background-color: var(--secondary-color);">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card" style="border: none; box-shadow: 0 2px 4px var(--shadow-color);">
-                    <div class="card-header" style="background-color: var(--primary-color); color: var(--text-light);">
-                        <h3 class="text-center">Sign Up</h3>
-                    </div>
-                    <div class="card-body">
-                        <form id="signupForm" method="POST" action="Signup.php">
-                            <div class="form-group">
-                                <label for="first_name" style="color: var(--text-dark);">First Name</label>
-                                <input type="text" class="form-control" id="first_name" name="first_name" required 
-                                       style="border-color: var(--border-color);">
-                            </div>
-                            <div class="form-group">
-                                <label for="last_name" style="color: var(--text-dark);">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" name="last_name" required 
-                                       style="border-color: var(--border-color);">
-                            </div>
-                            <div class="form-group">
-                                <label for="email" style="color: var(--text-dark);">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required 
-                                       style="border-color: var(--border-color);">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" style="color: var(--text-dark);">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required 
-                                       style="border-color: var(--border-color);">
-                            </div>
-                            <div class="form-group">
-                                <label for="confirm_password" style="color: var(--text-dark);">Confirm Password</label>
-                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required 
-                                       style="border-color: var(--border-color);">
-                            </div>
-                            <div class="form-group">
-                                <label for="role" style="color: var(--text-dark);">Role</label>
-                                <select class="form-control" id="role" name="role" required>
-                                    <option value="" disabled selected>Sign up as:</option>
-                                    <option value="student">Student</option>
-                                    <option value="organizer">Organizer</option>
-                                    <option value="admin">Admin</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block" 
-                                    style="background-color: var(--primary-color); border-color: var(--primary-color); color: var(--text-light);">
-                                Sign Up
-                            </button>
-                        </form>
-                        <div class="text-center mt-3">
-                            <p style="color: var(--text-secondary);">Already have an account? 
-                                <a href="login.php" style="color: var(--primary-color);">Login</a>
-                            </p>
-                        </div>
-                    </div>
+    <div class="signup-container">
+        <div class="form-container">
+            <h1>Sign Up</h1>
+            <?php if (!empty($error_message)): ?>
+                <div class="message error-message"><?php echo $error_message; ?></div>
+            <?php endif; ?>
+            <?php if (!empty($success_message)): ?>
+                <div class="message success-message"><?php echo $success_message; ?></div>
+            <?php endif; ?>
+            <form method="POST" action="">
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" id="first_name" name="first_name" required>
                 </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" id="last_name" name="last_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" name="role" required>
+                        <option value="" disabled selected>Select your role</option>
+                        <option value="student">Student</option>
+                        <option value="organizer">Organizer</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="signup-btn">Sign Up</button>
+            </form>
+            <div class="login-link">
+                Already have an account? <a href="login.php">Login</a>
             </div>
         </div>
     </div>

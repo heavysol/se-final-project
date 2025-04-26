@@ -76,41 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             flex-direction: column;
         }
 
-        /* Navbar Styles */
-        .navbar {
-            background-color: #f8f9fa;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .navbar a {
-            text-decoration: none;
-            color: #343a40;
-            font-weight: bold;
-            margin: 0 1rem;
-            font-size: 1rem;
-        }
-
-        .navbar a:hover {
-            color: #BC1E4A;
-        }
-
-        .navbar .btn {
-            background-color: #BC1E4A;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-
-        .navbar .btn:hover {
-            background-color: #8A1435;
-        }
-
         .login-container {
             flex: 1;
             display: flex;
@@ -213,41 +178,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </style>
 </head>
 <body>
-    <!-- Navbar -->
- 
-
-    <!-- Login Form -->
-    <div class="container" style="background-color: var(--secondary-color);">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card" style="border: none; box-shadow: 0 2px 4px var(--shadow-color);">
-                    <div class="card-header" style="background-color: var(--primary-color); color: var(--text-light);">
-                        <h3 class="text-center">Login</h3>
-                    </div>
-                    <div class="card-body">
-                        <form id="loginForm" method="POST" action="login_process.php">
-                            <div class="form-group">
-                                <label for="email" style="color: var(--text-dark);">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required 
-                                       style="border-color: var(--border-color);">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" style="color: var(--text-dark);">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required 
-                                       style="border-color: var(--border-color);">
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block" 
-                                    style="background-color: var(--primary-color); border-color: var(--primary-color); color: var(--text-light);">
-                                Login
-                            </button>
-                        </form>
-                        <div class="text-center mt-3">
-                            <p style="color: var(--text-secondary);">Don't have an account? 
-                                <a href="signup.php" style="color: var(--primary-color);">Sign up</a>
-                            </p>
-                        </div>
-                    </div>
+    <div class="login-container">
+        <div class="form-container">
+            <h1>Login</h1>
+            <?php if (!empty($error_message)): ?>
+                <div class="error-message"><?php echo $error_message; ?></div>
+            <?php endif; ?>
+            <form method="POST" action="">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            <div class="signup-link">
+                Don't have an account? <a href="Signup.php">Sign up</a>
             </div>
         </div>
     </div>
