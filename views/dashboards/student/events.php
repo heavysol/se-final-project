@@ -1,9 +1,9 @@
 <?php
-
-
-ini_set('display_errors', 1);
+// Enable error logging but don't display errors in production
 error_reporting(E_ALL);
-
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', '../../../logs/php_error.log');
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -21,23 +21,38 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
 // Include database configuration
 require_once '../../../db/config.php';
 
-// Fetch user details
-$userId = $_SESSION['user_id'];
-$stmt = $conn->prepare("SELECT first_name FROM Users WHERE user_id = ? AND role = 'student'");
-$stmt->bind_param("i", $userId);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
+try {
+    // Fetch user details
+    $userId = $_SESSION['user_id'];
+    $stmt = $conn->prepare("SELECT first_name FROM Users WHERE user_id = ? AND role = 'student'");
+    if (!$stmt) {
+        throw new Exception("Failed to prepare user query: " . $conn->error);
+    }
+    
+    $stmt->bind_param("i", $userId);
+    if (!$stmt->execute()) {
+        throw new Exception("Failed to execute user query: " . $stmt->error);
+    }
+    
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
 
-if (!$user) {
-    // If user not found in database, destroy session and redirect
-    session_destroy();
-    header('Location: ../../../login.php');
-    exit();
+    if (!$user) {
+        // If user not found in database, destroy session and redirect
+        session_destroy();
+        header('Location: ../../../login.php');
+        exit();
+    }
+
+    $_SESSION['first_name'] = $user['first_name'];
+} catch (Exception $e) {
+    error_log("Error in events.php: " . $e->getMessage());
+    // Show a user-friendly error message
+    die("An error occurred. Please try again later.");
 }
-
-$_SESSION['first_name'] = $user['first_name'];
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
