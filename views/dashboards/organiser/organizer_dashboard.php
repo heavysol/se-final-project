@@ -275,7 +275,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
 
     // 1. Active Events Count (events by this organizer that haven't happened yet and are approved)
     $active_query = "SELECT COUNT(*) as active_count 
-                     FROM Events 
+                     FROM events 
                      WHERE organizer_id = ? 
                      AND status = 'approved' 
                      AND end_datetime > ?";
@@ -287,8 +287,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
 
     // 2. Total Registrees (sum of all registrations for this organizer's events)
     $attendees_query = "SELECT COUNT(r.registration_id) as total_attendees
-                       FROM Events e
-                       LEFT JOIN Registrations r ON e.event_id = r.event_id
+                       FROM events e
+                       LEFT JOIN registrations r ON e.event_id = r.event_id
                        WHERE e.organizer_id = ?";
     $stmt = $conn->prepare($attendees_query);
     $stmt->bind_param("i", $_SESSION['user_id']);

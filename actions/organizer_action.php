@@ -33,7 +33,7 @@ switch ($action) {
             $max_capacity = $_POST['max_capacity'];
             $organizer_id = $_SESSION['user_id'];
 
-            $stmt = $conn->prepare("INSERT INTO Events (title, description, start_datetime, end_datetime, 
+            $stmt = $conn->prepare("INSERT INTO events (title, description, start_datetime, end_datetime, 
                                   location, category, max_capacity, organizer_id, status) 
                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')");
             
@@ -61,7 +61,7 @@ switch ($action) {
     case 'view':
         if (isset($_POST['event_id'])) {
             $event_id = $_POST['event_id'];
-            $stmt = $conn->prepare("SELECT * FROM Events WHERE event_id = ? AND organizer_id = ?");
+            $stmt = $conn->prepare("SELECT * FROM events WHERE event_id = ? AND organizer_id = ?");
             $stmt->bind_param("ii", $event_id, $_SESSION['user_id']);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -91,7 +91,7 @@ switch ($action) {
             $start_datetime = $_POST['start_datetime'];
             $end_datetime = $_POST['end_datetime'];
 
-            $stmt = $conn->prepare("UPDATE Events SET 
+            $stmt = $conn->prepare("UPDATE events SET 
                 title = ?, 
                 description = ?, 
                 location = ?, 
@@ -128,14 +128,14 @@ switch ($action) {
             $event_id = $_POST['event_id'];
             
             // First check if the event belongs to the organizer
-            $check_stmt = $conn->prepare("SELECT event_id FROM Events WHERE event_id = ? AND organizer_id = ?");
+            $check_stmt = $conn->prepare("SELECT event_id FROM events WHERE event_id = ? AND organizer_id = ?");
             $check_stmt->bind_param("ii", $event_id, $_SESSION['user_id']);
             $check_stmt->execute();
             $check_result = $check_stmt->get_result();
             
             if ($check_result->num_rows > 0) {
                 // Delete the event
-                $delete_stmt = $conn->prepare("DELETE FROM Events WHERE event_id = ? AND organizer_id = ?");
+                $delete_stmt = $conn->prepare("DELETE FROM events WHERE event_id = ? AND organizer_id = ?");
                 $delete_stmt->bind_param("ii", $event_id, $_SESSION['user_id']);
                 
                 if ($delete_stmt->execute()) {
