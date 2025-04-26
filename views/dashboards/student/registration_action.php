@@ -48,7 +48,7 @@ try {
     }
 
     // Verify required tables exist
-    $tables = ['Users', 'Events', 'Registrations'];
+    $tables = ['users', 'events', 'registrations'];
     foreach ($tables as $table) {
         $result = $conn->query("SHOW TABLES LIKE '$table'");
         if (!$result || $result->num_rows === 0) {
@@ -125,7 +125,7 @@ try {
                         r.attendance_status,
                         u.first_name as organizer_first_name,
                         u.last_name as organizer_last_name
-                    FROM Events e
+                    FROM events e
                     INNER JOIN Registrations r ON e.event_id = r.event_id
                     LEFT JOIN Users u ON e.organizer_id = u.user_id
                     WHERE r.user_id = ?
