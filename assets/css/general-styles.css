@@ -1,12 +1,16 @@
 /* For styling across all the pages on the platform */
 
 :root {
-    --primary-color: #0B5394;
-    --secondary-color: #F3F6F9;
-    --accent-color: #FFD700;
-    --success-color: #28a745;
-    --warning-color: #ffc107;
-    --danger-color: #dc3545;
+    --primary-color: #A53838;
+    --secondary-color: #F8FAFC;
+    --accent-color: #3B82F6;
+    --success-color: #10B981;
+    --warning-color: #F59E0B;
+    --danger-color: #EF4444;
+    --text-primary: #1F2937;
+    --text-secondary: #6B7280;
+    --border-color: #E5E7EB;
+    --sidebar-color: #A53838;
 }
 
 body {
