@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($isFavorited) {
                     $response = ['status' => 'error', 'message' => 'Event is already in favorites'];
                 } else {
-                    $stmt = $conn->prepare("INSERT INTO Favorites (user_id, event_id) VALUES (?, ?)");
+                    $stmt = $conn->prepare("INSERT INTO favorites (user_id, event_id) VALUES (?, ?)");
                     if (!$stmt) {
                         throw new Exception("Failed to prepare insert query: " . $conn->error);
                     }
