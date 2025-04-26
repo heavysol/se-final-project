@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 
 // Check if the user is an admin
 $user_id = $_SESSION['user_id'];
-$query = "SELECT role FROM Users WHERE user_id = ?";
+$query = "SELECT role FROM users WHERE user_id = ?";
 $stmt = $conn->prepare($query);
 
 if ($stmt) {
