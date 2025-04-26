@@ -65,7 +65,7 @@ try {
             }
 
             // First verify the user exists and is a student
-            $stmt = $conn->prepare("SELECT user_id, role FROM Users WHERE user_id = ?");
+            $stmt = $conn->prepare("SELECT user_id, role FROM users WHERE user_id = ?");
             if (!$stmt) {
                 throw new Exception("Failed to prepare user check query: " . $conn->error);
             }
@@ -88,7 +88,7 @@ try {
             }
 
             // Check if user has any registrations
-            $checkStmt = $conn->prepare("SELECT COUNT(*) as count FROM Registrations WHERE user_id = ?");
+            $checkStmt = $conn->prepare("SELECT COUNT(*) as count FROM registrations WHERE user_id = ?");
             if (!$checkStmt) {
                 throw new Exception("Failed to prepare registration check: " . $conn->error);
             }
@@ -126,8 +126,8 @@ try {
                         u.first_name as organizer_first_name,
                         u.last_name as organizer_last_name
                     FROM events e
-                    INNER JOIN Registrations r ON e.event_id = r.event_id
-                    LEFT JOIN Users u ON e.organizer_id = u.user_id
+                    INNER JOIN registrations r ON e.event_id = r.event_id
+                    LEFT JOIN users u ON e.organizer_id = u.user_id
                     WHERE r.user_id = ?
                     ORDER BY r.registration_date DESC";
 
@@ -223,7 +223,7 @@ try {
                 $eventId = (int)$_POST['event_id'];
 
                 // Check if registration exists
-                $checkStmt = $conn->prepare("SELECT registration_id FROM Registrations WHERE user_id = ? AND event_id = ?");
+                $checkStmt = $conn->prepare("SELECT registration_id FROM registrations WHERE user_id = ? AND event_id = ?");
                 if (!$checkStmt) {
                     throw new Exception("Failed to prepare registration check: " . $conn->error);
                 }
@@ -238,7 +238,7 @@ try {
                 $checkStmt->close();
 
                 // Delete the registration
-                $deleteStmt = $conn->prepare("DELETE FROM Registrations WHERE user_id = ? AND event_id = ?");
+                $deleteStmt = $conn->prepare("DELETE FROM registrations WHERE user_id = ? AND event_id = ?");
                 if (!$deleteStmt) {
                     throw new Exception("Failed to prepare delete query: " . $conn->error);
                 }
@@ -253,7 +253,7 @@ try {
                 }
 
                 // Also remove from calendar if it exists
-                $calendarStmt = $conn->prepare("DELETE FROM EventCalendar WHERE user_id = ? AND event_id = ?");
+                $calendarStmt = $conn->prepare("DELETE FROM eventcalendar WHERE user_id = ? AND event_id = ?");
                 if ($calendarStmt) {
                     $calendarStmt->bind_param("ii", $userId, $eventId);
                     $calendarStmt->execute();

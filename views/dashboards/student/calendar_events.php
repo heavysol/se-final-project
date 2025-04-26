@@ -18,10 +18,10 @@ try {
         CASE WHEN r.registration_id IS NOT NULL THEN 1 ELSE 0 END as is_registered,
         CASE WHEN ec.calendar_id IS NOT NULL THEN 1 ELSE 0 END as in_calendar,
         CASE WHEN f.favorite_id IS NOT NULL THEN 1 ELSE 0 END as is_favorite
-    FROM Events e
+    FROM events e
     LEFT JOIN Registrations r ON e.event_id = r.event_id AND r.user_id = ?
-    LEFT JOIN EventCalendar ec ON e.event_id = ec.event_id AND ec.user_id = ?
-    LEFT JOIN Favorites f ON e.event_id = f.event_id AND f.user_id = ?
+    LEFT JOIN eventcalendar ec ON e.event_id = ec.event_id AND ec.user_id = ?
+    LEFT JOIN favorites f ON e.event_id = f.event_id AND f.user_id = ?
     WHERE r.registration_id IS NOT NULL OR ec.calendar_id IS NOT NULL
     ORDER BY e.start_datetime ASC";
 

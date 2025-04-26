@@ -28,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
     try {
         // First verify the event exists and check capacity
         $checkEventQuery = "SELECT event_id, max_capacity, 
-            (SELECT COUNT(*) FROM Registrations WHERE event_id = Events.event_id) as current_registrations 
-            FROM Events WHERE event_id = ?";
+            (SELECT COUNT(*) FROM registrations WHERE event_id = events.event_id) as current_registrations 
+            FROM events WHERE event_id = ?";
         $checkEventStmt = $conn->prepare($checkEventQuery);
         $checkEventStmt->bind_param("i", $eventId);
         $checkEventStmt->execute();
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
         $eventData = $eventResult->fetch_assoc();
         
         // Check if user is already registered
-        $checkRegQuery = "SELECT registration_id FROM Registrations WHERE user_id = ? AND event_id = ?";
+        $checkRegQuery = "SELECT registration_id FROM registrations WHERE user_id = ? AND event_id = ?";
         $checkRegStmt = $conn->prepare($checkRegQuery);
         $checkRegStmt->bind_param("ii", $userId, $eventId);
         $checkRegStmt->execute();
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
             }
             
             // Register user for event
-            $query = "INSERT INTO Registrations (user_id, event_id, registration_date) VALUES (?, ?, NOW())";
+            $query = "INSERT INTO registrations (user_id, event_id, registration_date) VALUES (?, ?, NOW())";
             $stmt = $conn->prepare($query);
             
             if (!$stmt) {
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
             
             if ($stmt->execute()) {
                 // If registering, also add to calendar
-                $calendarQuery = "INSERT INTO EventCalendar (user_id, event_id, sync_status) VALUES (?, ?, 'pending')";
+                $calendarQuery = "INSERT INTO eventcalendar (user_id, event_id, sync_status) VALUES (?, ?, 'pending')";
                 $calendarStmt = $conn->prepare($calendarQuery);
                 $calendarStmt->bind_param("ii", $userId, $eventId);
                 $calendarStmt->execute();
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
             }
             
             // Unregister user from event
-            $query = "DELETE FROM Registrations WHERE user_id = ? AND event_id = ?";
+            $query = "DELETE FROM registrations WHERE user_id = ? AND event_id = ?";
             $stmt = $conn->prepare($query);
             
             if (!$stmt) {
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
             if ($stmt->execute()) {
                 if ($stmt->affected_rows > 0) {
                     // If unregistering, also remove from calendar
-                    $calendarQuery = "DELETE FROM EventCalendar WHERE user_id = ? AND event_id = ?";
+                    $calendarQuery = "DELETE FROM eventcalendar WHERE user_id = ? AND event_id = ?";
                     $calendarStmt = $conn->prepare($calendarQuery);
                     $calendarStmt->bind_param("ii", $userId, $eventId);
                     $calendarStmt->execute();

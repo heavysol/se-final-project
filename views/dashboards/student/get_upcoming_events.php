@@ -16,11 +16,11 @@ $query = "SELECT e.*,
         CASE WHEN r.registration_id IS NOT NULL THEN 1 ELSE 0 END as is_registered,
         CASE WHEN c.calendar_id IS NOT NULL THEN 1 ELSE 0 END as in_calendar,
         CASE WHEN f.favorite_id IS NOT NULL THEN 1 ELSE 0 END as is_favorite,
-        (SELECT COUNT(*) FROM Registrations WHERE event_id = e.event_id) as current_registrations
-        FROM Events e 
-        LEFT JOIN Registrations r ON e.event_id = r.event_id AND r.user_id = ?
-        LEFT JOIN EventCalendar c ON e.event_id = c.event_id AND c.user_id = ?
-        LEFT JOIN Favorites f ON e.event_id = f.event_id AND f.user_id = ?
+        (SELECT COUNT(*) FROM registrations WHERE event_id = e.event_id) as current_registrations
+        FROM events e 
+        LEFT JOIN registrations r ON e.event_id = r.event_id AND r.user_id = ?
+        LEFT JOIN eventcalendar c ON e.event_id = c.event_id AND c.user_id = ?
+        LEFT JOIN favorites f ON e.event_id = f.event_id AND f.user_id = ?
         WHERE e.start_datetime >= NOW() 
         ORDER BY e.start_datetime ASC 
         LIMIT 5";

@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try {
             // Validate event exists
-            $checkEvent = $conn->prepare("SELECT event_id FROM Events WHERE event_id = ?");
+            $checkEvent = $conn->prepare("SELECT event_id FROM events WHERE event_id = ?");
             if (!$checkEvent) {
                 throw new Exception("Failed to prepare event check query: " . $conn->error);
             }
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             // Check if already favorited
-            $checkFav = $conn->prepare("SELECT favorite_id FROM Favorites WHERE user_id = ? AND event_id = ?");
+            $checkFav = $conn->prepare("SELECT favorite_id FROM favorites WHERE user_id = ? AND event_id = ?");
             if (!$checkFav) {
                 throw new Exception("Failed to prepare favorites check query: " . $conn->error);
             }
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (!$isFavorited) {
                     $response = ['status' => 'error', 'message' => 'Event is not in favorites'];
                 } else {
-                    $stmt = $conn->prepare("DELETE FROM Favorites WHERE user_id = ? AND event_id = ?");
+                    $stmt = $conn->prepare("DELETE FROM favorites WHERE user_id = ? AND event_id = ?");
                     if (!$stmt) {
                         throw new Exception("Failed to prepare delete query: " . $conn->error);
                     }
@@ -123,9 +123,9 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET[
     $query = "SELECT e.*, 
               CASE WHEN r.registration_id IS NOT NULL THEN 1 ELSE 0 END as is_registered,
               1 as is_favorite
-              FROM Events e 
-              INNER JOIN Favorites f ON e.event_id = f.event_id 
-              LEFT JOIN Registrations r ON e.event_id = r.event_id AND r.user_id = ?
+              FROM events e 
+              INNER JOIN favorites f ON e.event_id = f.event_id 
+              LEFT JOIN registrations r ON e.event_id = r.event_id AND r.user_id = ?
               WHERE f.user_id = ?
               ORDER BY e.start_datetime ASC";
     

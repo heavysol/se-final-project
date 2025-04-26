@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
     
     try {
         // First verify the event exists
-        $checkEventQuery = "SELECT event_id FROM Events WHERE event_id = ?";
+        $checkEventQuery = "SELECT event_id FROM events WHERE event_id = ?";
         $checkEventStmt = $conn->prepare($checkEventQuery);
         $checkEventStmt->bind_param("i", $eventId);
         $checkEventStmt->execute();
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
         
         if ($action === 'add') {
             // Check if event is already in calendar
-            $checkQuery = "SELECT calendar_id FROM EventCalendar WHERE user_id = ? AND event_id = ?";
+            $checkQuery = "SELECT calendar_id FROM eventcalendar WHERE user_id = ? AND event_id = ?";
             $checkStmt = $conn->prepare($checkQuery);
             $checkStmt->bind_param("ii", $userId, $eventId);
             $checkStmt->execute();
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
             }
             
             // Add event to calendar
-            $query = "INSERT INTO EventCalendar (user_id, event_id, sync_status) VALUES (?, ?, 'pending')";
+            $query = "INSERT INTO eventcalendar (user_id, event_id, sync_status) VALUES (?, ?, 'pending')";
             $stmt = $conn->prepare($query);
             
             if (!$stmt) {
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
             }
         } else if ($action === 'remove') {
             // Check if event is in calendar
-            $checkQuery = "SELECT calendar_id FROM EventCalendar WHERE user_id = ? AND event_id = ?";
+            $checkQuery = "SELECT calendar_id FROM eventcalendar WHERE user_id = ? AND event_id = ?";
             $checkStmt = $conn->prepare($checkQuery);
             $checkStmt->bind_param("ii", $userId, $eventId);
             $checkStmt->execute();
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
             }
             
             // Remove event from calendar
-            $query = "DELETE FROM EventCalendar WHERE user_id = ? AND event_id = ?";
+            $query = "DELETE FROM eventcalendar WHERE user_id = ? AND event_id = ?";
             $stmt = $conn->prepare($query);
             
             if (!$stmt) {

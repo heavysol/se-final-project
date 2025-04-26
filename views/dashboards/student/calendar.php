@@ -11,7 +11,7 @@ require_once '../../../db/config.php';
 
 // Fetch user details
 $userId = $_SESSION['user_id'];
-$stmt = $conn->prepare("SELECT first_name FROM Users WHERE user_id = ? AND role = 'student'");
+$stmt = $conn->prepare("SELECT first_name FROM users WHERE user_id = ? AND role = 'student'");
 $stmt->bind_param("i", $userId);
 $stmt->execute();
 $result = $stmt->get_result();

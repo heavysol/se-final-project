@@ -34,7 +34,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
 
 try {
     // Check if required tables exist
-    $tables = ['Registrations', 'Events', 'Favorites', 'ClubMembers'];
+    $tables = ['registrations', 'events', 'favorites', 'clubmembers'];
     foreach ($tables as $table) {
         $result = $conn->query("SHOW TABLES LIKE '$table'");
         if ($result->num_rows === 0) {
@@ -46,7 +46,7 @@ try {
     $stats = [];
     
     // Get registered events count
-    $stmt = $conn->prepare("SELECT COUNT(*) as registered_events FROM Registrations WHERE user_id = ?");
+    $stmt = $conn->prepare("SELECT COUNT(*) as registered_events FROM registrations WHERE user_id = ?");
     if (!$stmt) {
         throw new Exception("Failed to prepare Registrations query: " . $conn->error);
     }
@@ -56,7 +56,7 @@ try {
     error_log("Registered events count fetched: " . $stats['registered_events']);
 
     // Get upcoming events count
-    $stmt = $conn->prepare("SELECT COUNT(*) as upcoming_events FROM Events WHERE start_datetime >= NOW()");
+    $stmt = $conn->prepare("SELECT COUNT(*) as upcoming_events FROM events WHERE start_datetime >= NOW()");
     if (!$stmt) {
         throw new Exception("Failed to prepare Events query: " . $conn->error);
     }
@@ -65,7 +65,7 @@ try {
     error_log("Upcoming events count fetched: " . $stats['upcoming_events']);
 
     // Get favorite events count
-    $stmt = $conn->prepare("SELECT COUNT(*) as favorite_events FROM Favorites WHERE user_id = ?");
+    $stmt = $conn->prepare("SELECT COUNT(*) as favorite_events FROM favorites WHERE user_id = ?");
     if (!$stmt) {
         throw new Exception("Failed to prepare Favorites query: " . $conn->error);
     }
@@ -75,7 +75,7 @@ try {
     error_log("Favorite events count fetched: " . $stats['favorite_events']);
 
     // Get clubs joined count
-    $stmt = $conn->prepare("SELECT COUNT(*) as clubs_joined FROM ClubMembers WHERE user_id = ? AND status = 'active'");
+    $stmt = $conn->prepare("SELECT COUNT(*) as clubs_joined FROM clubmembers WHERE user_id = ? AND status = 'active'");
     if (!$stmt) {
         throw new Exception("Failed to prepare ClubMembers query: " . $conn->error);
     }

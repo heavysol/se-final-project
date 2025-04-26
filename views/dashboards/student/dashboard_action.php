@@ -31,24 +31,24 @@ try {
     switch ($_GET['action']) {
         case 'getDashboardStats':
             // Get registered events count
-            $stmt = $conn->prepare("SELECT COUNT(*) as count FROM Registrations WHERE user_id = ?");
+            $stmt = $conn->prepare("SELECT COUNT(*) as count FROM registrations WHERE user_id = ?");
             $stmt->bind_param("i", $userId);
             $stmt->execute();
             $registeredCount = $stmt->get_result()->fetch_assoc()['count'];
 
             // Get upcoming events count
-            $stmt = $conn->prepare("SELECT COUNT(*) as count FROM Events WHERE start_datetime > NOW()");
+            $stmt = $conn->prepare("SELECT COUNT(*) as count FROM events WHERE start_datetime > NOW()");
             $stmt->execute();
             $upcomingCount = $stmt->get_result()->fetch_assoc()['count'];
 
             // Get favorite events count
-            $stmt = $conn->prepare("SELECT COUNT(*) as count FROM Favorites WHERE user_id = ?");
+            $stmt = $conn->prepare("SELECT COUNT(*) as count FROM favorites WHERE user_id = ?");
             $stmt->bind_param("i", $userId);
             $stmt->execute();
             $favoritesCount = $stmt->get_result()->fetch_assoc()['count'];
 
             // Get clubs joined count
-            $stmt = $conn->prepare("SELECT COUNT(*) as count FROM ClubMembers WHERE user_id = ?");
+            $stmt = $conn->prepare("SELECT COUNT(*) as count FROM clubmembers WHERE user_id = ?");
             $stmt->bind_param("i", $userId);
             $stmt->execute();
             $clubsCount = $stmt->get_result()->fetch_assoc()['count'];
