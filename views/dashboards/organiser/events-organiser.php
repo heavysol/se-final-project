@@ -179,7 +179,7 @@ try {
             margin-bottom: 20px;
         }
         .logo-container h2 {
-            color: white;
+            color: var(--text-light);
             margin: 0;
             font-size: 24px;
             font-weight: 600;
@@ -190,19 +190,33 @@ try {
             margin: 5px 0 0 0;
         }
         .sidebar {
-            background: linear-gradient(180deg, #2c3e50 0%, #3a506b 100%);
-            color: white;
+            background: var(--primary-color);
+            color: var(--text-light);
             width: 250px;
             position: fixed;
             height: 100vh;
             padding-top: 0;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+            box-shadow: 4px 0 10px var(--shadow-color);
         }
         .main-content {
             margin-left: 250px;
             padding: 20px;
             transition: margin-left 0.3s ease;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-list li a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
         }
     </style>
 </head>

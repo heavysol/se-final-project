@@ -134,19 +134,45 @@ $completion_stats = $stmt->get_result()->fetch_assoc();
             margin: 5px 0 0 0;
         }
         .sidebar {
-            background: linear-gradient(180deg, #2c3e50 0%, #3a506b 100%);
-            color: white;
+            background: var(--primary-color);
+            color: var(--text-light);
             width: 250px;
             position: fixed;
             height: 100vh;
             padding-top: 0;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+            box-shadow: 4px 0 10px var(--shadow-color);
         }
         .main-content {
             margin-left: 250px;
             padding: 20px;
             transition: margin-left 0.3s ease;
+        }
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-list li a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        .nav-list li a:hover {
+            background-color: var(--hover-color);
+        }
+        .nav-list li a.active {
+            background-color: var(--active-color);
+        }
+        .nav-list li a i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        .logout-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
         }
     </style>
 </head>
