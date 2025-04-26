@@ -63,14 +63,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | FitInspire Hub</title>
+    <title>Login | Campus Events</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             margin: 0;
             font-family: 'Lato', sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+            background: #ffffff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -85,17 +85,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .form-container {
-            background: rgba(255, 255, 255, 0.95);
+            background: #ffffff;
             padding: 2.5rem;
             border-radius: 15px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
-            backdrop-filter: blur(10px);
+            border: 1px solid #e0e0e0;
         }
 
         h1 {
-            color: #BC1E4A;
+            color: #A53838;
             text-align: center;
             margin-bottom: 2rem;
             font-size: 2rem;
@@ -122,15 +122,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .form-group input:focus {
-            border-color: #BC1E4A;
+            border-color: #A53838;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(188, 30, 74, 0.1);
+            box-shadow: 0 0 0 3px rgba(165, 56, 56, 0.1);
         }
 
         .login-btn {
             width: 100%;
             padding: 1rem;
-            background: #BC1E4A;
+            background: #A53838;
             color: white;
             border: none;
             border-radius: 8px;
@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .login-btn:hover {
-            background: #8A1435;
+            background: #8A2E2E;
         }
 
         .error-message {
@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .signup-link a {
-            color: #BC1E4A;
+            color: #A53838;
             text-decoration: none;
             font-weight: 600;
         }
