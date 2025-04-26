@@ -116,19 +116,60 @@ echo "<script>
             margin: 5px 0 0 0;
         }
         .sidebar {
-            background: linear-gradient(180deg, #2c3e50 0%, #3a506b 100%);
-            color: white;
+            background-color: var(--primary-color);
+            color: var(--text-light);
             width: 250px;
-            position: fixed;
             height: 100vh;
-            padding-top: 0;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 1rem;
+            overflow-y: auto;
         }
         .main-content {
             margin-left: 250px;
             padding: 20px;
             transition: margin-left 0.3s ease;
+        }
+        .sidebar-header {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-menu a.active {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+        }
+
+        .sidebar-menu i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
         }
     </style>
 </head>

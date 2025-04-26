@@ -44,16 +44,17 @@ $_SESSION['first_name'] = $user['first_name'];
     <!-- Add SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
-        /* Enhanced Sidebar Styles */
+        /* Sidebar Styles */
         .sidebar {
-            background: linear-gradient(180deg, #2c3e50 0%, #3a506b 100%);
-            color: white;
+            background-color: var(--primary-color);
+            color: var(--text-light);
             width: 250px;
-            position: fixed;
             height: 100vh;
-            padding-top: 0;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 1rem;
+            overflow-y: auto;
         }
 
         .logo-container {
@@ -76,9 +77,9 @@ $_SESSION['first_name'] = $user['first_name'];
         }
 
         .sidebar-header {
-            padding: 1rem 0;
-            margin-bottom: 2rem;
+            padding: 1rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
         }
 
         .sidebar-header h3 {
@@ -104,44 +105,28 @@ $_SESSION['first_name'] = $user['first_name'];
         }
 
         .sidebar-menu a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            padding: 0.8rem 1rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--text-light);
+            text-decoration: none;
             border-radius: 8px;
             transition: all 0.3s ease;
         }
 
-        .sidebar-menu a i {
-            font-size: 1.1rem;
-            width: 20px;
-            text-align: center;
-        }
-
         .sidebar-menu a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            transform: translateX(5px);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .sidebar-menu a.active {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            font-weight: 500;
+            background-color: var(--accent-color);
+            color: var(--text-light);
         }
 
-        .sidebar-menu a.active::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 60%;
-            background: #3498db;
-            border-radius: 0 4px 4px 0;
+        .sidebar-menu i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
         }
 
         /* Main Content Adjustment */

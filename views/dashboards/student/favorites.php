@@ -22,21 +22,21 @@ require_once '../../../db/config.php';
     <style>
         /* Sidebar Styles */
         .sidebar {
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-            min-height: 100vh;
+            background-color: var(--primary-color);
+            color: var(--text-light);
             width: 250px;
+            height: 100vh;
             position: fixed;
             left: 0;
             top: 0;
-            padding: 1.5rem 0;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-            z-index: 1000;
+            padding: 1rem;
+            overflow-y: auto;
         }
 
         .sidebar-header {
-            padding: 0 1.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
         }
 
         .sidebar-header h3 {
@@ -59,34 +59,26 @@ require_once '../../../db/config.php';
         .sidebar-menu a {
             display: flex;
             align-items: center;
-            padding: 0.75rem 1.5rem;
-            color: rgba(255,255,255,0.8);
+            padding: 0.75rem 1rem;
+            color: var(--text-light);
             text-decoration: none;
+            border-radius: 8px;
             transition: all 0.3s ease;
-            font-size: 1rem;
         }
 
         .sidebar-menu a:hover {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            padding-left: 2rem;
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .sidebar-menu a.active {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border-left: 4px solid #ffd700;
+            background-color: var(--accent-color);
+            color: var(--text-light);
         }
 
         .sidebar-menu i {
             margin-right: 0.75rem;
-            font-size: 1.1rem;
             width: 20px;
             text-align: center;
-        }
-
-        .sidebar-menu a.active i {
-            color: #ffd700;
         }
 
         .event-card {
