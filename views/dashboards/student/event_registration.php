@@ -81,10 +81,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
                 $calendarStmt->bind_param("ii", $userId, $eventId);
                 $calendarStmt->execute();
                 
+                // Get updated registered events count
+                $countStmt = $conn->prepare("SELECT COUNT(*) as count FROM registrations WHERE user_id = ?");
+                $countStmt->bind_param("i", $userId);
+                $countStmt->execute();
+                $registeredCount = $countStmt->get_result()->fetch_assoc()['count'];
+                
                 echo json_encode([
                     'status' => 'success',
                     'message' => 'Successfully registered for the event',
-                    'is_registered' => true
+                    'is_registered' => true,
+                    'registered_count' => $registeredCount
                 ]);
             } else {
                 error_log("Failed to register: " . $stmt->error);
@@ -116,10 +123,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['event_id'])) {
                     $calendarStmt->bind_param("ii", $userId, $eventId);
                     $calendarStmt->execute();
                     
+                    // Get updated registered events count
+                    $countStmt = $conn->prepare("SELECT COUNT(*) as count FROM registrations WHERE user_id = ?");
+                    $countStmt->bind_param("i", $userId);
+                    $countStmt->execute();
+                    $registeredCount = $countStmt->get_result()->fetch_assoc()['count'];
+                    
                     echo json_encode([
                         'status' => 'success',
                         'message' => 'Successfully unregistered from the event',
-                        'is_registered' => false
+                        'is_registered' => false,
+                        'registered_count' => $registeredCount
                     ]);
                 } else {
                     error_log("No rows affected when unregistering");

@@ -22,6 +22,7 @@ $query = "SELECT e.*,
         LEFT JOIN eventcalendar c ON e.event_id = c.event_id AND c.user_id = ?
         LEFT JOIN favorites f ON e.event_id = f.event_id AND f.user_id = ?
         WHERE e.start_datetime >= NOW() 
+        AND e.status = 'approved'
         ORDER BY e.start_datetime ASC 
         LIMIT 5";
 

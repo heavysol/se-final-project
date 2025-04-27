@@ -132,6 +132,7 @@ function getAllUpcomingEvents($userId) {
               LEFT JOIN registrations r ON e.event_id = r.event_id AND r.user_id = ?
               LEFT JOIN eventcalendar c ON e.event_id = c.event_id AND c.user_id = ?
               LEFT JOIN favorites f ON e.event_id = f.event_id AND f.user_id = ?
+              WHERE e.status = 'approved'
               ORDER BY e.start_datetime ASC";
               
     $stmt = $conn->prepare($query);

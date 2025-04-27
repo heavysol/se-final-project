@@ -302,7 +302,16 @@ $_SESSION['first_name'] = $user['first_name'];
                 <div class="col-md-3">
                     <div class="stat-card">
                         <i class="bi bi-calendar2-check text-primary fs-4"></i>
-                        <h3 class="mt-2" id="registered-events-count">0</h3>
+                        <h3 class="mt-2" id="registered-events-count">
+                            <?php
+                            // Get initial registered events count
+                            $countStmt = $conn->prepare("SELECT COUNT(*) as count FROM registrations WHERE user_id = ?");
+                            $countStmt->bind_param("i", $_SESSION['user_id']);
+                            $countStmt->execute();
+                            $registeredCount = $countStmt->get_result()->fetch_assoc()['count'];
+                            echo $registeredCount;
+                            ?>
+                        </h3>
                         <p class="text-muted mb-0">Registered Events</p>
                     </div>
                 </div>
@@ -314,7 +323,6 @@ $_SESSION['first_name'] = $user['first_name'];
                         <p class="text-muted mb-0">Favorite Events</p>
                     </div>
                 </div>
-               
             </div>
 
             <div class="row">
@@ -360,7 +368,7 @@ $_SESSION['first_name'] = $user['first_name'];
                                     $calendarBtnClass = $event['in_calendar'] ? 'btn-outline-danger' : 'btn-outline-primary calendar-btn';
                                     $calendarBtnText = $event['in_calendar'] ? 'Remove from Calendar' : 'Add to Calendar';
                                     ?>
-                                    <div class="event-card mb-3 p-3 border rounded">
+                                    <div class="event-card mb-3 p-3 border rounded" id="event-<?php echo $event['event_id']; ?>">
                                         <div class="d-flex justify-content-between align-items-start">
                                             <div>
                                                 <h5 class="event-title mb-2"><?php echo htmlspecialchars($event['title']); ?></h5>
@@ -440,7 +448,7 @@ $_SESSION['first_name'] = $user['first_name'];
             window.requestAnimationFrame(step);
         }
 
-        // Function to update dashboard stats - moved to global scope
+        // Function to update dashboard stats
         function updateDashboardStats() {
             $.ajax({
                 url: 'get_dashboard_stats.php',
@@ -448,33 +456,23 @@ $_SESSION['first_name'] = $user['first_name'];
                 dataType: 'json',
                 success: function(response) {
                     if (response.status === 'success') {
-                        // Get current values
-                        const elements = {
-                            registered: $('#registered-events-count'),
-                            upcoming: $('#upcoming-events-count'),
-                            favorites: $('#favorite-events-count'),
-                            clubs: $('#clubs-count')
-                        };
-
-                        const currentValues = {
-                            registered: parseInt(elements.registered.text()) || 0,
-                            upcoming: parseInt(elements.upcoming.text()) || 0,
-                            favorites: parseInt(elements.favorites.text()) || 0,
-                            clubs: parseInt(elements.clubs.text()) || 0
-                        };
-
-                        // Animate each counter
-                        animateCounter(elements.registered, currentValues.registered, response.stats.registered_events, 1000);
-                        animateCounter(elements.upcoming, currentValues.upcoming, response.stats.upcoming_events, 1000);
-                        animateCounter(elements.favorites, currentValues.favorites, response.stats.favorite_events, 1000);
-                        animateCounter(elements.clubs, currentValues.clubs, response.stats.clubs_joined, 1000);
+                        $('#registered-events-count').text(response.registered_events);
+                        $('#favorite-events-count').text(response.favorite_events);
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error loading dashboard stats:', error);
+                    console.error('Error updating dashboard stats:', error);
                 }
             });
         }
+
+        // Update stats when page loads
+        $(document).ready(function() {
+            updateDashboardStats();
+            
+            // Update stats every 5 minutes
+            setInterval(updateDashboardStats, 300000);
+        });
 
         // Function to load upcoming events - in global scope
         function loadUpcomingEvents() {
@@ -483,52 +481,68 @@ $_SESSION['first_name'] = $user['first_name'];
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
-                    if (data.status === 'success') {
-                        const eventsContainer = $('#upcoming-events-list');
-                        eventsContainer.empty();
-                        
-                        if (data.events && data.events.length > 0) {
-                            data.events.forEach(event => {
-                                const startDate = new Date(event.start_date);
-                                const endDate = new Date(event.end_date);
-                                
-                                const eventHtml = `
-                                    <div class="event-card mb-3 p-3 border rounded">
-                                        <h5 class="event-title">${event.title}</h5>
-                                        <p class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.venue}</p>
-                                        <p class="event-date"><i class="far fa-calendar-alt"></i> ${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}</p>
-                                        <div class="event-actions mt-2">
-                                            ${event.is_registered ? 
-                                                `<button class="btn btn-danger" data-event-id="${event.event_id}">Unregister</button>` :
-                                                `<button class="btn btn-primary register-btn" data-event-id="${event.event_id}">Register</button>`
-                                            }
-                                            ${event.in_calendar ?
-                                                `<button class="btn btn-outline-danger ms-2" data-event-id="${event.event_id}">Remove from Calendar</button>` :
-                                                `<button class="btn btn-outline-primary calendar-btn ms-2" data-event-id="${event.event_id}">Add to Calendar</button>`
-                                            }
-                                            <button class="favorite-btn ms-2" onclick="toggleFavorite(this, ${event.event_id})" 
-                                                    data-event-id="${event.event_id}"
-                                                    ${event.is_favorite ? 'data-favorite="true"' : ''}>
-                                                <i class="bi ${event.is_favorite ? 'bi-star-fill' : 'bi-plus-lg'}"></i>
-                                                <span>${event.is_favorite ? 'Remove from Favorites' : 'Add to Favorites'}</span>
-                                            </button>
+                    const eventsContainer = $('#upcoming-events-list');
+                    eventsContainer.empty();
+                    
+                    if (data.events && data.events.length > 0) {
+                        data.events.forEach(event => {
+                            const startDate = new Date(event.start_date);
+                            const endDate = new Date(event.end_date);
+                            
+                            const eventHtml = `
+                                <div class="event-card mb-3 p-3 border rounded" id="event-${event.id}">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5 class="event-title mb-2">${event.title}</h5>
+                                            <div class="event-meta">
+                                                <span class="event-category"><i class="bi bi-tag"></i> ${event.category}</span>
+                                                <span class="event-capacity"><i class="bi bi-people"></i> ${event.current_registrations}/${event.max_capacity} registered</span>
+                                            </div>
+                                            <div class="event-details">
+                                                <p class="mb-1"><i class="bi bi-calendar"></i> ${startDate.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true })} - ${endDate.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true })}</p>
+                                                <p class="mb-1"><i class="bi bi-geo-alt"></i> ${event.location}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                `;
-                                eventsContainer.append(eventHtml);
-                            });
-                        } else {
-                            eventsContainer.html('<p class="text-center">No upcoming events found.</p>');
-                        }
+                                    <div class="event-actions mt-3">
+                                        <button type="button" class="btn btn-sm ${event.is_registered ? 'btn-danger' : 'btn-primary register-btn'}" 
+                                                data-event-id="${event.id}">
+                                            ${event.is_registered ? 'Unregister' : 'Register'}
+                                        </button>
+                                        <button type="button" class="btn btn-sm ${event.in_calendar ? 'btn-outline-danger' : 'btn-outline-primary calendar-btn'}" 
+                                                data-event-id="${event.id}">
+                                            ${event.in_calendar ? 'Remove from Calendar' : 'Add to Calendar'}
+                                        </button>
+                                        <button class="favorite-btn" onclick="toggleFavorite(this, ${event.id})" 
+                                                data-event-id="${event.id}"
+                                                ${event.is_favorite ? 'data-favorite="true"' : ''}>
+                                            <i class="bi ${event.is_favorite ? 'bi-star-fill' : 'bi-plus-lg'}"></i>
+                                            <span>${event.is_favorite ? 'Remove from Favorites' : 'Add to Favorites'}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            `;
+                            eventsContainer.append(eventHtml);
+                        });
                     } else {
-                        console.error('Error loading events:', data.message);
+                        eventsContainer.html('<p class="text-muted">No upcoming events found.</p>');
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('Failed to load upcoming events:', error);
+                    $('#upcoming-events-list').html('<p class="text-muted">Error loading events. Please try again later.</p>');
                 }
             });
         }
+
+        // Set interval to refresh events every 5 minutes
+        setInterval(loadUpcomingEvents, 300000);
+
+        // Initial load
+        $(document).ready(function() {
+            loadUpcomingEvents();
+            // ... rest of your document.ready code ...
+        });
 
         $(document).ready(function() {
             // Initialize FullCalendar

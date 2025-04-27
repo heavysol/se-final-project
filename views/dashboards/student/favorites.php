@@ -191,6 +191,7 @@ require_once '../../../db/config.php';
                                     LEFT JOIN registrations r ON e.event_id = r.event_id AND r.user_id = ?
                                     LEFT JOIN eventcalendar c ON e.event_id = c.event_id AND c.user_id = ?
                                     WHERE f.user_id = ? 
+                                    AND e.status = 'approved'
                                     ORDER BY e.start_datetime ASC";
                             
                             $stmt = $conn->prepare($query);

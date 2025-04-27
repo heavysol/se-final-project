@@ -27,77 +27,37 @@ if (!$conn) {
 
 // Check if user is logged in and is a student
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    error_log("Unauthorized access attempt - User ID: " . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'not set') . 
-              ", Role: " . (isset($_SESSION['role']) ? $_SESSION['role'] : 'not set'));
-    sendJsonResponse(['status' => 'error', 'message' => 'Unauthorized access']);
+    header('Content-Type: application/json');
+    echo json_encode(['status' => 'error', 'message' => 'Unauthorized access']);
+    exit();
 }
 
 try {
-    // Check if required tables exist
-    $tables = ['registrations', 'events', 'favorites', 'clubmembers'];
-    foreach ($tables as $table) {
-        $result = $conn->query("SHOW TABLES LIKE '$table'");
-        if ($result->num_rows === 0) {
-            error_log("Table '$table' does not exist in the database");
-            sendJsonResponse(['status' => 'error', 'message' => "Required table '$table' not found"]);
-        }
-    }
-
-    $stats = [];
+    $userId = $_SESSION['user_id'];
     
     // Get registered events count
     $stmt = $conn->prepare("SELECT COUNT(*) as registered_events FROM registrations WHERE user_id = ?");
-    if (!$stmt) {
-        throw new Exception("Failed to prepare Registrations query: " . $conn->error);
-    }
-    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->bind_param("i", $userId);
     $stmt->execute();
-    $stats['registered_events'] = (int)$stmt->get_result()->fetch_assoc()['registered_events'];
-    error_log("Registered events count fetched: " . $stats['registered_events']);
-
-    // Get upcoming events count
-    $stmt = $conn->prepare("SELECT COUNT(*) as upcoming_events FROM events WHERE start_datetime >= NOW()");
-    if (!$stmt) {
-        throw new Exception("Failed to prepare Events query: " . $conn->error);
-    }
-    $stmt->execute();
-    $stats['upcoming_events'] = (int)$stmt->get_result()->fetch_assoc()['upcoming_events'];
-    error_log("Upcoming events count fetched: " . $stats['upcoming_events']);
-
+    $registeredCount = $stmt->get_result()->fetch_assoc()['registered_events'];
+    
     // Get favorite events count
     $stmt = $conn->prepare("SELECT COUNT(*) as favorite_events FROM favorites WHERE user_id = ?");
-    if (!$stmt) {
-        throw new Exception("Failed to prepare Favorites query: " . $conn->error);
-    }
-    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->bind_param("i", $userId);
     $stmt->execute();
-    $stats['favorite_events'] = (int)$stmt->get_result()->fetch_assoc()['favorite_events'];
-    error_log("Favorite events count fetched: " . $stats['favorite_events']);
-
-    // Get clubs joined count
-    $stmt = $conn->prepare("SELECT COUNT(*) as clubs_joined FROM clubmembers WHERE user_id = ? AND status = 'active'");
-    if (!$stmt) {
-        throw new Exception("Failed to prepare ClubMembers query: " . $conn->error);
-    }
-    $stmt->bind_param("i", $_SESSION['user_id']);
-    $stmt->execute();
-    $stats['clubs_joined'] = (int)$stmt->get_result()->fetch_assoc()['clubs_joined'];
-    error_log("Clubs joined count fetched: " . $stats['clubs_joined']);
-
-    // Log successful stats collection
-    error_log("Successfully collected all stats: " . json_encode($stats));
-
-    // Send success response with stats
-    sendJsonResponse([
+    $favoriteCount = $stmt->get_result()->fetch_assoc()['favorite_events'];
+    
+    // Return the stats
+    echo json_encode([
         'status' => 'success',
-        'stats' => $stats
+        'registered_events' => (int)$registeredCount,
+        'favorite_events' => (int)$favoriteCount
     ]);
-
+    
 } catch (Exception $e) {
-    error_log("Error in get_dashboard_stats.php: " . $e->getMessage());
-    error_log("Stack trace: " . $e->getTraceAsString());
-    sendJsonResponse([
+    error_log("Error getting dashboard stats: " . $e->getMessage());
+    echo json_encode([
         'status' => 'error',
-        'message' => 'Failed to fetch dashboard stats: ' . $e->getMessage()
+        'message' => 'Failed to get dashboard stats'
     ]);
 } 

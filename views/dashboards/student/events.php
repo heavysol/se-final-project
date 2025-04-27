@@ -588,48 +588,57 @@ $_SESSION['first_name'] = $user['first_name'];
                             event_id: eventId,
                             action: isUnregister ? 'unregister' : 'register'
                         },
+                        dataType: 'json',
                         success: function(response) {
-                            try {
-                                const data = JSON.parse(response);
-                                if (data.status === 'success') {
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Success!',
-                                        text: isUnregister ? 
-                                            'You have successfully unregistered from this event' :
-                                            'You have successfully registered for this event'
-                                    });
-                                    
-                                    if (isUnregister) {
-                                        button.text('Register')
-                                            .removeClass('btn-danger')
-                                            .addClass('btn-primary register-btn');
-                                    } else {
-                                        button.text('Unregister')
-                                            .removeClass('btn-primary register-btn')
-                                            .addClass('btn-danger');
+                            if (response.status === 'success') {
+                                // Update the button state
+                                button.text(response.is_registered ? 'Unregister' : 'Register')
+                                    .removeClass('btn-primary register-btn')
+                                    .addClass(response.is_registered ? 'btn-danger' : 'btn-primary register-btn');
+                                
+                                // Update the registered events count on the dashboard
+                                if (response.registered_count !== undefined) {
+                                    const countElement = $('#registered-events-count');
+                                    if (countElement.length) {
+                                        countElement.text(response.registered_count);
                                     }
-                                } else {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error!',
-                                        text: data.message || 'Failed to process your request'
-                                    });
                                 }
-                            } catch (e) {
-                                console.error('Error parsing response:', e);
+                                
+                                // Show success message
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: response.message,
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                });
+                                
+                                // Reload the events list
+                                loadEvents();
+                            } else {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Error!',
-                                    text: 'An error occurred while processing your request'
+                                    text: response.message,
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 3000
                                 });
                             }
                         },
-                        error: function() {
+                        error: function(xhr, status, error) {
+                            console.error('Registration error:', {
+                                status: status,
+                                error: error,
+                                response: xhr.responseText
+                            });
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error!',
-                                text: 'Failed to connect to the server'
+                                text: 'Failed to connect to the server. Please try again.'
                             });
                         },
                         complete: function() {

@@ -22,7 +22,8 @@ try {
     LEFT JOIN registrations r ON e.event_id = r.event_id AND r.user_id = ?
     LEFT JOIN eventcalendar ec ON e.event_id = ec.event_id AND ec.user_id = ?
     LEFT JOIN favorites f ON e.event_id = f.event_id AND f.user_id = ?
-    WHERE r.registration_id IS NOT NULL OR ec.calendar_id IS NOT NULL
+    WHERE (r.registration_id IS NOT NULL OR ec.calendar_id IS NOT NULL)
+    AND e.status = 'approved'
     ORDER BY e.start_datetime ASC";
 
     $stmt = $conn->prepare($query);

@@ -364,12 +364,6 @@ echo "<script>
             loadRegisteredEvents();
 
             // Add refresh button
-            $('.dashboard-card h4').append(`
-                <button class="btn btn-sm btn-outline-primary float-end refresh-events">
-                    <i class="bi bi-arrow-clockwise"></i> Refresh
-                </button>
-            `);
-
             // Handle refresh button click
             $(document).on('click', '.refresh-events', function() {
                 loadRegisteredEvents();

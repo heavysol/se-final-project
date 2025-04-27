@@ -6728,3 +6728,522 @@ Stack trace:
     [action] => getRegisteredEvents
 )
 
+[27-Apr-2025 22:33:39 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 22:33:39 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[27-Apr-2025 22:33:39 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 22:38:17 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 22:38:17 Europe/Berlin] Session data: Array
+(
+    [user_id] => 16
+    [full_name] => Beatrice Abrah
+    [role] => student
+    [first_name] => Beatrice
+)
+
+[27-Apr-2025 22:38:17 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 22:38:30 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 22:38:30 Europe/Berlin] Session data: Array
+(
+    [user_id] => 16
+    [full_name] => Beatrice Abrah
+    [role] => student
+    [first_name] => Beatrice
+)
+
+[27-Apr-2025 22:38:30 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 22:38:41 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 22:38:41 Europe/Berlin] Session data: Array
+(
+    [user_id] => 16
+    [full_name] => Beatrice Abrah
+    [role] => student
+    [first_name] => Beatrice
+)
+
+[27-Apr-2025 22:38:41 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 22:40:06 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 22:40:06 Europe/Berlin] Session data: Array
+(
+    [user_id] => 16
+    [full_name] => Beatrice Abrah
+    [role] => student
+    [first_name] => Beatrice
+)
+
+[27-Apr-2025 22:40:06 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:02:28 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:02:28 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:02:28 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:02:54 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:02:54 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:02:54 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:11:01 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:11:01 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:11:01 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:13:43 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:13:43 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:13:43 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:14:33 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:14:33 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:14:33 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:14:34 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:14:34 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:14:34 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:16:25 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:16:25 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:16:25 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:16:26 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:16:26 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:16:26 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:16:26 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:16:26 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:16:26 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:17:15 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:17:15 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:17:15 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:17:20 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:17:20 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:17:20 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:17:21 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:17:21 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:17:21 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:17:45 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:17:46 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:17:46 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:17:47 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:17:47 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:17:47 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:17:51 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:17:51 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:17:51 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:17:52 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:17:52 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:17:52 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:18:08 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:18:08 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:18:08 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:18:10 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:18:10 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:18:10 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:18:11 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:18:11 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:18:11 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:18:12 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:18:12 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:18:12 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:18:12 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:18:12 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:18:12 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:19:46 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:19:46 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:19:46 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:21:11 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:21:11 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:21:11 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:21:31 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:21:31 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:21:31 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:21:37 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:21:37 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:21:37 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 11
+)
+
+[27-Apr-2025 23:21:38 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:21:38 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:21:38 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:21:47 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:21:47 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:21:47 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:39:32 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:39:32 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:39:32 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:45:48 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:45:48 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:45:48 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:45:57 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:45:57 Europe/Berlin] Session data: Array
+(
+    [user_id] => 20
+    [full_name] => Ashesi University
+    [role] => student
+    [first_name] => Ashesi
+)
+
+[27-Apr-2025 23:45:57 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:46:32 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:46:32 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[27-Apr-2025 23:46:32 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 23:47:47 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:47:47 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[27-Apr-2025 23:47:47 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
