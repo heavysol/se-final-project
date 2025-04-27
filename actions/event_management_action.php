@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $event = $stmt->get_result()->fetch_assoc();
 
                         // Create notification
-                        $sql = "INSERT INTO Notifications (organizer_id, event_id, title, message) 
+                        $sql = "INSERT INTO notifications (organizer_id, event_id, title, message) 
                                 VALUES (?, ?, 'Event Approved', ?)";
                         $stmt = $conn->prepare($sql);
                         $message = "Your event '{$event['title']}' has been approved and is now live.";
@@ -243,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $event = $stmt->get_result()->fetch_assoc();
 
                         // Create notification
-                        $sql = "INSERT INTO Notifications (organizer_id, event_id, title, message) 
+                        $sql = "INSERT INTO notifications (organizer_id, event_id, title, message) 
                                 VALUES (?, ?, 'Event Rejected', ?)";
                         $stmt = $conn->prepare($sql);
                         $message = "Your event '{$event['title']}' has been rejected. Please review the event details and submit again.";

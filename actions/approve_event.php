@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $status = $action === 'approve' ? 'approved' : 'rejected';
 
-    $stmt = $conn->prepare("UPDATE Events SET status = ? WHERE event_id = ?");
+    $stmt = $conn->prepare("UPDATE events SET status = ? WHERE event_id = ?");
     $stmt->bind_param("si", $status, $event_id);
 
     if ($stmt->execute()) {
