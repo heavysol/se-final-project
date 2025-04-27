@@ -30,6 +30,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
         
         .admin-sidebar-header {
             padding: 20px;
+            background: var(--primary-color);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 20px;
         }
@@ -42,7 +43,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
         }
         
         .admin-sidebar-header .small {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-light);
+            opacity: 0.8;
             font-size: 14px;
             margin: 5px 0 0 0;
         }
