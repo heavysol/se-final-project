@@ -41,25 +41,25 @@ if (!$user) {
             margin-bottom: 20px;
         }
         .logo-container h2 {
-            color: var(--text-light);
+            color: #FFFFFF !important;
             margin: 0;
             font-size: 24px;
             font-weight: 600;
         }
         .logo-container .subtitle {
-            color: var(--text-light);
+            color: #FFFFFF !important;
             opacity: 0.7;
             font-size: 14px;
             margin: 5px 0 0 0;
         }
         .sidebar {
-            background: var(--primary-color);
-            color: var(--text-light);
+            background: #A53838 !important;  /* Fallback to direct color */
+            color: #FFFFFF !important;
             width: 250px;
             position: fixed;
             height: 100vh;
             padding-top: 0;
-            box-shadow: 4px 0 10px var(--shadow-color);
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
             z-index: 1000;
         }
         .main-content {
@@ -74,7 +74,7 @@ if (!$user) {
         }
 
         .sidebar-header h3 {
-            color: var(--text-light);
+            color: #FFFFFF !important;
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             font-weight: 600;
@@ -94,22 +94,22 @@ if (!$user) {
             display: flex;
             align-items: center;
             padding: 0.75rem 1.5rem;
-            color: var(--text-light);
+            color: #FFFFFF !important;
             text-decoration: none;
             transition: all 0.3s ease;
             font-size: 1rem;
         }
 
         .sidebar-menu a:hover {
-            background: var(--hover-color);
-            color: var(--text-light);
+            background: #8B2D2D !important;
+            color: #FFFFFF !important;
             padding-left: 2rem;
         }
 
         .sidebar-menu a.active {
-            background: var(--accent-color);
-            color: var(--text-light);
-            border-left: 4px solid var(--accent-color);
+            background: #D45D5D !important;
+            color: #FFFFFF !important;
+            border-left: 4px solid #D45D5D;
         }
 
         .sidebar-menu i {
@@ -120,7 +120,7 @@ if (!$user) {
         }
 
         .sidebar-menu a.active i {
-            color: var(--accent-color);
+            color: #D45D5D !important;
         }
         .calendar-container {
             background: var(--background-color);

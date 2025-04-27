@@ -52,11 +52,27 @@ try {
 
         // Add different colors based on registration status
         if ($row['is_registered']) {
-            $event['backgroundColor'] = '#28a745'; // Green for registered events
-            $event['borderColor'] = '#28a745';
+            $event['backgroundColor'] = '#4CAF50'; // Success color for registered events
+            $event['borderColor'] = '#4CAF50';
         } else {
-            $event['backgroundColor'] = '#17a2b8'; // Blue for calendar-only events
-            $event['borderColor'] = '#17a2b8';
+            $event['backgroundColor'] = '#A53838'; // Primary color for calendar-only events
+            $event['borderColor'] = '#A53838';
+        }
+
+        // Add category-based colors
+        switch ($row['category']) {
+            case 'cultural':
+                $event['backgroundColor'] = '#4CAF50'; // Success color
+                $event['borderColor'] = '#4CAF50';
+                break;
+            case 'sports':
+                $event['backgroundColor'] = '#F44336'; // Danger color
+                $event['borderColor'] = '#F44336';
+                break;
+            case 'academic':
+                $event['backgroundColor'] = '#D45D5D'; // Accent color
+                $event['borderColor'] = '#D45D5D';
+                break;
         }
 
         $events[] = $event;
