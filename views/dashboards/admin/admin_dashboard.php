@@ -273,10 +273,10 @@ if ($debug_result && $debug_result->num_rows > 0) {
                         <?php
                         // Get recent events ordered by start date
                         $query = "SELECT e.*, 
-                                (SELECT COUNT(*) FROM Registrations WHERE event_id = e.event_id) as current_registrations,
+                                (SELECT COUNT(*) FROM registrations WHERE event_id = e.event_id) as current_registrations,
                                 u.first_name as organizer_name
-                                FROM Events e 
-                                LEFT JOIN Users u ON e.organizer_id = u.user_id
+                                FROM events e 
+                                LEFT JOIN users u ON e.organizer_id = u.user_id
                                 ORDER BY e.start_datetime ASC 
                                 LIMIT 5";
                         
