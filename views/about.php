@@ -75,12 +75,12 @@ function getDashboardUrl() {
 
         .nav-links li a:hover,
         .nav-links li a.active {
-            color: #28a745;
+            color: #A53838;
             background-color: transparent;
         }
 
         .nav-links li a.active {
-            border-bottom: 2px solid #28a745;
+            border-bottom: 2px solid #A53838;
             border-radius: 0;
         }
 
@@ -97,26 +97,105 @@ function getDashboardUrl() {
             transition: all 0.3s ease;
             text-decoration: none;
         }
+         /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-light);
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('assets/images/pattern.png') repeat;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            text-shadow: 2px 2px 4px var(--shadow-color);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .hero .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+            padding: 0.75rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 6px var(--shadow-color);
+        }
+
+        .hero .btn-primary:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px var(--shadow-color);
+        }
+
+        .hero .btn-outline {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
+            padding: 0.75rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+        }
+
+        .hero .btn-outline:hover {
+            background-color: var(--text-light);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
 
         .btn-outline {
-            border: 1.5px solid #28a745;
-            color: #28a745;
+            border: 1.5px solid #A53838;
+            color: #A53838;
             background-color: transparent;
         }
 
         .btn-primary {
-            background-color: #28a745;
+            background-color: #A53838;
             color: white;
             border: none;
         }
 
         .btn-outline:hover {
-            background-color: rgba(40, 167, 69, 0.1);
-            color: #28a745;
+            background-color: rgba(191, 173, 173, 0.1);
+            color: #A53838;
         }
 
         .btn-primary:hover {
-            background-color: #218838;
+            background-color: #8c2d2d;
         }
 
         /* Add padding to body to account for fixed header */
@@ -130,6 +209,109 @@ function getDashboardUrl() {
             align-items: center;
             height: 100%;
             padding: 0 20px;
+        }
+
+        .about-hero {
+            background-color: #C14444;
+            color: white;
+            text-align: center;
+            padding: 8rem 0;
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            display: none;
+        }
+
+        .about-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .mission-vision {
+            background-color: #f8f9fa;
+            padding: 6rem 0;
+        }
+
+        .mission, .vision {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(242, 229, 229, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .mission:hover, .vision:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .mission h2, .vision h2 {
+            color: #A53838;
+            margin-bottom: 1.5rem;
+        }
+
+        .features {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #A53838;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: #A53838;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #A53838;
+        }
+
+        .feature-card h3 {
+            color: #A53838;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background-color: #A53838;
+            color: white;
+            padding: 2rem 0;
+        }
+
+        .footer-section h3 {
+            color: white;
+            border-bottom: 2px solid white;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: rgba(255, 255, 255, 0.8);
         }
     </style>
 </head>
