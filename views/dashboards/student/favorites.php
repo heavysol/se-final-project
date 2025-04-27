@@ -22,7 +22,7 @@ require_once '../../../db/config.php';
     <style>
         /* Sidebar Styles */
         .sidebar {
-            background-color: var(--primary-color);
+            background-color: #A53838;
             color: var(--text-light);
             width: 250px;
             height: 100vh;

@@ -1,8 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -21,7 +17,7 @@ require_once '../../../db/config.php';
 
 // Fetch user details
 $userId = $_SESSION['user_id'];
-$stmt = $conn->prepare("SELECT first_name FROM users WHERE user_id = ? AND role = 'student'");
+$stmt = $conn->prepare("SELECT first_name FROM Users WHERE user_id = ? AND role = 'student'");
 $stmt->bind_param("i", $userId);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -36,8 +32,6 @@ if (!$user) {
 
 $_SESSION['first_name'] = $user['first_name'];
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,17 +44,16 @@ $_SESSION['first_name'] = $user['first_name'];
     <!-- Add SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
-        /* Sidebar Styles */
+        /* Enhanced Sidebar Styles */
         .sidebar {
-            background-color: var(--primary-color);
-            color: var(--text-light);
+            background: #A53838;
+            color: white;
             width: 250px;
-            height: 100vh;
             position: fixed;
-            left: 0;
-            top: 0;
-            padding: 1rem;
-            overflow-y: auto;
+            height: 100vh;
+            padding-top: 0;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
         }
 
         .logo-container {
@@ -83,9 +76,9 @@ $_SESSION['first_name'] = $user['first_name'];
         }
 
         .sidebar-header {
-            padding: 1rem;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 1rem;
         }
 
         .sidebar-header h3 {
@@ -111,28 +104,44 @@ $_SESSION['first_name'] = $user['first_name'];
         }
 
         .sidebar-menu a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: 0.8rem 1rem;
             display: flex;
             align-items: center;
-            padding: 0.75rem 1rem;
-            color: var(--text-light);
-            text-decoration: none;
+            gap: 0.75rem;
             border-radius: 8px;
             transition: all 0.3s ease;
         }
 
+        .sidebar-menu a i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
         .sidebar-menu a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
         }
 
         .sidebar-menu a.active {
-            background-color: var(--accent-color);
-            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-weight: 500;
         }
 
-        .sidebar-menu i {
-            margin-right: 0.75rem;
-            width: 20px;
-            text-align: center;
+        .sidebar-menu a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 60%;
+            background: #3498db;
+            border-radius: 0 4px 4px 0;
         }
 
         /* Main Content Adjustment */
@@ -175,7 +184,7 @@ $_SESSION['first_name'] = $user['first_name'];
             margin-bottom: 20px;
             border-radius: 8px;
             background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(88, 11, 11, 0.1);
         }
         .event-title {
             font-size: 1.3em;

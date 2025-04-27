@@ -6644,3 +6644,87 @@ Stack trace:
     [action] => getRegisteredEvents
 )
 
+[27-Apr-2025 05:18:41 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 05:18:41 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[27-Apr-2025 05:18:41 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 05:18:58 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 05:18:58 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[27-Apr-2025 05:18:58 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 05:26:52 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 05:26:52 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[27-Apr-2025 05:26:52 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 05:27:21 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 05:27:21 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[27-Apr-2025 05:27:21 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 22:18:55 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 22:18:55 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[27-Apr-2025 22:18:55 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[27-Apr-2025 22:28:58 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 22:28:58 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[27-Apr-2025 22:28:58 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
