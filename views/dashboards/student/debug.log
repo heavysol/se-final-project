@@ -7247,3 +7247,17 @@ Stack trace:
     [action] => getRegisteredEvents
 )
 
+[27-Apr-2025 23:52:09 Europe/Berlin] Starting registration_action.php
+[27-Apr-2025 23:52:09 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[27-Apr-2025 23:52:09 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+

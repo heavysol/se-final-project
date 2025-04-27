@@ -324,13 +324,37 @@ $_SESSION['first_name'] = $user['first_name'];
                     <div class="dashboard-card">
                         <h4>
                             Upcoming Events
-                            <span class="badge bg-primary">This Week</span>
+                            <span class="badge bg-primary" id="upcoming-events-count">Loading...</span>
                         </h4>
                         <div id="eventsList">
                             <?php
-                            $upcomingEvents = getAllUpcomingEvents($userId);
-                            if ($upcomingEvents->num_rows > 0) {
-                                while ($event = $upcomingEvents->fetch_assoc()) {
+                            // Get upcoming events
+                            $query = "SELECT e.*, 
+                                    CASE WHEN r.registration_id IS NOT NULL THEN 1 ELSE 0 END as is_registered,
+                                    CASE WHEN c.calendar_id IS NOT NULL THEN 1 ELSE 0 END as in_calendar,
+                                    CASE WHEN f.favorite_id IS NOT NULL THEN 1 ELSE 0 END as is_favorite,
+                                    (SELECT COUNT(*) FROM registrations WHERE event_id = e.event_id) as current_registrations
+                                    FROM events e 
+                                    LEFT JOIN registrations r ON e.event_id = r.event_id AND r.user_id = ?
+                                    LEFT JOIN eventcalendar c ON e.event_id = c.event_id AND c.user_id = ?
+                                    LEFT JOIN favorites f ON e.event_id = f.event_id AND f.user_id = ?
+                                    WHERE e.end_datetime >= NOW() 
+                                    AND e.status = 'approved'
+                                    ORDER BY e.start_datetime ASC";
+                            $stmt = $conn->prepare($query);
+                            $stmt->bind_param("iii", $userId, $userId, $userId);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            
+                            // Get count of upcoming events
+                            $countQuery = "SELECT COUNT(*) as count FROM events 
+                                         WHERE end_datetime >= NOW() 
+                                         AND status = 'approved'";
+                            $countResult = $conn->query($countQuery);
+                            $eventCount = $countResult->fetch_assoc()['count'];
+                            
+                            if ($result->num_rows > 0) {
+                                while ($event = $result->fetch_assoc()) {
                                     $startDate = new DateTime($event['start_datetime']);
                                     $endDate = new DateTime($event['end_datetime']);
                                     
@@ -343,9 +367,25 @@ $_SESSION['first_name'] = $user['first_name'];
                                     ?>
                                     <div class="event-card mb-3 p-3 border rounded">
                                         <h5 class="event-title"><?php echo htmlspecialchars($event['title']); ?></h5>
-                                        <p class="event-location"><i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['location']); ?></p>
-                                        <p class="event-date"><i class="bi bi-calendar"></i> <?php echo $startDate->format('F j, Y g:i A'); ?> - <?php echo $endDate->format('F j, Y g:i A'); ?></p>
-                                        <div class="event-actions mt-2">
+                                        <div class="event-meta">
+                                            <span class="event-category"><i class="bi bi-tag"></i> <?php echo htmlspecialchars($event['category']); ?></span>
+                                            <span class="event-capacity"><i class="bi bi-people"></i> <?php echo $event['current_registrations']; ?>/<?php echo $event['max_capacity']; ?> registered</span>
+                                        </div>
+                                        <div class="event-details">
+                                            <p class="mb-1">
+                                                <i class="bi bi-calendar"></i> 
+                                                <?php echo $startDate->format('F j, Y'); ?> 
+                                                <span class="text-muted">at</span> 
+                                                <?php echo $startDate->format('g:i A'); ?>
+                                                <?php if ($startDate->format('Y-m-d') !== $endDate->format('Y-m-d')): ?>
+                                                    - <?php echo $endDate->format('F j, Y'); ?> at <?php echo $endDate->format('g:i A'); ?>
+                                                <?php else: ?>
+                                                    - <?php echo $endDate->format('g:i A'); ?>
+                                                <?php endif; ?>
+                                            </p>
+                                            <p class="mb-1"><i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['location']); ?></p>
+                                        </div>
+                                        <div class="event-actions mt-3">
                                             <button type="button" class="btn btn-sm <?php echo $registerBtnClass; ?>" 
                                                     data-event-id="<?php echo $event['event_id']; ?>">
                                                 <?php echo $registerBtnText; ?>
@@ -365,10 +405,16 @@ $_SESSION['first_name'] = $user['first_name'];
                                     <?php
                                 }
                             } else {
-                                echo '<p class="text-muted">No events found.</p>';
+                                echo '<div class="alert alert-info">
+                                        <i class="bi bi-info-circle"></i> No upcoming events found. Check back later for new events!
+                                    </div>';
                             }
                             ?>
                         </div>
+                        <script>
+                            // Update the event count badge
+                            document.getElementById('upcoming-events-count').textContent = '<?php echo $eventCount; ?> Events';
+                        </script>
                     </div>
                 </div>
             </div>

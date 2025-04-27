@@ -347,7 +347,8 @@ $_SESSION['first_name'] = $user['first_name'];
                                     LEFT JOIN registrations r ON e.event_id = r.event_id AND r.user_id = ?
                                     LEFT JOIN eventcalendar c ON e.event_id = c.event_id AND c.user_id = ?
                                     LEFT JOIN favorites f ON e.event_id = f.event_id AND f.user_id = ?
-                                    WHERE e.start_datetime >= NOW() 
+                                    WHERE e.end_datetime >= NOW() 
+                                    AND e.status = 'approved'
                                     ORDER BY e.start_datetime ASC 
                                     LIMIT 5";
                             
@@ -377,7 +378,17 @@ $_SESSION['first_name'] = $user['first_name'];
                                                     <span class="event-capacity"><i class="bi bi-people"></i> <?php echo $event['current_registrations']; ?>/<?php echo $event['max_capacity']; ?> registered</span>
                                                 </div>
                                                 <div class="event-details">
-                                                    <p class="mb-1"><i class="bi bi-calendar"></i> <?php echo $startDate->format('F j, Y g:i A'); ?> - <?php echo $endDate->format('F j, Y g:i A'); ?></p>
+                                                    <p class="mb-1">
+                                                        <i class="bi bi-calendar"></i> 
+                                                        <?php echo $startDate->format('F j, Y'); ?> 
+                                                        <span class="text-muted">at</span> 
+                                                        <?php echo $startDate->format('g:i A'); ?>
+                                                        <?php if ($startDate->format('Y-m-d') !== $endDate->format('Y-m-d')): ?>
+                                                            - <?php echo $endDate->format('F j, Y'); ?> at <?php echo $endDate->format('g:i A'); ?>
+                                                        <?php else: ?>
+                                                            - <?php echo $endDate->format('g:i A'); ?>
+                                                        <?php endif; ?>
+                                                    </p>
                                                     <p class="mb-1"><i class="bi bi-geo-alt"></i> <?php echo htmlspecialchars($event['location']); ?></p>
                                                 </div>
                                             </div>
@@ -402,7 +413,9 @@ $_SESSION['first_name'] = $user['first_name'];
                                     <?php
                                 }
                             } else {
-                                echo '<p class="text-muted">No upcoming events found.</p>';
+                                echo '<div class="alert alert-info">
+                                        <i class="bi bi-info-circle"></i> No upcoming events found. Check back later for new events!
+                                    </div>';
                             }
                             ?>
                         </div>
@@ -486,9 +499,6 @@ $_SESSION['first_name'] = $user['first_name'];
                     
                     if (data.events && data.events.length > 0) {
                         data.events.forEach(event => {
-                            const startDate = new Date(event.start_date);
-                            const endDate = new Date(event.end_date);
-                            
                             const eventHtml = `
                                 <div class="event-card mb-3 p-3 border rounded" id="event-${event.id}">
                                     <div class="d-flex justify-content-between align-items-start">
@@ -499,7 +509,15 @@ $_SESSION['first_name'] = $user['first_name'];
                                                 <span class="event-capacity"><i class="bi bi-people"></i> ${event.current_registrations}/${event.max_capacity} registered</span>
                                             </div>
                                             <div class="event-details">
-                                                <p class="mb-1"><i class="bi bi-calendar"></i> ${startDate.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true })} - ${endDate.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true })}</p>
+                                                <p class="mb-1">
+                                                    <i class="bi bi-calendar"></i> 
+                                                    ${event.formatted_start_date} 
+                                                    <span class="text-muted">at</span> 
+                                                    ${event.formatted_start_time}
+                                                    ${event.formatted_start_date !== event.formatted_end_date ? 
+                                                        ` - ${event.formatted_end_date} at ${event.formatted_end_time}` : 
+                                                        ` - ${event.formatted_end_time}`}
+                                                </p>
                                                 <p class="mb-1"><i class="bi bi-geo-alt"></i> ${event.location}</p>
                                             </div>
                                         </div>

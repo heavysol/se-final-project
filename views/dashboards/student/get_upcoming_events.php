@@ -21,7 +21,7 @@ $query = "SELECT e.*,
         LEFT JOIN registrations r ON e.event_id = r.event_id AND r.user_id = ?
         LEFT JOIN eventcalendar c ON e.event_id = c.event_id AND c.user_id = ?
         LEFT JOIN favorites f ON e.event_id = f.event_id AND f.user_id = ?
-        WHERE e.start_datetime >= NOW() 
+        WHERE e.end_datetime >= NOW() 
         AND e.status = 'approved'
         ORDER BY e.start_datetime ASC 
         LIMIT 5";
@@ -33,13 +33,27 @@ try {
     $result = $stmt->get_result();
     
     $events = [];
-    while ($event = $result->fetch_assoc()) {
-        // Format dates
-        $event['start_date'] = date('Y-m-d H:i:s', strtotime($event['start_datetime']));
-        $event['end_date'] = date('Y-m-d H:i:s', strtotime($event['end_datetime']));
-        // Ensure both id and event_id are set for consistency
-        $event['id'] = $event['event_id'];
-        $events[] = $event;
+    while ($row = $result->fetch_assoc()) {
+        $startDate = new DateTime($row['start_datetime']);
+        $endDate = new DateTime($row['end_datetime']);
+        
+        $events[] = [
+            'id' => $row['event_id'],
+            'title' => $row['title'],
+            'start_date' => $startDate->format('Y-m-d H:i:s'),
+            'end_date' => $endDate->format('Y-m-d H:i:s'),
+            'formatted_start_date' => $startDate->format('F j, Y'),
+            'formatted_start_time' => $startDate->format('g:i A'),
+            'formatted_end_date' => $endDate->format('F j, Y'),
+            'formatted_end_time' => $endDate->format('g:i A'),
+            'location' => $row['location'],
+            'category' => $row['category'],
+            'max_capacity' => $row['max_capacity'],
+            'current_registrations' => $row['current_registrations'],
+            'is_registered' => (bool)$row['is_registered'],
+            'in_calendar' => (bool)$row['in_calendar'],
+            'is_favorite' => (bool)$row['is_favorite']
+        ];
     }
     
     header('Content-Type: application/json');
