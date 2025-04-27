@@ -1,10 +1,11 @@
 /* Admin Dashboard Styles */
 :root {
-    --admin-primary: #2c3e50;
-    --admin-secondary: #34495e;
-    --admin-accent: #3498db;
-    --admin-text: #ecf0f1;
-    --admin-hover: #2980b9;
+    /* Using main color scheme variables */
+    --admin-primary: var(--primary-color);
+    --admin-secondary: var(--primary-color);
+    --admin-accent: var(--accent-color);
+    --admin-text: var(--text-light);
+    --admin-hover: var(--hover-color);
 }
 
 /* Sidebar Styles */
@@ -14,8 +15,8 @@
     left: 0;
     height: 100vh;
     width: 250px;
-    background: var(--admin-primary);
-    color: var(--admin-text);
+    background: var(--primary-color);
+    color: var(--text-light);
     padding: 0;
     transition: all 0.3s;
     z-index: 1000;
@@ -23,14 +24,14 @@
 
 .admin-sidebar-header {
     padding: 20px;
-    background: var(--admin-secondary);
+    background: var(--primary-color);
     text-align: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .admin-sidebar-header h3 {
     margin: 0;
-    color: var(--admin-text);
+    color: var(--text-light);
     font-size: 1.5rem;
     font-weight: 600;
 }
@@ -38,6 +39,7 @@
 .admin-sidebar-header .small {
     font-size: 0.8rem;
     opacity: 0.8;
+    color: var(--text-light);
 }
 
 .admin-sidebar-menu {
@@ -55,7 +57,7 @@
     display: flex;
     align-items: center;
     padding: 15px 20px;
-    color: var(--admin-text);
+    color: var(--text-light);
     text-decoration: none;
     transition: all 0.3s;
     border-left: 4px solid transparent;
@@ -69,15 +71,15 @@
 }
 
 .admin-sidebar-menu a:hover {
-    background: var(--admin-secondary);
-    border-left: 4px solid var(--admin-accent);
-    color: var(--admin-text);
+    background: var(--primary-color);
+    border-left: 4px solid var(--accent-color);
+    color: var(--text-light);
 }
 
 .admin-sidebar-menu a.active {
-    background: var(--admin-secondary);
-    border-left: 4px solid var(--admin-accent);
-    color: var(--admin-text);
+    background: var(--primary-color);
+    border-left: 4px solid var(--accent-color);
+    color: var(--text-light);
 }
 
 /* Main Content Area */
@@ -130,7 +132,7 @@
 }
 
 .admin-card-title {
-    color: var(--admin-primary);
+    color: var(--primary-color);
     font-size: 1.1rem;
     margin-bottom: 15px;
 }
@@ -138,7 +140,7 @@
 .admin-card-value {
     font-size: 2rem;
     font-weight: bold;
-    color: var(--admin-accent);
+    color: var(--accent-color);
 }
 
 /* Tables */
@@ -150,8 +152,8 @@
 }
 
 .admin-table th {
-    background: var(--admin-secondary);
-    color: var(--admin-text);
+    background: var(--primary-color);
+    color: var(--text-light);
     padding: 15px;
 }
 
@@ -162,7 +164,7 @@
 
 /* Buttons */
 .admin-btn {
-    background: var(--admin-accent);
+    background: var(--accent-color);
     color: white;
     border: none;
     padding: 8px 15px;
@@ -171,7 +173,7 @@
 }
 
 .admin-btn:hover {
-    background: var(--admin-hover);
+    background: var(--hover-color);
     color: white;
 }
 
@@ -181,7 +183,7 @@
 }
 
 .admin-form-label {
-    color: var(--admin-primary);
+    color: var(--primary-color);
     font-weight: 500;
     margin-bottom: 8px;
 }
@@ -195,6 +197,6 @@
 }
 
 .admin-form-control:focus {
-    border-color: var(--admin-accent);
+    border-color: var(--accent-color);
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 } 

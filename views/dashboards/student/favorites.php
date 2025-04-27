@@ -40,7 +40,7 @@ require_once '../../../db/config.php';
         }
 
         .sidebar-header h3 {
-            color: white;
+            color: var(--text-light);
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             font-weight: 600;
@@ -67,7 +67,7 @@ require_once '../../../db/config.php';
         }
 
         .sidebar-menu a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: var(--hover-color);
         }
 
         .sidebar-menu a.active {
@@ -82,27 +82,27 @@ require_once '../../../db/config.php';
         }
 
         .event-card {
-            background: #fff;
+            background: var(--background-color);
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-left: 4px solid #ffd700;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            border-left: 4px solid var(--accent-color);
         }
         .event-title {
             font-size: 1.3em;
             margin-bottom: 10px;
-            color: #2c3e50;
+            color: var(--text-primary);
         }
         .event-meta {
             display: flex;
             gap: 15px;
             margin-bottom: 10px;
-            color: #666;
+            color: var(--text-secondary);
             font-size: 0.9em;
         }
         .event-description {
-            color: #666;
+            color: var(--text-secondary);
             margin-bottom: 15px;
         }
         .event-actions {
@@ -121,15 +121,15 @@ require_once '../../../db/config.php';
             justify-content: center;
             border-radius: 4px;
             margin-left: 8px;
-            background-color: #fff3cd;
-            border: 1px solid #ffeeba;
+            background-color: var(--warning-bg);
+            border: 1px solid var(--warning-border);
         }
         .favorite-btn:hover {
             transform: scale(1.05);
-            background-color: #ffe69c;
+            background-color: var(--warning-hover);
         }
         .favorite-btn .bi-star-fill {
-            color: #ffd700;
+            color: var(--accent-color);
         }
         .favorite-btn span {
             margin-left: 4px;
@@ -138,9 +138,9 @@ require_once '../../../db/config.php';
         .no-favorites {
             text-align: center;
             padding: 40px;
-            background: #f8f9fa;
+            background: var(--background-color);
             border-radius: 8px;
-            color: #6c757d;
+            color: var(--text-secondary);
         }
     </style>
 </head>

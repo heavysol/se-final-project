@@ -41,24 +41,25 @@ if (!$user) {
             margin-bottom: 20px;
         }
         .logo-container h2 {
-            color: white;
+            color: var(--text-light);
             margin: 0;
             font-size: 24px;
             font-weight: 600;
         }
         .logo-container .subtitle {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-light);
+            opacity: 0.7;
             font-size: 14px;
             margin: 5px 0 0 0;
         }
         .sidebar {
-            background: linear-gradient(180deg, #2c3e50 0%, #3a506b 100%);
-            color: white;
+            background: var(--primary-color);
+            color: var(--text-light);
             width: 250px;
             position: fixed;
             height: 100vh;
             padding-top: 0;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 4px 0 10px var(--shadow-color);
             z-index: 1000;
         }
         .main-content {
@@ -73,7 +74,7 @@ if (!$user) {
         }
 
         .sidebar-header h3 {
-            color: white;
+            color: var(--text-light);
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             font-weight: 600;
@@ -93,22 +94,22 @@ if (!$user) {
             display: flex;
             align-items: center;
             padding: 0.75rem 1.5rem;
-            color: rgba(255,255,255,0.8);
+            color: var(--text-light);
             text-decoration: none;
             transition: all 0.3s ease;
             font-size: 1rem;
         }
 
         .sidebar-menu a:hover {
-            background: rgba(255,255,255,0.1);
-            color: white;
+            background: var(--hover-color);
+            color: var(--text-light);
             padding-left: 2rem;
         }
 
         .sidebar-menu a.active {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border-left: 4px solid #ffd700;
+            background: var(--accent-color);
+            color: var(--text-light);
+            border-left: 4px solid var(--accent-color);
         }
 
         .sidebar-menu i {
@@ -119,13 +120,13 @@ if (!$user) {
         }
 
         .sidebar-menu a.active i {
-            color: #ffd700;
+            color: var(--accent-color);
         }
         .calendar-container {
-            background: #fff;
+            background: var(--background-color);
             border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px var(--shadow-color);
             margin-bottom: 20px;
         }
         #calendar {
@@ -134,9 +135,9 @@ if (!$user) {
         .fc-event {
             cursor: pointer;
         }
-        .fc-event.cultural { background-color: #28a745; border-color: #28a745; }
-        .fc-event.sports { background-color: #dc3545; border-color: #dc3545; }
-        .fc-event.academic { background-color: #17a2b8; border-color: #17a2b8; }
+        .fc-event.cultural { background-color: var(--success-color); border-color: var(--success-color); }
+        .fc-event.sports { background-color: var(--danger-color); border-color: var(--danger-color); }
+        .fc-event.academic { background-color: var(--accent-color); border-color: var(--accent-color); }
     </style>
 </head>
 <body>
