@@ -281,7 +281,7 @@ function getEventRegistrationUrl($eventId) {
             </nav>
         </div>
     </header>
-
+ 
     
 
     <section class="hero">
