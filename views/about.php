@@ -251,7 +251,6 @@ function getDashboardUrl() {
                 
                 <ul class="nav-links">
                     <li><a href="../index.php">Home</a></li>
-                    <li><a href="<?php echo getDashboardUrl(); ?>">Events</a></li>
                     <li><a href="about.php" class="active">About</a></li>
                 </ul>
                 
@@ -329,8 +328,6 @@ function getDashboardUrl() {
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
                         <li><a href="../index.php">Home</a></li>
-                        <li><a href="<?php echo getDashboardUrl(); ?>">Events</a></li>
-                        <li><a href="<?php echo getDashboardUrl(); ?>">Dashboard</a></li>
                         <li><a href="#">Calendar</a></li>
                         <li><a href="Signup.php">Sign Up</a></li>
                         <li><a href="login.php">Log In</a></li>
