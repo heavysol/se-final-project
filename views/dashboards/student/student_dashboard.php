@@ -244,6 +244,37 @@ $_SESSION['first_name'] = $user['first_name'];
             margin-left: 4px;
             font-size: 0.9em;
         }
+        .notification-card {
+            transition: all 0.3s ease;
+        }
+        
+        .notification-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .bg-light-warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+        }
+        
+        .bg-light-info {
+            background-color: rgba(13, 202, 240, 0.1);
+            border-left: 4px solid #0dcaf0;
+        }
+        
+        .notification-title {
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .notification-message {
+            color: #666;
+        }
+        
+        .notification-card .btn {
+            margin-left: 10px;
+        }
     </style>
 </head>
 
@@ -326,8 +357,23 @@ $_SESSION['first_name'] = $user['first_name'];
             </div>
 
             <div class="row">
-                <!-- Upcoming Events -->
+                <!-- Notifications -->
                 <div class="col-md-8">
+                    <div class="dashboard-card">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4><i class="bi bi-bell"></i> Notifications</h4>
+                            <button class="btn btn-sm btn-outline-primary" onclick="loadNotifications()">
+                                <i class="bi bi-arrow-clockwise"></i> Refresh
+                            </button>
+                        </div>
+                        <div id="notifications-list">
+                            <!-- Notifications will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Events -->
+                <div class="col-md-4">
                     <div class="dashboard-card">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h4><i class="bi bi-calendar2-week"></i> Upcoming Events</h4>
@@ -1368,6 +1414,58 @@ $_SESSION['first_name'] = $user['first_name'];
         setInterval(() => {
             updateUpcomingEventsCount();
         }, 300000); // Every 5 minutes
+
+        // Function to load notifications
+        function loadNotifications() {
+            $.ajax({
+                url: 'get_notifications.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    const notificationsContainer = $('#notifications-list');
+                    notificationsContainer.empty();
+                    
+                    if (response.status === 'success' && response.notifications.length > 0) {
+                        response.notifications.forEach(notification => {
+                            const notificationHtml = `
+                                <div class="notification-card mb-3 p-3 border rounded ${notification.type === 'recommendation' ? 'bg-light-warning' : 'bg-light-info'}">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5 class="notification-title mb-2">${notification.title}</h5>
+                                            <p class="notification-message mb-2">${notification.message}</p>
+                                            <small class="text-muted">${new Date(notification.timestamp).toLocaleString()}</small>
+                                        </div>
+                                        <button class="btn btn-sm btn-outline-primary" onclick="window.location.href='./events.php?event_id=${notification.event_id}'">
+                                            View Event
+                                        </button>
+                                    </div>
+                                </div>
+                            `;
+                            notificationsContainer.append(notificationHtml);
+                        });
+                    } else {
+                        notificationsContainer.html(`
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle"></i> No notifications at the moment.
+                            </div>
+                        `);
+                    }
+                },
+                error: function() {
+                    $('#notifications-list').html(`
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-circle"></i> Failed to load notifications.
+                        </div>
+                    `);
+                }
+            });
+        }
+
+        // Load notifications on page load
+        loadNotifications();
+
+        // Refresh notifications every 5 minutes
+        setInterval(loadNotifications, 300000);
     </script>
 </body>
 </html>
