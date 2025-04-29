@@ -275,6 +275,31 @@ $_SESSION['first_name'] = $user['first_name'];
         .notification-card .btn {
             margin-left: 10px;
         }
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+        .rating input {
+            display: none;
+        }
+        .rating label {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: #ffc107;
+        }
+        .rating input:checked + label:hover,
+        .rating input:checked ~ label:hover,
+        .rating label:hover ~ input:checked ~ label,
+        .rating input:checked ~ label:hover ~ label {
+            color: #ffc107;
+        }
     </style>
 </head>
 
@@ -316,9 +341,9 @@ $_SESSION['first_name'] = $user['first_name'];
                             <i class="bi bi-search"></i><br>
                             Find Events
                         </button>
-                        <button class="quick-action-btn" onclick="window.location.href='./registrations.php'">
+                        <button class="quick-action-btn" data-bs-toggle="modal" data-bs-target="#feedbackModal">
                             <i class="bi bi-ticket-perforated"></i><br>
-                            My Tickets
+                            My Feedback
                         </button>
                         <button class="quick-action-btn" onclick="window.location.href='./calendar.php'">
                             <i class="bi bi-calendar3"></i><br>
@@ -575,8 +600,8 @@ $_SESSION['first_name'] = $user['first_name'];
                                         </button>
                                         <button type="button" class="btn btn-sm ${event.in_calendar ? 'btn-outline-danger' : 'btn-outline-primary calendar-btn'}" 
                                                 data-event-id="${event.id}">
-                                            ${event.in_calendar ? 'Remove from Calendar' : 'Add to Calendar'}
-                                        </button>
+                                                    ${event.in_calendar ? 'Remove from Calendar' : 'Add to Calendar'}
+                                                </button>
                                         <button class="favorite-btn" onclick="toggleFavorite(this, ${event.id})" 
                                                 data-event-id="${event.id}"
                                                 ${event.is_favorite ? 'data-favorite="true"' : ''}>
@@ -1466,6 +1491,150 @@ $_SESSION['first_name'] = $user['first_name'];
 
         // Refresh notifications every 5 minutes
         setInterval(loadNotifications, 300000);
+    </script>
+
+    <!-- Feedback Modal -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Event Feedback</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="feedbackForm">
+                        <div class="mb-3">
+                            <label for="eventSelect" class="form-label">Select Event</label>
+                            <select class="form-select" id="eventSelect" name="event_id" required>
+                                <option value="">Choose an event...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rating</label>
+                            <div class="rating">
+                                <input type="radio" name="rating" id="star5" value="5" required>
+                                <label for="star5" title="5 stars">☆</label>
+                                <input type="radio" name="rating" id="star4" value="4">
+                                <label for="star4" title="4 stars">☆</label>
+                                <input type="radio" name="rating" id="star3" value="3">
+                                <label for="star3" title="3 stars">☆</label>
+                                <input type="radio" name="rating" id="star2" value="2">
+                                <label for="star2" title="2 stars">☆</label>
+                                <input type="radio" name="rating" id="star1" value="1">
+                                <label for="star1" title="1 star">☆</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">Feedback Comment</label>
+                            <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Load completed events for feedback
+            function loadCompletedEvents() {
+                $.ajax({
+                    url: 'feedback_action.php',
+                    type: 'POST',
+                    data: { 
+                        action: 'getCompletedEvents',
+                        user_id: <?php echo $_SESSION['user_id']; ?>
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            const select = $('#eventSelect');
+                            select.empty();
+                            select.append('<option value="">Choose an event...</option>');
+                            
+                            if (response.events.length === 0) {
+                                select.append('<option value="" disabled>No completed events found</option>');
+                                Swal.fire({
+                                    icon: 'info',
+                                    title: 'No Events',
+                                    text: 'You have no completed events to provide feedback for.'
+                                });
+                            } else {
+                                response.events.forEach(function(event) {
+                                    select.append(`<option value="${event.event_id}">${event.title} (${event.end_date})</option>`);
+                                });
+                            }
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Failed to load events'
+                        });
+                    }
+                });
+            }
+
+            // Handle form submission
+            $('#feedbackForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = {
+                    action: 'submitFeedback',
+                    event_id: $('#eventSelect').val(),
+                    rating: $('input[name="rating"]:checked').val(),
+                    comment: $('#comment').val()
+                };
+
+                $.ajax({
+                    url: 'feedback_action.php',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: 'Your feedback has been submitted successfully',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(() => {
+                                $('#feedbackForm')[0].reset();
+                                loadCompletedEvents();
+                                $('#feedbackModal').modal('hide');
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Failed to submit feedback'
+                        });
+                    }
+                });
+            });
+
+            // Load events when modal is shown
+            $('#feedbackModal').on('show.bs.modal', function() {
+                loadCompletedEvents();
+            });
+        });
     </script>
 </body>
 </html>

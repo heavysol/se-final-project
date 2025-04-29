@@ -307,7 +307,7 @@ echo "<script>
                                     <td>${event.registration_date || 'N/A'}</td>
                                     <td>
                                         <span class="badge bg-${event.attendance_status === 'pending' ? 'warning' : 'success'}">
-                                            ${event.attendance_status || 'pending'}
+                                            ${event.attendance_status === 'pending' ? 'pending' : 'complete'}
                                         </span>
                                     </td>
                                     <td>

@@ -110,6 +110,24 @@ try {
                 ];
             }
 
+            // Update status of past events to 'complete'
+            $updateStmt = $conn->prepare("
+                UPDATE registrations r
+                JOIN events e ON r.event_id = e.event_id
+                SET r.attendance_status = 'complete'
+                WHERE r.user_id = ? 
+                AND r.attendance_status = 'pending'
+                AND e.end_datetime < NOW()
+            ");
+            if (!$updateStmt) {
+                throw new Exception("Failed to prepare status update query: " . $conn->error);
+            }
+            $updateStmt->bind_param("i", $studentId);
+            if (!$updateStmt->execute()) {
+                throw new Exception("Failed to update registration status: " . $updateStmt->error);
+            }
+            $updateStmt->close();
+
             // Get registered events
             $query = "SELECT 
                         e.event_id,
@@ -222,8 +240,12 @@ try {
                 }
                 $eventId = (int)$_POST['event_id'];
 
-                // Check if registration exists
-                $checkStmt = $conn->prepare("SELECT registration_id FROM registrations WHERE user_id = ? AND event_id = ?");
+                // Check if registration exists and get event end date
+                $checkStmt = $conn->prepare("
+                    SELECT r.registration_id, e.end_datetime 
+                    FROM registrations r 
+                    JOIN events e ON r.event_id = e.event_id 
+                    WHERE r.user_id = ? AND r.event_id = ?");
                 if (!$checkStmt) {
                     throw new Exception("Failed to prepare registration check: " . $conn->error);
                 }
@@ -235,7 +257,16 @@ try {
                 if ($result->num_rows === 0) {
                     throw new Exception("Registration not found");
                 }
+
+                $registration = $result->fetch_assoc();
                 $checkStmt->close();
+
+                // Check if event has ended
+                $endDateTime = new DateTime($registration['end_datetime']);
+                $currentDateTime = new DateTime();
+                if ($endDateTime < $currentDateTime) {
+                    throw new Exception("Cannot cancel registration for an event that has already ended");
+                }
 
                 // Delete the registration
                 $deleteStmt = $conn->prepare("DELETE FROM registrations WHERE user_id = ? AND event_id = ?");
