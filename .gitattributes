@@ -1,0 +1,46 @@
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Force specific line endings for certain file types
+*.php text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.json text eol=lf
+*.xml text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.md text eol=lf
+
+# Binary files should not be modified
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.tar binary
+*.rar binary
+*.exe binary
+*.dll binary
+*.so binary
+*.class binary
+*.jar binary
+*.war binary
+*.ear binary
+*.zip binary
+*.tar.gz binary
+*.tgz binary
+*.tar.bz2 binary
+*.tbz2 binary
+*.tar.xz binary
+*.txz binary
+*.tar.lz binary
+*.tlz binary
+*.tar.lzma binary
+*.tlzma binary
+*.tar.lzo binary
+*.tzo binary
+*.tar.zst binary
+*.tzst binary 

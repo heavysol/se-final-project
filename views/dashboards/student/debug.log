@@ -7883,3 +7883,188 @@ Stack trace:
     [action] => getRegisteredEvents
 )
 
+[30-Apr-2025 01:58:54 Europe/Berlin] Starting registration_action.php
+[30-Apr-2025 01:58:54 Europe/Berlin] Session data: Array
+(
+    [user_id] => 21
+    [full_name] => Abigail Yeboah
+    [role] => student
+    [first_name] => Abigail
+)
+
+[30-Apr-2025 01:58:54 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[30-Apr-2025 01:59:00 Europe/Berlin] Starting registration_action.php
+[30-Apr-2025 01:59:00 Europe/Berlin] Session data: Array
+(
+    [user_id] => 21
+    [full_name] => Abigail Yeboah
+    [role] => student
+    [first_name] => Abigail
+)
+
+[30-Apr-2025 01:59:00 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 11
+)
+
+[30-Apr-2025 01:59:01 Europe/Berlin] Starting registration_action.php
+[30-Apr-2025 01:59:01 Europe/Berlin] Session data: Array
+(
+    [user_id] => 21
+    [full_name] => Abigail Yeboah
+    [role] => student
+    [first_name] => Abigail
+)
+
+[30-Apr-2025 01:59:01 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[30-Apr-2025 01:59:23 Europe/Berlin] Starting registration_action.php
+[30-Apr-2025 01:59:23 Europe/Berlin] Session data: Array
+(
+    [user_id] => 21
+    [full_name] => Abigail Yeboah
+    [role] => student
+    [first_name] => Abigail
+)
+
+[30-Apr-2025 01:59:23 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[30-Apr-2025 02:04:34 Europe/Berlin] Starting registration_action.php
+[30-Apr-2025 02:04:34 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[30-Apr-2025 02:04:34 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[30-Apr-2025 02:07:18 Europe/Berlin] Starting registration_action.php
+[30-Apr-2025 02:07:18 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[30-Apr-2025 02:07:18 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[30-Apr-2025 02:14:59 Europe/Berlin] Starting registration_action.php
+[30-Apr-2025 02:14:59 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[30-Apr-2025 02:14:59 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[30-Apr-2025 02:17:01 Europe/Berlin] Starting registration_action.php
+[30-Apr-2025 02:17:01 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[30-Apr-2025 02:17:01 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[30-Apr-2025 02:17:05 Europe/Berlin] Starting registration_action.php
+[30-Apr-2025 02:17:05 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[30-Apr-2025 02:17:05 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 19
+)
+
+[30-Apr-2025 02:17:05 Europe/Berlin] Error in cancelRegistration: Cannot cancel registration for an event that has already ended
+[30-Apr-2025 02:32:04 Europe/Berlin] Starting registration_action.php
+[30-Apr-2025 02:32:04 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[30-Apr-2025 02:32:04 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[30-Apr-2025 02:33:01 Europe/Berlin] Starting registration_action.php
+[30-Apr-2025 02:33:01 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[30-Apr-2025 02:33:01 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[30-Apr-2025 02:34:58 Europe/Berlin] Starting registration_action.php
+[30-Apr-2025 02:34:58 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[30-Apr-2025 02:34:58 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[30-Apr-2025 02:38:58 Europe/Berlin] Starting registration_action.php
+[30-Apr-2025 02:38:58 Europe/Berlin] Session data: Array
+(
+    [user_id] => 13
+    [full_name] => steve Nsabimana
+    [role] => student
+    [first_name] => steve
+)
+
+[30-Apr-2025 02:38:58 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+

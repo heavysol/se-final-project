@@ -208,6 +208,12 @@ $completion_stats = $stmt->get_result()->fetch_assoc();
                     <span class="link-name">Analytics</span>
                 </a>
             </li>
+            <li>
+                <a href="event_feedback.php">
+                    <i class="bi bi-chat-square-text"></i>
+                    <span class="link-name">Event Feedback</span>
+                </a>
+            </li>
             <li class="logout-divider">
                 <a href="../../logout.php">
                     <i class="bi bi-box-arrow-right"></i>

@@ -243,13 +243,19 @@ try {
             </li>
             <li>
                 <li>
-                    <a href="events-organiser.php">
+                    <a href="events-organiser.php" class="active">
                         <i class="bi bi-calendar-event"></i>
                         <span class="link-name">My Events</span>
                     </a>
                 </li>
                 <li>
-                    <a href="analytics.php" class="active">
+                    <a href="event_feedback.php">
+                        <i class="bi bi-chat-square-text"></i>
+                        <span class="link-name">Event Feedback</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="analytics.php">
                         <i class="bi bi-graph-up"></i>
                         <span class="link-name">Analytics</span>
                     </a>

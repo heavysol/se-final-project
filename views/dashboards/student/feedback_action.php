@@ -1,6 +1,12 @@
 <?php
 session_start();
 require_once '../../../db/config.php';
+require_once '../../includes/auth.php';
+
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 // Function to send JSON response
 function sendJsonResponse($data, $statusCode = 200) {
@@ -10,14 +16,13 @@ function sendJsonResponse($data, $statusCode = 200) {
     exit;
 }
 
-// Check if user is logged in and is a student
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'student') {
-    sendJsonResponse([
-        'status' => 'error',
-        'message' => 'Unauthorized access'
-    ], 401);
+// Check if user is logged in
+if (!isLoggedIn()) {
+    echo json_encode(['status' => 'error', 'message' => 'Please log in to submit feedback']);
+    exit;
 }
 
+// Get user ID
 $userId = $_SESSION['user_id'];
 
 // Check for action parameter
@@ -81,39 +86,62 @@ switch ($_POST['action']) {
 
             // Validate rating
             if ($rating < 1 || $rating > 5) {
-                throw new Exception('Invalid rating value');
+                throw new Exception('Invalid rating');
             }
 
-            // Check if the event is completed and user was registered
-            $checkQuery = "SELECT 1 FROM registrations r
-                          INNER JOIN events e ON r.event_id = e.event_id
-                          WHERE r.user_id = ? AND r.event_id = ?
-                          AND r.attendance_status = 'complete'";
-            
-            $checkStmt = $conn->prepare($checkQuery);
-            $checkStmt->bind_param("ii", $userId, $eventId);
-            $checkStmt->execute();
-            
-            if ($checkStmt->get_result()->num_rows === 0) {
-                throw new Exception('Invalid event or event not completed');
+            // Check if event exists and is completed
+            $query = "SELECT end_datetime FROM events WHERE event_id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("i", $eventId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows === 0) {
+                throw new Exception('Event not found');
+            }
+
+            $event = $result->fetch_assoc();
+            if (strtotime($event['end_datetime']) > time()) {
+                throw new Exception('Cannot submit feedback for ongoing events');
+            }
+
+            // Check if user is registered for the event
+            $query = "SELECT attendance_status FROM registrations WHERE event_id = ? AND user_id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("ii", $eventId, $userId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows === 0) {
+                throw new Exception('You are not registered for this event');
+            }
+
+            // Update attendance status to 'attended' if it's 'pending'
+            $registration = $result->fetch_assoc();
+            if ($registration['attendance_status'] === 'pending') {
+                $updateQuery = "UPDATE registrations SET attendance_status = 'attended' WHERE event_id = ? AND user_id = ?";
+                $updateStmt = $conn->prepare($updateQuery);
+                $updateStmt->bind_param("ii", $eventId, $userId);
+                $updateStmt->execute();
             }
 
             // Check if feedback already exists
-            $checkFeedbackQuery = "SELECT 1 FROM feedback WHERE user_id = ? AND event_id = ?";
-            $checkFeedbackStmt = $conn->prepare($checkFeedbackQuery);
-            $checkFeedbackStmt->bind_param("ii", $userId, $eventId);
-            $checkFeedbackStmt->execute();
-            
-            if ($checkFeedbackStmt->get_result()->num_rows > 0) {
-                throw new Exception('Feedback already submitted for this event');
+            $query = "SELECT feedback_id FROM feedback WHERE event_id = ? AND user_id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("ii", $eventId, $userId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                throw new Exception('You have already submitted feedback for this event');
             }
 
             // Insert feedback
-            $insertQuery = "INSERT INTO feedback (user_id, event_id, rating, comment) VALUES (?, ?, ?, ?)";
-            $insertStmt = $conn->prepare($insertQuery);
-            $insertStmt->bind_param("iiis", $userId, $eventId, $rating, $comment);
-            
-            if ($insertStmt->execute()) {
+            $query = "INSERT INTO feedback (event_id, user_id, rating, comment, created_at) VALUES (?, ?, ?, ?, NOW())";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("iiis", $eventId, $userId, $rating, $comment);
+
+            if ($stmt->execute()) {
                 sendJsonResponse([
                     'status' => 'success',
                     'message' => 'Feedback submitted successfully'
