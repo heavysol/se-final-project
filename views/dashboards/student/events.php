@@ -286,12 +286,10 @@ $_SESSION['first_name'] = $user['first_name'];
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="logo-container">
-            <h2>Campus Events</h2>
-            <p class="subtitle">Student Dashboard</p>
-        </div>
+    
         <div class="sidebar-header">
             <h3><i class="bi bi-calendar-event"></i> <span>Campus Events</span></h3>
+            <p class="subtitle">Student Dashboard</p>
         </div>
         <ul class="sidebar-menu">
             <li><a href="../../../index.php"><i class="bi bi-house-door"></i> Home</a></li>
