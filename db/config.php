@@ -4,7 +4,7 @@
 // Get database credentials from environment variables or use defaults
 $host = getenv('DB_HOST') ?: 'localhost';
 $username = getenv('DB_USERNAME') ?: 'root';
-$password = getenv('DB_PASSWORD') ?: '';
+$password = getenv('DB_PASSWORD') ?: 'root';
 $database = getenv('DB_NAME') ?: 'CampusEventManagement';
 
 // Enable error reporting in development
