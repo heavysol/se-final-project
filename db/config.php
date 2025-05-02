@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 $dbConfig = [
     'host' => 'localhost',
     'username' => 'root',
-    'password' => '',
+    'password' => 'root',
     'database' => 'campuseventmanagement'
 ];
 
