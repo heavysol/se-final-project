@@ -162,3 +162,368 @@ The test suite covers:
    - API authentication
    - Data access control
    - Input sanitization
+
+# Event Registration System - OOP Design Principles
+
+## Inheritance and Composition in Our System
+
+### Inheritance (Is-A Relationship)
+
+In our system, we use inheritance to model different types of users:
+
+```mermaid
+classDiagram
+    User <|-- Student
+    User <|-- Organizer
+    User <|-- Admin
+```
+
+#### Key Points about Inheritance:
+
+1. **Base Class (User)**
+   - Contains common attributes and methods for all users
+   - Defines the basic structure and behavior
+   - Attributes:
+     - `user_id`
+     - `first_name`
+     - `last_name`
+     - `email`
+     - `password`
+     - `role`
+
+2. **Derived Classes**
+   - **Student**: Specializes User for student-specific functionality
+     - Additional attributes: `major`, `year_group`
+     - Additional methods: `submitFeedback()`, `viewEventHistory()`
+   
+   - **Organizer**: Specializes User for event management
+     - Additional attributes: `department`
+     - Additional methods: `createEvent()`, `manageEventCapacity()`
+   
+   - **Admin**: Specializes User for system administration
+     - Additional methods: `manageUsers()`, `generateReports()`
+
+3. **Benefits of Inheritance**
+   - Code reuse: Common functionality is defined once in the base class
+   - Polymorphism: Can treat all user types as User objects
+   - Extensibility: Easy to add new user types
+   - Maintainability: Changes to common functionality only need to be made in one place
+
+### Composition (Has-A Relationship)
+
+Our system uses composition to model relationships between entities:
+
+```mermaid
+classDiagram
+    Registration *-- Event
+    Registration *-- User
+    Feedback *-- Event
+    Feedback *-- User
+```
+
+#### Key Points about Composition:
+
+1. **Strong Ownership**
+   - Registration cannot exist without both Event and User
+   - Feedback cannot exist without both Event and User
+   - If parent is deleted, child must also be deleted
+
+2. **Component Relationships**
+   - **Registration Component**
+     - Composed of Event and User
+     - Manages the relationship between events and users
+     - Controls registration lifecycle
+
+   - **Feedback Component**
+     - Composed of Event and User
+     - Manages user feedback for events
+     - Tracks event ratings and comments
+
+3. **Benefits of Composition**
+   - Encapsulation: Components hide their implementation details
+   - Flexibility: Can change component implementations without affecting the whole
+   - Reusability: Components can be reused in different contexts
+   - Maintainability: Easier to modify individual components
+
+### When to Use Each
+
+#### Use Inheritance When:
+- You have an "is-a" relationship
+- You need to share common behavior
+- You want to use polymorphism
+- The relationship is static and won't change
+
+#### Use Composition When:
+- You have a "has-a" relationship
+- You need to change behavior at runtime
+- You want to reuse functionality without inheritance
+- The relationship is dynamic and might change
+
+### Best Practices in Our System
+
+1. **Inheritance Best Practices**
+   - Keep inheritance hierarchies shallow
+   - Use abstract classes for common behavior
+   - Override methods carefully to maintain Liskov Substitution Principle
+   - Use interfaces for role-based behavior
+
+2. **Composition Best Practices**
+   - Favor composition over inheritance
+   - Use dependency injection
+   - Keep components loosely coupled
+   - Use interfaces for component communication
+
+### Example Code Snippets
+
+```php
+// Inheritance Example
+class User {
+    protected $user_id;
+    protected $first_name;
+    protected $last_name;
+    
+    public function getFullName() {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+}
+
+class Student extends User {
+    private $major;
+    
+    public function getMajor() {
+        return $this->major;
+    }
+}
+
+// Composition Example
+class Registration {
+    private $event;
+    private $user;
+    private $registration_date;
+    
+    public function __construct(Event $event, User $user) {
+        $this->event = $event;
+        $this->user = $user;
+        $this->registration_date = new DateTime();
+    }
+}
+```
+
+### Conclusion
+
+Understanding and properly implementing inheritance and composition is crucial for building a maintainable and scalable system. Our event registration system uses both principles effectively to model different types of users and their relationships with events, registrations, and feedback.
+
+## Design Patterns in Our System
+
+Our system implements several design patterns to solve common problems and improve code organization:
+
+### 1. Singleton Pattern
+```php
+class Database {
+    private static $instance = null;
+    private $conn;
+
+    private function __construct() {
+        $this->conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    }
+
+    public static function getInstance() {
+        if (self::$instance === null) {
+            self::$instance = new Database();
+        }
+        return self::$instance;
+    }
+}
+```
+- **Purpose**: Ensure only one database connection exists
+- **Benefits**:
+  - Prevents multiple database connections
+  - Provides global access point
+  - Controls resource usage
+- **Usage**: Database connection management
+
+### 2. Factory Pattern
+```php
+class UserFactory {
+    public static function createUser($role, $data) {
+        switch ($role) {
+            case 'student':
+                return new Student($data);
+            case 'organizer':
+                return new Organizer($data);
+            case 'admin':
+                return new Admin($data);
+            default:
+                throw new Exception("Invalid user role");
+        }
+    }
+}
+```
+- **Purpose**: Create different types of users based on role
+- **Benefits**:
+  - Encapsulates object creation
+  - Makes the system more maintainable
+  - Reduces code duplication
+- **Usage**: User creation and management
+
+### 3. Observer Pattern
+```php
+class Event {
+    private $observers = [];
+    private $status;
+
+    public function attach(EventObserver $observer) {
+        $this->observers[] = $observer;
+    }
+
+    public function setStatus($status) {
+        $this->status = $status;
+        $this->notify();
+    }
+}
+
+interface EventObserver {
+    public function update(Event $event);
+}
+
+class EmailNotification implements EventObserver {
+    public function update(Event $event) {
+        // Send email notification
+    }
+}
+```
+- **Purpose**: Handle event notifications and updates
+- **Benefits**:
+  - Decouples event management from notification systems
+  - Allows multiple systems to react to changes
+  - Makes the system more flexible
+- **Usage**: Event notifications and calendar updates
+
+### 4. Strategy Pattern
+```php
+interface RegistrationStrategy {
+    public function register($eventId, $userId);
+    public function cancel($eventId, $userId);
+}
+
+class StudentRegistration implements RegistrationStrategy {
+    public function register($eventId, $userId) {
+        // Student-specific registration logic
+    }
+}
+
+class RegistrationContext {
+    private $strategy;
+
+    public function setStrategy(RegistrationStrategy $strategy) {
+        $this->strategy = $strategy;
+    }
+}
+```
+- **Purpose**: Handle different registration behaviors
+- **Benefits**:
+  - Makes the system more flexible
+  - Encapsulates registration algorithms
+  - Easy to add new registration types
+- **Usage**: Different registration processes for different user types
+
+### 5. Repository Pattern
+```php
+class EventRepository {
+    private $db;
+
+    public function __construct(Database $db) {
+        $this->db = $db;
+    }
+
+    public function findById($id) {
+        // Find event by ID
+    }
+
+    public function save(Event $event) {
+        // Save event
+    }
+}
+```
+- **Purpose**: Abstract data access logic
+- **Benefits**:
+  - Separates data access from business logic
+  - Makes the system more testable
+  - Provides a clean API for data operations
+- **Usage**: Database operations and data access
+
+### 6. Template Method Pattern
+```php
+abstract class EventRegistration {
+    public final function processRegistration($eventId, $userId) {
+        $this->validateRegistration();
+        $this->checkCapacity();
+        $this->createRegistration();
+        $this->notifyUser();
+    }
+
+    protected abstract function validateRegistration();
+    protected abstract function checkCapacity();
+    protected abstract function createRegistration();
+    protected abstract function notifyUser();
+}
+```
+- **Purpose**: Define the skeleton of an algorithm
+- **Benefits**:
+  - Promotes code reuse
+  - Allows subclasses to redefine certain steps
+  - Maintains consistent process flow
+- **Usage**: Registration process management
+
+### Benefits of Using Design Patterns
+
+1. **Code Organization**
+   - Clear structure and responsibilities
+   - Consistent coding style
+   - Better maintainability
+
+2. **Flexibility**
+   - Easy to extend functionality
+   - Simple to modify behavior
+   - Adaptable to changing requirements
+
+3. **Reusability**
+   - Common solutions to common problems
+   - Reduced code duplication
+   - Faster development
+
+4. **Testability**
+   - Clear separation of concerns
+   - Easy to test individual components
+   - Better code coverage
+
+5. **Scalability**
+   - Modular architecture
+   - Easy to add new features
+   - Better performance management
+
+### Best Practices for Design Patterns
+
+1. **Choose Wisely**
+   - Use patterns that solve specific problems
+   - Avoid over-engineering
+   - Consider maintainability
+
+2. **Keep It Simple**
+   - Use patterns only when needed
+   - Avoid unnecessary complexity
+   - Focus on readability
+
+3. **Documentation**
+   - Document pattern usage
+   - Explain design decisions
+   - Provide usage examples
+
+4. **Testing**
+   - Test pattern implementations
+   - Verify behavior
+   - Ensure reliability
+
+### Conclusion
+
+Design patterns provide proven solutions to common software design problems. Our system implements several patterns to improve code organization, maintainability, and scalability. By following these patterns and best practices, we ensure a robust and flexible event registration system.

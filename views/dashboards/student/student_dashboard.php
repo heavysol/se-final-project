@@ -341,10 +341,7 @@ $_SESSION['first_name'] = $user['first_name'];
                             <i class="bi bi-search"></i><br>
                             Find Events
                         </button>
-                        <button class="quick-action-btn" data-bs-toggle="modal" data-bs-target="#feedbackModal">
-                            <i class="bi bi-ticket-perforated"></i><br>
-                            My Feedback
-                        </button>
+                       
                         <button class="quick-action-btn" onclick="window.location.href='./calendar.php'">
                             <i class="bi bi-calendar3"></i><br>
                             Calendar

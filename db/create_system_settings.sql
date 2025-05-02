@@ -29,4 +29,4 @@ INSERT INTO system_settings (
     1,
     1
 FROM dual
-WHERE NOT EXISTS (SELECT 1 FROM system_settings); 
+WHERE NOT EXISTS (SELECT 1 FROM system_settings);

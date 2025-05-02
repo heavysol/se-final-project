@@ -1,6 +1,13 @@
 <?php
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Start session
 session_start();
-require_once 'db/config.php';
+
+// Include database configuration
+require_once __DIR__ . '/db/config.php';
 
 // Function to check if user is logged in
 function isLoggedIn() {
@@ -17,7 +24,7 @@ function getDashboardUrl() {
         case 'admin':
             return 'views/dashboards/admin/admin_dashboard.php';
         case 'organizer':
-            return 'views/dashboards/organiser/organizer_dashboard.php';
+            return 'views/dashboards/organizer/organizer_dashboard.php';
         case 'student':
             return 'views/dashboards/student/student_dashboard.php';
         default:

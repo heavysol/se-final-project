@@ -1,0 +1,184 @@
+<?php
+
+namespace Tests\Auth;
+
+use PHPUnit\Framework\TestCase;
+use Mockery;
+
+class AuthenticationTest extends TestCase
+{
+    protected function setUp(): void
+    {
+        // Set up test database
+        $this->conn = setupTestDatabase();
+        
+        // Create test tables
+        $this->createTestTables();
+    }
+
+    protected function tearDown(): void
+    {
+        // Clean up test database
+        cleanupTestDatabase($this->conn);
+        Mockery::close();
+    }
+
+    private function createTestTables()
+    {
+        // Create Users table
+        $sql = "CREATE TABLE IF NOT EXISTS Users (
+            user_id INT AUTO_INCREMENT PRIMARY KEY,
+            first_name VARCHAR(100) NOT NULL,
+            last_name VARCHAR(100) NOT NULL,
+            email VARCHAR(255) NOT NULL UNIQUE,
+            password VARCHAR(255) NOT NULL,
+            role ENUM('student', 'organizer', 'admin') NOT NULL,
+            status ENUM('active', 'inactive', 'suspended') DEFAULT 'active'
+        )";
+        $this->conn->query($sql);
+    }
+
+    public function testUserRegistration()
+    {
+        // Test user data
+        $userData = [
+            'first_name' => 'Test',
+            'last_name' => 'User',
+            'email' => 'test@example.com',
+            'password' => password_hash('password123', PASSWORD_DEFAULT),
+            'role' => 'student'
+        ];
+
+        // Insert user
+        $sql = "INSERT INTO Users (first_name, last_name, email, password, role) 
+                VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("sssss", 
+            $userData['first_name'],
+            $userData['last_name'],
+            $userData['email'],
+            $userData['password'],
+            $userData['role']
+        );
+        $result = $stmt->execute();
+
+        $this->assertTrue($result);
+
+        // Verify user was created
+        $sql = "SELECT * FROM Users WHERE email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $userData['email']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        $this->assertEquals($userData['first_name'], $user['first_name']);
+        $this->assertEquals($userData['last_name'], $user['last_name']);
+        $this->assertEquals($userData['email'], $user['email']);
+        $this->assertEquals($userData['role'], $user['role']);
+        $this->assertEquals('active', $user['status']);
+    }
+
+    public function testUserLogin()
+    {
+        // Insert test user
+        $this->insertTestUser();
+
+        // Test login with correct credentials
+        $email = 'test@example.com';
+        $password = 'password123';
+
+        $sql = "SELECT * FROM Users WHERE email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        $this->assertNotNull($user);
+        $this->assertTrue(password_verify($password, $user['password']));
+        $this->assertEquals('active', $user['status']);
+    }
+
+    public function testInvalidLogin()
+    {
+        // Insert test user
+        $this->insertTestUser();
+
+        // Test login with incorrect password
+        $email = 'test@example.com';
+        $password = 'wrongpassword';
+
+        $sql = "SELECT * FROM Users WHERE email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        $this->assertNotNull($user);
+        $this->assertFalse(password_verify($password, $user['password']));
+    }
+
+    public function testUserSuspension()
+    {
+        // Insert test user
+        $this->insertTestUser();
+
+        // Suspend user
+        $email = 'test@example.com';
+        $sql = "UPDATE Users SET status = 'suspended' WHERE email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $result = $stmt->execute();
+
+        $this->assertTrue($result);
+
+        // Verify suspension
+        $sql = "SELECT status FROM Users WHERE email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        $this->assertEquals('suspended', $user['status']);
+    }
+
+    public function testPasswordReset()
+    {
+        // Insert test user
+        $this->insertTestUser();
+
+        // Update password
+        $email = 'test@example.com';
+        $newPassword = password_hash('newpassword123', PASSWORD_DEFAULT);
+        
+        $sql = "UPDATE Users SET password = ? WHERE email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ss", $newPassword, $email);
+        $result = $stmt->execute();
+
+        $this->assertTrue($result);
+
+        // Verify password update
+        $sql = "SELECT password FROM Users WHERE email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        $this->assertTrue(password_verify('newpassword123', $user['password']));
+    }
+
+    private function insertTestUser()
+    {
+        $sql = "INSERT INTO Users (first_name, last_name, email, password, role) 
+                VALUES ('Test', 'User', 'test@example.com', ?, 'student')";
+        $stmt = $this->conn->prepare($sql);
+        $password = password_hash('password123', PASSWORD_DEFAULT);
+        $stmt->bind_param("s", $password);
+        $stmt->execute();
+    }
+} 

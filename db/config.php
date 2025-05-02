@@ -1,46 +1,37 @@
 <?php
-// Database connection using MySQLi only
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-// Get database credentials from environment variables or use defaults
-$host = getenv('DB_HOST') ?: 'localhost';
-$username = getenv('DB_USERNAME') ?: 'root';
-$password = getenv('DB_PASSWORD') ?: '';
-$database = getenv('DB_NAME') ?: 'CampusEventManagement';
+// Database configuration
+$dbConfig = [
+    'host' => 'localhost',
+    'username' => 'root',
+    'password' => '',
+    'database' => 'campuseventmanagement'
+];
 
-// Enable error reporting in development
-if (getenv('APP_ENV') === 'development') {
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-} else {
-    error_reporting(0);
-    ini_set('display_errors', 0);
-}
+// Create connection
+try {
+    $conn = new mysqli(
+        $dbConfig['host'],
+        $dbConfig['username'],
+        $dbConfig['password'],
+        $dbConfig['database']
+    );
 
-// First connect without database
-$conn = new mysqli($host, $username, $password);
-
-// Check connection
-if ($conn->connect_error) {
-    error_log("Database connection failed: " . $conn->connect_error);
-    if (getenv('APP_ENV') === 'development') {
-        die("Connection failed: " . $conn->connect_error);
-    } else {
-        die("A database error occurred. Please try again later.");
+    // Check connection
+    if ($conn->connect_error) {
+        throw new Exception("Connection failed: " . $conn->connect_error);
     }
-}
 
-// Create database if it doesn't exist
-$sql = "CREATE DATABASE IF NOT EXISTS $database";
-if ($conn->query($sql) === TRUE) {
-    // Select the database
-    $conn->select_db($database);
-} else {
-    error_log("Error creating database: " . $conn->error);
-    die("Error creating database. Please check the logs.");
-}
+    // Set charset
+    $conn->set_charset("utf8mb4");
 
-// Set charset to utf8mb4
-$conn->set_charset("utf8mb4");
+} catch (Exception $e) {
+    error_log("Database Error: " . $e->getMessage());
+    die("A database error occurred. Please try again later.");
+}
 
 // Import the schema if tables don't exist
 $result = $conn->query("SHOW TABLES LIKE 'users'");

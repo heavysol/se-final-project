@@ -68,9 +68,7 @@ $result = $stmt->get_result();
 $rowCount = $result->num_rows;
 error_log("Number of events found: " . $rowCount);
 
-if ($rowCount === 0) {
-    echo "<div class='alert alert-info'>You haven't registered for any events yet.</div>";
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

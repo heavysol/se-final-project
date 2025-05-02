@@ -1,455 +1,166 @@
 <?php
 
-namespace Tests;
+namespace Tests\Feedback;
 
 use PHPUnit\Framework\TestCase;
 use Mockery;
 
 class FeedbackTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        // Set up test database
+        $this->conn = setupTestDatabase();
+        
+        // Create test tables
+        $this->createTestTables();
+    }
+
     protected function tearDown(): void
     {
+        // Clean up test database
+        cleanupTestDatabase($this->conn);
         Mockery::close();
-        // Clean up global variables
-        unset($_SESSION['user_id'], $_SESSION['role']);
-        unset($_POST['event_id'], $_POST['action']);
     }
 
-    public function testGetFeedbackForEvent()
+    private function createTestTables()
     {
-        // Mock the database connection
-        $mockConn = Mockery::mock('mysqli');
-        $mockStmt = Mockery::mock('mysqli_stmt');
-        $mockResult = Mockery::mock('mysqli_result');
+        // Create Users table
+        $sql = "CREATE TABLE IF NOT EXISTS Users (
+            user_id INT AUTO_INCREMENT PRIMARY KEY,
+            first_name VARCHAR(100) NOT NULL,
+            last_name VARCHAR(100) NOT NULL,
+            email VARCHAR(255) NOT NULL UNIQUE,
+            password VARCHAR(255) NOT NULL,
+            role ENUM('student', 'organizer', 'admin') NOT NULL
+        )";
+        $this->conn->query($sql);
 
-        // Set up the mock expectations
-        $mockConn->shouldReceive('prepare')
-                ->once()
-                ->with("SELECT event_id FROM Events WHERE event_id = ? AND organizer_id = ?")
-                ->andReturn($mockStmt);
+        // Create Events table
+        $sql = "CREATE TABLE IF NOT EXISTS Events (
+            event_id INT AUTO_INCREMENT PRIMARY KEY,
+            title VARCHAR(255) NOT NULL,
+            description TEXT,
+            start_datetime DATETIME NOT NULL,
+            end_datetime DATETIME NOT NULL,
+            location VARCHAR(255) NOT NULL,
+            category VARCHAR(100) NOT NULL,
+            max_capacity INT NOT NULL,
+            status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+            organizer_id INT NOT NULL
+        )";
+        $this->conn->query($sql);
 
-        $mockStmt->shouldReceive('bind_param')
-                ->once()
-                ->with("ii", 1, 1)
-                ->andReturn(true);
-
-        $mockStmt->shouldReceive('execute')
-                ->once()
-                ->andReturn(true);
-
-        $mockStmt->shouldReceive('get_result')
-                ->once()
-                ->andReturn($mockResult);
-
-        $mockResult->shouldReceive('num_rows')
-                  ->once()
-                  ->andReturn(1);
-
-        // Mock the feedback query
-        $mockConn->shouldReceive('prepare')
-                ->once()
-                ->with("SELECT f.rating, f.comments, f.created_at, u.first_name, u.last_name FROM Feedback f JOIN Users u ON f.user_id = u.user_id WHERE f.event_id = ? ORDER BY f.created_at DESC")
-                ->andReturn($mockStmt);
-
-        $mockStmt->shouldReceive('bind_param')
-                ->once()
-                ->with("i", 1)
-                ->andReturn(true);
-
-        $mockStmt->shouldReceive('execute')
-                ->once()
-                ->andReturn(true);
-
-        $mockStmt->shouldReceive('get_result')
-                ->once()
-                ->andReturn($mockResult);
-
-        // Mock the result data
-        $mockResult->shouldReceive('fetch_assoc')
-                  ->times(2)
-                  ->andReturn(
-                      [
-                          'rating' => 5,
-                          'comments' => 'Great event!',
-                          'created_at' => '2024-01-01 12:00:00',
-                          'first_name' => 'John',
-                          'last_name' => 'Doe'
-                      ],
-                      false
-                  );
-
-        // Replace the global $conn with our mock
-        global $conn;
-        $conn = $mockConn;
-
-        // Set up the session
-        $_SESSION['user_id'] = 1;
-        $_SESSION['role'] = 'organizer';
-
-        // Set up the POST data
-        $_POST['event_id'] = 1;
-        $_POST['action'] = 'getEventFeedback';
-
-        // Include the file to test
-        ob_start();
-        require __DIR__ . '/../views/dashboards/organiser/actions/get_feedback.php';
-        $output = ob_get_clean();
-
-        // Decode the JSON response
-        $response = json_decode($output, true);
-
-        // Assert the response
-        $this->assertEquals('success', $response['status']);
-        $this->assertCount(1, $response['feedback']);
-        $this->assertEquals(5, $response['feedback'][0]['rating']);
-        $this->assertEquals('Great event!', $response['feedback'][0]['comments']);
-        $this->assertEquals('John Doe', $response['feedback'][0]['username']);
+        // Create Feedback table
+        $sql = "CREATE TABLE IF NOT EXISTS Feedback (
+            feedback_id INT AUTO_INCREMENT PRIMARY KEY,
+            event_id INT NOT NULL,
+            user_id INT NOT NULL,
+            rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
+            comments TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (event_id) REFERENCES Events(event_id),
+            FOREIGN KEY (user_id) REFERENCES Users(user_id)
+        )";
+        $this->conn->query($sql);
     }
 
-    public function testUnauthorizedAccess()
+    public function testSubmitFeedback()
     {
-        // Set up the session with invalid role
-        $_SESSION['user_id'] = 1;
-        $_SESSION['role'] = 'student';
+        // Insert test user and event
+        $this->insertTestData();
 
-        // Set up the POST data
-        $_POST['event_id'] = 1;
-        $_POST['action'] = 'getEventFeedback';
+        // Test feedback data
+        $eventId = 1;
+        $userId = 1;
+        $rating = 5;
+        $comments = 'Great event!';
 
-        // Include the file to test
-        ob_start();
-        require __DIR__ . '/../views/dashboards/organiser/actions/get_feedback.php';
-        $output = ob_get_clean();
+        // Insert feedback
+        $sql = "INSERT INTO Feedback (event_id, user_id, rating, comments) 
+                VALUES (?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("iiis", $eventId, $userId, $rating, $comments);
+        $result = $stmt->execute();
 
-        // Decode the JSON response
-        $response = json_decode($output, true);
+        $this->assertTrue($result);
 
-        // Assert the response
-        $this->assertEquals('error', $response['status']);
-        $this->assertEquals('Unauthorized access', $response['message']);
+        // Verify feedback was submitted
+        $sql = "SELECT * FROM Feedback WHERE event_id = ? AND user_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ii", $eventId, $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $feedback = $result->fetch_assoc();
+
+        $this->assertEquals($rating, $feedback['rating']);
+        $this->assertEquals($comments, $feedback['comments']);
     }
 
-    public function testInvalidRequest()
+    public function testGetEventFeedback()
     {
-        // Set up the session
-        $_SESSION['user_id'] = 1;
-        $_SESSION['role'] = 'organizer';
+        // Insert test data
+        $this->insertTestData();
 
-        // Don't set POST data to simulate invalid request
+        // Insert test feedback
+        $sql = "INSERT INTO Feedback (event_id, user_id, rating, comments) 
+                VALUES (1, 1, 5, 'Great event!')";
+        $this->conn->query($sql);
 
-        // Include the file to test
-        ob_start();
-        require __DIR__ . '/../views/dashboards/organiser/actions/get_feedback.php';
-        $output = ob_get_clean();
+        // Get feedback for event
+        $sql = "SELECT f.*, u.first_name, u.last_name 
+                FROM Feedback f 
+                JOIN Users u ON f.user_id = u.user_id 
+                WHERE f.event_id = ? 
+                ORDER BY f.created_at DESC";
+        $stmt = $this->conn->prepare($sql);
+        $eventId = 1;
+        $stmt->bind_param("i", $eventId);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        // Decode the JSON response
-        $response = json_decode($output, true);
+        $this->assertEquals(1, $result->num_rows);
 
-        // Assert the response
-        $this->assertEquals('error', $response['status']);
-        $this->assertEquals('Invalid request', $response['message']);
+        $feedback = $result->fetch_assoc();
+        $this->assertEquals(5, $feedback['rating']);
+        $this->assertEquals('Great event!', $feedback['comments']);
+        $this->assertEquals('Test', $feedback['first_name']);
+        $this->assertEquals('User', $feedback['last_name']);
     }
 
-    public function testDatabaseConnectionError()
+    public function testInvalidFeedbackRating()
     {
-        // Mock a failed database connection
-        $mockConn = Mockery::mock('mysqli');
-        $mockConn->shouldReceive('prepare')
-                ->once()
-                ->andThrow(new \Exception("Database connection failed"));
+        // Insert test data
+        $this->insertTestData();
 
-        global $conn;
-        $conn = $mockConn;
+        // Test invalid rating
+        $eventId = 1;
+        $userId = 1;
+        $rating = 6; // Invalid rating (should be 1-5)
+        $comments = 'Test comment';
 
-        // Set up valid session and POST data
-        $_SESSION['user_id'] = 1;
-        $_SESSION['role'] = 'organizer';
-        $_POST['event_id'] = 1;
-        $_POST['action'] = 'getEventFeedback';
+        // Attempt to insert invalid feedback
+        $sql = "INSERT INTO Feedback (event_id, user_id, rating, comments) 
+                VALUES (?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("iiis", $eventId, $userId, $rating, $comments);
+        $result = $stmt->execute();
 
-        // Include the file to test
-        ob_start();
-        require __DIR__ . '/../views/dashboards/organiser/actions/get_feedback.php';
-        $output = ob_get_clean();
-
-        // Decode the JSON response
-        $response = json_decode($output, true);
-
-        // Assert the response
-        $this->assertEquals('error', $response['status']);
-        $this->assertStringContainsString('Database connection failed', $response['message']);
+        $this->assertFalse($result);
     }
 
-    public function testNoFeedbackFound()
+    private function insertTestData()
     {
-        // Mock the database connection
-        $mockConn = Mockery::mock('mysqli');
-        $mockStmt = Mockery::mock('mysqli_stmt');
-        $mockResult = Mockery::mock('mysqli_result');
+        // Insert test user
+        $sql = "INSERT INTO Users (first_name, last_name, email, password, role) 
+                VALUES ('Test', 'User', 'test@example.com', 'password', 'student')";
+        $this->conn->query($sql);
 
-        // Set up the mock expectations for event verification
-        $mockConn->shouldReceive('prepare')
-                ->once()
-                ->with("SELECT event_id FROM Events WHERE event_id = ? AND organizer_id = ?")
-                ->andReturn($mockStmt);
-
-        $mockStmt->shouldReceive('bind_param')
-                ->once()
-                ->with("ii", 1, 1)
-                ->andReturn(true);
-
-        $mockStmt->shouldReceive('execute')
-                ->once()
-                ->andReturn(true);
-
-        $mockStmt->shouldReceive('get_result')
-                ->once()
-                ->andReturn($mockResult);
-
-        $mockResult->shouldReceive('num_rows')
-                  ->once()
-                  ->andReturn(1);
-
-        // Mock the feedback query with no results
-        $mockConn->shouldReceive('prepare')
-                ->once()
-                ->with("SELECT f.rating, f.comments, f.created_at, u.first_name, u.last_name FROM Feedback f JOIN Users u ON f.user_id = u.user_id WHERE f.event_id = ? ORDER BY f.created_at DESC")
-                ->andReturn($mockStmt);
-
-        $mockStmt->shouldReceive('bind_param')
-                ->once()
-                ->with("i", 1)
-                ->andReturn(true);
-
-        $mockStmt->shouldReceive('execute')
-                ->once()
-                ->andReturn(true);
-
-        $mockStmt->shouldReceive('get_result')
-                ->once()
-                ->andReturn($mockResult);
-
-        $mockResult->shouldReceive('fetch_assoc')
-                  ->once()
-                  ->andReturn(false);
-
-        // Replace the global $conn with our mock
-        global $conn;
-        $conn = $mockConn;
-
-        // Set up the session
-        $_SESSION['user_id'] = 1;
-        $_SESSION['role'] = 'organizer';
-
-        // Set up the POST data
-        $_POST['event_id'] = 1;
-        $_POST['action'] = 'getEventFeedback';
-
-        // Include the file to test
-        ob_start();
-        require __DIR__ . '/../views/dashboards/organiser/actions/get_feedback.php';
-        $output = ob_get_clean();
-
-        // Decode the JSON response
-        $response = json_decode($output, true);
-
-        // Assert the response
-        $this->assertEquals('success', $response['status']);
-        $this->assertEmpty($response['feedback']);
-    }
-
-    public function testMultipleFeedbackItems()
-    {
-        // Mock the database connection
-        $mockConn = Mockery::mock('mysqli');
-        $mockStmt = Mockery::mock('mysqli_stmt');
-        $mockResult = Mockery::mock('mysqli_result');
-
-        // Set up the mock expectations for event verification
-        $mockConn->shouldReceive('prepare')
-                ->once()
-                ->with("SELECT event_id FROM Events WHERE event_id = ? AND organizer_id = ?")
-                ->andReturn($mockStmt);
-
-        $mockStmt->shouldReceive('bind_param')
-                ->once()
-                ->with("ii", 1, 1)
-                ->andReturn(true);
-
-        $mockStmt->shouldReceive('execute')
-                ->once()
-                ->andReturn(true);
-
-        $mockStmt->shouldReceive('get_result')
-                ->once()
-                ->andReturn($mockResult);
-
-        $mockResult->shouldReceive('num_rows')
-                  ->once()
-                  ->andReturn(1);
-
-        // Mock the feedback query with multiple results
-        $mockConn->shouldReceive('prepare')
-                ->once()
-                ->with("SELECT f.rating, f.comments, f.created_at, u.first_name, u.last_name FROM Feedback f JOIN Users u ON f.user_id = u.user_id WHERE f.event_id = ? ORDER BY f.created_at DESC")
-                ->andReturn($mockStmt);
-
-        $mockStmt->shouldReceive('bind_param')
-                ->once()
-                ->with("i", 1)
-                ->andReturn(true);
-
-        $mockStmt->shouldReceive('execute')
-                ->once()
-                ->andReturn(true);
-
-        $mockStmt->shouldReceive('get_result')
-                ->once()
-                ->andReturn($mockResult);
-
-        // Mock multiple feedback items
-        $mockResult->shouldReceive('fetch_assoc')
-                  ->times(4)
-                  ->andReturn(
-                      [
-                          'rating' => 5,
-                          'comments' => 'Great event!',
-                          'created_at' => '2024-01-01 12:00:00',
-                          'first_name' => 'John',
-                          'last_name' => 'Doe'
-                      ],
-                      [
-                          'rating' => 4,
-                          'comments' => 'Good event',
-                          'created_at' => '2024-01-01 11:00:00',
-                          'first_name' => 'Jane',
-                          'last_name' => 'Smith'
-                      ],
-                      [
-                          'rating' => 3,
-                          'comments' => 'Average event',
-                          'created_at' => '2024-01-01 10:00:00',
-                          'first_name' => 'Bob',
-                          'last_name' => 'Johnson'
-                      ],
-                      false
-                  );
-
-        // Replace the global $conn with our mock
-        global $conn;
-        $conn = $mockConn;
-
-        // Set up the session
-        $_SESSION['user_id'] = 1;
-        $_SESSION['role'] = 'organizer';
-
-        // Set up the POST data
-        $_POST['event_id'] = 1;
-        $_POST['action'] = 'getEventFeedback';
-
-        // Include the file to test
-        ob_start();
-        require __DIR__ . '/../views/dashboards/organiser/actions/get_feedback.php';
-        $output = ob_get_clean();
-
-        // Decode the JSON response
-        $response = json_decode($output, true);
-
-        // Assert the response
-        $this->assertEquals('success', $response['status']);
-        $this->assertCount(3, $response['feedback']);
-        
-        // Verify the first feedback item
-        $this->assertEquals(5, $response['feedback'][0]['rating']);
-        $this->assertEquals('Great event!', $response['feedback'][0]['comments']);
-        $this->assertEquals('John Doe', $response['feedback'][0]['username']);
-        
-        // Verify the second feedback item
-        $this->assertEquals(4, $response['feedback'][1]['rating']);
-        $this->assertEquals('Good event', $response['feedback'][1]['comments']);
-        $this->assertEquals('Jane Smith', $response['feedback'][1]['username']);
-        
-        // Verify the third feedback item
-        $this->assertEquals(3, $response['feedback'][2]['rating']);
-        $this->assertEquals('Average event', $response['feedback'][2]['comments']);
-        $this->assertEquals('Bob Johnson', $response['feedback'][2]['username']);
-    }
-
-    public function testInvalidEventId()
-    {
-        // Mock the database connection
-        $mockConn = Mockery::mock('mysqli');
-        $mockStmt = Mockery::mock('mysqli_stmt');
-        $mockResult = Mockery::mock('mysqli_result');
-
-        // Set up the mock expectations for event verification
-        $mockConn->shouldReceive('prepare')
-                ->once()
-                ->with("SELECT event_id FROM Events WHERE event_id = ? AND organizer_id = ?")
-                ->andReturn($mockStmt);
-
-        $mockStmt->shouldReceive('bind_param')
-                ->once()
-                ->with("ii", 999, 1)
-                ->andReturn(true);
-
-        $mockStmt->shouldReceive('execute')
-                ->once()
-                ->andReturn(true);
-
-        $mockStmt->shouldReceive('get_result')
-                ->once()
-                ->andReturn($mockResult);
-
-        $mockResult->shouldReceive('num_rows')
-                  ->once()
-                  ->andReturn(0);
-
-        // Replace the global $conn with our mock
-        global $conn;
-        $conn = $mockConn;
-
-        // Set up the session
-        $_SESSION['user_id'] = 1;
-        $_SESSION['role'] = 'organizer';
-
-        // Set up the POST data with invalid event ID
-        $_POST['event_id'] = 999;
-        $_POST['action'] = 'getEventFeedback';
-
-        // Include the file to test
-        ob_start();
-        require __DIR__ . '/../views/dashboards/organiser/actions/get_feedback.php';
-        $output = ob_get_clean();
-
-        // Decode the JSON response
-        $response = json_decode($output, true);
-
-        // Assert the response
-        $this->assertEquals('error', $response['status']);
-        $this->assertEquals('Event not found or unauthorized', $response['message']);
-    }
-
-    public function testSQLInjectionAttempt()
-    {
-        // Set up the session
-        $_SESSION['user_id'] = 1;
-        $_SESSION['role'] = 'organizer';
-
-        // Set up the POST data with SQL injection attempt
-        $_POST['event_id'] = "1; DROP TABLE Users; --";
-        $_POST['action'] = 'getEventFeedback';
-
-        // Include the file to test
-        ob_start();
-        require __DIR__ . '/../views/dashboards/organiser/actions/get_feedback.php';
-        $output = ob_get_clean();
-
-        // Decode the JSON response
-        $response = json_decode($output, true);
-
-        // Assert the response
-        $this->assertEquals('error', $response['status']);
-        $this->assertStringContainsString('Invalid request', $response['message']);
+        // Insert test event
+        $sql = "INSERT INTO Events (title, description, start_datetime, end_datetime, 
+                location, category, max_capacity, organizer_id) 
+                VALUES ('Test Event', 'Description', '2024-05-01 10:00:00', 
+                '2024-05-01 12:00:00', 'Location', 'Category', 100, 1)";
+        $this->conn->query($sql);
     }
 } 

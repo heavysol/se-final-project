@@ -1,9 +1,14 @@
 <?php
-session_start();
+require_once '../includes/session_handler.php';
 require '../db/config.php';
 
 $error_message = '';
 $success_message = '';
+
+// Check for timeout message
+if (isset($_GET['timeout'])) {
+    $error_message = "Your session has expired. Please login again.";
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email']);
@@ -28,25 +33,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 // Store session data
                 $_SESSION['user_id'] = $user['user_id'];
-                $_SESSION['full_name'] = $full_name; // Store the combined full_name
+                $_SESSION['full_name'] = $full_name;
                 $_SESSION['role'] = $user['role'];
+                $_SESSION['last_activity'] = time();
+
+                // Set flash message for successful login
+                setFlashMessage('success', 'Welcome back, ' . $full_name . '!');
 
                 // Redirect based on the role from the database
                 switch ($user['role']) {
-                    case 'admin': // Admin role
+                    case 'admin':
                         header("Location: ./dashboards/admin/admin_dashboard.php");
                         break;
-                    case 'organizer': // Organizer role
-                        header("Location: ./dashboards/organiser/organizer_dashboard.php");
+                    case 'organizer':
+                        header("Location: ./dashboards/organizer/organizer_dashboard.php");
                         break;
-                    case 'student': // Student role
+                    case 'student':
                         header("Location: ./dashboards/student/student_dashboard.php");
                         break;
                     default:
                         $error_message = "Invalid role assigned.";
                         break;
                 }
-                exit(); // Ensure that the script halts here after redirect
+                exit();
             } else {
                 $error_message = "Invalid email or password";
             }
@@ -56,8 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,6 +73,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Login | Campus Events</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/general-styles.css">
+    <link rel="stylesheet" href="../assets/css/logsign-styles.css">
     <style>
         body {
             margin: 0;
@@ -181,6 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="login-container">
         <div class="form-container">
             <h1>Login</h1>
+            <?php displayFlashMessage(); ?>
             <?php if (!empty($error_message)): ?>
                 <div class="error-message"><?php echo $error_message; ?></div>
             <?php endif; ?>

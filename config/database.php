@@ -4,25 +4,36 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Database configuration
-$servername = "localhost";
-$username = "root";      // Default XAMPP username
-$password = "";          // Default XAMPP password
-$dbname = "campus_events";  // Your database name
+$dbConfig = [
+    'host' => 'localhost',
+    'username' => 'root',
+    'password' => '',
+    'database' => 'campuseventmanagement',
+    'charset' => 'utf8mb4'
+];
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+try {
+    $conn = new mysqli(
+        $dbConfig['host'],
+        $dbConfig['username'],
+        $dbConfig['password'],
+        $dbConfig['database']
+    );
 
-// Check connection
-if ($conn->connect_error) {
-    error_log("Database connection failed: " . $conn->connect_error);
-    die("Connection failed: " . $conn->connect_error);
+    // Check connection
+    if ($conn->connect_error) {
+        throw new Exception("Connection failed: " . $conn->connect_error);
+    }
+
+    // Set charset
+    $conn->set_charset($dbConfig['charset']);
+
+    // Log successful connection
+    error_log("Database connection established successfully");
+
+} catch (Exception $e) {
+    error_log("Database Error: " . $e->getMessage());
+    die("A database error occurred. Please try again later.");
 }
-
-// Set charset to ensure proper handling of special characters
-if (!$conn->set_charset("utf8mb4")) {
-    error_log("Error setting charset: " . $conn->error);
-}
-
-// Log successful connection
-error_log("Database connection established successfully");
 ?> 
