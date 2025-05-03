@@ -15,7 +15,7 @@ providing automated reminders; the platform will also simplify event planning, p
 1. Functional:
 - Event Management: Organisers can create, edit, and delete events.
 - Registration and Reminders: Students can register for events and receive reminders
-via email or SMS.
+on the platform itself.
 - Event Recommendations: Provide personalized event suggestions.
 - Feedback Collection: Gather post-event reviews.
 - Calendar Integration: Allow students to sync events with personal calendars.
