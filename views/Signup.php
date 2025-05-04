@@ -2,8 +2,16 @@
 session_start();
 require '../db/config.php';
 
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 $error_message = '';
 $success_message = '';
+$show_error_image = false;
+
+// Debug: Log POST data
+error_log('POST data: ' . print_r($_POST, true));
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $first_name = trim($_POST['first_name']);
@@ -13,15 +21,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $confirm_password = trim($_POST['confirm_password']);
     $role = trim($_POST['role']);
 
+    error_log("Processing signup - Email: $email, Role: $role");
+
     // Basic validation
     if (empty($first_name) || empty($last_name) || empty($email) || empty($password) || empty($confirm_password) || empty($role)) {
         $error_message = "All fields are required";
+        error_log("Validation failed: Empty fields");
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error_message = "Invalid email format";
+        error_log("Validation failed: Invalid email format");
     } elseif (strlen($password) < 8) {
         $error_message = "Password must be at least 8 characters long";
+        error_log("Validation failed: Password too short");
+    } elseif (!preg_match('/[A-Z]/', $password)) {
+        $error_message = "Password must include at least one uppercase letter";
+        error_log("Validation failed: No uppercase letter");
+    } elseif (!preg_match('/[a-z]/', $password)) {
+        $error_message = "Password must include at least one lowercase letter";
+        error_log("Validation failed: No lowercase letter");
+    } elseif (!preg_match('/[0-9]/', $password)) {
+        $error_message = "Password must include at least one number";
+        error_log("Validation failed: No number");
+    } elseif (!preg_match('/[\W]/', $password)) {
+        $error_message = "Password must include at least one special character";
+        error_log("Validation failed: No special character");
     } elseif ($password !== $confirm_password) {
         $error_message = "Passwords do not match";
+        error_log("Validation failed: Passwords don't match");
     } else {
         // Check if email exists
         $check_email = $conn->prepare("SELECT email FROM users WHERE email = ?");
@@ -31,33 +57,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         if ($check_email->num_rows > 0) {
             $error_message = "Email already exists";
+            error_log("Validation failed: Email exists");
         } else {
             // Check if the email is valid for the selected role
             if (stripos($email, 'admin') !== false && $role !== 'admin') {
-                $error_message = "Invalid role selection for this admin email type";
-                header("Location: Signup.php?error=" . urlencode($error_message));  // Redirect with error message
-                exit();
+                $error_message = "This email contains 'admin' - you must select the Admin role";
+                error_log("Validation failed: Admin email with wrong role");
             } elseif (stripos($email, 'organizer') !== false && $role !== 'organizer') {
-                $error_message = "Invalid role selection for this organizer email type";
-                header("Location: Signup.php?error=" . urlencode($error_message));  // Redirect with error message
-                exit();
+                $error_message = "This email contains 'organizer' - you must select the Organizer role";
+                error_log("Validation failed: Organizer email with wrong role");
             } elseif (stripos($email, 'admin') === false && stripos($email, 'organizer') === false && $role !== 'student') {
                 $error_message = "This email is only valid for student accounts";
-                header("Location: Signup.php?error=" . urlencode($error_message));  // Redirect with error message
-                exit();
-            }
-
-            if (empty($error_message)) {
+                error_log("Validation failed: Student email with wrong role");
+            } else {
+                // If all validations pass, proceed with registration
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                 
-                // Correcting the insert statement
                 $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, ?)");
                 $stmt->bind_param("sssss", $first_name, $last_name, $email, $hashed_password, $role);
 
                 if ($stmt->execute()) {
                     $success_message = "Registration successful! Please <a href='login.php'>login</a>";
+                    error_log("Registration successful");
                 } else {
                     $error_message = "Registration failed. Please try again.";
+                    error_log("Registration failed: " . $stmt->error);
                 }
                 $stmt->close();
             }
@@ -158,20 +182,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .message {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
+            display: block !important;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: 500;
             text-align: center;
         }
-
+        
         .error-message {
-            background: #fee;
-            color: #c00;
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
         }
-
+        
         .success-message {
-            background: #efe;
-            color: #070;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
         }
 
         .success-message a {
@@ -209,12 +237,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="form-container">
             <h1>Sign Up</h1>
             <?php if (!empty($error_message)): ?>
-                <div class="message error-message"><?php echo $error_message; ?></div>
+                <div class="message error-message" style="display: block !important; background-color: #ffebee; color: #c62828; padding: 15px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ffcdd2; text-align: center;">
+                    <?php echo htmlspecialchars($error_message); ?>
+                </div>
             <?php endif; ?>
             <?php if (!empty($success_message)): ?>
-                <div class="message success-message"><?php echo $success_message; ?></div>
+                <div class="message success-message" style="display: block !important; background-color: #e8f5e9; color: #2e7d32; padding: 15px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #c8e6c9; text-align: center;">
+                    <?php echo $success_message; ?>
+                </div>
             <?php endif; ?>
-            <form method="POST" action="">
+            <form method="POST" action="" id="signupForm">
                 <div class="form-group">
                     <label for="first_name">First Name</label>
                     <input type="text" id="first_name" name="first_name" required>
@@ -230,6 +262,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
+                    <small style="color: #666; display: block; margin-top: 0.5rem;">
+                        Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.
+                    </small>
                 </div>
                 <div class="form-group">
                     <label for="confirm_password">Confirm Password</label>
@@ -264,6 +299,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         document.querySelectorAll('#eventsTable tbody tr').forEach(function(row) {
             row.style.display = '';
         });
+    });
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+        // Clear any existing messages
+        const errorMessages = document.querySelectorAll('.error-message');
+        const successMessages = document.querySelectorAll('.success-message');
+        errorMessages.forEach(msg => msg.remove());
+        successMessages.forEach(msg => msg.remove());
     });
     </script>
 </body>
