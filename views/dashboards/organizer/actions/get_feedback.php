@@ -76,8 +76,8 @@ try {
                 f.created_at,
                 u.first_name,
                 u.last_name
-              FROM Feedback f
-              JOIN Users u ON f.user_id = u.user_id
+              FROM feedback f
+              JOIN users u ON f.user_id = u.user_id
               WHERE f.event_id = ?
               ORDER BY f.created_at DESC";
     
