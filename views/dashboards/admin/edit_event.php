@@ -250,11 +250,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    if (data.redirect) {
-                        window.location.href = data.redirect;
-                    } else {
-                        window.location.href = 'event_management.php';
-                    }
+                    window.location.href = 'event_management.php';
                 } else {
                     alert(data.message || 'An error occurred');
                 }
