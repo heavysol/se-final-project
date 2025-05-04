@@ -248,9 +248,11 @@ error_log("Number of events found: " . $rowCount);
             color: #ddd;
             transition: color 0.2s;
         }
-        .feedback-modal .rating-input:checked ~ .rating-label,
-        .feedback-modal .rating-label:hover,
-        .feedback-modal .rating-label:hover ~ .rating-label {
+        .rating-input:checked ~ .rating-label {
+            color: #ffc107;
+        }
+        .rating-label:hover,
+        .rating-label:hover ~ .rating-label {
             color: #ffc107;
         }
         .feedback-comment {
@@ -370,12 +372,13 @@ error_log("Number of events found: " . $rowCount);
         }
         .rating-label {
             cursor: pointer;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #ddd;
             transition: color 0.2s;
-            margin: 0 5px;
         }
-        .rating-input:checked ~ .rating-label,
+        .rating-input:checked ~ .rating-label {
+            color: #ffc107;
+        }
         .rating-label:hover,
         .rating-label:hover ~ .rating-label {
             color: #ffc107;

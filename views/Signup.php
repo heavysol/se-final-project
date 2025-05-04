@@ -251,5 +251,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
+    <script>
+    document.getElementById('eventSearch').addEventListener('input', function() {
+        const search = this.value.toLowerCase();
+        document.querySelectorAll('#eventsTable tbody tr').forEach(function(row) {
+            const title = row.querySelector('td:first-child').textContent.toLowerCase();
+            row.style.display = title.includes(search) ? '' : 'none';
+        });
+    });
+    document.getElementById('clearSearch').addEventListener('click', function() {
+        document.getElementById('eventSearch').value = '';
+        document.querySelectorAll('#eventsTable tbody tr').forEach(function(row) {
+            row.style.display = '';
+        });
+    });
+    </script>
 </body>
 </html>

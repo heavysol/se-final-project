@@ -134,14 +134,46 @@ switch ($action) {
             $check_result = $check_stmt->get_result();
             
             if ($check_result->num_rows > 0) {
-                // Delete the event
-                $delete_stmt = $conn->prepare("DELETE FROM events WHERE event_id = ? AND organizer_id = ?");
-                $delete_stmt->bind_param("ii", $event_id, $_SESSION['user_id']);
-                
-                if ($delete_stmt->execute()) {
+                // Start transaction
+                $conn->begin_transaction();
+
+                try {
+                    // Delete related records first
+                    $tables = [
+                        'notifications',
+                        'registrations',
+                        'eventcalendar',
+                        'favorites',
+                        'feedback',
+                        'eventanalytics'
+                    ];
+
+                    foreach ($tables as $table) {
+                        $delete_related = $conn->prepare("DELETE FROM $table WHERE event_id = ?");
+                        $delete_related->bind_param("i", $event_id);
+                        
+                        if (!$delete_related->execute()) {
+                            throw new Exception("Error deleting related records from $table: " . $delete_related->error);
+                        }
+                        $delete_related->close();
+                    }
+                    
+                    // Then delete the event
+                    $delete_stmt = $conn->prepare("DELETE FROM events WHERE event_id = ? AND organizer_id = ?");
+                    $delete_stmt->bind_param("ii", $event_id, $_SESSION['user_id']);
+                    
+                    if (!$delete_stmt->execute()) {
+                        throw new Exception("Error deleting event: " . $delete_stmt->error);
+                    }
+
+                    // Commit transaction
+                    $conn->commit();
+                    
                     $response = ['success' => true, 'message' => 'Event deleted successfully'];
-                } else {
-                    $response = ['success' => false, 'message' => 'Failed to delete event: ' . $delete_stmt->error];
+                } catch (Exception $e) {
+                    // Rollback transaction on error
+                    $conn->rollback();
+                    $response = ['success' => false, 'message' => $e->getMessage()];
                 }
             } else {
                 $response = ['success' => false, 'message' => 'Event not found or unauthorized'];

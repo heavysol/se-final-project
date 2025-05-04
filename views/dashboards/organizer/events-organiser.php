@@ -307,7 +307,7 @@ try {
                     <thead>
                         <tr>
                             <th>Title</th>
-                            <th>Date</th>
+                            <th>Start Date</th>
                             <th>Category</th>
                             <th>Venue</th>
                             <th>Capacity</th>
@@ -367,7 +367,7 @@ try {
                                 echo "</tr>";
                             }
                         } else {
-                            echo "<tr><td colspan='7' class='text-center'>No events found</td></tr>";
+                            echo "<tr id='no-events-row'><td colspan='7' class='text-center text-danger'>No events found</td></tr>";
                         }
                         ?>
                     </tbody>
@@ -633,6 +633,43 @@ try {
             ordering: false,
             responsive: true
         });
+    });
+
+    document.getElementById('eventSearch').addEventListener('input', function() {
+        const search = this.value.toLowerCase();
+        let anyVisible = false;
+        document.querySelectorAll('#eventsTable tbody tr').forEach(function(row) {
+            const title = row.querySelector('td:first-child').textContent.toLowerCase();
+            if (title.includes(search)) {
+                row.style.display = '';
+                anyVisible = true;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        // Remove any previous "no events found" row
+        let noEventRow = document.getElementById('no-events-row');
+        if (noEventRow) noEventRow.remove();
+
+        // If no rows are visible, show the message
+        if (!anyVisible) {
+            const tbody = document.querySelector('#eventsTable tbody');
+            const tr = document.createElement('tr');
+            tr.id = 'no-events-row';
+            tr.innerHTML = `<td colspan="7" class="text-center text-danger">No events found</td>`;
+            tbody.appendChild(tr);
+        }
+    });
+
+    document.getElementById('clearSearch').addEventListener('click', function() {
+        document.getElementById('eventSearch').value = '';
+        document.querySelectorAll('#eventsTable tbody tr').forEach(function(row) {
+            row.style.display = '';
+        });
+        // Remove the "no events found" row if present
+        let noEventRow = document.getElementById('no-events-row');
+        if (noEventRow) noEventRow.remove();
     });
     </script>
 </body>

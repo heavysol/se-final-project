@@ -58,16 +58,11 @@ $userId = $_SESSION['user_id'];
                                 <div class="mb-3">
                                     <label for="rating" class="form-label">Rating</label>
                                     <div class="rating">
-                                        <input type="radio" name="rating" id="star5" value="5" required>
-                                        <label for="star5" title="5 stars">☆</label>
-                                        <input type="radio" name="rating" id="star4" value="4">
-                                        <label for="star4" title="4 stars">☆</label>
-                                        <input type="radio" name="rating" id="star3" value="3">
-                                        <label for="star3" title="3 stars">☆</label>
-                                        <input type="radio" name="rating" id="star2" value="2">
-                                        <label for="star2" title="2 stars">☆</label>
-                                        <input type="radio" name="rating" id="star1" value="1">
-                                        <label for="star1" title="1 star">☆</label>
+                                        <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                                        <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                                        <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                                        <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                                        <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -175,27 +170,30 @@ $userId = $_SESSION['user_id'];
     <style>
         .rating {
             display: flex;
-            flex-direction: row-reverse;
-            justify-content: flex-end;
+            flex-direction: row;
+            justify-content: flex-start;
         }
         .rating input {
             display: none;
         }
         .rating label {
+            cursor: pointer;
             font-size: 2rem;
             color: #ddd;
-            cursor: pointer;
-            transition: color 0.3s;
+            transition: color 0.2s;
         }
-        .rating input:checked ~ label,
+        .rating input:checked ~ label {
+            color: #ffc107;
+        }
         .rating label:hover,
         .rating label:hover ~ label {
             color: #ffc107;
         }
-        .rating input:checked + label:hover,
-        .rating input:checked ~ label:hover,
-        .rating label:hover ~ input:checked ~ label,
-        .rating input:checked ~ label:hover ~ label {
+        .rating-input:checked ~ .rating-label {
+            color: #ffc107;
+        }
+        .rating-label:hover,
+        .rating-label:hover ~ .rating-label {
             color: #ffc107;
         }
     </style>
