@@ -52,7 +52,7 @@ $organizerId = $_SESSION['user_id'];
 
 try {
     // Verify that the event belongs to the organizer
-    $verifyQuery = "SELECT event_id FROM Events WHERE event_id = ? AND organizer_id = ?";
+    $verifyQuery = "SELECT event_id FROM events WHERE event_id = ? AND organizer_id = ?";
     $verifyStmt = $conn->prepare($verifyQuery);
     if (!$verifyStmt) {
         throw new Exception("Prepare failed: " . $conn->error);
