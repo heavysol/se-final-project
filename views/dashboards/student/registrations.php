@@ -370,24 +370,14 @@ error_log("Number of events found: " . $rowCount);
         .rating-input {
             display: none;
         }
-        .rating-label {
-            cursor: pointer;
-            font-size: 2rem;
-            color: #ddd;
-            transition: color 0.2s;
-        }
-        .rating-input:checked ~ .rating-label {
-            color: #ffc107;
-        }
-        .rating-label:hover,
-        .rating-label:hover ~ .rating-label {
-            color: #ffc107;
-        }
         .rating-inputs {
             display: flex;
+            flex-direction: row-reverse;
             justify-content: center;
             margin: 20px 0;
         }
+        
+        
         .no-events {
             text-align: center;
             padding: 40px;
@@ -425,6 +415,9 @@ error_log("Number of events found: " . $rowCount);
         }
         .cancel-btn i {
             margin-right: 8px;
+        }
+        .rating-stars {
+            direction: ltr;
         }
     </style>
 </head>
