@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <div class="alert alert-danger"><?php echo $error; ?></div>
                             <?php endif; ?>
 
-                            <form method="POST" action="/se-final-project/actions/event_management_action.php" id="editEventForm">
+                            <form method="POST" action="../../../actions/event_management_action.php" id="editEventForm">
                                 <input type="hidden" name="action" value="edit">
                                 <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
                                 <div class="mb-3">
@@ -243,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             const formData = new FormData(this);
             
-            fetch('/se-final-project/actions/event_management_action.php', {
+            fetch('../../../actions/event_management_action.php', {
                 method: 'POST',
                 body: formData
             })
