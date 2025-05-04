@@ -1,7 +1,6 @@
 <?php
-// Database connection using MySQLi only
 
-// Get database credentials from environment variables or use defaults
+
 $host = getenv('DB_HOST') ?: 'localhost';
 $username = getenv('DB_USERNAME') ?: 'root';
 $password = getenv('DB_PASSWORD') ?: 'root';
@@ -21,7 +20,7 @@ $conn = new mysqli($host, $username, $password, $database);
 
 // Check connection
 if ($conn->connect_error) {
-    // Log error but don't expose details in production
+   
     error_log("Database connection failed: " . $conn->connect_error);
     if (getenv('APP_ENV') === 'development') {
         die("Connection failed: " . $conn->connect_error);

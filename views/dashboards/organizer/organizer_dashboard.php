@@ -505,11 +505,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'organizer') {
     <!-- Third row with full-width Recent Registrees -->
     <div class="row mb-4">
         <div class="col-md-12">
-            <div class="dashboard-card">
-                <h4>
-                    Recent Registrees
-                    <a href="registrations.php" class="btn btn-sm btn-outline-primary">View All</a>
-                </h4>
+            <div class="dashboard-card"
                 <div class="attendee-list">
                     <?php
                     if (empty($recent_registrations)) {
