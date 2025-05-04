@@ -5696,3 +5696,245 @@
                         ORDER BY e.start_datetime DESC
 [04-May-2025 17:23:10 Europe/Berlin] With user_id: 13
 [04-May-2025 17:23:10 Europe/Berlin] Found 8 events
+[04-May-2025 18:05:00 Europe/Berlin] Starting registration_action.php
+[04-May-2025 18:05:00 Europe/Berlin] Session data: Array
+(
+    [last_activity] => 1746374590
+    [user_id] => 13
+    [full_name] => Stève Nsabimana
+    [role] => student
+    [flash_message] => Array
+        (
+            [type] => success
+            [message] => Welcome back, Stève Nsabimana!
+        )
+
+    [first_name] => Stève
+)
+
+[04-May-2025 18:05:00 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[04-May-2025 18:05:00 Europe/Berlin] Executing query: SELECT 
+                            e.event_id,
+                            e.title,
+                            e.category,
+                            e.location,
+                            DATE_FORMAT(e.start_datetime, '%Y-%m-%d %H:%i') as start_datetime,
+                            DATE_FORMAT(e.end_datetime, '%Y-%m-%d %H:%i') as end_datetime,
+                            DATE_FORMAT(r.registration_date, '%Y-%m-%d %H:%i') as registration_date,
+                            r.attendance_status,
+                            f.rating,
+                            f.comments,
+                            CASE 
+                                WHEN e.end_datetime < NOW() THEN 'completed'
+                                WHEN e.start_datetime > NOW() THEN 'upcoming'
+                                ELSE 'ongoing'
+                            END as event_status
+                        FROM registrations r
+                        INNER JOIN events e ON r.event_id = e.event_id
+                        LEFT JOIN feedback f ON e.event_id = f.event_id AND f.user_id = r.user_id
+                        WHERE r.user_id = ?
+                        ORDER BY e.start_datetime DESC
+[04-May-2025 18:05:00 Europe/Berlin] With user_id: 13
+[04-May-2025 18:05:00 Europe/Berlin] Found 13 events
+[04-May-2025 18:05:26 Europe/Berlin] Starting registration_action.php
+[04-May-2025 18:05:26 Europe/Berlin] Session data: Array
+(
+    [last_activity] => 1746374590
+    [user_id] => 13
+    [full_name] => Stève Nsabimana
+    [role] => student
+    [flash_message] => Array
+        (
+            [type] => success
+            [message] => Welcome back, Stève Nsabimana!
+        )
+
+    [first_name] => Stève
+)
+
+[04-May-2025 18:05:26 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[04-May-2025 18:05:26 Europe/Berlin] Executing query: SELECT 
+                            e.event_id,
+                            e.title,
+                            e.category,
+                            e.location,
+                            DATE_FORMAT(e.start_datetime, '%Y-%m-%d %H:%i') as start_datetime,
+                            DATE_FORMAT(e.end_datetime, '%Y-%m-%d %H:%i') as end_datetime,
+                            DATE_FORMAT(r.registration_date, '%Y-%m-%d %H:%i') as registration_date,
+                            r.attendance_status,
+                            f.rating,
+                            f.comments,
+                            CASE 
+                                WHEN e.end_datetime < NOW() THEN 'completed'
+                                WHEN e.start_datetime > NOW() THEN 'upcoming'
+                                ELSE 'ongoing'
+                            END as event_status
+                        FROM registrations r
+                        INNER JOIN events e ON r.event_id = e.event_id
+                        LEFT JOIN feedback f ON e.event_id = f.event_id AND f.user_id = r.user_id
+                        WHERE r.user_id = ?
+                        ORDER BY e.start_datetime DESC
+[04-May-2025 18:05:26 Europe/Berlin] With user_id: 13
+[04-May-2025 18:05:26 Europe/Berlin] Found 13 events
+[04-May-2025 18:05:54 Europe/Berlin] Starting registration_action.php
+[04-May-2025 18:05:54 Europe/Berlin] Session data: Array
+(
+    [last_activity] => 1746374590
+    [user_id] => 13
+    [full_name] => Stève Nsabimana
+    [role] => student
+    [flash_message] => Array
+        (
+            [type] => success
+            [message] => Welcome back, Stève Nsabimana!
+        )
+
+    [first_name] => Stève
+)
+
+[04-May-2025 18:05:54 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[04-May-2025 18:05:54 Europe/Berlin] Executing query: SELECT 
+                            e.event_id,
+                            e.title,
+                            e.category,
+                            e.location,
+                            DATE_FORMAT(e.start_datetime, '%Y-%m-%d %H:%i') as start_datetime,
+                            DATE_FORMAT(e.end_datetime, '%Y-%m-%d %H:%i') as end_datetime,
+                            DATE_FORMAT(r.registration_date, '%Y-%m-%d %H:%i') as registration_date,
+                            r.attendance_status,
+                            f.rating,
+                            f.comments,
+                            CASE 
+                                WHEN e.end_datetime < NOW() THEN 'completed'
+                                WHEN e.start_datetime > NOW() THEN 'upcoming'
+                                ELSE 'ongoing'
+                            END as event_status
+                        FROM registrations r
+                        INNER JOIN events e ON r.event_id = e.event_id
+                        LEFT JOIN feedback f ON e.event_id = f.event_id AND f.user_id = r.user_id
+                        WHERE r.user_id = ?
+                        ORDER BY e.start_datetime DESC
+[04-May-2025 18:05:54 Europe/Berlin] With user_id: 13
+[04-May-2025 18:05:54 Europe/Berlin] Found 13 events
+[04-May-2025 18:06:56 Europe/Berlin] Starting registration_action.php
+[04-May-2025 18:06:56 Europe/Berlin] Session data: Array
+(
+    [last_activity] => 1746374590
+    [user_id] => 13
+    [full_name] => Stève Nsabimana
+    [role] => student
+    [flash_message] => Array
+        (
+            [type] => success
+            [message] => Welcome back, Stève Nsabimana!
+        )
+
+    [first_name] => Stève
+)
+
+[04-May-2025 18:06:56 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[04-May-2025 18:06:56 Europe/Berlin] Executing query: SELECT 
+                            e.event_id,
+                            e.title,
+                            e.category,
+                            e.location,
+                            DATE_FORMAT(e.start_datetime, '%Y-%m-%d %H:%i') as start_datetime,
+                            DATE_FORMAT(e.end_datetime, '%Y-%m-%d %H:%i') as end_datetime,
+                            DATE_FORMAT(r.registration_date, '%Y-%m-%d %H:%i') as registration_date,
+                            r.attendance_status,
+                            f.rating,
+                            f.comments,
+                            CASE 
+                                WHEN e.end_datetime < NOW() THEN 'completed'
+                                WHEN e.start_datetime > NOW() THEN 'upcoming'
+                                ELSE 'ongoing'
+                            END as event_status
+                        FROM registrations r
+                        INNER JOIN events e ON r.event_id = e.event_id
+                        LEFT JOIN feedback f ON e.event_id = f.event_id AND f.user_id = r.user_id
+                        WHERE r.user_id = ?
+                        ORDER BY e.start_datetime DESC
+[04-May-2025 18:06:56 Europe/Berlin] With user_id: 13
+[04-May-2025 18:06:56 Europe/Berlin] Found 12 events
+[04-May-2025 18:07:02 Europe/Berlin] Starting registration_action.php
+[04-May-2025 18:07:02 Europe/Berlin] Session data: Array
+(
+    [last_activity] => 1746374590
+    [user_id] => 13
+    [full_name] => Stève Nsabimana
+    [role] => student
+    [flash_message] => Array
+        (
+            [type] => success
+            [message] => Welcome back, Stève Nsabimana!
+        )
+
+    [first_name] => Stève
+)
+
+[04-May-2025 18:07:02 Europe/Berlin] POST data: Array
+(
+    [action] => cancelRegistration
+    [event_id] => 28
+)
+
+[04-May-2025 18:07:04 Europe/Berlin] Starting registration_action.php
+[04-May-2025 18:07:04 Europe/Berlin] Session data: Array
+(
+    [last_activity] => 1746374590
+    [user_id] => 13
+    [full_name] => Stève Nsabimana
+    [role] => student
+    [flash_message] => Array
+        (
+            [type] => success
+            [message] => Welcome back, Stève Nsabimana!
+        )
+
+    [first_name] => Stève
+)
+
+[04-May-2025 18:07:04 Europe/Berlin] POST data: Array
+(
+    [action] => getRegisteredEvents
+)
+
+[04-May-2025 18:07:04 Europe/Berlin] Executing query: SELECT 
+                            e.event_id,
+                            e.title,
+                            e.category,
+                            e.location,
+                            DATE_FORMAT(e.start_datetime, '%Y-%m-%d %H:%i') as start_datetime,
+                            DATE_FORMAT(e.end_datetime, '%Y-%m-%d %H:%i') as end_datetime,
+                            DATE_FORMAT(r.registration_date, '%Y-%m-%d %H:%i') as registration_date,
+                            r.attendance_status,
+                            f.rating,
+                            f.comments,
+                            CASE 
+                                WHEN e.end_datetime < NOW() THEN 'completed'
+                                WHEN e.start_datetime > NOW() THEN 'upcoming'
+                                ELSE 'ongoing'
+                            END as event_status
+                        FROM registrations r
+                        INNER JOIN events e ON r.event_id = e.event_id
+                        LEFT JOIN feedback f ON e.event_id = f.event_id AND f.user_id = r.user_id
+                        WHERE r.user_id = ?
+                        ORDER BY e.start_datetime DESC
+[04-May-2025 18:07:04 Europe/Berlin] With user_id: 13
+[04-May-2025 18:07:04 Europe/Berlin] Found 11 events

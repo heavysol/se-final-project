@@ -384,9 +384,7 @@ $_SESSION['first_name'] = $user['first_name'];
                     <div class="dashboard-card">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h4><i class="bi bi-bell"></i> Notifications</h4>
-                            <button class="btn btn-sm btn-outline-primary" onclick="loadNotifications()">
-                                <i class="bi bi-arrow-clockwise"></i> Refresh
-                            </button>
+                           
                         </div>
                         <div id="notifications-list">
                             <!-- Notifications will be loaded here -->

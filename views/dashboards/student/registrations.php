@@ -447,9 +447,7 @@ error_log("Number of events found: " . $rowCount);
                 <div class="col-12">
                     <div class="dashboard-card">
                         <h4>My Registered Events
-                            <button class="btn btn-sm btn-outline-primary float-end refresh-events">
-                                <i class="bi bi-arrow-clockwise"></i> Refresh
-                            </button>
+                           
                         </h4>
                         <div class="row">
                             <?php if ($result->num_rows === 0): ?>
