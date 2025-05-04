@@ -631,12 +631,12 @@ if ($result) {
 
         // View event function
         function viewEvent(eventId) {
-            window.location.href = `event_details.php?event_id=${eventId}`;
+            window.location.href = `event_details.php?id=${eventId}`;
         }
 
         // Edit event function
         function editEvent(eventId) {
-            window.location.href = `edit_event.php?event_id=${eventId}`;
+            window.location.href = `edit_event.php?id=${eventId}`;
         }
 
         // Delete event function

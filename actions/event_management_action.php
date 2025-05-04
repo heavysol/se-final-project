@@ -116,19 +116,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         throw new Exception("Event not found");
                     }
                     
-                    // Delete the event
-                    $delete_stmt = $conn->prepare("DELETE FROM events WHERE event_id = ?");
-                    $delete_stmt->bind_param("i", $_POST['event_id']);
-                    
-                    if ($delete_stmt->execute()) {
+                    // Start transaction
+                    $conn->begin_transaction();
+
+                    try {
+                        // First delete related notifications
+                        $delete_notifications = $conn->prepare("DELETE FROM notifications WHERE event_id = ?");
+                        $delete_notifications->bind_param("i", $_POST['event_id']);
+                        
+                        if (!$delete_notifications->execute()) {
+                            throw new Exception("Error deleting notifications: " . $delete_notifications->error);
+                        }
+                        
+                        // Then delete the event
+                        $delete_event = $conn->prepare("DELETE FROM events WHERE event_id = ?");
+                        $delete_event->bind_param("i", $_POST['event_id']);
+                        
+                        if (!$delete_event->execute()) {
+                            throw new Exception("Error deleting event: " . $delete_event->error);
+                        }
+
+                        // Commit transaction
+                        $conn->commit();
+                        
                         $response['success'] = true;
                         $response['message'] = 'Event deleted successfully';
-                    } else {
-                        throw new Exception("Error deleting event: " . $conn->error);
+                    } catch (Exception $e) {
+                        // Rollback transaction on error
+                        $conn->rollback();
+                        throw $e;
                     }
                     
                     $check_stmt->close();
-                    $delete_stmt->close();
+                    $delete_notifications->close();
+                    $delete_event->close();
                 } catch (Exception $e) {
                     $response['message'] = $e->getMessage();
                 }
@@ -265,6 +286,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 } catch (Exception $e) {
                     $response['message'] = $e->getMessage();
+                }
+                break;
+
+            case 'edit':
+                if (!isset($_POST['event_id'])) {
+                    $response['message'] = 'Missing event_id';
+                    break;
+                }
+                try {
+                    // Validate required fields
+                    $required_fields = ['title', 'description', 'start_datetime', 'end_datetime', 'location', 'category', 'max_capacity'];
+                    foreach ($required_fields as $field) {
+                        if (!isset($_POST[$field]) || empty($_POST[$field])) {
+                            throw new Exception("Missing required field: " . $field);
+                        }
+                    }
+
+                    // First check if the event exists
+                    $check_stmt = $conn->prepare("SELECT event_id FROM events WHERE event_id = ?");
+                    $check_stmt->bind_param("i", $_POST['event_id']);
+                    $check_stmt->execute();
+                    $result = $check_stmt->get_result();
+                    
+                    if ($result->num_rows === 0) {
+                        throw new Exception("Event not found");
+                    }
+
+                    // Update the event
+                    $sql = "UPDATE events SET 
+                            title = ?, 
+                            description = ?, 
+                            start_datetime = ?, 
+                            end_datetime = ?, 
+                            location = ?, 
+                            category = ?, 
+                            max_capacity = ?,
+                            updated_at = NOW()
+                            WHERE event_id = ?";
+                    
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param("ssssssii", 
+                        $_POST['title'],
+                        $_POST['description'],
+                        $_POST['start_datetime'],
+                        $_POST['end_datetime'],
+                        $_POST['location'],
+                        $_POST['category'],
+                        $_POST['max_capacity'],
+                        $_POST['event_id']
+                    );
+                    
+                    if ($stmt->execute()) {
+                        $response['success'] = true;
+                        $response['message'] = 'Event updated successfully';
+                        // Add redirect URL to response
+                        $response['redirect'] = '/se-final-project/views/dashboards/admin/event_management.php';
+                    } else {
+                        throw new Exception("Error updating event: " . $stmt->error);
+                    }
+                    
+                    $stmt->close();
+                    $check_stmt->close();
+                } catch (Exception $e) {
+                    $response['message'] = $e->getMessage();
+                    error_log("Edit event error: " . $e->getMessage());
                 }
                 break;
 

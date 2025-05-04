@@ -42,37 +42,48 @@ if (isset($_GET['id'])) {
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $start_datetime = $_POST['start_datetime'];
-    $end_datetime = $_POST['end_datetime'];
-    $location = $_POST['location'];
-    $category = $_POST['category'];
-    $max_capacity = $_POST['max_capacity'];
-    $status = $_POST['status'];
+    // Prepare the data
+    $postData = [
+        'action' => 'edit',
+        'event_id' => $event_id,
+        'title' => $_POST['title'],
+        'description' => $_POST['description'],
+        'start_datetime' => $_POST['start_datetime'],
+        'end_datetime' => $_POST['end_datetime'],
+        'location' => $_POST['location'],
+        'category' => $_POST['category'],
+        'max_capacity' => $_POST['max_capacity']
+    ];
 
-    $query = "UPDATE events SET 
-              title = ?, 
-              description = ?, 
-              start_datetime = ?, 
-              end_datetime = ?, 
-              location = ?, 
-              category = ?, 
-              max_capacity = ?, 
-              status = ?,
-              updated_at = NOW()
-              WHERE event_id = ?";
+    // Initialize cURL session
+    $ch = curl_init('/se-final-project/actions/event_management_action.php');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/x-www-form-urlencoded'
+    ]);
     
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssssssisi", $title, $description, $start_datetime, $end_datetime, $location, $category, $max_capacity, $status, $event_id);
-    
-    if ($stmt->execute()) {
-        header('Location: event_management.php');
-        exit;
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($httpCode === 200) {
+        $result = json_decode($response, true);
+        if ($result['success']) {
+            if (isset($result['redirect'])) {
+                header('Location: ' . $result['redirect']);
+                exit;
+            } else {
+                header('Location: event_management.php');
+                exit;
+            }
+        } else {
+            $error = $result['message'];
+        }
     } else {
-        $error = "Error updating event: " . $stmt->error;
+        $error = "Error connecting to server. HTTP Code: " . $httpCode;
     }
-    $stmt->close();
 }
 ?>
 
@@ -80,11 +91,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Edit Event</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../../../assets/css/general-styles.css">
     <link rel="stylesheet" href="../../../assets/css/admin-styles.css">
+    <style>
+        /* Fix compatibility issues */
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+        .form-label {
+            text-align: match-parent;
+            text-align: inherit;
+        }
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Admin Sidebar -->
@@ -136,30 +166,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <div class="alert alert-danger"><?php echo $error; ?></div>
                             <?php endif; ?>
 
-                            <form method="POST" action="">
+                            <form method="POST" action="/se-final-project/actions/event_management_action.php" id="editEventForm">
+                                <input type="hidden" name="action" value="edit">
+                                <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
                                 <div class="mb-3">
-                                    <label class="form-label">Title</label>
-                                    <input type="text" class="form-control" name="title" value="<?php echo htmlspecialchars($event['title']); ?>" required>
+                                    <label for="title" class="form-label">Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" 
+                                           value="<?php echo htmlspecialchars($event['title']); ?>" 
+                                           required aria-required="true"
+                                           placeholder="Enter event title">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Description</label>
-                                    <textarea class="form-control" name="description" required><?php echo htmlspecialchars($event['description']); ?></textarea>
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" name="description" 
+                                              required aria-required="true"
+                                              placeholder="Enter event description"><?php echo htmlspecialchars($event['description']); ?></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Start Date & Time</label>
-                                    <input type="datetime-local" class="form-control" name="start_datetime" value="<?php echo date('Y-m-d\TH:i', strtotime($event['start_datetime'])); ?>" required>
+                                    <label for="start_datetime" class="form-label">Start Date & Time</label>
+                                    <input type="datetime-local" class="form-control" id="start_datetime" name="start_datetime" 
+                                           value="<?php echo date('Y-m-d\TH:i', strtotime($event['start_datetime'])); ?>" 
+                                           required aria-required="true">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">End Date & Time</label>
-                                    <input type="datetime-local" class="form-control" name="end_datetime" value="<?php echo date('Y-m-d\TH:i', strtotime($event['end_datetime'])); ?>" required>
+                                    <label for="end_datetime" class="form-label">End Date & Time</label>
+                                    <input type="datetime-local" class="form-control" id="end_datetime" name="end_datetime" 
+                                           value="<?php echo date('Y-m-d\TH:i', strtotime($event['end_datetime'])); ?>" 
+                                           required aria-required="true">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Location</label>
-                                    <input type="text" class="form-control" name="location" value="<?php echo htmlspecialchars($event['location']); ?>" required>
+                                    <label for="location" class="form-label">Location</label>
+                                    <input type="text" class="form-control" id="location" name="location" 
+                                           value="<?php echo htmlspecialchars($event['location']); ?>" 
+                                           required aria-required="true"
+                                           placeholder="Enter event location">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Category</label>
-                                    <select class="form-select" name="category" required>
+                                    <label for="category" class="form-label">Category</label>
+                                    <select class="form-select" id="category" name="category" 
+                                            required aria-required="true"
+                                            aria-label="Select event category">
                                         <option value="">Select Category</option>
                                         <option value="academic" <?php echo $event['category'] === 'academic' ? 'selected' : ''; ?>>Academic</option>
                                         <option value="social" <?php echo $event['category'] === 'social' ? 'selected' : ''; ?>>Social</option>
@@ -168,16 +214,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Maximum Capacity</label>
-                                    <input type="number" class="form-control" name="max_capacity" value="<?php echo $event['max_capacity']; ?>" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Status</label>
-                                    <select class="form-select" name="status" required>
-                                        <option value="pending" <?php echo $event['status'] === 'pending' ? 'selected' : ''; ?>>Pending</option>
-                                        <option value="approved" <?php echo $event['status'] === 'approved' ? 'selected' : ''; ?>>Approved</option>
-                                        <option value="rejected" <?php echo $event['status'] === 'rejected' ? 'selected' : ''; ?>>Rejected</option>
-                                    </select>
+                                    <label for="max_capacity" class="form-label">Maximum Capacity</label>
+                                    <input type="number" class="form-control" id="max_capacity" name="max_capacity" 
+                                           value="<?php echo $event['max_capacity']; ?>" 
+                                           required aria-required="true"
+                                           placeholder="Enter maximum capacity">
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <a href="event_management.php" class="btn btn-secondary">
@@ -196,5 +237,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('editEventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            fetch('/se-final-project/actions/event_management_action.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.redirect) {
+                        window.location.href = data.redirect;
+                    } else {
+                        window.location.href = 'event_management.php';
+                    }
+                } else {
+                    alert(data.message || 'An error occurred');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while processing your request');
+            });
+        });
+    </script>
 </body>
 </html> 
