@@ -5938,6 +5938,7 @@
                         ORDER BY e.start_datetime DESC
 [04-May-2025 18:07:04 Europe/Berlin] With user_id: 13
 [04-May-2025 18:07:04 Europe/Berlin] Found 11 events
+<<<<<<< HEAD
 [13-Jun-2025 10:12:49 Europe/Berlin] Starting registration_action.php
 [13-Jun-2025 10:12:49 Europe/Berlin] Session data: Array
 (
@@ -6026,3 +6027,5 @@
                         ORDER BY e.start_datetime DESC
 [13-Jun-2025 10:19:04 Europe/Berlin] With user_id: 13
 [13-Jun-2025 10:19:04 Europe/Berlin] Found 1 events
+=======
+>>>>>>> 633eba63272dd83cde5404aa2f3ed74ef744fbbe
