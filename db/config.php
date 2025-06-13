@@ -3,7 +3,7 @@
 
 $host = 'localhost';
 $username = 'root';
-$password = '';
+$password = 'root';
 $database = 'campuseventmanagement';
 
 // Enable error reporting in development
