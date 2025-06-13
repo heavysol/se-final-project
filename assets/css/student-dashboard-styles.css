@@ -1,0 +1,165 @@
+/* Student Dashboard Sidebar Styles */
+.sidebar {
+    background: var(--primary-color);
+    color: var(--text-light);
+    width: 250px;
+    position: fixed;
+    height: 100vh;
+    padding: 1.5rem;
+    box-shadow: 4px 0 10px var(--shadow-color);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar-header {
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-light);
+}
+
+.sidebar-header h3 i {
+    color: var(--accent-color);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-menu a {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-menu a i {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-menu a:hover {
+    background: var(--hover-color);
+    color: var(--text-light);
+    transform: translateX(5px);
+}
+
+.sidebar-menu a.active {
+    background: var(--accent-color);
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.sidebar-menu a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 60%;
+    background: var(--accent-color);
+    border-radius: 0 4px 4px 0;
+}
+
+/* Main Content Adjustment */
+.main-content {
+    margin-left: 250px;
+    padding: 2rem;
+    min-height: 100vh;
+    background: var(--background-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+        padding: 1rem 0.5rem;
+    }
+
+    .sidebar-header h3 span,
+    .sidebar-menu a span {
+        display: none;
+    }
+
+    .sidebar-header h3 {
+        justify-content: center;
+    }
+
+    .sidebar-menu a {
+        justify-content: center;
+        padding: 0.8rem;
+    }
+
+    .main-content {
+        margin-left: 70px;
+    }
+}
+
+/* Dropdown Menu Styles */
+.sidebar-menu .dropdown-menu {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    padding: 0.5rem 0;
+    margin-top: 10px;
+    min-width: 200px;
+}
+
+.sidebar-menu .dropdown-menu:before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 20px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid var(--primary-color);
+}
+
+.sidebar-menu .dropdown-item {
+    color: var(--text-light);
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-menu .dropdown-item:hover {
+    background-color: var(--hover-color);
+    color: var(--text-light);
+    transform: translateX(5px);
+}
+
+.sidebar-menu .dropdown-item i {
+    margin-right: 10px;
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-menu .dropdown-divider {
+    border-top: 1px solid var(--hover-color);
+    margin: 0.5rem 0;
+} 

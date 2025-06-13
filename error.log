@@ -1,0 +1,5 @@
+[13-Apr-2025 16:44:51 Europe/Berlin] PHP Warning:  require_once(../config/database.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\se-final-project\actions\organizer_action.php on line 17
+[13-Apr-2025 16:44:51 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../config/database.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\se-final-project\actions\organizer_action.php:17
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\se-final-project\actions\organizer_action.php on line 17

@@ -1,0 +1,5 @@
+[33mf709283[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Updated admin dashboard: Added admin sidebar to all pages, improved event management page, fixed user management functionality, and enhanced overall UI consistency
+[33mde65615[m Simplify events table by removing extra search and pagination controls
+[33m302384b[m Update organizer dashboard to show recent registrations with proper user name display
+[33mf177a7c[m Fix search functionality in student dashboard: - Fix session handling to prevent multiple session_start calls - Improve search results display with better error handling - Add clear feedback for no results case - Enhance search term highlighting - Add 'Show All Events' button for better UX
+[33mbdeccf2[m Fixed user management functionality by correcting table name from 'users' to 'Users'

@@ -1,0 +1,605 @@
+<?php
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Start session
+session_start();
+
+// Include database configuration
+require_once __DIR__ . '/db/config.php';
+
+// Function to check if user is logged in
+function isLoggedIn() {
+    return isset($_SESSION['user_id']) && isset($_SESSION['role']);
+}
+
+// Function to get the appropriate dashboard URL based on user role
+function getDashboardUrl() {
+    if (!isLoggedIn()) {
+        return 'views/login.php';
+    }
+    
+    switch ($_SESSION['role']) {
+        case 'admin':
+            return 'views/dashboards/admin/admin_dashboard.php';
+        case 'organizer':
+            return 'views/dashboards/organizer/organizer_dashboard.php';
+        case 'student':
+            return 'views/dashboards/student/student_dashboard.php';
+        default:
+            return 'views/login.php';
+    }
+}
+
+// Function to get the appropriate event registration URL
+function getEventRegistrationUrl($eventId) {
+    if (!isLoggedIn()) {
+        return 'views/login.php';
+    }
+    
+    switch ($_SESSION['role']) {
+        case 'student':
+            return 'views/dashboards/student/student_dashboard.php?event_id=' . $eventId;
+        default:
+            return 'views/login.php';
+    }
+}
+?>
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ashesi Campus Events - Discover, Register, Engage</title>
+    <link rel="stylesheet" href="./assets/css/general-styles.css">
+    <link rel="stylesheet" href="./assets/css/homepage-styles.css">
+    <style>
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--hover-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--text-light);
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-light);
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('assets/images/pattern.png') repeat;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            text-shadow: 2px 2px 4px var(--shadow-color);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .hero .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+            padding: 0.75rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 6px var(--shadow-color);
+        }
+
+        .hero .btn-primary:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px var(--shadow-color);
+        }
+
+        .hero .btn-outline {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
+            padding: 0.75rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+        }
+
+        .hero .btn-outline:hover {
+            background-color: var(--text-light);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Event Card Styles */
+        .event-card {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .event-details {
+            padding: 1rem;
+        }
+
+        .register-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .register-btn:hover {
+            background-color: var(--hover-color);
+        }
+
+        /* Feature Card Styles */
+        .feature-card {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        /* Section Titles */
+        .section-title {
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* View All Link */
+        .view-all-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .view-all-link:hover {
+            color: var(--hover-color);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="assets/images/Ashesi_University_Logo (1).webp" alt="Ashesi Events Logo">
+                    <h1>Ashesi Campus Events</h1>
+                </div>
+                
+                <ul class="nav-links">
+                    <li><a href="./index.php">Home</a></li>
+                    <li><a href="<?php echo getDashboardUrl(); ?>">Events</a></li>
+                    <li><a href="<?php echo getDashboardUrl(); ?>">Dashboard</a></li>
+                    <li><a href="views/about.php">About</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <?php if (isLoggedIn()): ?>
+                        <a href="views/logout.php" class="btn btn-outline">Log Out</a>
+                    <?php else: ?>
+                        <a href="views/login.php" class="btn btn-outline">Log In</a>
+                        <a href="views/Signup.php" class="btn btn-primary">Sign Up</a>
+                    <?php endif; ?>
+                </div>
+            </nav>
+        </div>
+    </header>
+ 
+    
+
+    <section class="hero">
+        <div class="container">
+            <h2>Discover, Register, Engage</h2>
+            <p>Your one-stop platform for all Ashesi University campus events. Never miss an opportunity to connect, learn, and grow.</p>
+            <div class="cta-buttons">
+                <a href="views/Signup.php" class="btn btn-primary">Get Started</a>
+                <a href="views/login.php" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section class="featured-events">
+
+        <div class="container">
+
+            <h2 class="section-title">Upcoming Events</h2>
+
+            
+
+            <div class="event-grid">
+
+                <?php
+
+                // Get one event from each category
+                $categories = ['academic', 'cultural', 'sports', 'social'];
+                $events = [];
+                
+                foreach ($categories as $category) {
+                    $query = "SELECT * FROM events 
+                             WHERE start_datetime >= NOW() 
+                             AND LOWER(category) = ?
+                             ORDER BY start_datetime ASC 
+                             LIMIT 1";
+                    
+                    $stmt = $conn->prepare($query);
+                    $stmt->bind_param("s", $category);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    
+                    if ($result && $result->num_rows > 0) {
+                        $events[] = $result->fetch_assoc();
+                    }
+                }
+                
+                // If we don't have enough events from different categories, get more upcoming events
+                if (count($events) < 4) {
+                    $remaining = 4 - count($events);
+                    $query = "SELECT * FROM events 
+                             WHERE start_datetime >= NOW() 
+                             AND event_id NOT IN (" . implode(',', array_map(function($e) { return $e['event_id']; }, $events)) . ")
+                             ORDER BY start_datetime ASC 
+                             LIMIT " . $remaining;
+                    
+                    $result = $conn->query($query);
+                    if ($result) {
+                        while ($row = $result->fetch_assoc()) {
+                            $events[] = $row;
+                        }
+                    }
+                }
+                
+                if (!empty($events)) {
+                    foreach ($events as $event) {
+                        // Determine image based on category
+                        $category = strtolower($event['category']);
+                        $imagePath = 'assets/images/';
+                        
+                        switch ($category) {
+                            case 'academic':
+                                $imagePath .= 'accademic.jpg';
+                                break;
+                            case 'cultural':
+                                $imagePath .= 'cultural.jpg';
+                                break;
+                            case 'sports':
+                                $imagePath .= 'sport.jpg';
+                                break;
+                            case 'social':
+                                $imagePath .= 'Social.jpg';
+                                break;
+                            default:
+                                $imagePath .= 'student-party.jpg';
+                        }
+                        
+                        // Format date and time
+                        $date = date('F j, Y', strtotime($event['start_datetime']));
+                        $time = date('g:i A', strtotime($event['start_datetime']));
+                        
+                        echo '<div class="event-card">
+                                <div class="event-img">
+                                    <img src="' . $imagePath . '" alt="' . htmlspecialchars($event['title']) . '">
+                                </div>
+                                <div class="event-details">
+                                    <h3>' . htmlspecialchars($event['title']) . '</h3>
+                                    <div class="event-meta">
+                                        <span>' . $date . '</span>
+                                        <span>' . $time . '</span>
+                                    </div>
+                                    <p>' . htmlspecialchars($event['description']) . '</p>
+                                    <a href="' . getEventRegistrationUrl($event['event_id']) . '" class="register-btn">Register Now</a>
+                                </div>
+                            </div>';
+                    }
+                } else {
+                    echo '<p class="no-events">No upcoming events found.</p>';
+                }
+                ?>
+
+            </div>
+
+            
+
+            <div style="text-align: center; margin-top: 2rem;">
+
+                <a href="<?php echo getDashboardUrl(); ?>" style="color: var(--primary); font-weight: 500; text-decoration: none;">View All Events →</a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    
+
+    <section class="features">
+
+        <div class="container">
+
+            <h2 class="section-title">Platform Features</h2>
+
+            
+
+            <div class="features-grid">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">📅</div>
+
+                    <h3>Event Discovery</h3>
+
+                    <p>Find all campus events in one centralized location with easy search and filtering.</p>
+
+                </div>
+
+                
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">📱</div>
+
+                    <h3>Easy Registration</h3>
+
+                    <p>Register for events with a single click and receive confirmation instantly.</p>
+
+                </div>
+
+                
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">🔔</div>
+
+                    <h3>Event Reminders</h3>
+
+                    <p>Get timely reminders via email or SMS so you never miss an event.</p>
+
+                </div>
+
+                
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">📊</div>
+
+                    <h3>QR Check-ins</h3>
+
+                    <p>Quick and easy attendance tracking with QR code scanning.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-content">
+
+                <div class="footer-section">
+
+                    <h3>About</h3>
+
+                    <p>Ashesi Campus Events is a platform designed to enhance student engagement and simplify event management for the Ashesi University community.</p>
+
+                </div>
+
+                
+
+                <div class="footer-section">
+
+                    <h3>Quick Links</h3>
+
+                    <ul class="footer-links">
+
+                        <li><a href="#">Home</a></li>
+
+                        <li><a href="#">Events</a></li>
+
+                        <li><a href="#">Calendar</a></li>
+
+                        <li><a href="#">Sign Up</a></li>
+
+                        <li><a href="#">Log In</a></li>
+
+                    </ul>
+
+                </div>
+
+                
+
+                <div class="footer-section">
+
+                    <h3>Resources</h3>
+
+                    <ul class="footer-links">
+
+                        <li><a href="#">FAQ</a></li>
+
+                        <li><a href="#">Contact Support</a></li>
+
+                        <li><a href="#">Feedback</a></li>
+
+                        <li><a href="#">Privacy Policy</a></li>
+
+                        <li><a href="#">Terms of Use</a></li>
+
+                    </ul>
+
+                </div>
+
+                
+
+                <div class="footer-section">
+
+                    <h3>Connect</h3>
+
+                    <p>Office of Student & Community Affairs (OSCA)<br>
+
+                    Ashesi University<br>
+
+                    1 University Avenue<br>
+
+                    Berekuso, Eastern Region</p>
+
+                </div>
+
+            </div>
+
+            
+
+            <div class="copyright">
+
+                <p>&copy; 2025 Ashesi Campus Events. A Group 19 Project.</p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <style>
+        .error-message {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #c62828;
+        }
+        .debug-info {
+            background-color: #e3f2fd;
+            color: #1565c0;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #1565c0;
+        }
+        .no-events {
+            background-color: #fff3e0;
+            color: #ef6c00;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #ef6c00;
+        }
+        .no-events ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+    </style>
+
+</body>
+
+</html>
